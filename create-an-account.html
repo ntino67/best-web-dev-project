@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth">
+        <div class="auth-text">
+          <h1>Create an account</h1>
+          <h2>Allow a new user access to the platform</h2>
+        </div>
+        <div class="auth-input">
+          <form>
+            <input type="text" placeholder="First name" id="signup-first-name">
+            <input type="text" placeholder="Last name" id="signup-last-name">
+            <input type="text" placeholder="Email" id="signup-email">
+            <input type="password" placeholder="Password" id="signup-password">
+            <input type="password" placeholder="Confirm password" id="signup-password-confirm">
+            <select required>
+              <option value="" disabled selected hidden>Account type</option>
+              <option value="student">Student</option>
+              <option value="pilot">Pilot</option>
+              <option value="admin">Administrator</option>
+            </select>
+            <button>Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

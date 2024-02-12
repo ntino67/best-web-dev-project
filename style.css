@@ -1,0 +1,175 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+v2.0 | 20110126
+License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* css reset end  */
+
+body {
+  width: 100vw;
+  font-family: Inter;
+}
+
+div.navbar {
+  height: 55px;
+  width: 100%;
+  display: flex;
+  padding-top: 16px;
+  position: sticky;
+  justify-content: space-between;
+}
+
+.navbar img {
+  height: 100%;
+}
+
+.navbar a {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.navbar button {
+  background-color: black;
+  color: white;
+  border: none;
+  height: 40px;
+  width: 90px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 9px;
+}
+
+.navbar > * {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left {
+  justify-content: left;
+  width: 15%;
+  padding-left: 2%;
+}
+
+.navbar-center {
+  justify-content: center;
+  width: 50%;
+}
+
+.navbar-right {
+  justify-content: space-around; 
+  display: flex;
+  width: 15%;
+  padding-right: 2%
+}
+
+div.auth-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+div.auth {
+  margin: auto;
+  width: 50%;
+  display: flex;
+  gap: 40px;
+}
+
+div.auth > * {
+  width: 50%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+
+}
+
+.auth-text h1 {
+  font-weight: bold;
+  font-size: 55px;
+  padding-bottom: 15px;
+}
+
+.auth-text h2 {
+  font-size: 24px;
+  color: #4F4F4F;
+  padding-bottom: 15px;
+}
+
+.auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select {
+  background-color: white;
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  border-radius: 9px;
+  border-style: solid;
+  padding: 0% 5% 0% 5%;
+}
+
+.auth-input input[type=text], .auth-input input[type=password], .auth-input select {
+  font-size: 16px;
+  color: #777;
+  border-width: 2px;
+  margin: 7px 0px 7px 0px;
+}
+
+.auth-input button {
+  margin-top: 14px;
+  background-color: black; 
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+}
