@@ -1,7 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-v2.0 | 20110126
-License: none (public domain)
- */
+/* CSS Reset */
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -54,6 +51,8 @@ body {
   font-family: Inter;
 }
 
+/* Navbar Styling */
+
 div.navbar {
   height: 55px;
   width: 100%;
@@ -69,7 +68,7 @@ div.navbar {
 
 .navbar a {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.25rem;
   margin-left: 20px;
   margin-right: 20px;
   text-decoration: none;
@@ -111,6 +110,8 @@ div.navbar {
   padding-right: 2%
 }
 
+/* Login & Account creation styling */
+
 div.auth-container {
   width: 100%;
   height: 100vh;
@@ -139,12 +140,12 @@ div.auth > * {
 
 .auth-text h1 {
   font-weight: bold;
-  font-size: 55px;
+  font-size: 3.45rem;
   padding-bottom: 15px;
 }
 
 .auth-text h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #4F4F4F;
   padding-bottom: 15px;
 }
@@ -160,7 +161,7 @@ div.auth > * {
 }
 
 .auth-input input[type=text], .auth-input input[type=password], .auth-input select {
-  font-size: 16px;
+  font-size: 1rem;
   color: #777;
   border-width: 2px;
   margin: 7px 0px 7px 0px;
@@ -171,5 +172,5 @@ div.auth > * {
   background-color: black; 
   color: white;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 1.56rem;
 }
