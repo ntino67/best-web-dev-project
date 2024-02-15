@@ -1,164 +1,108 @@
-USE web_project;
-CREATE TABLE Utilisateur(
-   Id_users INT AUTO_INCREMENT,
-   Nom VARCHAR(50),
-   Prenom_ VARCHAR(50),
-   Date_naissance DATE,
-   PRIMARY KEY(Id_users)
+USE test_web_k;
+
+CREATE TABLE `Roles` (
+  `id_role` INTEGER PRIMARY KEY,
+  `name` VARCHAR(255)
 );
 
-CREATE TABLE Admin(
-   Id_users INT AUTO_INCREMENT,
-   PRIMARY KEY(Id_users),
-   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users)
+CREATE TABLE `Class` (
+  `id_class` INTEGER PRIMARY KEY,
+  `class_year` INTEGER
 );
 
-CREATE TABLE Pays(
-   Id_pays INT AUTO_INCREMENT,
-   Nom_pays VARCHAR(50),
-   PRIMARY KEY(Id_pays)
+CREATE TABLE `Centers` (
+  `id_center` INT PRIMARY KEY,
+  `center_name` VARCHAR(255)
 );
 
-CREATE TABLE Entreprise(
-   Id_entreprise INT AUTO_INCREMENT,
-   Secteur VARCHAR(50),
-   Nom_entreprise VARCHAR(50),
-   PRIMARY KEY(Id_entreprise)
+CREATE TABLE `Country` (
+  `id_country` INT PRIMARY KEY,
+  `name` VARCHAR(255)
 );
 
-CREATE TABLE Commentaire(
-   Id_commentaire INT AUTO_INCREMENT,
-   Texte_commentaire VARCHAR(50),
-   Note INT,
-   Id_entreprise INT NOT NULL,
-   Id_users INT NOT NULL,
-   PRIMARY KEY(Id_commentaire),
-   FOREIGN KEY(Id_entreprise) REFERENCES Entreprise(Id_entreprise),
-   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users)
+CREATE TABLE `Cities` (
+  `id_city` INT PRIMARY KEY,
+  `id_country` INT,
+  `name` VARCHAR(255),
+  `postal_code` INT,
+  CONSTRAINT `city_is_in_country` FOREIGN KEY (`id_country`) REFERENCES `Country` (`id_country`)
 );
 
-CREATE TABLE Competence(
-   Id_competence INT AUTO_INCREMENT,
-   Nom_competence VARCHAR(50),
-   PRIMARY KEY(Id_competence)
+CREATE TABLE `Companies` (
+  `id_company` INT PRIMARY KEY,
+  `id_city` INT,
+  `company_name` VARCHAR(255),
+  CONSTRAINT `company_is_in_city` FOREIGN KEY (`id_city`) REFERENCES `Cities` (`id_city`)
 );
 
-CREATE TABLE Ville(
-   Id_ville INT AUTO_INCREMENT,
-   Nom_ville VARCHAR(50),
-   Code_postal INT,
-   Id_pays INT NOT NULL,
-   PRIMARY KEY(Id_ville),
-   FOREIGN KEY(Id_pays) REFERENCES Pays(Id_pays)
+CREATE TABLE `Skills` (
+  `id_skill` INT PRIMARY KEY,
+  `skill_name` VARCHAR(255)
 );
 
-CREATE TABLE Adresse(
-   Id_adresse INT AUTO_INCREMENT,
-   Nom_rue VARCHAR(50),
-   Code_postal INT NOT NULL,
-   Id_entreprise INT NOT NULL,
-   Id_ville INT NOT NULL,
-   PRIMARY KEY(Id_adresse),
-   FOREIGN KEY(Id_entreprise) REFERENCES Entreprise(Id_entreprise),
-   FOREIGN KEY(Id_ville) REFERENCES Ville(Id_ville)
+CREATE TABLE `Users` (
+  `id_user` INTEGER PRIMARY KEY,
+  `id_class` INTEGER,
+  `first_name` VARCHAR(255),
+  `last_name` VARCHAR(255),
+  `password` VARCHAR(255),
+  `created_at` TIMESTAMP,
+  `id_center` INTEGER,
+  `id_role` INTEGER,
+  CONSTRAINT `user_has_role` FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`),
+  CONSTRAINT `user_is_in_center` FOREIGN KEY (`id_center`) REFERENCES `Centers` (`id_center`)
 );
 
-CREATE TABLE Offre_de_stage(
-   Id_offre_de_stage INT AUTO_INCREMENT,
-   Duree_stage INT,
-   Base_remuneration_ INT,
-   Intitule VARCHAR(50),
-   Nb_places INT,
-   Date_publication DATE,
-   Promotion_concerne VARCHAR(50),
-   Date_expiration_offre DATE,
-   Id_adresse INT NOT NULL,
-   PRIMARY KEY(Id_offre_de_stage),
-   FOREIGN KEY(Id_adresse) REFERENCES Adresse(Id_adresse)
+ALTER TABLE `Users` ADD INDEX `idx_id_class` (`id_class`);
+
+CREATE TABLE `Users_Class` (
+  `Users_id_class` INTEGER,
+  `Class_id_class` INTEGER,
+  PRIMARY KEY (`Users_id_class`, `Class_id_class`),
+  FOREIGN KEY (`Users_id_class`) REFERENCES `Users` (`id_user`),
+  FOREIGN KEY (`Class_id_class`) REFERENCES `Class` (`id_class`)
 );
 
-CREATE TABLE Centre(
-   Id_centre INT AUTO_INCREMENT,
-   Nom_centre VARCHAR(50),
-   Id_ville INT NOT NULL,
-   PRIMARY KEY(Id_centre),
-   FOREIGN KEY(Id_ville) REFERENCES Ville(Id_ville)
+CREATE TABLE `Internship_offers` (
+  `id_internship_offer` INT PRIMARY KEY,
+  `id_company` INT,
+  `available_slots` INT,
+  `created_at` DATE,
+  `expires_at` DATE,
+  CONSTRAINT `offer_belongs_to_company` FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`)
 );
 
-CREATE TABLE Pilote(
-   Id_users INT AUTO_INCREMENT,
-   Id_centre INT NOT NULL,
-   PRIMARY KEY(Id_users),
-   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users),
-   FOREIGN KEY(Id_centre) REFERENCES Centre(Id_centre)
+CREATE TABLE `Internship_offers_Skills` (
+  `Internship_offers_id_internship_offer` INT,
+  `Skills_id_skill` INT,
+  PRIMARY KEY (`Internship_offers_id_internship_offer`, `Skills_id_skill`),
+  FOREIGN KEY (`Internship_offers_id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`),
+  FOREIGN KEY (`Skills_id_skill`) REFERENCES `Skills` (`id_skill`)
 );
 
-CREATE TABLE Promotion(
-   Id_promo INT AUTO_INCREMENT,
-   Type_promo VARCHAR(50),
-   Id_users INT NOT NULL,
-   PRIMARY KEY(Id_promo),
-   FOREIGN KEY(Id_users) REFERENCES Pilote(Id_users)
+CREATE TABLE `Applications` (
+  `id_student` INT,
+  `id_internship_offer` INT,
+  `CV` VARCHAR(255),
+  `motivation_letter` VARCHAR(255),
+  FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`),
+  FOREIGN KEY (`id_student`) REFERENCES `Users` (`id_user`)
 );
 
-CREATE TABLE Etudiant(
-   Id_users INT AUTO_INCREMENT,
-   Id_promo INT NOT NULL,
-   Id_centre INT NOT NULL,
-   PRIMARY KEY(Id_users),
-   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users),
-   FOREIGN KEY(Id_promo) REFERENCES Promotion(Id_promo),
-   FOREIGN KEY(Id_centre) REFERENCES Centre(Id_centre)
+CREATE TABLE `Works_for` (
+  `id_student` INT,
+  `id_company` INT,
+  `start_date` DATE,
+  `end_date` DATE,
+  FOREIGN KEY (`id_student`) REFERENCES `Users` (`id_user`),
+  FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`)
 );
 
-CREATE TABLE Est_employe(
-   Id_users INT,
-   Id_entreprise INT,
-   Date_debut DATE,
-   Date_fin VARCHAR(50),
-   PRIMARY KEY(Id_users, Id_entreprise),
-   FOREIGN KEY(Id_users) REFERENCES Etudiant(Id_users),
-   FOREIGN KEY(Id_entreprise) REFERENCES Entreprise(Id_entreprise)
-);
-
-CREATE TABLE Wish_list_etudiant(
-   Id_users INT,
-   Id_offre_de_stage INT,
-   PRIMARY KEY(Id_users, Id_offre_de_stage),
-   FOREIGN KEY(Id_users) REFERENCES Etudiant(Id_users),
-   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
-);
-
-CREATE TABLE Requiert_(
-   Id_offre_de_stage INT,
-   Id_competence INT,
-   PRIMARY KEY(Id_offre_de_stage, Id_competence),
-   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage),
-   FOREIGN KEY(Id_competence) REFERENCES Competence(Id_competence)
-);
-
-CREATE TABLE Etudiant_Candidate(
-   Id_users INT,
-   Id_offre_de_stage INT,
-   CV VARCHAR(50),
-   Lettre_motivation VARCHAR(50),
-   PRIMARY KEY(Id_users, Id_offre_de_stage),
-   FOREIGN KEY(Id_users) REFERENCES Etudiant(Id_users),
-   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
-);
-
-CREATE TABLE Wish_list_admin(
-   Id_users INT,
-   Id_offre_de_stage INT,
-   PRIMARY KEY(Id_users, Id_offre_de_stage),
-   FOREIGN KEY(Id_users) REFERENCES Admin(Id_users),
-   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
-);
-
-CREATE TABLE Admin_Candidate(
-   Id_users INT,
-   Id_offre_de_stage INT,
-   PRIMARY KEY(Id_users, Id_offre_de_stage),
-   FOREIGN KEY(Id_users) REFERENCES Admin(Id_users),
-   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
+CREATE TABLE `Company_Reviews` (
+  `id_review` INT PRIMARY KEY,
+  `id_company` INT,
+  `id_user` INT,
+  `review_text` VARCHAR(255),
+  FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`),
+  FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`)
 );
