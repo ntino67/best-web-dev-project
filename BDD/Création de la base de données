@@ -1,0 +1,164 @@
+USE web_project;
+CREATE TABLE Utilisateur(
+   Id_users INT AUTO_INCREMENT,
+   Nom VARCHAR(50),
+   Prenom_ VARCHAR(50),
+   Date_naissance DATE,
+   PRIMARY KEY(Id_users)
+);
+
+CREATE TABLE Admin(
+   Id_users INT AUTO_INCREMENT,
+   PRIMARY KEY(Id_users),
+   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users)
+);
+
+CREATE TABLE Pays(
+   Id_pays INT AUTO_INCREMENT,
+   Nom_pays VARCHAR(50),
+   PRIMARY KEY(Id_pays)
+);
+
+CREATE TABLE Entreprise(
+   Id_entreprise INT AUTO_INCREMENT,
+   Secteur VARCHAR(50),
+   Nom_entreprise VARCHAR(50),
+   PRIMARY KEY(Id_entreprise)
+);
+
+CREATE TABLE Commentaire(
+   Id_commentaire INT AUTO_INCREMENT,
+   Texte_commentaire VARCHAR(50),
+   Note INT,
+   Id_entreprise INT NOT NULL,
+   Id_users INT NOT NULL,
+   PRIMARY KEY(Id_commentaire),
+   FOREIGN KEY(Id_entreprise) REFERENCES Entreprise(Id_entreprise),
+   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users)
+);
+
+CREATE TABLE Competence(
+   Id_competence INT AUTO_INCREMENT,
+   Nom_competence VARCHAR(50),
+   PRIMARY KEY(Id_competence)
+);
+
+CREATE TABLE Ville(
+   Id_ville INT AUTO_INCREMENT,
+   Nom_ville VARCHAR(50),
+   Code_postal INT,
+   Id_pays INT NOT NULL,
+   PRIMARY KEY(Id_ville),
+   FOREIGN KEY(Id_pays) REFERENCES Pays(Id_pays)
+);
+
+CREATE TABLE Adresse(
+   Id_adresse INT AUTO_INCREMENT,
+   Nom_rue VARCHAR(50),
+   Code_postal INT NOT NULL,
+   Id_entreprise INT NOT NULL,
+   Id_ville INT NOT NULL,
+   PRIMARY KEY(Id_adresse),
+   FOREIGN KEY(Id_entreprise) REFERENCES Entreprise(Id_entreprise),
+   FOREIGN KEY(Id_ville) REFERENCES Ville(Id_ville)
+);
+
+CREATE TABLE Offre_de_stage(
+   Id_offre_de_stage INT AUTO_INCREMENT,
+   Duree_stage INT,
+   Base_remuneration_ INT,
+   Intitule VARCHAR(50),
+   Nb_places INT,
+   Date_publication DATE,
+   Promotion_concerne VARCHAR(50),
+   Date_expiration_offre DATE,
+   Id_adresse INT NOT NULL,
+   PRIMARY KEY(Id_offre_de_stage),
+   FOREIGN KEY(Id_adresse) REFERENCES Adresse(Id_adresse)
+);
+
+CREATE TABLE Centre(
+   Id_centre INT AUTO_INCREMENT,
+   Nom_centre VARCHAR(50),
+   Id_ville INT NOT NULL,
+   PRIMARY KEY(Id_centre),
+   FOREIGN KEY(Id_ville) REFERENCES Ville(Id_ville)
+);
+
+CREATE TABLE Pilote(
+   Id_users INT AUTO_INCREMENT,
+   Id_centre INT NOT NULL,
+   PRIMARY KEY(Id_users),
+   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users),
+   FOREIGN KEY(Id_centre) REFERENCES Centre(Id_centre)
+);
+
+CREATE TABLE Promotion(
+   Id_promo INT AUTO_INCREMENT,
+   Type_promo VARCHAR(50),
+   Id_users INT NOT NULL,
+   PRIMARY KEY(Id_promo),
+   FOREIGN KEY(Id_users) REFERENCES Pilote(Id_users)
+);
+
+CREATE TABLE Etudiant(
+   Id_users INT AUTO_INCREMENT,
+   Id_promo INT NOT NULL,
+   Id_centre INT NOT NULL,
+   PRIMARY KEY(Id_users),
+   FOREIGN KEY(Id_users) REFERENCES Utilisateur(Id_users),
+   FOREIGN KEY(Id_promo) REFERENCES Promotion(Id_promo),
+   FOREIGN KEY(Id_centre) REFERENCES Centre(Id_centre)
+);
+
+CREATE TABLE Est_employe(
+   Id_users INT,
+   Id_entreprise INT,
+   Date_debut DATE,
+   Date_fin VARCHAR(50),
+   PRIMARY KEY(Id_users, Id_entreprise),
+   FOREIGN KEY(Id_users) REFERENCES Etudiant(Id_users),
+   FOREIGN KEY(Id_entreprise) REFERENCES Entreprise(Id_entreprise)
+);
+
+CREATE TABLE Wish_list_etudiant(
+   Id_users INT,
+   Id_offre_de_stage INT,
+   PRIMARY KEY(Id_users, Id_offre_de_stage),
+   FOREIGN KEY(Id_users) REFERENCES Etudiant(Id_users),
+   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
+);
+
+CREATE TABLE Requiert_(
+   Id_offre_de_stage INT,
+   Id_competence INT,
+   PRIMARY KEY(Id_offre_de_stage, Id_competence),
+   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage),
+   FOREIGN KEY(Id_competence) REFERENCES Competence(Id_competence)
+);
+
+CREATE TABLE Etudiant_Candidate(
+   Id_users INT,
+   Id_offre_de_stage INT,
+   CV VARCHAR(50),
+   Lettre_motivation VARCHAR(50),
+   PRIMARY KEY(Id_users, Id_offre_de_stage),
+   FOREIGN KEY(Id_users) REFERENCES Etudiant(Id_users),
+   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
+);
+
+CREATE TABLE Wish_list_admin(
+   Id_users INT,
+   Id_offre_de_stage INT,
+   PRIMARY KEY(Id_users, Id_offre_de_stage),
+   FOREIGN KEY(Id_users) REFERENCES Admin(Id_users),
+   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
+);
+
+CREATE TABLE Admin_Candidate(
+   Id_users INT,
+   Id_offre_de_stage INT,
+   PRIMARY KEY(Id_users, Id_offre_de_stage),
+   FOREIGN KEY(Id_users) REFERENCES Admin(Id_users),
+   FOREIGN KEY(Id_offre_de_stage) REFERENCES Offre_de_stage(Id_offre_de_stage)
+);
