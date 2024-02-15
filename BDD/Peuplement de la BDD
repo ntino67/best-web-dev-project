@@ -1,5 +1,5 @@
 USE web_project;
-INSERT INTO Utilisateur (Nom, Prenom_, Date_naissance) VALUES
+INSERT INTO Utilisateur (first_name, last_name, created_at) VALUES
 	('Rabier', 'Bari', '1969-10-10'),
 	('Donati', 'Scot', '1964-11-23'),
 	('Plitz', 'Sherye', '2000-01-21'),
