@@ -6,7 +6,9 @@ INSERT INTO Country (name) VALUES
 
 #peuplement table 'cities' : 
 
-Centres (Centers) - Si nécessaire, selon votre logique métier.
+#peuplement table 'centers' : 
+INSERT INTO Centers (center_name) VALUES ('CESI Bordeaux'), ('CESI Lyon'), ('CESI Paris'), ('CESI Strasbourg'), ('CESI Toulouse'), ('CESI Rouen'), ('CESI Saint-Nazaire'), ('CESI Pau'), ('CESI Angoulême'), ('CESI Arras'), ('CESI Brest'), ('CESI Châteauroux'), ('CESI La Rochelle'), ('CESI Montpellier'), ('CESI Nancy'), ('CESI Reims'), ('CESI Saint-Étienne'), ('CESI Le Mans'), ('CESI Caen'), ('CESI Dijon'), ('CESI Poitiers'), ('CESI Rennes'), ('CESI Nantes'), ('CESI Dunkerque'), ('CESI Lille'), ('CESI Mulhouse'), ('CESI Nice'), ('CESI Orléans'), ('CESI Limoges');
+
 Roles
 Classes (Class)
 Compétences (Skills)
