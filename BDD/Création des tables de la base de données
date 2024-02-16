@@ -79,7 +79,7 @@ CREATE TABLE `Company_Reviews` (
   `review_score` INT
 );
 
-CREATE TABLE `Internship_offers_Skills` (
+CREATE TABLE `Required_Skills` (
   `id_internship_offer` INT,
   `required_skills` INT,
   PRIMARY KEY (`id_internship_offer`, `required_skills`),
