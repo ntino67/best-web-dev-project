@@ -87,7 +87,7 @@ CREATE TABLE `Required_Skills` (
   FOREIGN KEY (`required_skills`) REFERENCES `Skills` (`id_skill`)
 );
 
-CREATE TABLE `Users_Class` (
+CREATE TABLE `related_to_class` (
   `id_user` INTEGER,
   `id_class` INTEGER,
   PRIMARY KEY (`id_user`, `id_class`),
