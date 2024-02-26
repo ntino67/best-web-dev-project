@@ -125,7 +125,6 @@ div.navbar {
   width: 15%;
   padding-right: 2%
 }
-
 /* Login & Account creation styling */
 
 div.auth-container {
@@ -134,24 +133,24 @@ div.auth-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 }
 
 div.auth {
   margin: auto;
-  width: 50%;
   display: flex;
-  gap: 40px;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  max-width: 80%;
 }
 
 div.auth > * {
-  width: 50%;
-  max-width: 450px;
+  flex: 1;
+  flex-basis: 18rem;
+  max-width: 26rem;
   display: flex;
   flex-direction: column;
   align-content: space-around;
   justify-content: center;
-
 }
 
 .auth-text h1 {
@@ -190,7 +189,6 @@ div.auth > * {
   font-weight: bold;
   font-size: 1.56rem;
 }
-
 /* Interships page */
 
 header.search-page-header {
