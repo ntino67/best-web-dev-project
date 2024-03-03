@@ -48,7 +48,7 @@ table {
 
 body {
   width: 100vw;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
 }
 
 /* Class to space all elements from the sides, top and bottom of the page */
@@ -57,7 +57,6 @@ body {
 }
 
 /* Standard button design */
-
 .bw-button {
   background-color: black; 
   color: white;
@@ -68,6 +67,12 @@ body {
 }
 
 /* Navbar Styling */
+
+/* Used to make the navbar not displace other elements on some pages */
+
+.navbar-absolute div.navbar {
+  position: absolute;
+}
 
 div.navbar {
   height: 55px;
@@ -140,6 +145,7 @@ div.auth {
   display: flex;
   gap: 2.5rem;
   flex-wrap: wrap;
+  justify-content: center;
   max-width: 80%;
 }
 
