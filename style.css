@@ -341,7 +341,7 @@ main.search-container {
   justify-content: space-between;
 }
 
-.search-result-description {
+.search-result-left-info {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -354,6 +354,7 @@ main.search-container {
     font-size: 1.1rem;
     color: #6B7280;
     max-width: 100%;
+    line-height: 1.2;
   }
 }
 
