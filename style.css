@@ -225,16 +225,19 @@ button.sorting-category {
   padding: 0.5rem 1rem 0.5rem 1rem;
   
   border-radius: 9px;
-
+  
   transition: 0.25s;
+  
+  display: flex;
+  gap: 0.5rem;
 
   span {
-    margin-left: 0.5rem;
     font-size: 1.125rem;
   }
 
-  .far {
+  span.far {
     font-size: 1.4rem;
+    width: 1.4rem;
     font-weight: bold;
   }
 }
@@ -279,7 +282,7 @@ main.search-container {
     gap: 0.4rem;
   }
   .far {
-    width: 1.2rem;
+    width: 1.4rem;
     text-align: center;
   }  
 }
@@ -397,5 +400,3 @@ main.search-container {
     font-weight: bold;
   }
 }
-
-
