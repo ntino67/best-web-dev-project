@@ -17,12 +17,11 @@ function switch_sorting(event) {
   }
 }
 
-window.onload = function() {
+$(document).ready(function() {
   sorting_categories = document.querySelectorAll("button.sorting-category");
-
-  console.log(sorting_categories.length);
 
   for (let i = 0; i < sorting_categories.length; i++) {
     sorting_categories[i].addEventListener("click", switch_sorting);
   } 
 }
+)
