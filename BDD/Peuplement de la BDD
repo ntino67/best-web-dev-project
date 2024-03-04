@@ -1,21 +1,169 @@
 USE web_project;
 
 #peuplement table 'country' : 
-INSERT INTO Country (name) VALUES ('Afghanistan'), ('Albania'), ('Algeria'), ('Andorra'), ('Angola'), ('Antigua and Barbuda'), ('Argentina'), ('Armenia'), ('Australia'), ('Austria'), ('Azerbaijan'), ('Bahamas'), ('Bahrain'), ('Bangladesh'), ('Barbados'), ('Belarus'), ('Belgium'), ('Belize'), ('Benin'), ('Bhutan'), ('Bolivia'), ('Bosnia and Herzegovina'), ('Botswana'), ('Brazil'), ('Brunei'), ('Bulgaria'), ('Burkina Faso'), ('Burundi'), ('Cabo Verde'), ('Cambodia'), ('Cameroon'), ('Canada'), ('Central African Republic'), ('Chad'), ('Chile'), ('China'), ('Colombia'), ('Comoros'), ('Congo'), ('Costa Rica'), ('Croatia'), ('Cuba'), ('Cyprus'), ('Czech Republic'), ('Denmark'), ('Djibouti'), ('Dominica'), ('Dominican Republic'), ('Ecuador'), ('Egypt'), ('El Salvador'), ('Equatorial Guinea'), ('Eritrea'), ('Estonia'), ('Eswatini'), ('Ethiopia'), ('Fiji'), ('Finland'), ('France'), ('Gabon'), ('Gambia'), ('Georgia'), ('Germany'), ('Ghana'), ('Greece'), ('Grenada'), ('Guatemala'), ('Guinea'), ('Guinea-Bissau'), ('Guyana'), ('Haiti'), ('Honduras'), ('Hungary'), ('Iceland'), ('India'), ('Indonesia'), ('Iran'), ('Iraq'), ('Ireland'), ('Israel'), ('Italy'), ('Jamaica'), ('Japan'), ('Jordan'), ('Kazakhstan'), ('Kenya'), ('Kiribati'), ('Kuwait'), ('Kyrgyzstan'), ('Laos'), ('Latvia'), ('Lebanon'), ('Lesotho'), ('Liberia'), ('Libya'), ('Liechtenstein'), ('Lithuania'), ('Luxembourg'), ('Madagascar'), ('Malawi'), ('Malaysia'), ('Maldives'), ('Mali'), ('Malta'), ('Marshall Islands'), ('Mauritania'), ('Mauritius'), ('Mexico'), ('Micronesia'), ('Moldova'), ('Monaco'), ('Mongolia'), ('Montenegro'), ('Morocco'), ('Mozambique'), ('Myanmar'), ('Namibia'), ('Nauru'), ('Nepal'), ('Netherlands'), ('New Zealand'), ('Nicaragua'), ('Niger'), ('Nigeria'), ('North Korea'), ('North Macedonia'), ('Norway'), ('Oman'), ('Pakistan'), ('Palau'), ('Palestine'), ('Panama'), ('Papua New Guinea'), ('Paraguay'), ('Peru'), ('Philippines'), ('Poland'), ('Portugal'), ('Qatar'), ('Romania'), ('Russia'), ('Rwanda'), ('Saint Kitts and Nevis'), ('Saint Lucia'), ('Saint Vincent and the Grenadines'), ('Samoa'), ('San Marino'), ('Sao Tome and Principe'), ('Saudi Arabia'), ('Senegal'), ('Serbia'), ('Seychelles'), ('Sierra Leone'), ('Singapore'), ('Slovakia'), ('Slovenia'), ('Solomon Islands'), ('Somalia'), ('South Africa'), ('South Korea'), ('South Sudan'), ('Spain'), ('Sri Lanka'), ('Sudan'), ('Suriname'), ('Sweden'), ('Switzerland'), ('Syria'), ('Taiwan'), ('Tajikistan'), ('Tanzania'), ('Thailand'), ('Timor-Leste'), ('Togo'), ('Tonga'), ('Trinidad and Tobago'), ('Tunisia'), ('Turkey'), ('Turkmenistan'), ('Tuvalu'), ('Uganda'), ('Ukraine'), ('United Arab Emirates'), ('United Kingdom'), ('United States'), ('Uruguay'), ('Uzbekistan'), ('Vanuatu'), ('Vatican City'), ('Venezuela'), ('Vietnam'), ('Yemen'), ('Zambia'), ('Zimbabwe');
+INSERT INTO Country (name) VALUES
+('France'),('United States'),('Canada'),('United Kingdom'),('Germany'),('Australia'),('Japan'),('China'),('Brazil'),('India'),('Russia'),('Italy'),('Spain'),('Mexico'),('South Korea'),('Netherlands'),('Switzerland'),('Sweden'),('Norway'),('Denmark');
+
 
 #peuplement table 'cities' : 
+INSERT INTO Cities (id_country, name, postal_code) VALUES 
+-- France
+(1, 'Paris', 75000), (1, 'Marseille', 13000), (1, 'Lyon', 69000), (1, 'Toulouse', 31000), (1, 'Nice', 60000), (1, 'Nantes', 44000), (1, 'Strasbourg', 67000), (1, 'Montpellier', 34000), (1, 'Bordeaux', 33000), (1, 'Lille', 59000), (1, 'Rennes', 35000), (1, 'Reims', 51100), (1, 'Le Havre', 76600), (1, 'Saint-Étienne', 42000), (1, 'Toulon', 83000), (1, 'Grenoble', 38000), (1, 'Dijon', 21000), (1, 'Angers', 49000), (1, 'Nîmes', 30000), (1, 'Villeurbanne', 69100), (1, 'Saint-Denis', 97400), (1, 'Le Mans', 72000), (1, 'Aix-en-Provence', 13080), (1, 'Clermont-Ferrand', 63000), (1, 'Brest', 29200), (1, 'Limoges', 87000), (1, 'Tours', 37000), (1, 'Amiens', 80000), (1, 'Annecy', 74000), (1, 'Perpignan', 66000), (1, 'Besançon', 25000), (1, 'Orléans', 45000), (1, 'Metz', 57000), (1, 'Rouen', 76000), (1, 'Mulhouse', 68100), (1, 'Caen', 14000), (1, 'Saint-Denis', 93200), (1, 'Nancy', 54000), (1, 'Saint-Paul', 97460), (1, 'Argenteuil', 95100), (1, 'Montreuil', 93100), (1, 'Roubaix', 59100), (1, 'Tourcoing', 59200), (1, 'Nanterre', 92000), (1, 'Avignon', 84000), (1, 'Vitry-sur-Seine', 94400),
+
+-- United States
+(2, 'New York', 10001),(2, 'Los Angeles', 90001),(2, 'Chicago', 60007),(2, 'Houston', 77001),(2, 'Phoenix', 85001),
+
+-- Canada
+(3, 'Toronto', 'M5G 2C8'),(3, 'Montreal', 'H3B 4G7'),(3, 'Vancouver', 'V6C 3L2'),(3, 'Calgary', 'T2P 0X8'),(3, 'Ottawa', 'K1A 0G9'),
+
+-- United Kingdom
+(4, 'London', 'SW1A 1AA'),(4, 'Birmingham', 'B1 1AA'),(4, 'Manchester', 'M1 1AA'),(4, 'Glasgow', 'G1 1AA'),(4, 'Edinburgh', 'EH1 1AA'),
+
+-- Germany
+(5, 'Berlin', '10178'),(5, 'Hamburg', '20095'),(5, 'Munich', '80331'),(5, 'Cologne', '50667'),(5, 'Frankfurt', '60311'),
+
+-- Australia
+(6, 'Sydney', 2000),(6, 'Melbourne', 3000),(6, 'Brisbane', 4000),(6, 'Perth', 6000),(6, 'Adelaide', 5000),
+
+-- Japan
+(7, 'Tokyo', '100-0001'),(7, 'Yokohama', '231-0001'),(7, 'Osaka', '530-0001'),(7, 'Nagoya', '460-0001'),(7, 'Sapporo', '060-0001'),
+
+-- China
+(8, 'Shanghai', '200000'),(8, 'Beijing', '100000'),(8, 'Guangzhou', '510000'),(8, 'Shenzhen', '518000'),(8, 'Tianjin', '300000'),
+
+-- Brazil
+(9, 'São Paulo', '01000-000'),(9, 'Rio de Janeiro', '20000-000'),(9, 'Brasília', '70000-000'),(9, 'Salvador', '40000-000'),(9, 'Fortaleza', '60000-000'),
+
+-- India
+(10, 'Mumbai', '400001'),(10, 'Delhi', '110001'),(10, 'Bangalore', '560001'),(10, 'Kolkata', '700001'),(10, 'Chennai', '600001'),
+
+-- Russia
+(11, 'Moscow', '101000'),(11, 'Saint Petersburg', '190000'),(11, 'Novosibirsk', '630000'),(11, 'Yekaterinburg', '620000'),(11, 'Kazan', '420000'),
+
+-- Italy
+(12, 'Rome', '00100'),(12, 'Milan', '20100'),(12, 'Naples', '80100'),(12, 'Turin', '10100'),(12, 'Palermo', '90100'),
+
+-- Spain
+(13, 'Madrid', '28001'),(13, 'Barcelona', '08001'),(13, 'Valencia', '46001'),(13, 'Seville', '41001'),(13, 'Bilbao', '48001'),
+
+-- Mexico
+(14, 'Mexico City', '01000'),(14, 'Guadalajara', '44100'),(14, 'Monterrey', '64000'),(14, 'Puebla', '72000'),(14, 'Tijuana', '22000'),
+
+-- South Korea
+(15, 'Seoul', '03050'),(15, 'Busan', '06000'),(15, 'Incheon', '40000'),(15, 'Daegu', '41000'),(15, 'Daejeon', '30100'),
+
+-- Netherlands
+(16, 'Amsterdam', '1011'),(16, 'Rotterdam', '3011'),(16, 'The Hague', '2511'),(16, 'Utrecht', '3511'),(16, 'Eindhoven', '5611'),
+
+-- Switzerland
+(17, 'Zurich', '8001'),(17, 'Geneva', '1201'),(17, 'Basel', '4001'),(17, 'Bern', '3001'),(17, 'Lausanne', '1003'),
+
+-- Sweden
+(18, 'Stockholm', '111 20'),(18, 'Gothenburg', '411 01'),(18, 'Malmö', '211 01'),(18, 'Uppsala', '751 05'),(18, 'Västerås', '722 13'),
+
+-- Norway
+(19, 'Oslo', '0010'),(19, 'Bergen', '5003'),(19, 'Stavanger', '4001'),(19, 'Trondheim', '7010'),(19, 'Drammen', '3016'),
+
+-- Denmark
+(20, 'Copenhagen', '1050'),(20, 'Aarhus', '8000'),(20, 'Odense', '5000'),(20, 'Aalborg', '9000'),(20, 'Esbjerg', '6700');
+
 
 #peuplement table 'centers' : 
-INSERT INTO Centers (center_name) VALUES ('CESI Bordeaux'), ('CESI Lyon'), ('CESI Paris'), ('CESI Strasbourg'), ('CESI Toulouse'), ('CESI Rouen'), ('CESI Saint-Nazaire'), ('CESI Pau'), ('CESI Angoulême'), ('CESI Arras'), ('CESI Brest'), ('CESI Châteauroux'), ('CESI La Rochelle'), ('CESI Montpellier'), ('CESI Nancy'), ('CESI Reims'), ('CESI Saint-Étienne'), ('CESI Le Mans'), ('CESI Caen'), ('CESI Dijon'), ('CESI Poitiers'), ('CESI Rennes'), ('CESI Nantes'), ('CESI Dunkerque'), ('CESI Lille'), ('CESI Mulhouse'), ('CESI Nice'), ('CESI Orléans'), ('CESI Limoges');
+INSERT INTO Centers (center_name) VALUES 
+('CESI Bordeaux'), ('CESI Lyon'), ('CESI Paris'), ('CESI Strasbourg'), ('CESI Toulouse'), ('CESI Rouen'), ('CESI Saint-Nazaire'), ('CESI Pau'), ('CESI Angoulême'), ('CESI Arras'), ('CESI Brest'), ('CESI Châteauroux'), ('CESI La Rochelle'), ('CESI Montpellier'), ('CESI Nancy'), ('CESI Reims'), ('CESI Saint-Étienne'), ('CESI Le Mans'), ('CESI Caen'), ('CESI Dijon'), ('CESI Poitiers'), ('CESI Rennes'), ('CESI Nantes'), ('CESI Dunkerque'), ('CESI Lille'), ('CESI Mulhouse'), ('CESI Nice'), ('CESI Orléans'), ('CESI Limoges');
 
-Roles
-Classes (Class)
-Compétences (Skills)
-Entreprises (Companies) - Peut-être associé à des villes, donc assurez-vous d'avoir les villes nécessaires peuplées.
-Offres de stage (Internship_offers) - Associé à des entreprises.
-Utilisateurs (Users) - Peut-être associé à des rôles, des classes, des centres.
-Applications
-Travailler pour (Works_for)
-Avis sur les entreprises (Company_Reviews)
-Compétences requises (Required_Skills) - Si vous avez des offres de stage nécessitant des compétences spécifiques.
-Utilisateurs_Classes (Users_Class) - Si nécessaire, pour associer les utilisateurs à leurs classes.
+
+#peuplement table 'Companies' :
+INSERT INTO Companies (id_city, company_name) VALUES
+-- Entreprises en France
+(1, 'LVMH'), (2, 'Total'), (3, 'Carrefour'), (4, 'Airbus'), (5, 'BNP Paribas'), (6, 'L_Oréal'), (7, 'Orange'), (8, 'Michelin'), (9, 'Capgemini'), (10, 'Danone'), (11, 'Société Générale'), (12, 'Peugeot'), (13, 'Renault'), (14, 'AXA'), (15, 'Dassault Systèmes'), (16, 'Accor'), (17, 'Engie'), (18, 'Thales'), (19, 'Veolia'), (20, 'Vinci'), (21, 'Sanofi'), (22, 'Vivendi'), (23, 'Sodexo'), (24, 'EDF'), (25, 'Air Liquide'), (26, 'Schneider Electric'), (27, 'BNP Paribas'), (28, 'Safran'), (29, 'EssilorLuxottica'), (30, 'Air France-KLM'), (31, 'Arkema'), (32, 'Eiffage'), (33, 'Alstom'), (34, 'TechnipFMC'), (35, 'Publicis Groupe'), (36, 'Bouygues'), (37, 'Air Liquide'), (38, 'Veolia'), (39, 'Orange'), (40, 'Dassault Aviation'), (41, 'Ubisoft'), (42, 'Aéroports de Paris'), (43, 'Accor'), (44, 'Saint-Gobain'), (45, 'Atos'), (46, 'Hermès'), (47, 'Credit Agricole'), (48, 'LafargeHolcim'), (49, 'Renault'), (50, 'Capgemini'),
+
+-- United States
+(51, 'Apple'), (52, 'Amazon'), (53, 'Microsoft'), (54, 'Alphabet'), (55, 'Tesla'),
+
+-- Canada
+(56, 'Tim Hortons'),(57, 'BlackBerry'),(58, 'Bombardier'),(59, 'Shopify'),(60, 'Air Canada'),
+
+-- United Kingdom
+(61, 'HSBC Holdings'),(62, 'Royal Dutch Shell'),(63, 'GlaxoSmithKline'),(64, 'Barclays'),(65, 'BP'),
+
+-- Germany
+(66, 'Volkswagen'),(67, 'Bayer'),(68, 'Siemens'),(69, 'BMW'),(70, 'Allianz'),
+
+-- Australia
+(71, 'Woolworths Group'),(72, 'BHP'),(73, 'Commonwealth Bank'),(74, 'Rio Tinto'),(75, 'ANZ'),
+
+-- Japan
+(76, 'Toyota'),(77, 'Sony'),(78, 'SoftBank'),(79, 'Honda'),(80, 'Mitsubishi'),
+
+-- China
+(81, 'Alibaba Group'),(82, 'Tencent Holdings'),(83, 'China Mobile'),(84, 'ICBC'),(85, 'China Construction Bank'),
+
+-- Brazil
+(86, 'Petrobras'),(87, 'Vale'),(88, 'Itaú Unibanco Holding'),(89, 'Banco Bradesco'),(90, 'Ambev'),
+
+-- India
+(91, 'Reliance Industries'),(92, 'Tata Group'),(93, 'HDFC Bank'),(94, 'Infosys'),(95, 'State Bank of India'),
+
+-- Russia
+(96, 'Gazprom'),(97, 'Sberbank'),(98, 'Lukoil'),(99, 'Rosneft'),(100, 'VTB Bank'),
+
+-- Italy
+(101, 'Eni'),(102, 'Intesa Sanpaolo'),(103, 'Unicredit'),(104, 'Enel'),(105, 'Generali'),
+
+-- Spain
+(106, 'Santander'),(107, 'BBVA'),(108, 'Telefónica'),(109, 'Iberdrola'),(110, 'Inditex'),
+
+-- Mexico
+(111, 'Pemex'),(112, 'América Móvil'),(113, 'Femsa'),(114, 'Grupo Bimbo'),(115, 'Televisa'),
+
+-- South Korea
+(116, 'Samsung Electronics'),(117, 'Hyundai Motor'),(118, 'SK Holdings'),(119, 'LG Electronics'),(120, 'POSCO'),
+
+-- Netherlands
+(121, 'Royal Dutch Shell'),(122, 'Unilever'),(123, 'ING Group'),(124, 'ASML'),(125, 'Philips'),
+
+-- Switzerland
+(126, 'Nestlé'),(127, 'Roche Holding'),(128, 'Novartis'),(129, 'UBS Group'),(130, 'Credit Suisse'),
+
+-- Sweden
+(131, 'Volvo'),(132, 'Ericsson'),(133, 'H&M'),(134, 'Electrolux'),(135, 'Spotify'),
+
+-- Norway
+(136, 'Equinor'),(137, 'Telenor'),(138, 'DNB'),(139, 'Norsk Hydro'),(140, 'Yara International'),
+
+-- Denmark
+(141, 'Novo Nordisk'),(142, 'Maersk'),(143, 'Danske Bank'),(144, 'Vestas'),(145, 'Carlsberg');
+
+
+#peuplement table 'Roles' :
+INSERT INTO Roles (role_name) VALUES
+('Admin'),('Pilote'),('Student');
+
+
+#peuplement table 'Skills' :
+INSERT INTO Skills (skill_name) VALUES 
+('Java'),('JavaScript'),('Python'),('SQL'),('C#'),('C++'),('TypeScript'),('HTML/CSS'),('Ruby'),('Swift'),('Go'),('Développement web'),('Développement mobile'),('Développement logiciel'),('Base de données'),('Analyse de données'),('Sécurité informatique'),('Réseaux informatiques'),('Cloud computing'),('Intelligence artificielle'),('Machine learning'),('Développement d''applications'),('Programmation'),('Débogage'),('Conception de bases de données'),('Administration système'),('Virtualisation'),('DevOps'),('Blockchain'),('IoT'),('Big Data'),('Analyse de code'),('Automatisation de tests'),('Gestion de projet'),('Design UX/UI'),('Systèmes d''exploitation'),('Administration de serveurs'),('Gestion de la configuration'),('Résolution de problèmes techniques');
+
+
+#peuplement table 'Internship_offers' :
+
+
+#peuplement table 'Class' :
+#peuplement table 'Users' :
+#peuplement table 'Applications' :
+#peuplement table 'Works_for' :
+#peuplement table 'Company_Reviews' :
+#peuplement table 'Required_Skills' :
+#peuplement table 'related_to_class' :
+--Roles
+--Classes (Class)
+--Compétences (Skills)
+--Entreprises (Companies) - Peut-être associé à des villes, donc assurez-vous d'avoir les villes nécessaires peuplées.
+--Offres de stage (Internship_offers) - Associé à des entreprises.
+--Utilisateurs (Users) - Peut-être associé à des rôles, des classes, des centres.
+--Applications
+--Travailler pour (Works_for)
+--Avis sur les entreprises (Company_Reviews)
+--Compétences requises (Required_Skills) - Si vous avez des offres de stage nécessitant des compétences spécifiques.
+--Utilisateurs_Classes (Users_Class) - Si nécessaire, pour associer les utilisateurs à leurs classes.
