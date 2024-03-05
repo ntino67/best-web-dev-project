@@ -10,7 +10,7 @@ function switch_sorting(event) {
 
 
   for (let i = 0; i < sorting_categories.length; i++) {
-    if (!(sorting_categories[i] == event.currentTarget)) {
+    if (sorting_categories[i] != event.currentTarget) {
       $("span.far", sorting_categories[i]).html("");
 
     }
