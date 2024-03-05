@@ -6,7 +6,7 @@ CREATE TABLE `Roles` (
 
 CREATE TABLE `Class` (
   `id_class` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `class_year` INTEGER
+  `class_year` VARCHAR(255)
 );
 
 CREATE TABLE `Centers` (
