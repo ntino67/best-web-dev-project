@@ -143,27 +143,107 @@ INSERT INTO Roles (role_name) VALUES
 
 #peuplement table 'Skills' :
 INSERT INTO Skills (skill_name) VALUES 
-('Java'),('JavaScript'),('Python'),('SQL'),('C#'),('C++'),('TypeScript'),('HTML/CSS'),('Ruby'),('Swift'),('Go'),('Développement web'),('Développement mobile'),('Développement logiciel'),('Base de données'),('Analyse de données'),('Sécurité informatique'),('Réseaux informatiques'),('Cloud computing'),('Intelligence artificielle'),('Machine learning'),('Développement d''applications'),('Programmation'),('Débogage'),('Conception de bases de données'),('Administration système'),('Virtualisation'),('DevOps'),('Blockchain'),('IoT'),('Big Data'),('Analyse de code'),('Automatisation de tests'),('Gestion de projet'),('Design UX/UI'),('Systèmes d''exploitation'),('Administration de serveurs'),('Gestion de la configuration'),('Résolution de problèmes techniques');
-
+('Java Language'),('JavaScript'),('Python'),('SQL'),('C#'),('C++'),('TypeScript'),('HTML/CSS'),('Ruby'),('Swift'),('Go'),('Web Development'),('Mobile Development'),('Software Development'),('Database'),('Data Analysis'),('Information Security'),('Computer Networks'),('Cloud Computing'),('Artificial Intelligence'),('Machine Learning'),('Application Development'),('Programming'),('Debugging'),('Database Design'),('System Administration'),('Virtualization'),('DevOps'),('Blockchain'),('Internet of Things (IoT)'),('Big Data'),('Code Analysis'),('Test Automation'),('Project Management'),('UX/UI Design'),('Operating Systems'),('Server Administration'),('Configuration Management'),('Technical Problem Solving');
 
 #peuplement table 'Internship_offers' :
+INSERT INTO Internship_offers (company_id, title, description, duration_months, location, skills_required) VALUES
+(1, 'Junior Web Developer Intern', 'Internship for junior web development to work on projects involving website creation and maintenance.', 6, 'Paris, France', 'Web_Development, Programming_Languages'),
+(2, 'Software Engineer Intern', 'Internship to develop and maintain software applications.', 6, 'Paris, France', 'Software_Development, Programming_Languages'),
+(3, 'Data Analysis Intern', 'Internship to analyze and interpret business data.', 6, 'Paris, France', 'Data_Analysis, Programming, Big_Data'),
+(4, 'Junior Full Stack Developer Intern', 'Internship to work on full-stack web application development.', 6, 'Paris, France', 'Web_Development, Programming_Languages'),
+(5, 'Artificial Intelligence Intern', 'Internship to develop artificial intelligence models for practical applications.', 6, 'Paris, France', 'Artificial_Intelligence, Machine_Learning, Programming_Languages'),
+(6, 'Mobile Development Intern', 'Internship to design and develop innovative mobile applications.', 6, 'Paris, France', 'Mobile_Development, Programming_Languages'),
+(7, 'Computer Security Analyst Intern', 'Internship to assess computer system security and propose solutions.', 6, 'Paris, France', 'Computer_Security, Data_Analysis, Programming'),
+(8, 'Cloud Computing Intern', 'Internship to work on cloud computing and virtualization solutions.', 6, 'Paris, France', 'Cloud_Computing, Virtualization, Computer_Networks'),
+(9, 'Blockchain Intern', 'Internship to explore blockchain technology applications in various domains.', 6, 'Paris, France', 'Blockchain, Programming, Data_Analysis'),
+(10, 'Debugging Intern', 'Internship to learn debugging techniques and resolve code issues.', 6, 'Paris, France', 'Debugging, Programming, Code_Analysis'),
+(11, 'Application Development Intern', 'Internship to participate in the development of applications for different platforms.', 6, 'Paris, France', 'Application_Development, Programming_Languages'),
+(12, 'Database Design Intern', 'Internship to design and optimize databases for applications.', 6, 'Paris, France', 'Database_Design, Programming, Data_Analysis'),
+(13, 'Front-End Developer Intern', 'Internship to work on user interface development for web applications.', 6, 'Paris, France', 'Web_Development, Programming_Languages, UX/UI_Design'),
+(14, 'Code Analysis Intern', 'Internship to analyze and improve code quality.', 6, 'Paris, France', 'Code_Analysis, Programming, Debugging'),
+(15, 'Computer Project Management Intern', 'Internship to learn project management principles in an IT environment.', 6, 'Paris, France', 'Project_Management, Programming, Data_Analysis'),
+(16, 'System Administration Intern', 'Internship to manage and maintain company computer systems.', 6, 'Paris, France', 'System_Administration, Computer_Networks, Computer_Security'),
+(17, 'Backend Development Intern', 'Internship to work on backend logic and databases for web applications.', 6, 'Paris, France', 'Web_Development, Database, Programming_Languages'),
+(18, 'Computer Networks Intern', 'Internship to design, deploy, and maintain computer networks.', 6, 'Paris, France', 'Computer_Networks, Computer_Security, System_Administration'),
+(19, 'DevOps Intern', 'Internship to automate development, deployment, and application management processes.', 6, 'Paris, France', 'DevOps, Cloud_Computing, Virtualization'),
+(20, 'Test Automation Intern', 'Internship to automate software testing and ensure application quality.', 6, 'Paris, France', 'Test_Automation, Programming, Debugging'),
+(21, 'Backend Developer Intern', 'Internship to work on server-side development for web applications.', 6, 'Paris, France', 'Web_Development, Programming_Languages, Database'),
+(22, 'Geospatial Data Analysis Intern', 'Internship to analyze and visualize geospatial data using computer tools.', 6, 'Paris, France', 'Data_Analysis, Programming, GIS'),
+(23, 'Database Administration Intern', 'Internship to manage and optimize databases for enterprise applications.', 6, 'Paris, France', 'Database_Administration, Database, Computer_Security'),
+(24, 'AI in Healthcare Intern', 'Internship to develop artificial intelligence solutions in the healthcare domain.', 6, 'Paris, France', 'Artificial_Intelligence, Healthcare, Programming'),
+(25, 'Mobile App Development Intern', 'Internship to design and develop mobile applications for different platforms.', 6, 'Paris, France', 'Mobile_Development, Programming_Languages, UX/UI_Design'),
+(26, 'Cybersecurity Intern', 'Internship to secure computer systems against cyberattacks and online threats.', 6, 'Paris, France', 'Cybersecurity, Computer_Security, Programming'),
+(27, 'Data Management Intern', 'Internship to manage and analyze large amounts of data to extract useful insights.', 6, 'Paris, France', 'Data_Management, Data_Analysis, Programming'),
+(28, 'Java Developer Intern', 'Internship to develop Java applications for internal and external projects.', 6, 'Paris, France', 'Software_Development, Programming_Languages, Java'),
+(29, 'Augmented Reality Intern', 'Internship to develop augmented reality applications for commercial use cases.', 6, 'Paris, France', 'Augmented_Reality, Programming, UX/UI_Design'),
+(30, 'Embedded Systems Design Intern', 'Internship to design embedded systems for industrial and consumer applications.', 6, 'Paris, France', 'Embedded_Systems, Programming, Electronics'),
+(31, 'Front-End Development Intern', 'Internship to design and develop user interfaces for web and mobile applications.', 6, 'Paris, France', 'Web_Development, Programming_Languages, UX/UI_Design'),
+(32, 'IoT Application Development Intern', 'Internship to design and develop applications for the Internet of Things.', 6, 'Paris, France', 'IoT, Programming, Computer_Networks'),
+(33, 'Natural Language Processing Intern', 'Internship to develop natural language processing algorithms for practical applications.', 6, 'Paris, France', 'Natural_Language_Processing, Artificial_Intelligence, Programming'),
+(34, 'Data Mining Intern', 'Internship to analyze large databases and extract valuable information for the company.', 6, 'Paris, France', 'Data_Mining, Data_Analysis, Programming'),
+(35, 'Video Game Development Intern', 'Internship to design and develop video games for different platforms.', 6, 'Paris, France', 'Video_Game_Development, Programming, UX/UI_Design'),
+(36, 'Computer Vision Intern', 'Internship to develop computer vision algorithms for image recognition applications.', 6, 'Paris, France', 'Computer_Vision, Artificial_Intelligence, Programming'),
+(37, 'Chatbot Development Intern', 'Internship to design and develop chatbots for customer service applications.', 6, 'Paris, France', 'Chatbot_Development, Artificial_Intelligence, Programming'),
+(38, 'Enterprise Software Development Intern', 'Internship to develop enterprise software to meet specific client needs.', 6, 'Paris, France', 'Software_Development, Programming, Data_Analysis'),
+(39, 'Computer Security Risk Analysis Intern', 'Internship to assess computer security risks and propose solutions to mitigate them.', 6, 'Paris, France', 'Risk_Analysis, Computer_Security, Programming'),
+(40, 'Virtual Reality Intern', 'Internship to develop virtual reality applications for immersive experiences.', 6, 'Paris, France', 'Virtual_Reality, Programming, UX/UI_Design'),
+(41, 'Distributed Systems Development Intern', 'Internship to design and develop distributed systems for cloud applications.', 6, 'Paris, France', 'Distributed_Systems, Cloud_Computing, Programming'),
+(42, 'Operating Systems Development Intern', 'Internship to work on the development and optimization of operating systems.', 6, 'Paris, France', 'Operating_Systems, Programming, System_Administration'),
+(43, 'Embedded Software Development Intern', 'Internship to design and develop software for embedded systems.', 6, 'Paris, France', 'Embedded_Software_Development, Programming, Electronics'),
+(44, 'Quantum Computing Intern', 'Internship to work on algorithms and technologies related to quantum computing.', 6, 'Paris, France', 'Quantum_Computing, Programming, Physics'),
+(45, 'Wearable Applications Development Intern', 'Internship to design and develop applications for wearable devices.', 6, 'Paris, France', 'Wearable_Applications_Development, IoT, Programming'),
+(46, 'Application Security Analysis Intern', 'Internship to analyze the security of computer applications and propose improvements.', 6, 'Paris, France', 'Security_Analysis, Computer_Security, Programming'),
+(47, 'E-Commerce Solutions Development Intern', 'Internship to develop e-commerce solutions for businesses.', 6, 'Paris, France', 'E-commerce_Development, Programming, UX/UI_Design'),
+(48, 'Medical Image Processing Intern', 'Internship to develop algorithms for medical image processing for diagnostic aid.', 6, 'Paris, France', 'Medical_Image_Processing, Programming, Healthcare'),
+(49, 'Messaging Applications Development Intern', 'Internship to design and develop instant messaging applications.', 6, 'Paris, France', 'Messaging_Applications_Development, Programming, Computer_Networks'),
+(50, 'Cloud-Native Applications Development Intern', 'Internship to design and develop cloud-native applications for agile deployments.', 6, 'Paris, France', 'Cloud-Native_Applications_Development, Cloud_Computing, Programming');
 
 
 #peuplement table 'Class' :
+INSERT INTO Class (class_year) VALUES 
+('A1'), ('A2'), ('A3'), ('A4'), ('A5');
+
+
 #peuplement table 'Users' :
+INSERT INTO Users (related_to_class, first_name, last_name, password, created_at, id_center, id_role) VALUES 
+(1, 'John', 'Doe', 'password123', '2024-03-05 08:00:00', 1, 1),
+(2, 'Jane', 'Smith', 'securepass', '2024-03-05 08:00:00', 2, 2),
+(3, 'Alice', 'Johnson', 'pass1234', '2024-03-05 08:00:00', 3, 3),
+(4, 'Bob', 'Brown', 'letmein', '2024-03-05 08:00:00', 4, 1),
+(5, 'Eve', 'White', 'p@ssw0rd', '2024-03-05 08:00:00', 5, 2);
+
 #peuplement table 'Applications' :
+INSERT INTO Applications (id_student, id_internship_offer, CV, motivation_letter) VALUES
+(1, 1, 'JohnDoe_CV.pdf', 'JohnDoe_MotivationLetter.pdf'),
+(2, 2, 'JaneSmith_CV.pdf', 'JaneSmith_MotivationLetter.pdf'),
+(3, 3, 'AliceJohnson_CV.pdf', 'AliceJohnson_MotivationLetter.pdf'),
+(4, 4, 'BobBrown_CV.pdf', 'BobBrown_MotivationLetter.pdf'),
+(5, 5, 'EveWhite_CV.pdf', 'EveWhite_MotivationLetter.pdf');
+
+
 #peuplement table 'Works_for' :
+INSERT INTO Works_for (id_student, id_company, start_date, end_date) VALUES
+(1, 1, '2023-01-01', '2023-06-30'),
+(2, 2, '2023-02-15', '2023-08-15'),
+(3, 3, '2023-03-01', '2023-09-01'),
+(4, 4, '2023-04-01', '2023-10-01'),
+(5, 5, '2023-05-01', '2023-11-01');
+
+
 #peuplement table 'Company_Reviews' :
+INSERT INTO Company_Reviews (id_company, id_user, review_text, review_score) VALUES
+(1, 1, 'Great company to work for, friendly environment and good opportunities for growth.', 5),
+(2, 2, 'The company has a strong team and interesting projects, but could improve work-life balance.', 4),
+(3, 3, 'Enjoyed my time at the company, learned a lot and had supportive colleagues.', 5),
+(4, 4, 'Challenging projects and a dynamic work environment, but communication could be better.', 4),
+(5, 5, 'Overall positive experience, but some areas for improvement in management.', 3);
+
+
 #peuplement table 'Required_Skills' :
+INSERT INTO Required_Skills (id_internship_offer, required_skills) VALUES
+(1, 1),(1, 2),(1, 3),(2, 4),(2, 5),(2, 6),(3, 7),(3, 8),(3, 9),(4, 10),(4, 11),(4, 12),(5, 13),(5, 14),(5, 15);
+
+
 #peuplement table 'related_to_class' :
---Roles
---Classes (Class)
---Compétences (Skills)
---Entreprises (Companies) - Peut-être associé à des villes, donc assurez-vous d'avoir les villes nécessaires peuplées.
---Offres de stage (Internship_offers) - Associé à des entreprises.
---Utilisateurs (Users) - Peut-être associé à des rôles, des classes, des centres.
---Applications
---Travailler pour (Works_for)
---Avis sur les entreprises (Company_Reviews)
---Compétences requises (Required_Skills) - Si vous avez des offres de stage nécessitant des compétences spécifiques.
---Utilisateurs_Classes (Users_Class) - Si nécessaire, pour associer les utilisateurs à leurs classes.
+INSERT INTO related_to_class (id_user, id_class) VALUES
+(1, 1),(2, 2),(3, 3),(4, 4),(5, 5);
