@@ -23,7 +23,7 @@ CREATE TABLE `Cities` (
   `id_city` INT PRIMARY KEY AUTO_INCREMENT,
   `id_country` INT,
   `name` VARCHAR(255),
-  `postal_code` INT
+  `postal_code` VARCHAR(255)
 );
 
 CREATE TABLE `Companies` (
@@ -36,6 +36,8 @@ CREATE TABLE `Internship_offers` (
   `id_internship_offer` INT PRIMARY KEY AUTO_INCREMENT,
   `id_company` INT,
   `available_slots` INT,
+  `title` VARCHAR(255),
+  `description` VARCHAR(255),
   `created_at` DATE,
   `expires_at` DATE
 );
