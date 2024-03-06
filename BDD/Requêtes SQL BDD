@@ -31,8 +31,23 @@ GROUP BY
     Companies.company_name, Companies.company_description, Cities.name, Country.name;
 
 SFx3	Créer une entreprise
+SET @id_city := 1;
+SET @company_name := 'Test nouvelle entreprise';
+SET @company_description := 'Elle propose rien de particulier à part de grande tasse de café';
+INSERT INTO Companies (id_city, company_name, company_description) VALUES
+(@id_city, @company_name, @company_description);
 
 SFx4	Modifier une entreprise
+SET @company_id := 145;
+SET @new_company_name := 'Chibraltar';
+SET @new_company_description := 'Rien à voir';
+UPDATE Companies 
+SET 
+    company_name = @new_company_name,
+    company_description = @new_company_description 
+WHERE 
+    id_company = @company_id;
+
 SFx5	Evaluer une entreprise
 SFx6	Supprimer une entreprise
 SFx7	Consulter les stats des entreprises
