@@ -53,6 +53,7 @@ CREATE TABLE `Users` (
   `related_to_class` INTEGER,
   `first_name` VARCHAR(255),
   `last_name` VARCHAR(255),
+  `email` VARCHAR(255),
   `password` VARCHAR(255),
   `created_at` TIMESTAMP,
   `id_center` INTEGER,
