@@ -1,4 +1,4 @@
-USE test_web_k;
+USE web_project;
 CREATE TABLE `Roles` (
   `id_role` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(255)
