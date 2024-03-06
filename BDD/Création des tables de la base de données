@@ -29,7 +29,8 @@ CREATE TABLE `Cities` (
 CREATE TABLE `Companies` (
   `id_company` INT PRIMARY KEY AUTO_INCREMENT,
   `id_city` INT,
-  `company_name` VARCHAR(255)
+  `company_name` VARCHAR(255),
+  `company_description` VARCHAR(255)
 );
 
 CREATE TABLE `Internship_offers` (
