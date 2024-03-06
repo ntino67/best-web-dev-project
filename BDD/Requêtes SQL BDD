@@ -1,6 +1,31 @@
 Vous trouverez ici les requêtes SQL nécessaires à la réalisation des spécifications fonctionnelles suivantes :
+USE web_project;
+
 SFx1	Authentifier
+
 SFx2	Rechercher une entreprise
+SET @company_name := 'Total';
+SELECT 
+    Companies.company_name AS Company_name,
+    Cities.name AS City,
+    Country.name AS Country,
+    COUNT(Internship_offers.id_internship_offer) AS Number_of_offers,
+    AVG(Company_Reviews.review_score) AS Average_rating
+FROM 
+    Companies
+JOIN 
+    Cities ON Companies.id_city = Cities.id_city
+JOIN 
+    Country ON Cities.id_country = Country.id_country
+LEFT JOIN 
+    Internship_offers ON Companies.id_company = Internship_offers.id_company
+LEFT JOIN 
+    Company_Reviews ON Companies.id_company = Company_Reviews.id_company
+WHERE 
+    Companies.company_name = @company_name
+GROUP BY 
+    Companies.company_name, Cities.name, Country.name;
+
 SFx3	Créer une entreprise
 SFx4	Modifier une entreprise
 SFx5	Evaluer une entreprise
