@@ -2,6 +2,9 @@ Vous trouverez ici les requêtes SQL nécessaires à la réalisation des spécif
 USE web_project;
 
 SFx1	Authentifier
+SET @email_utilisateur := 'john.doe@example.com';
+SET @mot_de_passe_utilisateur := 'password123';
+SELECT email, password FROM Users WHERE email = @email_utilisateur AND password = @mot_de_passe_utilisateur;
 
 SFx2	Rechercher une entreprise
 SET @company_name := 'Total';
