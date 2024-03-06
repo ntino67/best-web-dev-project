@@ -30,7 +30,7 @@ CREATE TABLE `Companies` (
   `id_company` INT PRIMARY KEY AUTO_INCREMENT,
   `id_city` INT,
   `company_name` VARCHAR(255),
-  `company_description` VARCHAR(255)
+  `company_description` VARCHAR(1000)
 );
 
 CREATE TABLE `Internship_offers` (
