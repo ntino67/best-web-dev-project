@@ -7,6 +7,7 @@ SFx2	Rechercher une entreprise
 SET @company_name := 'Total';
 SELECT 
     Companies.company_name AS Company_name,
+    Companies.company_description AS Company_description,
     Cities.name AS City,
     Country.name AS Country,
     COUNT(Internship_offers.id_internship_offer) AS Number_of_offers,
@@ -24,7 +25,7 @@ LEFT JOIN
 WHERE 
     Companies.company_name = @company_name
 GROUP BY 
-    Companies.company_name, Cities.name, Country.name;
+    Companies.company_name, Companies.company_description, Cities.name, Country.name;
 
 SFx3	Créer une entreprise
 SFx4	Modifier une entreprise
