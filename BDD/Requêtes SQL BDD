@@ -28,6 +28,7 @@ GROUP BY
     Companies.company_name, Companies.company_description, Cities.name, Country.name;
 
 SFx3	Créer une entreprise
+
 SFx4	Modifier une entreprise
 SFx5	Evaluer une entreprise
 SFx6	Supprimer une entreprise
