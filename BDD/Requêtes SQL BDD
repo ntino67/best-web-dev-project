@@ -1,1 +1,25 @@
-
+Vous trouverez ici les requêtes SQL nécessaires à la réalisation des spécifications fonctionnelles suivantes :
+SFx1	Authentifier
+SFx2	Rechercher une entreprise
+SFx3	Créer une entreprise
+SFx4	Modifier une entreprise
+SFx5	Evaluer une entreprise
+SFx6	Supprimer une entreprise
+SFx7	Consulter les stats des entreprises
+SFx8	Rechercher une offre
+SFx9	Créer une offre
+SFx10	Modifier une offre
+SFx11	Supprimer une offre
+SFx12	Consulter les stats des offres
+SFx13	Rechercher un compte pilote
+SFx14	Créer un compte pilote
+SFx15	Modifier un compte pilote
+SFx16	Supprimer un compte pilote
+SFx17	Rechercher un compte étudiant
+SFx18	Créer un compte étudiant
+SFx19	Modifier un compte étudiant
+SFx20	Supprimer un compte étudiant
+SFx21	Consulter les stats des étudiants
+SFx22	Ajouter une offre à la wish-list
+SFx23	Retirer une offre à la wish-list
+SFx24	Postuler à une offre
