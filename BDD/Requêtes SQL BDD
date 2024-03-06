@@ -49,6 +49,13 @@ WHERE
     id_company = @company_id;
 
 SFx5	Evaluer une entreprise
+SET @company_id := 1; -- Remplacez 1 par l'ID de l'entreprise concernée
+SET @user_id := 1; -- Remplacez 1 par l'ID de l'utilisateur qui donne la note
+SET @review_text := '';
+SET @review_score := 5;
+INSERT INTO Company_Reviews (id_company, id_user, review_text, review_score)
+VALUES (@company_id, @user_id, @review_text, @review_score);
+
 SFx6	Supprimer une entreprise
 SFx7	Consulter les stats des entreprises
 SFx8	Rechercher une offre
