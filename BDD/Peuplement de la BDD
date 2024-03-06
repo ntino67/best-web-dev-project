@@ -74,66 +74,191 @@ INSERT INTO Centers (center_name) VALUES
 
 
 #peuplement table 'Companies' :
-INSERT INTO Companies (id_city, company_name) VALUES
+INSERT INTO Companies (id_city, company_name, company_description) VALUES
 -- Entreprises en France
-(1, 'LVMH'), (2, 'Total'), (3, 'Carrefour'), (4, 'Airbus'), (5, 'BNP Paribas'), (6, 'L_Oréal'), (7, 'Orange'), (8, 'Michelin'), (9, 'Capgemini'), (10, 'Danone'), (11, 'Société Générale'), (12, 'Peugeot'), (13, 'Renault'), (14, 'AXA'), (15, 'Dassault Systèmes'), (16, 'Accor'), (17, 'Engie'), (18, 'Thales'), (19, 'Veolia'), (20, 'Vinci'), (21, 'Sanofi'), (22, 'Vivendi'), (23, 'Sodexo'), (24, 'EDF'), (25, 'Air Liquide'), (26, 'Schneider Electric'), (27, 'BNP Paribas'), (28, 'Safran'), (29, 'EssilorLuxottica'), (30, 'Air France-KLM'), (31, 'Arkema'), (32, 'Eiffage'), (33, 'Alstom'), (34, 'TechnipFMC'), (35, 'Publicis Groupe'), (36, 'Bouygues'), (37, 'Air Liquide'), (38, 'Veolia'), (39, 'Orange'), (40, 'Dassault Aviation'), (41, 'Ubisoft'), (42, 'Aéroports de Paris'), (43, 'Accor'), (44, 'Saint-Gobain'), (45, 'Atos'), (46, 'Hermès'), (47, 'Credit Agricole'), (48, 'LafargeHolcim'), (49, 'Renault'), (50, 'Capgemini'),
+(1, 'LVMH', 'Luxury goods'),
+(2, 'Total', 'Oil and gas'),
+(3, 'Carrefour', 'Retail'),
+(4, 'Airbus', 'Aerospace'),
+(5, 'BNP Paribas', 'Banking'),
+(6, 'L_Oréal', 'Cosmetics'),
+(7, 'Orange', 'Telecommunications'),
+(8, 'Michelin', 'Tires'),
+(9, 'Capgemini', 'Consulting and IT services'),
+(10, 'Danone', 'Food and beverage'),
+(11, 'Société Générale', 'Banking'),
+(12, 'Peugeot', 'Automobiles'),
+(13, 'Renault', 'Automobiles'),
+(14, 'AXA', 'Insurance'),
+(15, 'Dassault Systèmes', 'Software'),
+(16, 'Accor', 'Hospitality'),
+(17, 'Engie', 'Utilities'),
+(18, 'Thales', 'Defense'),
+(19, 'Veolia', 'Environmental services'),
+(20, 'Vinci', 'Construction'),
+(21, 'Sanofi', 'Pharmaceuticals'),
+(22, 'Vivendi', 'Media'),
+(23, 'Sodexo', 'Food services'),
+(24, 'EDF', 'Utilities'),
+(25, 'Air Liquide', 'Industrial gases'),
+(26, 'Schneider Electric', 'Energy management'),
+(27, 'BNP Paribas', 'Banking'),
+(28, 'Safran', 'Aerospace and defense'),
+(29, 'EssilorLuxottica', 'Eyewear'),
+(30, 'Air France-KLM', 'Airlines'),
+(31, 'Arkema', 'Chemicals'),
+(32, 'Eiffage', 'Construction'),
+(33, 'Alstom', 'Transportation'),
+(34, 'TechnipFMC', 'Oilfield services'),
+(35, 'Publicis Groupe', 'Advertising'),
+(36, 'Bouygues', 'Construction and telecommunications'),
+(37, 'Air Liquide', 'Industrial gases'),
+(38, 'Veolia', 'Environmental services'),
+(39, 'Orange', 'Telecommunications'),
+(40, 'Dassault Aviation', 'Aerospace'),
+(41, 'Ubisoft', 'Video games'),
+(42, 'Aéroports de Paris', 'Airport management'),
+(43, 'Accor', 'Hospitality'),
+(44, 'Saint-Gobain', 'Construction materials'),
+(45, 'Atos', 'IT services'),
+(46, 'Hermès', 'Luxury goods'),
+(47, 'Credit Agricole', 'Banking'),
+(48, 'LafargeHolcim', 'Building materials'),
+(49, 'Renault', 'Automobiles'),
+(50, 'Capgemini', 'Consulting and IT services'),
 
 -- United States
-(51, 'Apple'), (52, 'Amazon'), (53, 'Microsoft'), (54, 'Alphabet'), (55, 'Tesla'),
+(51, 'Apple', 'Technology'),
+(52, 'Amazon', 'E-commerce'),
+(53, 'Microsoft', 'Technology'),
+(54, 'Alphabet', 'Technology'),
+(55, 'Tesla', 'Automobiles'),
 
 -- Canada
-(56, 'Tim Hortons'),(57, 'BlackBerry'),(58, 'Bombardier'),(59, 'Shopify'),(60, 'Air Canada'),
+(56, 'Tim Hortons', 'Food and beverage'),
+(57, 'BlackBerry', 'Technology'),
+(58, 'Bombardier', 'Transportation'),
+(59, 'Shopify', 'E-commerce'),
+(60, 'Air Canada', 'Airlines'),
 
 -- United Kingdom
-(61, 'HSBC Holdings'),(62, 'Royal Dutch Shell'),(63, 'GlaxoSmithKline'),(64, 'Barclays'),(65, 'BP'),
+(61, 'HSBC Holdings', 'Banking and financial services'),
+(62, 'Royal Dutch Shell', 'Oil and gas'),
+(63, 'GlaxoSmithKline', 'Pharmaceuticals'),
+(64, 'Barclays', 'Banking'),
+(65, 'BP', 'Oil and gas'),
 
 -- Germany
-(66, 'Volkswagen'),(67, 'Bayer'),(68, 'Siemens'),(69, 'BMW'),(70, 'Allianz'),
+(66, 'Volkswagen', 'Automobiles'),
+(67, 'Bayer', 'Pharmaceuticals and chemicals'),
+(68, 'Siemens', 'Technology'),
+(69, 'BMW', 'Automobiles'),
+(70, 'Allianz', 'Insurance'),
 
 -- Australia
-(71, 'Woolworths Group'),(72, 'BHP'),(73, 'Commonwealth Bank'),(74, 'Rio Tinto'),(75, 'ANZ'),
+(71, 'Woolworths Group', 'Retail'),
+(72, 'BHP', 'Mining'),
+(73, 'Commonwealth Bank', 'Banking'),
+(74, 'Rio Tinto', 'Mining'),
+(75, 'ANZ', 'Banking'),
 
 -- Japan
-(76, 'Toyota'),(77, 'Sony'),(78, 'SoftBank'),(79, 'Honda'),(80, 'Mitsubishi'),
+(76, 'Toyota', 'Automobiles'),
+(77, 'Sony', 'Technology'),
+(78, 'SoftBank', 'Investment'),
+(79, 'Honda', 'Automobiles'),
+(80, 'Mitsubishi', 'Conglomerate'),
 
 -- China
-(81, 'Alibaba Group'),(82, 'Tencent Holdings'),(83, 'China Mobile'),(84, 'ICBC'),(85, 'China Construction Bank'),
+(81, 'Alibaba Group', 'E-commerce'),
+(82, 'Tencent Holdings', 'Technology'),
+(83, 'China Mobile', 'Telecommunications'),
+(84, 'ICBC', 'Banking'),
+(85, 'China Construction Bank', 'Banking'),
 
 -- Brazil
-(86, 'Petrobras'),(87, 'Vale'),(88, 'Itaú Unibanco Holding'),(89, 'Banco Bradesco'),(90, 'Ambev'),
+(86, 'Petrobras', 'Oil and gas'),
+(87, 'Vale', 'Mining'),
+(88, 'Itaú Unibanco Holding', 'Banking'),
+(89, 'Banco Bradesco', 'Banking'),
+(90, 'Ambev', 'Beverages'),
 
 -- India
-(91, 'Reliance Industries'),(92, 'Tata Group'),(93, 'HDFC Bank'),(94, 'Infosys'),(95, 'State Bank of India'),
+(91, 'Reliance Industries', 'Conglomerate'),
+(92, 'Tata Group', 'Conglomerate'),
+(93, 'HDFC Bank', 'Banking'),
+(94, 'Infosys', 'IT services'),
+(95, 'State Bank of India', 'Banking'),
 
 -- Russia
-(96, 'Gazprom'),(97, 'Sberbank'),(98, 'Lukoil'),(99, 'Rosneft'),(100, 'VTB Bank'),
+(96, 'Gazprom', 'Natural gas'),
+(97, 'Sberbank', 'Banking'),
+(98, 'Lukoil', 'Oil and gas'),
+(99, 'Rosneft', 'Oil and gas'),
+(100, 'VTB Bank', 'Banking'),
 
 -- Italy
-(101, 'Eni'),(102, 'Intesa Sanpaolo'),(103, 'Unicredit'),(104, 'Enel'),(105, 'Generali'),
+(101, 'Eni', 'Oil and gas'),
+(102, 'Intesa Sanpaolo', 'Banking'),
+(103, 'Unicredit', 'Banking'),
+(104, 'Enel', 'Utilities'),
+(105, 'Generali', 'Insurance'),
 
 -- Spain
-(106, 'Santander'),(107, 'BBVA'),(108, 'Telefónica'),(109, 'Iberdrola'),(110, 'Inditex'),
+(106, 'Santander', 'Banking'),
+(107, 'BBVA', 'Banking'),
+(108, 'Telefónica', 'Telecommunications'),
+(109, 'Iberdrola', 'Utilities'),
+(110, 'Inditex', 'Retail'),
 
 -- Mexico
-(111, 'Pemex'),(112, 'América Móvil'),(113, 'Femsa'),(114, 'Grupo Bimbo'),(115, 'Televisa'),
+(111, 'Pemex', 'Oil and gas'),
+(112, 'América Móvil', 'Telecommunications'),
+(113, 'Femsa', 'Beverages'),
+(114, 'Grupo Bimbo', 'Food and beverage'),
+(115, 'Televisa', 'Media'),
 
 -- South Korea
-(116, 'Samsung Electronics'),(117, 'Hyundai Motor'),(118, 'SK Holdings'),(119, 'LG Electronics'),(120, 'POSCO'),
+(116, 'Samsung Electronics', 'Technology'),
+(117, 'Hyundai Motor', 'Automobiles'),
+(118, 'SK Holdings', 'Conglomerate'),
+(119, 'LG Electronics', 'Technology'),
+(120, 'POSCO', 'Steel'),
 
 -- Netherlands
-(121, 'Royal Dutch Shell'),(122, 'Unilever'),(123, 'ING Group'),(124, 'ASML'),(125, 'Philips'),
+(121, 'Royal Dutch Shell', 'Oil and gas'),
+(122, 'Unilever', 'Consumer goods'),
+(123, 'ING Group', 'Banking'),
+(124, 'ASML', 'Technology'),
+(125, 'Philips', 'Technology'),
 
 -- Switzerland
-(126, 'Nestlé'),(127, 'Roche Holding'),(128, 'Novartis'),(129, 'UBS Group'),(130, 'Credit Suisse'),
+(126, 'Nestlé', 'Food and beverage'),
+(127, 'Roche Holding', 'Pharmaceuticals'),
+(128, 'Novartis', 'Pharmaceuticals'),
+(129, 'UBS Group', 'Banking'),
+(130, 'Credit Suisse', 'Banking'),
 
 -- Sweden
-(131, 'Volvo'),(132, 'Ericsson'),(133, 'H&M'),(134, 'Electrolux'),(135, 'Spotify'),
+(131, 'Volvo', 'Automobiles'),
+(132, 'Ericsson', 'Technology'),
+(133, 'H&M', 'Retail'),
+(134, 'Electrolux', 'Appliances'),
+(135, 'Spotify', 'Technology'),
 
 -- Norway
-(136, 'Equinor'),(137, 'Telenor'),(138, 'DNB'),(139, 'Norsk Hydro'),(140, 'Yara International'),
+(136, 'Equinor', 'Energy'),
+(137, 'Telenor', 'Telecommunications'),
+(138, 'DNB', 'Banking'),
+(139, 'Norsk Hydro', 'Aluminium'),
+(140, 'Yara International', 'Fertilizers'),
 
 -- Denmark
-(141, 'Novo Nordisk'),(142, 'Maersk'),(143, 'Danske Bank'),(144, 'Vestas');
+(141, 'Novo Nordisk', 'Pharmaceuticals'),
+(142, 'Maersk', 'Shipping'),
+(143, 'Danske Bank', 'Banking'),
+(144, 'Vestas', 'Wind turbines');
+
 
 
 #peuplement table 'Roles' :
