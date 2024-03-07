@@ -97,14 +97,9 @@ div.navbar {
 }
 
 .navbar button {
-  background-color: black;
-  color: white;
-  border: none;
   height: 40px;
   width: 90px;
-  font-weight: bold;
   font-size: 20px;
-  border-radius: 9px;
 }
 
 .navbar > * {
@@ -382,7 +377,6 @@ main.search-container {
 
   button {
     height: 2.5rem;
-
   }
 }
 
