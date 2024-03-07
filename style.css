@@ -276,6 +276,11 @@ main.search-container {
     display: flex;
     gap: 0.4rem;
   }
+
+  span:hover {
+    text-decoration: underline;
+  }
+
   .far {
     width: 1.4rem;
     text-align: center;
