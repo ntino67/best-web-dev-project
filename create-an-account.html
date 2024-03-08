@@ -1,10 +1,10 @@
-<!-- <!DOCTYPE html> -->
-
+<!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
     <script src="script/jquery/jquery-3.7.1.js"></script>
     <script src="script/navbar.js"></script>
+    <script src="script/create-account.js"></script>
   </head>
   <body>
     <div id="navbar-container" class="navbar-absolute"></div>
@@ -20,17 +20,62 @@
             <input type="text" placeholder="Last name" id="signup-last-name" required>
             <input type="text" placeholder="Email" id="signup-email" required>
             <input type="password" placeholder="Password" id="signup-password" required>
-            <input type="password" placeholder="Confirm password" id="signup-p requiredassword-confirm" required>
-            <select required>
-              <option value="" disabled selected hidden>Account type</option>
+            <input type="password" placeholder="Confirm password" id="signup-password-confirm" required>
+            <select required id="signup-account-type">
+              <option value="none" disabled selected hidden>Account type</option>
               <option value="student">Student</option>
               <option value="pilot">Pilot</option>
               <option value="admin">Administrator</option>
             </select>
+            <div name="signup-promotion-checkbox">
+              <span>
+                <input type="checkbox" id="A1" name="signup-promotion-checkbox-el" value="1">
+                <label for="A1">A1</label>
+              </span>
+              <span>
+                <input type="checkbox" id="A2" name="signup-promotion-checkbox-el" value="2">
+                <label for="A2">A2</label>
+              </span>
+              <span>
+                <input type="checkbox" id="A3" name="signup-promotion-checkbox-el" value="3">
+                <label for="A3">A3</label>
+              </span>
+              <span>
+                <input type="checkbox" id="A4" name="signup-promotion-checkbox-el" value="4">
+                <label for="A4">A4</label>
+              </span>
+              <span>
+                <input type="checkbox" id="A5" name="signup-promotion-checkbox-el" value="5">
+                <label for="A5">A5</label>
+              </span>
+            </div>
+            <div name="signup-promotion-radio">
+              <span>
+                <input type="radio" id="A1" name="signup-promotion-radio-el" value="1">
+                <label for="A1">A1</label>
+              </span>
+              <span>
+                <input type="radio" id="A2" name="signup-promotion-radio-el" value="2">
+                <label for="A2">A2</label>
+              </span>
+              <span>
+                <input type="radio" id="A3" name="signup-promotion-radio-el" value="3">
+                <label for="A3">A3</label>
+              </span>
+              <span>
+                <input type="radio" id="A4" name="signup-promotion-radio-el" value="4">
+                <label for="A4">A4</label>
+              </span>
+              <span>
+                <input type="radio" id="A5" name="signup-promotion-radio-el" value="5">
+                <label for="A5">A5</label>
+              </span>
+            </div>
+
             <button>Create</button>
           </form>
         </div>
       </div>
     </div>
   </body>
-</html>
+</html
