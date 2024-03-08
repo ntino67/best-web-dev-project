@@ -30,17 +30,19 @@ CREATE TABLE `Companies` (
   `id_company` INT PRIMARY KEY AUTO_INCREMENT,
   `id_city` INT,
   `company_name` VARCHAR(255),
-  `company_description` VARCHAR(1000)
+  `company_description` VARCHAR(1000),
+  `company_active` BOOL
 );
 
 CREATE TABLE `Internship_offers` (
   `id_internship_offer` INT PRIMARY KEY AUTO_INCREMENT,
   `id_company` INT,
   `available_slots` INT,
-  `title` VARCHAR(255),
-  `description` VARCHAR(255),
-  `created_at` DATE,
-  `expires_at` DATE
+  `internship_offer_title` VARCHAR(255),
+  `internship_offer_description` VARCHAR(255),
+  `internship_offer_created_at` DATE,
+  `internship_offer_expires_at` DATE,
+  `internship_offer_active` BOOL
 );
 
 CREATE TABLE `Skills` (
@@ -55,9 +57,10 @@ CREATE TABLE `Users` (
   `last_name` VARCHAR(255),
   `email` VARCHAR(255),
   `password` VARCHAR(255),
-  `created_at` TIMESTAMP,
+  `user_created_at` TIMESTAMP,
   `id_center` INTEGER,
   `id_role` INTEGER,
+  `user_active` BOOL,
   FOREIGN KEY (`related_to_class`) REFERENCES `Class` (`id_class`)
 );
 
