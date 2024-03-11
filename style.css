@@ -1,6 +1,6 @@
 /* CSS Reset */
 
-html, body, div, span, applet, object, iframe,
+html, body, div, div, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -123,8 +123,47 @@ div.navbar {
   justify-content: space-around; 
   display: flex;
   width: 15%;
-  padding-right: 2%
+  padding-right: 2%;
 }
+
+/* Footer styling */
+.footer {
+  background-color: black;
+  color: white;
+  padding: 1.5rem 0rem 0.8rem 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+
+  a {
+    display: flex;
+    gap: 0.4rem;
+    color: white;
+    text-decoration: none;
+    
+    p {font-weight: 600;}
+  }
+}
+
+.footer-copyright {
+  color: #D3D3D3;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
 /* Login & Account creation styling */
 
 div.auth-container {
@@ -166,6 +205,12 @@ div.auth > * {
   padding-bottom: 15px;
 }
 
+.auth-input form {
+  display: flex;
+  gap: 0.8rem;
+  flex-direction: column;
+}
+
 .auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select {
   background-color: white;
   box-sizing: border-box;
@@ -180,7 +225,21 @@ div.auth > * {
   font-size: 1rem;
   color: #777;
   border-width: 2px;
-  margin: 7px 0 7px 0;
+}
+
+.auth-input div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-input label {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.auth-input input[type=checkbox], input[type=radio] {
+  height: 1rem;
+  width: 1rem;
 }
 
 .auth-input button {
@@ -276,6 +335,11 @@ main.search-container {
     display: flex;
     gap: 0.4rem;
   }
+
+  div:hover {
+    text-decoration: underline;
+  }
+
   .far {
     width: 1.4rem;
     text-align: center;
