@@ -196,15 +196,15 @@ div.auth > * {
 
 header.search-page-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin: 0 0 2.5rem 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .search-page-header h1 {
   font-size: 4rem;
   font-weight: bold;
+  order: 1;
 }
 
 div.sorting {
@@ -393,5 +393,123 @@ main.search-container {
   gap: 0.4rem;
   .info-title {
     font-weight: bold;
+  }
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: 10px;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.company-info > div {
+  flex: 1;
+  text-align: center;
+}
+
+.company-rating-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 3.2rem;
+  margin-bottom: 0.1rem;
+  width: 100%;
+}
+
+.company-rating-number {
+  font-weight: bold;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  line-height: 1.2125;
+}
+
+.company-rating-stars {
+  align-items: baseline;
+  display: flex;
+  height: 1.3rem;
+  line-height: 1.15;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.description-entreprise {
+  font-size: 0.9rem;
+  color: #6B7280;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.center-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.flex-column-center.logo {
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flex-column-center span {
+  font-size: 1rem;
+  line-height: 1.2125;
+}
+
+@media only screen and (max-width: 600px) {
+  .company-info {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 1rem 1rem 1rem;
+  }
+
+  .company-rating {
+    margin: 0 1rem 0.5rem 0;
+  }
+
+  .company-rating-number, .company-rating-stars {
+    font-size: 1.2rem;
+  }
+
+  .description-entreprise {
+    font-size: 0.8rem;
+  }
+
+  .location-info p {
+    font-size: 1rem;
+  }
+
+  .internship-info {
+    margin: 0.35rem 1rem 0.2rem 0;
+    width: 100%;
+  }
+
+  .internship-info-logo, .internship-info-text {
+    font-size: 1.4rem;
   }
 }
