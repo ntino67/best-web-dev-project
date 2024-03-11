@@ -28,7 +28,6 @@ CREATE TABLE `Cities` (
 
 CREATE TABLE `Companies` (
   `id_company` INT PRIMARY KEY AUTO_INCREMENT,
-  `id_city` INT,
   `company_name` VARCHAR(255),
   `company_business_sector` VARCHAR(255),
   `company_description` VARCHAR(1000),
@@ -55,7 +54,6 @@ CREATE TABLE `Skills` (
 
 CREATE TABLE `Users` (
   `id_user` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `related_to_class` INTEGER,
   `first_name` VARCHAR(255),
   `last_name` VARCHAR(255),
   `email` VARCHAR(255),
@@ -63,26 +61,24 @@ CREATE TABLE `Users` (
   `user_created_at` TIMESTAMP,
   `id_center` INTEGER,
   `id_role` INTEGER,
-  `user_active` BOOL,
-  FOREIGN KEY (`related_to_class`) REFERENCES `Class` (`id_class`)
+  `user_active` BOOL
 );
 
 CREATE TABLE `Applications` (
-  `id_student` INT,
+  `id_user` INT,
   `id_internship_offer` INT,
   `CV` VARCHAR(255),
   `motivation_letter` VARCHAR(255)
 );
 
 CREATE TABLE `Works_for` (
-  `id_student` INT,
+  `id_user` INT,
   `id_company` INT,
   `start_date` DATE,
   `end_date` DATE
 );
 
 CREATE TABLE `Company_Reviews` (
-  `id_review` INT PRIMARY KEY AUTO_INCREMENT,
   `id_company` INT,
   `id_user` INT,
   `review_text` VARCHAR(255),
@@ -105,23 +101,20 @@ CREATE TABLE `related_to_class` (
   FOREIGN KEY (`id_class`) REFERENCES `Class` (`id_class`)
 );
 
-ALTER TABLE `Users` ADD CONSTRAINT `user_has_role` FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`);
+CREATE TABLE `situated` (
+	`id_city` INTEGER,
+    `id_company` INTEGER
+);
 
-CREATE INDEX idx_related_to_class ON Users (related_to_class);
+ALTER TABLE `Users` ADD CONSTRAINT `user_has_role` FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`);
 
 ALTER TABLE `Users` ADD CONSTRAINT `user_is_in_center` FOREIGN KEY (`id_center`) REFERENCES `Centers` (`id_center`);
 
 ALTER TABLE `Cities` ADD CONSTRAINT `city_is_in_country` FOREIGN KEY (`id_country`) REFERENCES `Country` (`id_country`);
 
-ALTER TABLE `Companies` ADD CONSTRAINT `company_is_in_city` FOREIGN KEY (`id_city`) REFERENCES `Cities` (`id_city`);
-
 ALTER TABLE `Internship_offers` ADD CONSTRAINT `offer_belongs_to_company` FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`);
 
 ALTER TABLE `Applications` ADD CONSTRAINT `fk_applications_internship_offers` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
-
-ALTER TABLE `Applications` ADD CONSTRAINT `fk_applications_students` FOREIGN KEY (`id_student`) REFERENCES `Users` (`id_user`);
-
-ALTER TABLE `Works_for` ADD CONSTRAINT `fk_works_for_students` FOREIGN KEY (`id_student`) REFERENCES `Users` (`id_user`);
 
 ALTER TABLE `Works_for` ADD CONSTRAINT `fk_works_for_companies` FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`);
 
