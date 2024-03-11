@@ -1,6 +1,6 @@
 /* CSS Reset */
 
-html, body, div, span, applet, object, iframe,
+html, body, div, div, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -48,7 +48,7 @@ table {
 
 body {
   width: 100vw;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
 }
 
 /* Class to space all elements from the sides, top and bottom of the page */
@@ -57,7 +57,6 @@ body {
 }
 
 /* Standard button design */
-
 .bw-button {
   background-color: black; 
   color: white;
@@ -68,6 +67,12 @@ body {
 }
 
 /* Navbar Styling */
+
+/* Used to make the navbar not displace other elements on some pages */
+
+.navbar-absolute div.navbar {
+  position: absolute;
+}
 
 div.navbar {
   height: 55px;
@@ -92,14 +97,9 @@ div.navbar {
 }
 
 .navbar button {
-  background-color: black;
-  color: white;
-  border: none;
   height: 40px;
   width: 90px;
-  font-weight: bold;
   font-size: 20px;
-  border-radius: 9px;
 }
 
 .navbar > * {
@@ -123,7 +123,45 @@ div.navbar {
   justify-content: space-around; 
   display: flex;
   width: 15%;
-  padding-right: 2%
+  padding-right: 2%;
+}
+
+/* Footer styling */
+.footer {
+  background-color: black;
+  color: white;
+  padding: 1.5rem 0rem 0.8rem 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+
+  a {
+    display: flex;
+    gap: 0.4rem;
+    color: white;
+    text-decoration: none;
+    
+    p {font-weight: 600;}
+  }
+}
+
+.footer-copyright {
+  color: #D3D3D3;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
 }
 
 /* Login & Account creation styling */
@@ -134,24 +172,25 @@ div.auth-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 }
 
 div.auth {
   margin: auto;
-  width: 50%;
   display: flex;
-  gap: 40px;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 80%;
 }
 
 div.auth > * {
-  width: 50%;
-  max-width: 450px;
+  flex: 1;
+  flex-basis: 18rem;
+  max-width: 26rem;
   display: flex;
   flex-direction: column;
   align-content: space-around;
   justify-content: center;
-
 }
 
 .auth-text h1 {
@@ -166,6 +205,12 @@ div.auth > * {
   padding-bottom: 15px;
 }
 
+.auth-input form {
+  display: flex;
+  gap: 0.8rem;
+  flex-direction: column;
+}
+
 .auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select {
   background-color: white;
   box-sizing: border-box;
@@ -173,14 +218,28 @@ div.auth > * {
   height: 3rem;
   border-radius: 9px;
   border-style: solid;
-  padding: 0% 5% 0% 5%;
+  padding: 0 5% 0 5%;
 }
 
 .auth-input input[type=text], .auth-input input[type=password], .auth-input select {
   font-size: 1rem;
   color: #777;
   border-width: 2px;
-  margin: 7px 0px 7px 0px;
+}
+
+.auth-input div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-input label {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.auth-input input[type=checkbox], input[type=radio] {
+  height: 1rem;
+  width: 1rem;
 }
 
 .auth-input button {
@@ -191,23 +250,25 @@ div.auth > * {
   font-size: 1.56rem;
 }
 
-/* Interships page */
+/* Searching pages */
+/* Internship page */
 
 header.search-page-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: 0rem 0rem 2.5rem 0rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .search-page-header h1 {
   font-size: 4rem;
   font-weight: bold;
+  order: 1;
 }
 
 div.sorting {
   display: flex;
-  margin: 0.5rem 0.5rem 0rem 0.5rem;
+  margin: 0.5rem 0.5rem 0 0.5rem;
   gap: 2.5rem;
 }
 
@@ -218,16 +279,19 @@ button.sorting-category {
   padding: 0.5rem 1rem 0.5rem 1rem;
   
   border-radius: 9px;
-
+  
   transition: 0.25s;
+  
+  display: flex;
+  gap: 0.5rem;
 
-  p {
-    margin-left: 0.5rem;
+  span {
     font-size: 1.125rem;
   }
 
-  .far {
+  span.far {
     font-size: 1.4rem;
+    width: 1.4rem;
     font-weight: bold;
   }
 }
@@ -244,6 +308,7 @@ button.sorting-category:hover {
 /* Container for search filter sidebar and search results */
 main.search-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
@@ -251,8 +316,8 @@ main.search-container {
 .search-filter-container {
   display: flex;
   flex-direction: column;
-  min-width: 10%;
-  max-width: 10rem;
+  flex: 1;
+  min-width: 10rem;
   gap: 3rem;
 }
 
@@ -266,12 +331,17 @@ main.search-container {
     margin-bottom: 0.8rem;
   }
 
-  span {
+  p {
     display: flex;
     gap: 0.4rem;
   }
+
+  div:hover {
+    text-decoration: underline;
+  }
+
   .far {
-    width: 1.2rem;
+    width: 1.4rem;
     text-align: center;
   }  
 }
@@ -300,32 +370,37 @@ main.search-container {
 }
 
 /* Search results */
-div.search-results {
+.search-results {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 90%;
+  flex: 6;
 }
 
 /* Represents a single search result */
-div.search-result-item {
+.search-result-item {
   border: 2px solid #D9D9D9;
   border-radius: 10px;
   padding: 1.5rem 3rem 1.5rem 3rem;
-  max-height: 14rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 4rem;
+}
+
+.search-result-item:hover {
+   border-color: #777;
+   transition: 0.225s;
 }
 
 .search-result-item-section-left {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 75%;
+  flex: 3.5;
   justify-content: space-between;
 }
 
-.search-result-description {
+.search-result-left-info {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -338,30 +413,34 @@ div.search-result-item {
     font-size: 1.1rem;
     color: #6B7280;
     max-width: 100%;
+    line-height: 1.2;
   }
 }
 
 .search-result-bottom-info {
   display: flex;
+  justify-content: left;
   color: #6B7280;
+  width: 100%;
+  gap: 1.5rem;
 
-  span {
+  p {
     display: flex;
     gap: 0.4rem;
   }
 }
 
 .search-result-item-section-right {
-  width: 25%;
-  height: 100%;
+  flex: 1;
+  width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
+  min-width: 10rem;
 
   button {
     height: 2.5rem;
-
   }
 }
 
@@ -381,4 +460,163 @@ div.search-result-item {
   }
 }
 
+.company-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
 
+.company-page-header h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  order: 1;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.company-info > div {
+  flex: 1 1 150px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.company-info-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1.2125;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.company-info-center p:first-child {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.company-info-center p:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  height: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.center-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.company-info-center span {
+  font-size: 1.2rem;
+  line-height: 1.2125;
+}
+
+.company-description {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  line-height: 1.2125;
+  align-items: flex-start;
+  width: 50%;
+}
+aside {
+  width: 20%;
+  position: absolute;
+}
+
+.edit-company {
+  display: flex;
+  flex-direction: column;
+  line-height: 2;
+}
+
+.edit-company h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.edit-company a span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.edit-company a {
+  text-decoration: none;
+}
+
+.main-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.company-internship-offers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1.5rem;
+  width: 50%;
+}
+
+.company-internship-offers h2:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.company-internship-offers h2:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 2rem;
+  font-weight: bold;
+  justify-content: right;
+  text-align: right;
+}
+
+.pagination {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.pagination button {
+  height: 1.5rem;
+  border: none;
+  border-radius: 9px;
+  color: #6B7280;
+  font-weight: bold;
+}
+
+.sorting {
+  grid-column: 2;
+  grid-row: 2;
+}
