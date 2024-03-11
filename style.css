@@ -255,63 +255,54 @@ div.auth > * {
 
 header.search-page-header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin: 0 0 2.5rem 0;
 }
-
 .search-page-header h1 {
   font-size: 4rem;
   font-weight: bold;
-  order: 1;
 }
-
 div.sorting {
   display: flex;
   margin: 0.5rem 0.5rem 0 0.5rem;
   gap: 2.5rem;
 }
-
 button.sorting-category {
   border: none;
   background: none;
- 
+
   padding: 0.5rem 1rem 0.5rem 1rem;
-  
+
   border-radius: 9px;
-  
+
   transition: 0.25s;
-  
+
   display: flex;
   gap: 0.5rem;
-
   span {
     font-size: 1.125rem;
   }
-
   span.far {
     font-size: 1.4rem;
     width: 1.4rem;
     font-weight: bold;
   }
 }
-
 button.sorting-category:hover {
   background-color: #f2f2f2;
 }
-
 .sorting-category > * {
   display: inline-block;
   gap: 1.2rem;
 }
-
 /* Container for search filter sidebar and search results */
 main.search-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
-
 /* Search sidebar */
 .search-filter-container {
   display: flex;
@@ -540,7 +531,7 @@ main.search-container {
   align-items: flex-start;
   width: 50%;
 }
-aside {
+.company-aside {
   width: 20%;
   position: absolute;
 }
@@ -620,3 +611,7 @@ aside {
   grid-column: 2;
   grid-row: 2;
 }
+
+.placeholder {
+  height: 20rem;
+} /*TODO: Remove this class when the page is finished*/
