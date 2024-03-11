@@ -255,15 +255,15 @@ div.auth > * {
 
 header.search-page-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin: 0 0 2.5rem 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .search-page-header h1 {
   font-size: 4rem;
   font-weight: bold;
+  order: 1;
 }
 
 div.sorting {
@@ -458,4 +458,165 @@ main.search-container {
   .info-title {
     font-weight: bold;
   }
+}
+
+.company-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.company-page-header h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  order: 1;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.company-info > div {
+  flex: 1 1 150px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.company-info-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1.2125;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.company-info-center p:first-child {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.company-info-center p:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  height: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.center-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.company-info-center span {
+  font-size: 1.2rem;
+  line-height: 1.2125;
+}
+
+.company-description {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  line-height: 1.2125;
+  align-items: flex-start;
+  width: 50%;
+}
+aside {
+  width: 20%;
+  position: absolute;
+}
+
+.edit-company {
+  display: flex;
+  flex-direction: column;
+  line-height: 2;
+}
+
+.edit-company h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.edit-company a span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.edit-company a {
+  text-decoration: none;
+}
+
+.main-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.company-internship-offers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1.5rem;
+  width: 50%;
+}
+
+.company-internship-offers h2:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.company-internship-offers h2:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 2rem;
+  font-weight: bold;
+  justify-content: right;
+  text-align: right;
+}
+
+.pagination {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.pagination button {
+  height: 1.5rem;
+  border: none;
+  border-radius: 9px;
+  color: #6B7280;
+  font-weight: bold;
+}
+
+.sorting {
+  grid-column: 2;
+  grid-row: 2;
 }
