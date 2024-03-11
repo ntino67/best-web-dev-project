@@ -381,8 +381,8 @@ INSERT INTO Required_Skills (id_internship_offer, required_skills) VALUES
 INSERT INTO related_to_class (id_user, id_class) VALUES
 (1, 1),(2, 2),(3, 3),(4, 4),(5, 5);
 
-#peuplement table 'situated'
-INSERT INTO `situated` (id_city, id_company) VALUES
+#peuplement table 'situated' :
+INSERT INTO situated (id_city, id_company) VALUES
     (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10),
     (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18), (19, 19), (20, 20),
     (1, 21), (2, 22), (3, 23), (4, 24), (5, 25), (6, 26), (7, 27), (8, 28), (9, 29), (10, 30),
@@ -398,3 +398,12 @@ INSERT INTO `situated` (id_city, id_company) VALUES
     (1, 121), (2, 122), (3, 123), (4, 124), (5, 125), (6, 126), (7, 127), (8, 128), (9, 129), (10, 130),
     (11, 131), (12, 132), (13, 133), (14, 134), (15, 135), (16, 136), (17, 137), (18, 138), (19, 139), (20, 140),
     (1, 141), (2, 142), (3, 143), (4, 144);
+
+
+#peuplement de la table 'Wish_list :
+INSERT INTO Wish_list (id_internship_offer, id_user) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
