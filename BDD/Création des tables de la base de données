@@ -103,8 +103,20 @@ CREATE TABLE `related_to_class` (
 
 CREATE TABLE `situated` (
 	`id_city` INTEGER,
-    `id_company` INTEGER
+    `id_company` INTEGER,
+    PRIMARY KEY(`id_city`, `id_company`),
+    FOREIGN KEY(`id_city`) REFERENCES `Cities`(`id_city`),
+    FOREIGN KEY(`id_company`) REFERENCES `Companies`(`id_company`)
 );
+
+CREATE TABLE `Wish_list`(
+   `id_internship_offer` INT,
+   `id_user` INT,
+   PRIMARY KEY(`id_internship_offer`, `id_user`),
+   FOREIGN KEY(`id_internship_offer`) REFERENCES `Internship_offers`(`id_internship_offer`),
+   FOREIGN KEY(`id_user`) REFERENCES `Users`(`id_user`)
+);
+
 
 ALTER TABLE `Users` ADD CONSTRAINT `user_has_role` FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`);
 
