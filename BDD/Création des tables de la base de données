@@ -85,15 +85,16 @@ CREATE TABLE `Company_Reviews` (
   `review_score` INT
 );
 
-CREATE TABLE `Required_Skills` (
-  `id_internship_offer` INT,
-  `required_skills` INT,
-  PRIMARY KEY (`id_internship_offer`, `required_skills`),
-  FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`),
-  FOREIGN KEY (`required_skills`) REFERENCES `Skills` (`id_skill`)
+CREATE TABLE `Required_Skills`(
+   `id_internship_offer` INT,
+   `id_skill` INT,
+   PRIMARY KEY(`id_internship_offer`, `id_skill`),
+   FOREIGN KEY(`id_internship_offer`) REFERENCES `Internship_offers`(`id_internship_offer`),
+   FOREIGN KEY(`id_skill`) REFERENCES `Skills`(`id_skill`)
 );
 
-CREATE TABLE `related_to_class` (
+
+CREATE TABLE `Related_to_class` (
   `id_user` INTEGER,
   `id_class` INTEGER,
   PRIMARY KEY (`id_user`, `id_class`),
@@ -101,7 +102,7 @@ CREATE TABLE `related_to_class` (
   FOREIGN KEY (`id_class`) REFERENCES `Class` (`id_class`)
 );
 
-CREATE TABLE `situated` (
+CREATE TABLE `Situated` (
 	`id_city` INTEGER,
     `id_company` INTEGER,
     PRIMARY KEY(`id_city`, `id_company`),
@@ -128,8 +129,28 @@ ALTER TABLE `Internship_offers` ADD CONSTRAINT `offer_belongs_to_company` FOREIG
 
 ALTER TABLE `Applications` ADD CONSTRAINT `fk_applications_internship_offers` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
 
+ALTER TABLE `Applications` ADD CONSTRAINT `user_forever` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
+
 ALTER TABLE `Works_for` ADD CONSTRAINT `fk_works_for_companies` FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`);
+
+ALTER TABLE `Works_for` ADD CONSTRAINT `fk_works_in_companies` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
 
 ALTER TABLE `Company_Reviews` ADD CONSTRAINT `fk_company_reviews_companies` FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`);
 
 ALTER TABLE `Company_Reviews` ADD CONSTRAINT `fk_company_reviews_users` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
+
+ALTER TABLE `Wish_list` ADD CONSTRAINT `user_is_here` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
+
+ALTER TABLE `Wish_list` ADD CONSTRAINT `internship_offer_exist` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
+
+ALTER TABLE `Situated` ADD CONSTRAINT `city_exist` FOREIGN KEY (`id_city`) REFERENCES `Cities` (`id_city`);
+
+ALTER TABLE `Situated` ADD CONSTRAINT `company_exist` FOREIGN KEY (`id_company`) REFERENCES `Companies` (`id_company`);
+
+ALTER TABLE `Related_to_class` ADD CONSTRAINT `user_exist` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
+
+ALTER TABLE `Related_to_class` ADD CONSTRAINT `class_exist` FOREIGN KEY (`id_class`) REFERENCES `Class` (`id_class`);
+
+ALTER TABLE `Required_Skills` ADD CONSTRAINT `internship_offer_exist2` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
+
+ALTER TABLE `Required_Skills` ADD CONSTRAINT `skill_exist` FOREIGN KEY (`id_skill`) REFERENCES `Skills` (`id_skill`);
