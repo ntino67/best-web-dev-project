@@ -1,25 +1,117 @@
-Vous trouverez ici les requêtes SQL nécessaires à la réalisation des spécifications fonctionnelles suivantes :
-SFx1	Authentifier
-SFx2	Rechercher une entreprise
-SFx3	Créer une entreprise
-SFx4	Modifier une entreprise
-SFx5	Evaluer une entreprise
-SFx6	Supprimer une entreprise
-SFx7	Consulter les stats des entreprises
-SFx8	Rechercher une offre
-SFx9	Créer une offre
-SFx10	Modifier une offre
-SFx11	Supprimer une offre
-SFx12	Consulter les stats des offres
-SFx13	Rechercher un compte pilote
-SFx14	Créer un compte pilote
-SFx15	Modifier un compte pilote
-SFx16	Supprimer un compte pilote
-SFx17	Rechercher un compte étudiant
-SFx18	Créer un compte étudiant
-SFx19	Modifier un compte étudiant
-SFx20	Supprimer un compte étudiant
-SFx21	Consulter les stats des étudiants
-SFx22	Ajouter une offre à la wish-list
-SFx23	Retirer une offre à la wish-list
-SFx24	Postuler à une offre
+-- Vous trouverez ici les requêtes SQL nécessaires à la réalisation des spécifications fonctionnelles suivantes :
+USE web_project;
+
+-- SFx1	Authentifier
+SET @email_utilisateur := 'john.doe@example.com';
+SET @mot_de_passe_utilisateur := 'password123';
+SELECT email, password FROM Users WHERE email = @email_utilisateur AND password = @mot_de_passe_utilisateur;
+
+
+-- SFx2	Rechercher une entreprise
+SET @company_name := 'Chibraltar';
+SELECT 
+    Companies.company_name AS Company_name,
+    Companies.company_description AS Company_description,
+    Cities.name AS City,
+    Country.name AS Country,
+    COUNT(Internship_offers.id_internship_offer) AS Number_of_offers,
+    AVG(Company_Reviews.review_score) AS Average_rating
+FROM 
+    Companies
+JOIN 
+    Cities ON Companies.id_city = Cities.id_city
+JOIN 
+    Country ON Cities.id_country = Country.id_country
+LEFT JOIN 
+    Internship_offers ON Companies.id_company = Internship_offers.id_company
+LEFT JOIN 
+    Company_Reviews ON Companies.id_company = Company_Reviews.id_company
+WHERE 
+    Companies.company_name = @company_name AND Companies.company_active = TRUE
+GROUP BY 
+    Companies.company_name, Companies.company_description, Cities.name, Country.name;
+
+	
+-- SFx3	Créer une entreprise
+SET @id_city := 1;
+SET @company_name := 'Test nouvelle entreprise';
+SET @company_description := 'Elle propose rien de particulier à part de grande tasse de café';
+SET @company_active := FALSE;
+INSERT INTO Companies (id_city, company_name, company_description, company_active) VALUES
+(@id_city, @company_name, @company_description, @company_active);
+
+
+-- SFx4	Modifier une entreprise
+SET @company_id := 145;
+SET @new_company_name := 'Chibraltar';
+SET @new_company_description := 'Rien à voir';
+SET @new_company_active := FALSE;
+UPDATE Companies 
+SET 
+    company_name = @new_company_name,
+    company_description = @new_company_description,
+    company_active = new_company_active
+WHERE 
+    id_company = @company_id;
+
+
+-- SFx5	Evaluer une entreprise
+SET @company_id := 145;
+SET @user_id := 1; 
+SET @review_text := '';
+SET @review_score := 5;
+INSERT INTO Company_Reviews (id_company, id_user, review_text, review_score)
+SELECT 
+	@company_id, @user_id, @review_text, @review_score
+FROM 
+    Companies
+WHERE 
+    id_company = @company_id
+    AND company_active = TRUE;
+
+
+-- SFx6	Supprimer une entreprise
+SET @company_id = 2;
+UPDATE Companies 
+SET company_active = FALSE 
+WHERE id_company = @company_id;
+
+
+-- SFx7	Consulter les stats des entreprises
+-- SFx8	Rechercher une offre
+
+
+-- SFx9	Créer une offre
+-- SFx10 Modifier une offre
+-- SFx11 Supprimer une offre
+SET @offer_id := 1;
+UPDATE Internship_offers 
+SET internship_offer_active = FALSE
+WHERE id_internship_offer = @offer_id;
+
+
+-- SFx12 Consulter les stats des offres
+-- SFx13 Rechercher un compte pilote
+-- SFx14 Créer un compte pilote
+-- SFx15 Modifier un compte pilote
+-- SFx16 Supprimer un compte pilote
+SET @user_id = 4;
+UPDATE Users 
+SET user_active = FALSE
+WHERE id_user = @user_id AND id_role = 2;
+
+
+-- SFx17 Rechercher un compte étudiant
+-- SFx18 Créer un compte étudiant
+-- SFx19 Modifier un compte étudiant
+-- SFx20 Supprimer un compte étudiant
+SET @user_id = 4;
+UPDATE Users 
+SET user_active = FALSE
+WHERE id_user = @user_id AND id_role = 3;
+
+
+-- SFx21 Consulter les stats des étudiants
+-- SFx22 Ajouter une offre à la wish-list
+-- SFx23 Retirer une offre à la wish-list
+-- SFx24 Postuler à une offre

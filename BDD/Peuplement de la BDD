@@ -18,7 +18,7 @@ INSERT INTO Cities (id_country, name, postal_code) VALUES
 
 -- United Kingdom
 (4, 'London', 'SW1A 1AA'),(4, 'Birmingham', 'B1 1AA'),(4, 'Manchester', 'M1 1AA'),(4, 'Glasgow', 'G1 1AA'),(4, 'Edinburgh', 'EH1 1AA'),
-
+	
 -- Germany
 (5, 'Berlin', '10178'),(5, 'Hamburg', '20095'),(5, 'Munich', '80331'),(5, 'Cologne', '50667'),(5, 'Frankfurt', '60311'),
 
@@ -74,67 +74,191 @@ INSERT INTO Centers (center_name) VALUES
 
 
 #peuplement table 'Companies' :
-INSERT INTO Companies (id_city, company_name) VALUES
+-- Peuplement de la table 'Companies'
+INSERT INTO Companies (company_name, company_business_sector, company_description, company_active) VALUES
 -- Entreprises en France
-(1, 'LVMH'), (2, 'Total'), (3, 'Carrefour'), (4, 'Airbus'), (5, 'BNP Paribas'), (6, 'L_Oréal'), (7, 'Orange'), (8, 'Michelin'), (9, 'Capgemini'), (10, 'Danone'), (11, 'Société Générale'), (12, 'Peugeot'), (13, 'Renault'), (14, 'AXA'), (15, 'Dassault Systèmes'), (16, 'Accor'), (17, 'Engie'), (18, 'Thales'), (19, 'Veolia'), (20, 'Vinci'), (21, 'Sanofi'), (22, 'Vivendi'), (23, 'Sodexo'), (24, 'EDF'), (25, 'Air Liquide'), (26, 'Schneider Electric'), (27, 'BNP Paribas'), (28, 'Safran'), (29, 'EssilorLuxottica'), (30, 'Air France-KLM'), (31, 'Arkema'), (32, 'Eiffage'), (33, 'Alstom'), (34, 'TechnipFMC'), (35, 'Publicis Groupe'), (36, 'Bouygues'), (37, 'Air Liquide'), (38, 'Veolia'), (39, 'Orange'), (40, 'Dassault Aviation'), (41, 'Ubisoft'), (42, 'Aéroports de Paris'), (43, 'Accor'), (44, 'Saint-Gobain'), (45, 'Atos'), (46, 'Hermès'), (47, 'Credit Agricole'), (48, 'LafargeHolcim'), (49, 'Renault'), (50, 'Capgemini'),
+('LVMH', 'Luxury Goods', 'LVMH is a global leader in luxury goods, offering an exclusive range of high-quality products in fashion, accessories, perfumes, and cosmetics.', TRUE),
+('Total', 'Energy', 'Total is an international major player in the energy sector, specializing in the exploration, production, refining, and distribution of oil and natural gas worldwide.', TRUE),
+('Carrefour', 'Retail', 'Carrefour is one of the world_s largest retailers, providing a wide selection of food, non-food products, and services in its supermarkets and hypermarkets.', TRUE),
+('Airbus', 'Aerospace', 'Airbus is a global leader in the aerospace industry, designing, developing, and manufacturing a wide range of innovative commercial, military, and space aircraft.', TRUE),
+('BNP Paribas', 'Finance', 'BNP Paribas is one of the leading global banks, offering a comprehensive range of banking and financial services to individuals, businesses, and institutions worldwide.', TRUE),
+('L_Oréal', 'Cosmetics', 'L_Oréal is the world_s largest cosmetics company, offering a diverse portfolio of beauty products and services across skincare, haircare, makeup, and fragrance.', TRUE),
+('Orange', 'Telecommunications', 'Orange is a leading telecommunications operator, providing mobile, internet, and TV services to millions of customers worldwide.', TRUE),
+('Michelin', 'Manufacturing', 'Michelin is a renowned tire manufacturer, known for its innovative tire technologies and commitment to sustainability in the automotive industry.', TRUE),
+('Capgemini', 'Consulting', 'Capgemini is a global leader in consulting, technology services, and digital transformation, helping clients navigate the complexities of the digital world.', TRUE),
+('Danone', 'Food & Beverage', 'Danone is a multinational food company, dedicated to bringing health through food to as many people as possible with a wide range of dairy and plant-based products.', TRUE),
+('Société Générale', 'Finance', 'Société Générale is one of the largest European financial services groups, providing a wide range of retail, corporate, and investment banking services.', TRUE),
+('Peugeot', 'Automotive', 'Peugeot is a leading automotive manufacturer, producing a range of cars, vans, and motorcycles known for their performance, style, and innovation.', TRUE),
+('Renault', 'Automotive', 'Renault is a global automotive company, designing and manufacturing a wide range of vehicles and providing innovative solutions for sustainable mobility.', TRUE),
+('AXA', 'Insurance', 'AXA is a multinational insurance company, offering a range of insurance and financial services to individuals and businesses around the world.', TRUE),
+('Dassault Systèmes', 'Software', 'Dassault Systèmes is a global leader in 3D design, simulation, and product lifecycle management software, enabling businesses to innovate and transform their operations.', TRUE),
+('Accor', 'Hospitality', 'Accor is a world-leading hospitality group, offering unique experiences in over 5,000 hotels, resorts, and residences across 110 countries.', TRUE),
+('Engie', 'Energy', 'Engie is a global energy and services group, providing sustainable solutions for businesses and communities to meet their energy needs.', TRUE),
+('Thales', 'Aerospace & Defense', 'Thales is a multinational aerospace and defense company, delivering innovative solutions for the aerospace, transportation, and security sectors.', TRUE),
+('Veolia', 'Environmental Services', 'Veolia is a global leader in environmental services, providing water, waste, and energy management solutions to promote sustainable development.', TRUE),
+('Vinci', 'Construction', 'Vinci is a leading construction and infrastructure company, delivering projects that shape the world around us with a focus on sustainability and innovation.', TRUE),
+('Sanofi', 'Healthcare', 'Sanofi is a global healthcare company, focused on discovering, developing, and distributing pharmaceuticals and vaccines to improve health worldwide.', TRUE),
+('Vivendi', 'Media & Telecommunications', 'Vivendi is a multimedia conglomerate, engaged in media, content creation, and telecommunications services, providing entertainment experiences to audiences worldwide.', TRUE),
+('Sodexo', 'Facilities Management', 'Sodexo is a global provider of quality of life services, offering catering, facilities management, and employee benefits solutions to enhance well-being.', TRUE),
+('EDF', 'Energy', 'EDF is a leading energy company, producing, distributing, and selling electricity and gas across Europe, with a commitment to sustainable development and renewable energy.', TRUE),
+('Air Liquide', 'Manufacturing', 'Air Liquide is a world leader in gases, technologies, and services for industry and healthcare, providing innovative solutions to improve efficiency and environmental performance.', TRUE),
+('Schneider Electric', 'Energy Management & Automation', 'Schneider Electric is a global leader in energy management and automation solutions, providing integrated technologies for efficiency and sustainability in homes, buildings, data centers, infrastructure, and industries.', TRUE),
+('BNP Paribas', 'Finance', 'BNP Paribas is one of the leading global banks, offering a comprehensive range of banking and financial services to individuals, businesses, and institutions worldwide.', TRUE),
+('Safran', 'Aerospace & Defense', 'Safran is an international high-technology group, operating in the aerospace, defense, and security markets, with a focus on innovation and sustainable mobility.', TRUE),
+('EssilorLuxottica', 'Eyewear', 'EssilorLuxottica is a global leader in eyewear, combining the expertise of Essilor, the world leader in ophthalmic optics, and Luxottica, the world leader in the design, manufacture, and distribution of eyewear.', TRUE),
+('Air France-KLM', 'Airline', 'Air France-KLM is a leading airline group, providing passenger and cargo transportation services worldwide, with a focus on customer experience, innovation, and sustainability.', TRUE),
+('Arkema', 'Chemicals', 'Arkema is a global specialty chemicals company, offering a wide range of products and solutions for industries such as transportation, construction, electronics, and consumer goods.', TRUE),
+('Eiffage', 'Construction', 'Eiffage is a leading European construction group, specializing in infrastructure, energy, concessions, and urban development projects, with a commitment to sustainable construction and innovation.', TRUE),
+('Alstom', 'Transportation', 'Alstom is a global leader in sustainable mobility solutions, designing and manufacturing trains, trams, and signaling systems to improve the efficiency, reliability, and safety of transportation networks worldwide.', TRUE),
+('TechnipFMC', 'Energy', 'TechnipFMC is a global leader in subsea, onshore, offshore, and surface technologies for the energy industry, providing integrated solutions to enhance performance and reduce costs.', TRUE),
+('Publicis Groupe', 'Marketing & Communication', 'Publicis Groupe is a global leader in marketing, communication, and digital transformation, offering a comprehensive range of services to help clients navigate the complexities of the modern media landscape.', TRUE),
+('Bouygues', 'Diversified', 'Bouygues is a diversified industrial group, operating in construction, media, telecommunications, and real estate, with a focus on innovation, sustainability, and customer satisfaction.', TRUE),
+('Air Liquide', 'Manufacturing', 'Air Liquide is a world leader in gases, technologies, and services for industry and healthcare, providing innovative solutions to improve efficiency and environmental performance.', TRUE),
+('Veolia', 'Environmental Services', 'Veolia is a global leader in environmental services, providing water, waste, and energy management solutions to promote sustainable development.', TRUE),
+('Orange', 'Telecommunications', 'Orange is a leading telecommunications operator, providing mobile, internet, and TV services to millions of customers worldwide.', TRUE),
+('Dassault Aviation', 'Aerospace', 'Dassault Aviation is a French aerospace company, specializing in the design and manufacture of military and business jets, with a reputation for innovation, performance, and safety.', TRUE),
+('Ubisoft', 'Gaming', 'Ubisoft is a leading creator, publisher, and distributor of interactive entertainment and services, offering a diverse portfolio of video games and digital experiences for players worldwide.', TRUE),
+('Aéroports de Paris', 'Transportation', 'Aéroports de Paris is the airport authority responsible for managing and operating the major airports in the Paris region, providing essential services for travelers and ensuring efficient airport operations.', TRUE),
+('Accor', 'Hospitality', 'Accor is a world-leading hospitality group, offering unique experiences in over 5,000 hotels, resorts, and residences across 110 countries.', TRUE),
+('Saint-Gobain', 'Construction Materials', 'Saint-Gobain is a global leader in the production and distribution of construction materials, providing innovative solutions for sustainable building and living.', TRUE),
+('Atos', 'Digital Transformation', 'Atos is a global leader in digital transformation, providing end-to-end IT services and solutions to help businesses and organizations harness the power of technology for innovation and growth.', TRUE),
+('Hermès', 'Luxury Goods', 'Hermès is a French luxury goods manufacturer, renowned for its handcrafted leather goods, accessories, and ready-to-wear fashion, synonymous with elegance, craftsmanship, and timeless style.', TRUE),
+('Credit Agricole', 'Finance', 'Credit Agricole is one of the largest banking groups in Europe, offering a comprehensive range of banking, insurance, and asset management services to individuals, businesses, and institutions.', TRUE),
+('LafargeHolcim', 'Construction Materials', 'LafargeHolcim is the global leader in building materials and solutions, producing and distributing cement, aggregates, and ready-mix concrete for construction projects worldwide, with a focus on sustainability and innovation.', TRUE),
+('Renault', 'Automotive', 'Renault is a global automotive company, designing and manufacturing a wide range of vehicles and providing innovative solutions for sustainable mobility.', TRUE),
+('Capgemini', 'Consulting & Technology', 'Capgemini is a global leader in consulting and technology services, enabling organizations to transform and thrive in the digital age through innovation, expertise, and partnership.', TRUE),
 
 -- United States
-(51, 'Apple'), (52, 'Amazon'), (53, 'Microsoft'), (54, 'Alphabet'), (55, 'Tesla'),
+('Apple', 'Technology', 'Apple is a multinational technology company, designing and manufacturing consumer electronics, software, and online services, known for its iconic products such as the iPhone, iPad, and Mac.', TRUE),
+('Amazon', 'E-commerce', 'Amazon is the world_s largest online retailer and cloud services provider, offering a wide range of products, services, and digital content through its e-commerce platform and web services division.', TRUE),
+('Microsoft', 'Technology', 'Microsoft is a global technology company, developing, licensing, and supporting a wide range of software products, services, and devices, with a mission to empower every person and organization on the planet to achieve more.', TRUE),
+('Alphabet', 'Technology', 'Alphabet is the parent company of Google and several other subsidiaries, specializing in internet services, technology, and innovation, with a focus on improving access to information and making it universally accessible and useful.', TRUE),
+('Tesla', 'Automotive', 'Tesla is a pioneering electric vehicle and clean energy company, designing and manufacturing electric cars, energy storage solutions, and solar products to accelerate the world_s transition to sustainable energy.', TRUE),
 
 -- Canada
-(56, 'Tim Hortons'),(57, 'BlackBerry'),(58, 'Bombardier'),(59, 'Shopify'),(60, 'Air Canada'),
+('Tim Hortons', 'Food & Beverage', 'Tim Hortons is a Canadian multinational fast food restaurant chain, known for its coffee and donuts, and offering a wide range of baked goods, breakfast items, and sandwiches.', TRUE),
+('BlackBerry', 'Technology', 'BlackBerry is a Canadian technology company, known for its smartphones, software, and services, with a focus on security, productivity, and innovation in mobile communications.', TRUE),
+('Bombardier', 'Aerospace & Transportation', 'Bombardier is a Canadian multinational aerospace and transportation company, manufacturing business jets, commercial aircraft, and rail transportation equipment, with a commitment to sustainability and excellence in engineering.', TRUE),
+('Shopify', 'E-commerce', 'Shopify is a Canadian e-commerce company, providing a platform for online stores and retail point-of-sale systems, enabling merchants to sell products and manage their businesses across multiple channels.', TRUE),
+('Air Canada', 'Transportation', 'Air Canada is Canada_s largest airline, providing passenger and cargo transportation services to over 200 destinations worldwide, with a focus on safety, reliability, and customer satisfaction.', TRUE),
 
 -- United Kingdom
-(61, 'HSBC Holdings'),(62, 'Royal Dutch Shell'),(63, 'GlaxoSmithKline'),(64, 'Barclays'),(65, 'BP'),
+('HSBC Holdings', 'Finance', 'HSBC Holdings is one of the world_s largest banking and financial services organizations, serving millions of customers worldwide with a comprehensive range of banking, investment, and wealth management services.', TRUE),
+('Royal Dutch Shell', 'Energy', 'Royal Dutch Shell is a global energy company, engaged in the exploration, production, refining, and marketing of oil, gas, and petrochemicals, with a focus on innovation and sustainability in the energy transition.', TRUE),
+('GlaxoSmithKline', 'Pharmaceuticals', 'GlaxoSmithKline is a British multinational pharmaceutical company, developing and manufacturing vaccines, prescription medicines, and consumer healthcare products to improve health and well-being worldwide.', TRUE),
+('Barclays', 'Finance', 'Barclays is a British multinational investment bank and financial services company, providing a wide range of banking, investment, and wealth management services to individuals, businesses, and institutions.', TRUE),
+('BP', 'Energy', 'BP is a leading integrated energy company, providing customers with fuel for transportation, energy for heat and light, and the petrochemicals products used to make everyday items, with a commitment to low-carbon energy solutions.', TRUE),
 
 -- Germany
-(66, 'Volkswagen'),(67, 'Bayer'),(68, 'Siemens'),(69, 'BMW'),(70, 'Allianz'),
+('Volkswagen', 'Automotive', 'Volkswagen is a German automotive manufacturer, producing a wide range of cars, trucks, and commercial vehicles under various brands, with a focus on quality, innovation, and sustainability in mobility.', TRUE),
+('Bayer', 'Pharmaceuticals & Life Sciences', 'Bayer is a German multinational pharmaceutical and life sciences company, developing and manufacturing healthcare products, crop science solutions, and high-tech materials to improve quality of life and sustainability.', TRUE),
+('Siemens', 'Technology', 'Siemens is a global technology company, operating in the fields of electrification, automation, and digitalization, providing innovative solutions for industry, infrastructure, and cities to drive progress and improve lives.', TRUE),
+('BMW', 'Automotive', 'BMW is a German multinational automotive company, producing luxury cars, motorcycles, and engines, with a reputation for performance, innovation, and luxury in the automotive industry.', TRUE),
+('Allianz', 'Insurance & Asset Management', 'Allianz is a leading global insurance and asset management company, providing a wide range of insurance, investment, and financial services to individuals, businesses, and institutions worldwide, with a focus on risk management and sustainable growth.', TRUE),
 
 -- Australia
-(71, 'Woolworths Group'),(72, 'BHP'),(73, 'Commonwealth Bank'),(74, 'Rio Tinto'),(75, 'ANZ'),
+('Woolworths Group', 'Retail', 'Woolworths Group is a leading Australian retail company, operating supermarkets, liquor stores, and petrol stations, with a commitment to providing customers with fresh, affordable, and high-quality products.', TRUE),
+('BHP', 'Mining', 'BHP is a multinational mining company, producing essential commodities such as iron ore, copper, and coal, with a focus on safety, sustainability, and responsible resource development.', TRUE),
+('Commonwealth Bank', 'Finance', 'Commonwealth Bank is Australia_s largest bank, providing a wide range of financial services, including retail, business, and institutional banking, wealth management, and insurance, with a focus on customer satisfaction and innovation.', TRUE),
+('Rio Tinto', 'Mining', 'Rio Tinto is a global mining and metals company, producing essential materials for modern life, including iron ore, aluminum, copper, and diamonds, with a commitment to sustainable development and responsible mining practices.', TRUE),
+('ANZ', 'Finance', 'ANZ is one of the largest banks in Australia and New Zealand, providing a range of banking and financial services to individuals, businesses, and institutions, with a focus on innovation, integrity, and customer service.', TRUE),
 
 -- Japan
-(76, 'Toyota'),(77, 'Sony'),(78, 'SoftBank'),(79, 'Honda'),(80, 'Mitsubishi'),
+('Toyota', 'Automotive', 'Toyota is a Japanese automotive manufacturer, producing a wide range of cars, trucks, and hybrid vehicles, with a reputation for quality, reliability, and innovation in the automotive industry.', TRUE),
+('Sony', 'Technology', 'Sony is a Japanese multinational conglomerate, operating in electronics, entertainment, and financial services, with a focus on innovation, creativity, and technology leadership.', TRUE),
+('SoftBank', 'Technology & Telecommunications', 'SoftBank is a Japanese multinational conglomerate, investing in technology, telecommunications, and finance, with a vision to drive innovation and transformation in the digital economy.', TRUE),
+('Honda', 'Automotive', 'Honda is a Japanese multinational automotive manufacturer, producing motorcycles, cars, and power equipment, known for its engineering excellence, performance, and reliability in the automotive industry.', TRUE),
+('Mitsubishi', 'Conglomerate', 'Mitsubishi is a Japanese multinational conglomerate, operating in a diverse range of industries, including automotive, electronics, and finance, with a commitment to quality, innovation, and sustainability.', TRUE),
 
 -- China
-(81, 'Alibaba Group'),(82, 'Tencent Holdings'),(83, 'China Mobile'),(84, 'ICBC'),(85, 'China Construction Bank'),
+('Alibaba Group', 'E-commerce', 'Alibaba Group is a Chinese multinational conglomerate, specializing in e-commerce, retail, internet, and technology, with a mission to make it easy to do business anywhere and promote global trade.', TRUE),
+('Tencent Holdings', 'Technology', 'Tencent Holdings is a Chinese multinational technology conglomerate, providing internet and technology services, entertainment, and online advertising, with a vision to enrich the lives of internet users through innovative digital products and services.', TRUE),
+('China Mobile', 'Telecommunications', 'China Mobile is the leading telecommunications operator in China, providing mobile voice and data services to hundreds of millions of customers, with a commitment to innovation, reliability, and customer satisfaction.', TRUE),
+('ICBC', 'Finance', 'Industrial and Commercial Bank of China (ICBC) is the largest bank in the world by total assets and market capitalization, offering a wide range of banking and financial services to individuals, businesses, and institutions worldwide.', TRUE),
+('China Construction Bank', 'Finance', 'China Construction Bank (CCB) is one of the largest banks in China and the world, providing a comprehensive range of banking and financial services to support economic development and growth.', TRUE),
 
 -- Brazil
-(86, 'Petrobras'),(87, 'Vale'),(88, 'Itaú Unibanco Holding'),(89, 'Banco Bradesco'),(90, 'Ambev'),
+('Petrobras', 'Energy', 'Petrobras is a Brazilian multinational energy company, engaged in the exploration, production, refining, and distribution of oil and natural gas, with a focus on innovation, sustainability, and responsible energy development.', TRUE),
+('Vale', 'Mining', 'Vale is a Brazilian multinational mining company, producing iron ore, nickel, copper, and other essential metals and minerals for global markets, with a commitment to sustainable mining practices and environmental stewardship.', TRUE),
+('Itaú Unibanco Holding', 'Finance', 'Itaú Unibanco Holding is the largest financial conglomerate in Latin America, providing a wide range of banking and financial services to individuals, businesses, and institutions, with a focus on customer satisfaction and long-term value creation.', TRUE),
+('Banco Bradesco', 'Finance', 'Banco Bradesco is one of the largest banks in Brazil, offering a comprehensive range of banking, insurance, and financial services to individuals, businesses, and institutions, with a commitment to integrity, innovation, and social responsibility.', TRUE),
+('Ambev', 'Beverages', 'Ambev is a Brazilian multinational beverage company, producing and distributing a wide range of alcoholic and non-alcoholic beverages, with a focus on quality, innovation, and sustainability in the beverage industry.', TRUE),
 
 -- India
-(91, 'Reliance Industries'),(92, 'Tata Group'),(93, 'HDFC Bank'),(94, 'Infosys'),(95, 'State Bank of India'),
+('Reliance Industries', 'Conglomerate', 'Reliance Industries is an Indian multinational conglomerate, operating in energy, petrochemicals, textiles, telecommunications, and retail, with a vision to transform India and the world through sustainable growth and innovation.', TRUE),
+('Tata Group', 'Conglomerate', 'Tata Group is an Indian multinational conglomerate, operating in a wide range of industries, including automotive, steel, information technology, and hospitality, with a commitment to excellence, integrity, and nation-building.', TRUE),
+('HDFC Bank', 'Finance', 'HDFC Bank is one of the largest private sector banks in India, providing a comprehensive range of banking and financial services to individuals, businesses, and institutions, with a focus on customer satisfaction, innovation, and digital banking solutions.', TRUE),
+('Infosys', 'Information Technology', 'Infosys is an Indian multinational corporation, providing consulting, technology, and outsourcing services, with a focus on helping clients navigate the digital transformation journey and achieve operational excellence through innovation and collaboration.', TRUE),
+('State Bank of India', 'Finance', 'State Bank of India (SBI) is the largest public sector bank in India, offering a wide range of banking and financial services to individuals, businesses, and institutions, with a commitment to financial inclusion, social responsibility, and sustainable development.', TRUE),
 
 -- Russia
-(96, 'Gazprom'),(97, 'Sberbank'),(98, 'Lukoil'),(99, 'Rosneft'),(100, 'VTB Bank'),
+('Gazprom', 'Energy', 'Gazprom is a Russian multinational energy company, specializing in the exploration, production, transportation, and sale of natural gas, with a focus on meeting global energy demand and ensuring energy security.', TRUE),
+('Sberbank', 'Finance', 'Sberbank is the largest bank in Russia and Eastern Europe, providing a wide range of banking and financial services to individuals, businesses, and institutions, with a focus on innovation, digital transformation, and customer-centricity.', TRUE),
+('Rosneft', 'Energy', 'Rosneft is a Russian integrated energy company, engaged in the exploration, production, refining, and marketing of oil and petroleum products, with a focus on sustainable growth, innovation, and technological leadership in the energy sector.', TRUE),
+('LUKOIL', 'Energy', 'LUKOIL is a Russian multinational energy corporation, engaged in the exploration, production, refining, and marketing of oil and petroleum products, with a focus on operational excellence, innovation, and sustainable development.', TRUE),
+('VTB Bank', 'Finance', 'VTB Bank is one of the leading financial institutions in Russia, providing a wide range of banking and financial services to individuals, businesses, and institutions, with a focus on innovation, efficiency, and customer satisfaction.', TRUE),
 
 -- Italy
-(101, 'Eni'),(102, 'Intesa Sanpaolo'),(103, 'Unicredit'),(104, 'Enel'),(105, 'Generali'),
+('Eni', 'Energy', 'Eni is an Italian multinational energy company, engaged in the exploration, production, refining, and marketing of oil, gas, and renewable energy sources, with a focus on sustainability, innovation, and energy transition.', TRUE),
+('Fiat Chrysler Automobiles', 'Automotive', 'Fiat Chrysler Automobiles (FCA) is an Italian-American multinational automotive company, producing cars, trucks, and commercial vehicles under various brands, with a focus on design, performance, and innovation in the automotive industry.', TRUE),
+('Intesa Sanpaolo', 'Finance', 'Intesa Sanpaolo is one of the largest banking groups in Italy, providing a wide range of banking and financial services to individuals, businesses, and institutions, with a focus on customer satisfaction, innovation, and sustainable growth.', TRUE),
+('Enel', 'Energy', 'Enel is an Italian multinational energy company, operating in the generation, distribution, and sale of electricity and gas, with a commitment to sustainability, innovation, and the transition to clean energy sources.', TRUE),
+('UniCredit', 'Finance', 'UniCredit is a leading European commercial bank, offering banking and financial services to individuals, businesses, and institutions in Italy and across Europe, with a focus on customer-centricity, innovation, and digital transformation.', TRUE),
 
 -- Spain
-(106, 'Santander'),(107, 'BBVA'),(108, 'Telefónica'),(109, 'Iberdrola'),(110, 'Inditex'),
+('Banco Santander', 'Finance', 'Banco Santander is one of the largest banks in Europe and the world, providing a wide range of banking and financial services to individuals, businesses, and institutions, with a focus on innovation, digital banking, and sustainable growth.', TRUE),
+('Telefónica', 'Telecommunications', 'Telefónica is a Spanish multinational telecommunications company, providing mobile and fixed-line telephony, broadband, and digital services to customers in Europe and Latin America, with a commitment to connectivity, innovation, and customer experience.', TRUE),
+('BBVA', 'Finance', 'BBVA is a Spanish multinational financial services company, providing banking, insurance, and asset management services to individuals, businesses, and institutions, with a focus on digital innovation, sustainability, and financial inclusion.', TRUE),
+('Inditex', 'Fashion Retail', 'Inditex is a Spanish multinational fashion retailer, operating a portfolio of brands including Zara, Massimo Dutti, and Pull&Bear, with a focus on fast fashion, innovation, and sustainability in the retail industry.', TRUE),
+('Iberdrola', 'Energy', 'Iberdrola is a Spanish multinational electric utility company, specializing in the generation, distribution, and sale of electricity, with a focus on renewable energy, innovation, and sustainability in the global energy transition.', TRUE),
 
 -- Mexico
-(111, 'Pemex'),(112, 'América Móvil'),(113, 'Femsa'),(114, 'Grupo Bimbo'),(115, 'Televisa'),
+('Grupo Bimbo', 'Food & Beverage', 'Grupo Bimbo is a Mexican multinational bakery product manufacturing company, producing bread, pastries, and snacks, with operations in more than 30 countries and a commitment to quality, innovation, and sustainability.', TRUE),
+('Grupo Mexico', 'Mining', 'Grupo Mexico is a Mexican multinational mining company, engaged in the exploration, production, and marketing of copper, silver, gold, and other minerals, with a focus on operational excellence, safety, and environmental responsibility.', TRUE),
+('América Móvil', 'Telecommunications', 'América Móvil is a Mexican multinational telecommunications company, providing mobile and fixed-line telephony, broadband, and digital services to customers in Latin America and beyond, with a commitment to connectivity, accessibility, and innovation.', TRUE),
+('FEMSA', 'Beverages & Retail', 'FEMSA is a Mexican multinational beverage and retail company, operating in the production, distribution, and retail of Coca-Cola products, convenience stores, and other retail formats, with a focus on sustainability and social responsibility.', TRUE),
+('Televisa', 'Media & Entertainment', 'Televisa is a Mexican multimedia mass media company, engaged in the production and distribution of television programming, cable networks, films, and digital content, with a mission to entertain, inform, and inspire audiences.', TRUE),
 
 -- South Korea
-(116, 'Samsung Electronics'),(117, 'Hyundai Motor'),(118, 'SK Holdings'),(119, 'LG Electronics'),(120, 'POSCO'),
+('Samsung Electronics', 'Technology', 'Samsung Electronics is a South Korean multinational electronics company, producing a wide range of consumer electronics, semiconductors, and home appliances, with a focus on innovation, quality, and design excellence.', TRUE),
+('Hyundai Motor Company', 'Automotive', 'Hyundai Motor Company is a South Korean multinational automotive manufacturer, producing cars, trucks, and commercial vehicles, with a commitment to quality, safety, and environmental sustainability.', TRUE),
+('LG Electronics', 'Technology', 'LG Electronics is a South Korean multinational electronics company, manufacturing consumer electronics, home appliances, and mobile communications products, with a focus on innovation, design, and technological leadership.', TRUE),
+('SK Group', 'Conglomerate', 'SK Group is a South Korean conglomerate, operating in a diverse range of industries including energy, chemicals, telecommunications, and semiconductors, with a vision to create sustainable growth and enhance the quality of life.', TRUE),
+('POSCO', 'Metals', 'POSCO is a South Korean multinational steel-making company, producing a wide range of steel products for various industries including automotive, construction, and shipbuilding, with a focus on quality, innovation, and sustainability.', TRUE),
 
 -- Netherlands
-(121, 'Royal Dutch Shell'),(122, 'Unilever'),(123, 'ING Group'),(124, 'ASML'),(125, 'Philips'),
+('Novo Nordisk', 'Pharmaceuticals', 'Novo Nordisk is a Danish multinational pharmaceutical company, specializing in diabetes care, obesity, hemophilia, and growth disorders, with a mission to drive change to defeat diabetes and other serious chronic diseases.', TRUE),
+('Maersk', 'Transportation & Logistics', 'Maersk is a Danish multinational shipping and container logistics company, providing container shipping, terminal operations, and logistics services to customers worldwide, with a focus on reliability, efficiency, and sustainability in global trade.', TRUE),
+('Vestas', 'Renewable Energy', 'Vestas is a Danish multinational wind turbine manufacturer, providing sustainable energy solutions for onshore and offshore wind power generation, with a commitment to innovation, sustainability, and the global energy transition.', TRUE),
+('Carlsberg Group', 'Beverages', 'Carlsberg Group is a Danish multinational brewing company, producing and marketing a wide range of beers, ciders, and soft drinks, with a commitment to quality, responsibility, and sustainability in the beverage industry.', TRUE),
+('Danske Bank', 'Finance', 'Danske Bank is a Danish financial services company, providing banking, insurance, and asset management services to individuals, businesses, and institutions, with a focus on digital innovation, sustainability, and customer-centricity.', TRUE),
 
 -- Switzerland
-(126, 'Nestlé'),(127, 'Roche Holding'),(128, 'Novartis'),(129, 'UBS Group'),(130, 'Credit Suisse'),
+('Nestlé', 'Food & Beverage', 'Nestlé is a Swiss multinational food and beverage company, offering a wide range of products including baby food, bottled water, breakfast cereals, coffee, dairy products, ice cream, pet foods, and snacks, with a commitment to nutrition, health, and wellness.', TRUE),
+('Novartis', 'Pharmaceuticals', 'Novartis is a Swiss multinational pharmaceutical company, developing and manufacturing a wide range of prescription medicines, generic drugs, vaccines, and consumer healthcare products, with a focus on innovation and improving global health.', TRUE),
+('Roche Holding', 'Pharmaceuticals', 'Roche Holding is a Swiss multinational healthcare company, specializing in pharmaceuticals and diagnostics, with a mission to improve the lives of patients worldwide through innovative medical solutions and personalized healthcare.', TRUE),
+('UBS Group', 'Finance', 'UBS Group is a Swiss multinational investment bank and financial services company, providing wealth management, asset management, and investment banking services to private, corporate, and institutional clients worldwide.', TRUE),
+('Credit Suisse Group', 'Finance', 'Credit Suisse Group is a Swiss multinational investment bank and financial services company, offering a wide range of banking, advisory, and asset management services to individuals, institutions, and governments worldwide.', TRUE),
 
 -- Sweden
-(131, 'Volvo'),(132, 'Ericsson'),(133, 'H&M'),(134, 'Electrolux'),(135, 'Spotify'),
+('Volvo Group', 'Automotive', 'Volvo Group is a Swedish multinational manufacturing company, producing trucks, buses, construction equipment, and marine and industrial engines, with a commitment to safety, quality, and sustainability in transportation.', TRUE),
+('Ericsson', 'Technology', 'Ericsson is a Swedish multinational networking and telecommunications company, providing equipment, software, and services to mobile and fixed network operators worldwide, with a focus on connectivity, innovation, and sustainability in the digital era.', TRUE),
+('H&M', 'Retail', 'H&M is a Swedish multinational clothing-retail company, offering fashion-forward apparel, accessories, and homeware at affordable prices, with a commitment to sustainability and ethical practices in the fashion industry.', TRUE),
+('Skanska', 'Construction', 'Skanska is a Swedish multinational construction and development company, providing a wide range of construction and project development services, with a focus on sustainability, safety, and innovation in the built environment.', TRUE),
+('SEB', 'Finance', 'Skandinaviska Enskilda Banken (SEB) is a Swedish financial services group, offering a wide range of banking, investment, and advisory services to individuals, businesses, and institutions, with a focus on sustainability, integrity, and long-term value creation.', TRUE),
 
 -- Norway
-(136, 'Equinor'),(137, 'Telenor'),(138, 'DNB'),(139, 'Norsk Hydro'),(140, 'Yara International'),
+('Oslo', 'Administration', 'Oslo is the capital and most populous city of Norway. It constitutes both a county and a municipality.', TRUE),
+('Bergen', 'Tourism', 'Bergen is a city in southwestern Norway. It is known for its beautiful scenery, including mountains and fjords.', TRUE),
+('Stavanger', 'Oil & Gas', 'Stavanger is a city in southwestern Norway. It is known for its rich history, vibrant cultural scene, and proximity to scenic natural attractions.', TRUE),
+('Trondheim', 'Education', 'Trondheim is a city in central Norway, known for its medieval architecture, historic landmarks, and vibrant cultural scene.', TRUE),
+('Drammen', 'Manufacturing', 'Drammen is a city in southeastern Norway, located on the banks of the Drammen River. It is known for its cultural heritage, industrial history, and outdoor recreational opportunities.', TRUE),
 
 -- Denmark
-(141, 'Novo Nordisk'),(142, 'Maersk'),(143, 'Danske Bank'),(144, 'Vestas');
-
+('Aalborg', 'Education', 'Aalborg is a city in Denmark, known for its historic architecture, vibrant cultural scene, and lively waterfront area.', TRUE),
+('Esbjerg', 'Tourism', 'Esbjerg is a city in Denmark, located on the west coast of Jutland. It is known for its bustling harbor, rich maritime heritage, and sandy beaches.', TRUE),
+('Roskilde', 'Manufacturing', 'Roskilde is a city in Denmark, known for its Viking history, historic landmarks, and annual music festival.', TRUE),
+('Frederiksberg', 'Technology', 'Frederiksberg is a city in Denmark, located near Copenhagen. It is known for its green spaces, cultural attractions, and affluent neighborhoods.', TRUE);
 
 #peuplement table 'Roles' :
 INSERT INTO Roles (name) VALUES
@@ -146,77 +270,83 @@ INSERT INTO Skills (skill_name) VALUES
 ('Java Language'),('JavaScript'),('Python'),('SQL'),('C#'),('C++'),('TypeScript'),('HTML/CSS'),('Ruby'),('Swift'),('Go'),('Web Development'),('Mobile Development'),('Software Development'),('Database'),('Data Analysis'),('Information Security'),('Computer Networks'),('Cloud Computing'),('Artificial Intelligence'),('Machine Learning'),('Application Development'),('Programming'),('Debugging'),('Database Design'),('System Administration'),('Virtualization'),('DevOps'),('Blockchain'),('Internet of Things (IoT)'),('Big Data'),('Code Analysis'),('Test Automation'),('Project Management'),('UX/UI Design'),('Operating Systems'),('Server Administration'),('Configuration Management'),('Technical Problem Solving');
 
 #peuplement table 'Internship_offers' :
-INSERT INTO Internship_offers (id_company, available_slots, title, description, created_at, expires_at) 
-VALUES 
-(1, 3, 'Junior Web Developer Intern', 'Internship for junior web development to work on projects involving website creation and maintenance.', '2024-03-07', '2024-09-07'),
-(2, 2, 'Software Engineer Intern', 'Internship to develop and maintain software applications.', '2024-03-08', '2024-09-08'),
-(3, 4, 'Data Analysis Intern', 'Internship to analyze and interpret business data.', '2024-03-09', '2024-09-09'),
-(4, 1, 'Junior Full Stack Developer Intern', 'Internship to work on full-stack web application development.', '2024-03-10', '2024-09-10'),
-(5, 3, 'Artificial Intelligence Intern', 'Internship to develop artificial intelligence models for practical applications.', '2024-03-11', '2024-09-11'),
-(6, 2, 'Mobile Development Intern', 'Internship to design and develop innovative mobile applications.', '2024-03-12', '2024-09-12'),
-(7, 4, 'Computer Security Analyst Intern', 'Internship to assess computer system security and propose solutions.', '2024-03-13', '2024-09-13'),
-(8, 1, 'Cloud Computing Intern', 'Internship to work on cloud computing and virtualization solutions.', '2024-03-14', '2024-09-14'),
-(9, 3, 'Blockchain Intern', 'Internship to explore blockchain technology applications in various domains.', '2024-03-15', '2024-09-15'),
-(10, 2, 'Debugging Intern', 'Internship to learn debugging techniques and resolve code issues.', '2024-03-16', '2024-09-16'),
-(11, 3, 'Application Development Intern', 'Internship to participate in the development of applications for different platforms.', '2024-03-17', '2024-09-17'),
-(12, 2, 'Database Design Intern', 'Internship to design and optimize databases for applications.', '2024-03-18', '2024-09-18'),
-(13, 3, 'Front-End Developer Intern', 'Internship to work on user interface development for web applications.', '2024-03-19', '2024-09-19'),
-(14, 2, 'Code Analysis Intern', 'Internship to analyze and improve code quality.', '2024-03-20', '2024-09-20'),
-(15, 4, 'Computer Project Management Intern', 'Internship to learn project management principles in an IT environment.', '2024-03-21', '2024-09-21'),
-(16, 1, 'System Administration Intern', 'Internship to manage and maintain company computer systems.', '2024-03-22', '2024-09-22'),
-(17, 3, 'Backend Development Intern', 'Internship to work on backend logic and databases for web applications.', '2024-03-23', '2024-09-23'),
-(18, 2, 'Computer Networks Intern', 'Internship to design, deploy, and maintain computer networks.', '2024-03-24', '2024-09-24'),
-(19, 3, 'DevOps Intern', 'Internship to automate development, deployment, and application management processes.', '2024-03-25', '2024-09-25'),
-(20, 2, 'Test Automation Intern', 'Internship to automate software testing and ensure application quality.', '2024-03-26', '2024-09-26'),
-(21, 3, 'Backend Developer Intern', 'Internship to work on server-side development for web applications.', '2024-03-27', '2024-09-27'),
-(22, 2, 'Geospatial Data Analysis Intern', 'Internship to analyze and visualize geospatial data using computer tools.', '2024-03-28', '2024-09-28'),
-(23, 3, 'Database Administration Intern', 'Internship to manage and optimize databases for enterprise applications.', '2024-03-29', '2024-09-29'),
-(24, 1, 'AI in Healthcare Intern', 'Internship to develop artificial intelligence solutions in the healthcare domain.', '2024-03-30', '2024-09-30'),
-(25, 3, 'Mobile App Development Intern', 'Internship to design and develop mobile applications for different platforms.', '2024-03-31', '2024-09-30'), -- Correction de la date ici
-(26, 2, 'Cybersecurity Intern', 'Internship to secure computer systems against cyberattacks and online threats.', '2024-04-01', '2024-10-01'),
-(27, 4, 'Data Management Intern', 'Internship to manage and analyze large amounts of data to extract useful insights.', '2024-04-02', '2024-10-02'),
-(28, 1, 'Java Developer Intern', 'Internship to develop Java applications for internal and external projects.', '2024-04-03', '2024-10-03'),
-(29, 3, 'Augmented Reality Intern', 'Internship to develop augmented reality applications for commercial use cases.', '2024-04-04', '2024-10-04'),
-(30, 2, 'Embedded Systems Design Intern', 'Internship to design embedded systems for industrial and consumer applications.', '2024-04-05', '2024-10-05'),
-(31, 3, 'Front-End Development Intern', 'Internship to design and develop user interfaces for web and mobile applications.', '2024-04-06', '2024-10-06'),
-(32, 2, 'IoT Application Development Intern', 'Internship to design and develop applications for the Internet of Things.', '2024-04-07', '2024-10-07'),
-(33, 3, 'Natural Language Processing Intern', 'Internship to develop natural language processing algorithms for practical applications.', '2024-04-08', '2024-10-08'),
-(34, 2, 'Data Mining Intern', 'Internship to analyze large databases and extract valuable information for the company.', '2024-04-09', '2024-10-09'),
-(35, 4, 'Video Game Development Intern', 'Internship to design and develop video games for different platforms.', '2024-04-10', '2024-10-10'),
-(36, 1, 'Computer Vision Intern', 'Internship to develop computer vision algorithms for image recognition applications.', '2024-04-11', '2024-10-11'),
-(37, 3, 'Chatbot Development Intern', 'Internship to design and develop chatbots for customer service applications.', '2024-04-12', '2024-10-12'),
-(38, 2, 'Enterprise Software Development Intern', 'Internship to develop enterprise software to meet specific client needs.', '2024-04-13', '2024-10-13'),
-(39, 3, 'Computer Security Risk Analysis Intern', 'Internship to assess computer security risks and propose solutions to mitigate them.', '2024-04-14', '2024-10-14'),
-(40, 2, 'Virtual Reality Intern', 'Internship to develop virtual reality applications for immersive experiences.', '2024-04-15', '2024-10-15'),
-(41, 3, 'Distributed Systems Development Intern', 'Internship to design and develop distributed systems for cloud applications.', '2024-04-16', '2024-10-16'),
-(42, 2, 'Operating Systems Development Intern', 'Internship to work on the development and optimization of operating systems.', '2024-04-17', '2024-10-17'),
-(43, 3, 'Embedded Software Development Intern', 'Internship to design and develop software for embedded systems.', '2024-04-18', '2024-10-18'),
-(44, 1, 'Quantum Computing Intern', 'Internship to work on algorithms and technologies related to quantum computing.', '2024-04-19', '2024-10-19'),
-(45, 3, 'Wearable Applications Development Intern', 'Internship to design and develop applications for wearable devices.', '2024-04-20', '2024-10-20'),
-(46, 2, 'Application Security Analysis Intern', 'Internship to analyze the security of computer applications and propose improvements.', '2024-04-21', '2024-10-21'),
-(47, 3, 'E-Commerce Solutions Development Intern', 'Internship to develop e-commerce solutions for businesses.', '2024-04-22', '2024-10-22'),
-(48, 2, 'Medical Image Processing Intern', 'Internship to develop algorithms for medical image processing for diagnostic aid.', '2024-04-23', '2024-10-23'),
-(49, 3, 'Messaging Applications Development Intern', 'Internship to design and develop instant messaging applications.', '2024-04-24', '2024-10-24'),
-(50, 2, 'Cloud-Native Applications Development Intern', 'Internship to design and develop cloud-native applications for agile deployments.', '2024-04-25', '2024-10-25');
+INSERT INTO Internship_offers (id_company, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, business_sector, internship_duration, internship_offer_active) VALUES 
+(1, 3, 'Junior Web Developer Intern', 'Internship for junior web development to work on projects involving website creation and maintenance.', '2024-03-07', '2024-09-07', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(2, 2, 'Software Engineer Intern', 'Internship to develop and maintain software applications.', '2024-03-08', '2024-09-08', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(3, 4, 'Data Analysis Intern', 'Internship to analyze and interpret business data.', '2024-03-09', '2024-09-09', 'Analytics', FLOOR(RAND() * 4) + 3, TRUE),
+(4, 1, 'Junior Full Stack Developer Intern', 'Internship to work on full-stack web application development.', '2024-03-10', '2024-09-10', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(5, 3, 'Artificial Intelligence Intern', 'Internship to develop artificial intelligence models for practical applications.', '2024-03-11', '2024-09-11', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(6, 2, 'Mobile Development Intern', 'Internship to design and develop innovative mobile applications.', '2024-03-12', '2024-09-12', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(7, 4, 'Computer Security Analyst Intern', 'Internship to assess computer system security and propose solutions.', '2024-03-13', '2024-09-13', 'Cybersecurity', FLOOR(RAND() * 4) + 3, TRUE),
+(8, 1, 'Cloud Computing Intern', 'Internship to work on cloud computing and virtualization solutions.', '2024-03-14', '2024-09-14', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(9, 3, 'Blockchain Intern', 'Internship to explore blockchain technology applications in various domains.', '2024-03-15', '2024-09-15', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(10, 2, 'Debugging Intern', 'Internship to learn debugging techniques and resolve code issues.', '2024-03-16', '2024-09-16', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(11, 3, 'Application Development Intern', 'Internship to participate in the development of applications for different platforms.', '2024-03-17', '2024-09-17', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(12, 2, 'Database Design Intern', 'Internship to design and optimize databases for applications.', '2024-03-18', '2024-09-18', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(13, 3, 'Front-End Developer Intern', 'Internship to work on user interface development for web applications.', '2024-03-19', '2024-09-19', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(14, 2, 'Code Analysis Intern', 'Internship to analyze and improve code quality.', '2024-03-20', '2024-09-20', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(15, 4, 'Computer Project Management Intern', 'Internship to learn project management principles in an IT environment.', '2024-03-21', '2024-09-21', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(16, 1, 'System Administration Intern', 'Internship to manage and maintain company computer systems.', '2024-03-22', '2024-09-22', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(17, 3, 'Backend Development Intern', 'Internship to work on backend logic and databases for web applications.', '2024-03-23', '2024-09-23', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(18, 2, 'Computer Networks Intern', 'Internship to design, deploy, and maintain computer networks.', '2024-03-24', '2024-09-24', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(19, 3, 'DevOps Intern', 'Internship to automate development, deployment, and application management processes.', '2024-03-25', '2024-09-25', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(20, 2, 'Test Automation Intern', 'Internship to automate software testing and ensure application quality.', '2024-03-26', '2024-09-26', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(21, 3, 'Backend Developer Intern', 'Internship to work on server-side development for web applications.', '2024-03-27', '2024-09-27', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(22, 2, 'Geospatial Data Analysis Intern', 'Internship to analyze and visualize geospatial data using computer tools.', '2024-03-28', '2024-09-28', 'Analytics', FLOOR(RAND() * 4) + 3, TRUE),
+(23, 3, 'Database Administration Intern', 'Internship to manage and optimize databases for enterprise applications.', '2024-03-29', '2024-09-29', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(24, 1, 'AI in Healthcare Intern', 'Internship to develop artificial intelligence solutions in the healthcare domain.', '2024-03-30', '2024-09-30', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(25, 3, 'Mobile App Development Intern', 'Internship to design and develop mobile applications for different platforms.', '2024-03-31', '2024-09-30', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(26, 2, 'Cybersecurity Intern', 'Internship to secure computer systems against cyberattacks and online threats.', '2024-04-01', '2024-10-01', 'Cybersecurity', FLOOR(RAND() * 4) + 3, TRUE),
+(27, 4, 'Data Management Intern', 'Internship to manage and analyze large amounts of data to extract useful insights.', '2024-04-02', '2024-10-02', 'Analytics', FLOOR(RAND() * 4) + 3, TRUE),
+(28, 1, 'Java Developer Intern', 'Internship to develop Java applications for internal and external projects.', '2024-04-03', '2024-10-03', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(29, 3, 'Augmented Reality Intern', 'Internship to develop augmented reality applications for commercial use cases.', '2024-04-04', '2024-10-04', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(30, 2, 'Embedded Systems Design Intern', 'Internship to design embedded systems for industrial and consumer applications.', '2024-04-05', '2024-10-05', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(31, 3, 'Front-End Development Intern', 'Internship to design and develop user interfaces for web and mobile applications.', '2024-04-06', '2024-10-06', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(32, 2, 'IoT Application Development Intern', 'Internship to design and develop applications for the Internet of Things.', '2024-04-07', '2024-10-07', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(33, 3, 'Natural Language Processing Intern', 'Internship to develop natural language processing algorithms for practical applications.', '2024-04-08', '2024-10-08', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(34, 2, 'Data Mining Intern', 'Internship to analyze large databases and extract valuable information for the company.', '2024-04-09', '2024-10-09', 'Analytics', FLOOR(RAND() * 4) + 3, TRUE),
+(35, 4, 'Video Game Development Intern', 'Internship to design and develop video games for different platforms.', '2024-04-10', '2024-10-10', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(36, 1, 'Computer Vision Intern', 'Internship to develop computer vision algorithms for image recognition applications.', '2024-04-11', '2024-10-11', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(37, 3, 'Chatbot Development Intern', 'Internship to design and develop chatbots for customer service applications.', '2024-04-12', '2024-10-12', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(38, 2, 'Enterprise Software Development Intern', 'Internship to develop enterprise software to meet specific client needs.', '2024-04-13', '2024-10-13', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(39, 3, 'Computer Security Risk Analysis Intern', 'Internship to assess computer security risks and propose solutions to mitigate them.', '2024-04-14', '2024-10-14', 'Cybersecurity', FLOOR(RAND() * 4) + 3, TRUE),
+(40, 2, 'Virtual Reality Intern', 'Internship to develop virtual reality applications for immersive experiences.', '2024-04-15', '2024-10-15', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(41, 3, 'Distributed Systems Development Intern', 'Internship to design and develop distributed systems for cloud applications.', '2024-04-16', '2024-10-16', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(42, 2, 'Operating Systems Development Intern', 'Internship to work on the development and optimization of operating systems.', '2024-04-17', '2024-10-17', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(43, 3, 'Embedded Software Development Intern', 'Internship to design and develop software for embedded systems.', '2024-04-18', '2024-10-18', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(44, 1, 'Quantum Computing Intern', 'Internship to work on algorithms and technologies related to quantum computing.', '2024-04-19', '2024-10-19', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(45, 3, 'Wearable Applications Development Intern', 'Internship to design and develop applications for wearable devices.', '2024-04-20', '2024-10-20', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(46, 2, 'Application Security Analysis Intern', 'Internship to analyze the security of computer applications and propose improvements.', '2024-04-21', '2024-10-21', 'Cybersecurity', FLOOR(RAND() * 4) + 3, TRUE),
+(47, 3, 'E-Commerce Solutions Development Intern', 'Internship to develop e-commerce solutions for businesses.', '2024-04-22', '2024-10-22', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(48, 2, 'Medical Image Processing Intern', 'Internship to develop algorithms for medical image processing for diagnostic aid.', '2024-04-23', '2024-10-23', 'Healthcare', FLOOR(RAND() * 4) + 3, TRUE),
+(49, 3, 'Messaging Applications Development Intern', 'Internship to design and develop instant messaging applications.', '2024-04-24', '2024-10-24', 'Technology', FLOOR(RAND() * 4) + 3, TRUE),
+(50, 2, 'Cloud-Native Applications Development Intern', 'Internship to design and develop cloud-native applications for agile deployments.', '2024-04-25', '2024-10-25', 'Technology', FLOOR(RAND() * 4) + 3, TRUE);
 
 
 
 
 #peuplement table 'Class' :
 INSERT INTO Class (class_year) VALUES 
-('A1'), ('A2'), ('A3'), ('A4'), ('A5');
+('A1'), ('A2 Informatique'), ('A2 Bâtiment & Travaux Publics'), ('A2 Généraliste'), ('A2 Systèmes Embarqués'),
+('A3 FISE Informatique'), ('A3 FISA Informatique'), ('A3 FISA Bâtiment & Travaux Publics'), 
+('A3 FISE Généraliste'), ('A3 FISA Généraliste'), ('A3 FISE Systèmes Embarqués'), ('A3 FISA Systèmes Embarqués'),
+('A4 FISE Informatique'), ('A4 FISA Informatique'), ('A4 FISA Bâtiment & Travaux Publics'), 
+('A4 FISE Généraliste'), ('A4 FISA Généraliste'), ('A4 FISE Systèmes Embarqués'), ('A4 FISA Systèmes Embarqués'),
+('A5 FISE Informatique'), ('A5 FISA Informatique'), ('A5 FISA Bâtiment & Travaux Publics'), 
+('A5 FISE Généraliste'), ('A5 FISA Généraliste'), ('A5 FISE Systèmes Embarqués'), ('A5 FISA Systèmes Embarqués');
 
 
 #peuplement table 'Users' :
-INSERT INTO Users (related_to_class, first_name, last_name, password, created_at, id_center, id_role) VALUES 
-(1, 'John', 'Doe', 'password123', '2024-03-05 08:00:00', 1, 1),
-(2, 'Jane', 'Smith', 'securepass', '2024-03-05 08:00:00', 2, 2),
-(3, 'Alice', 'Johnson', 'pass1234', '2024-03-05 08:00:00', 3, 3),
-(4, 'Bob', 'Brown', 'letmein', '2024-03-05 08:00:00', 4, 1),
-(5, 'Eve', 'White', 'p@ssw0rd', '2024-03-05 08:00:00', 5, 2);
+INSERT INTO Users (first_name, last_name, email, password, user_created_at, id_center, id_role, user_active) VALUES 
+('John', 'Doe', 'john.doe@example.com', 'password123', '2024-03-05 08:00:00', 1, 1, TRUE),
+('Jane', 'Smith', 'jane.smith@example.com', 'securepass', '2024-03-05 08:00:00', 2, 2, TRUE),
+('Alice', 'Johnson', 'alice.johnson@example.com', 'pass1234', '2024-03-05 08:00:00', 3, 3, TRUE),
+('Bob', 'Brown', 'bob.brown@example.com', 'letmein', '2024-03-05 08:00:00', 4, 1, TRUE),
+('Eve', 'White', 'eve.white@example.com', 'p@ssw0rd', '2024-03-05 08:00:00', 5, 2, TRUE);
+
 
 #peuplement table 'Applications' :
-INSERT INTO Applications (id_student, id_internship_offer, CV, motivation_letter) VALUES
+INSERT INTO Applications (id_user, id_internship_offer, CV, motivation_letter) VALUES
 (1, 1, 'JohnDoe_CV.pdf', 'JohnDoe_MotivationLetter.pdf'),
 (2, 2, 'JaneSmith_CV.pdf', 'JaneSmith_MotivationLetter.pdf'),
 (3, 3, 'AliceJohnson_CV.pdf', 'AliceJohnson_MotivationLetter.pdf'),
@@ -225,7 +355,7 @@ INSERT INTO Applications (id_student, id_internship_offer, CV, motivation_letter
 
 
 #peuplement table 'Works_for' :
-INSERT INTO Works_for (id_student, id_company, start_date, end_date) VALUES
+INSERT INTO Works_for (id_user, id_company, start_date, end_date) VALUES
 (1, 1, '2023-01-01', '2023-06-30'),
 (2, 2, '2023-02-15', '2023-08-15'),
 (3, 3, '2023-03-01', '2023-09-01'),
@@ -243,10 +373,37 @@ INSERT INTO Company_Reviews (id_company, id_user, review_text, review_score) VAL
 
 
 #peuplement table 'Required_Skills' :
-INSERT INTO Required_Skills (id_internship_offer, required_skills) VALUES
+INSERT INTO Required_Skills (id_internship_offer, id_skill) VALUES
 (1, 1),(1, 2),(1, 3),(2, 4),(2, 5),(2, 6),(3, 7),(3, 8),(3, 9),(4, 10),(4, 11),(4, 12),(5, 13),(5, 14),(5, 15);
 
 
 #peuplement table 'related_to_class' :
 INSERT INTO related_to_class (id_user, id_class) VALUES
 (1, 1),(2, 2),(3, 3),(4, 4),(5, 5);
+
+#peuplement table 'situated' :
+INSERT INTO situated (id_city, id_company) VALUES
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10),
+    (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18), (19, 19), (20, 20),
+    (1, 21), (2, 22), (3, 23), (4, 24), (5, 25), (6, 26), (7, 27), (8, 28), (9, 29), (10, 30),
+    (11, 31), (12, 32), (13, 33), (14, 34), (15, 35), (16, 36), (17, 37), (18, 38), (19, 39), (20, 40),
+    (1, 41), (2, 42), (3, 43), (4, 44), (5, 45), (6, 46), (7, 47), (8, 48), (9, 49), (10, 50),
+    (11, 51), (12, 52), (13, 53), (14, 54), (15, 55), (16, 56), (17, 57), (18, 58), (19, 59), (20, 60),
+    (1, 61), (2, 62), (3, 63), (4, 64), (5, 65), (6, 66), (7, 67), (8, 68), (9, 69), (10, 70),
+    (11, 71), (12, 72), (13, 73), (14, 74), (15, 75), (16, 76), (17, 77), (18, 78), (19, 79), (20, 80),
+    (1, 81), (2, 82), (3, 83), (4, 84), (5, 85), (6, 86), (7, 87), (8, 88), (9, 89), (10, 90),
+    (11, 91), (12, 92), (13, 93), (14, 94), (15, 95), (16, 96), (17, 97), (18, 98), (19, 99), (20, 100),
+    (1, 101), (2, 102), (3, 103), (4, 104), (5, 105), (6, 106), (7, 107), (8, 108), (9, 109), (10, 110),
+    (11, 111), (12, 112), (13, 113), (14, 114), (15, 115), (16, 116), (17, 117), (18, 118), (19, 119), (20, 120),
+    (1, 121), (2, 122), (3, 123), (4, 124), (5, 125), (6, 126), (7, 127), (8, 128), (9, 129), (10, 130),
+    (11, 131), (12, 132), (13, 133), (14, 134), (15, 135), (16, 136), (17, 137), (18, 138), (19, 139), (20, 140),
+    (1, 141), (2, 142), (3, 143), (4, 144);
+
+
+#peuplement de la table 'Wish_list :
+INSERT INTO Wish_list (id_internship_offer, id_user) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
