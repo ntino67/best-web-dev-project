@@ -123,8 +123,47 @@ div.navbar {
   justify-content: space-around; 
   display: flex;
   width: 15%;
-  padding-right: 2%
+  padding-right: 2%;
 }
+
+/* Footer styling */
+.footer {
+  background-color: black;
+  color: white;
+  padding: 1.5rem 0rem 0.8rem 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+
+  a {
+    display: flex;
+    gap: 0.4rem;
+    color: white;
+    text-decoration: none;
+    
+    p {font-weight: 600;}
+  }
+}
+
+.footer-copyright {
+  color: #D3D3D3;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
 /* Login & Account creation styling */
 
 div.auth-container {

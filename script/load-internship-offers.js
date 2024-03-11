@@ -2,7 +2,7 @@ let placeholder ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisq
 
 $(document).ready(function () {
   $.get("components/internship-offer.html", function (data) {
-    for (let i = 1; i <= 500; i++) {
+    for (let i = 1; i <= 10; i++) {
       let newElement = document.createElement("div");
 
       newElement.innerHTML = data;
