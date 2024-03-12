@@ -84,7 +84,114 @@ WHERE id_company = @company_id;
 
 
 -- SFx9	Créer une offre
+SET @id_company = 1; 
+SET @available_slots = 5;
+SET @title = 'Offre de stage en développement web';
+SET @description = 'Stage développement web qui concerne principalement la partie back-end.';
+SET @created_at = CURRENT_DATE; 
+SET @expires_at = '2024-06-30';
+SET @business_sector = 'Informatique';
+SET @duration = 4; 
+INSERT INTO Internship_offers (id_company, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, business_sector, internship_duration, internship_offer_active)
+VALUES (@id_company, @available_slots, @title, @description, @created_at, @expires_at, @business_sector, @duration, 1);
+
+SET @id_internship_offer = LAST_INSERT_ID();
+SET @id_class1 = 1;
+SET @id_class2 = 2;
+SET @id_class3 = 3;
+SET @id_class4 = 4;
+SET @id_class5 = 5;
+SET @id_class6 = 6;
+SET @id_class7 = 7;
+SET @id_class8 = 8;
+SET @id_class9 = 9;
+SET @id_class10 = '';
+SET @id_class11 = '';
+SET @id_class12 = '';
+SET @id_class13 = '';
+SET @id_class14 = '';
+SET @id_class15 = '';
+SET @id_class16 = '';
+SET @id_class17 = '';
+SET @id_class18 = '';
+SET @id_class19 = '';
+SET @id_class20 = '';
+SET @id_class21 = '';
+SET @id_class22 = '';
+SET @id_class23 = '';
+SET @id_class24 = '';
+SET @id_class25 = '';
+SET @id_class26 = '';
+INSERT INTO Addressed_to (id_class, id_internship_offer) 
+SELECT id_class, @id_internship_offer FROM Class  
+WHERE id_class IN (@id_class1, @id_class2, @id_class3, @id_class4, @id_class5, @id_class6, @id_class7, @id_class8, @id_class9, @id_class10, @id_class11, @id_class12, @id_class13, @id_class14, @id_class15, @id_class16, @id_class17, @id_class18, @id_class19, @id_class20, @id_class21, @id_class22, @id_class23, @id_class24, @id_class25, @id_class26);
+
+
 -- SFx10 Modifier une offre
+SET @id_internship_offer = 25;
+SET @id_company = 3; 
+SET @available_slots = 10;
+SET @internship_offer_title = 'Offre de stage BTP';
+SET @internship_offer_description = 'Stage BTP';
+SET @expires_at = '2024-08-22';
+SET @business_sector = 'BTP';
+SET @duration = 7;
+
+UPDATE Internship_offers
+SET 
+    internship_offer_title = IF(@internship_offer_title <> '', @internship_offer_title, internship_offer_title),
+    internship_offer_description = IF(@internship_offer_description <> '', @internship_offer_description, internship_offer_description),
+    available_slots = IF(@available_slots <> '', @available_slots, available_slots),
+    business_sector = IF(@business_sector <> '', @business_sector, business_sector),
+    id_company = IF(@id_company <> '', @id_company, id_company),
+    internship_offer_created_at = IF(@created_at <> '', @created_at, internship_offer_created_at),
+    internship_offer_expires_at = IF(@expires_at <> '', @expires_at, internship_offer_expires_at),
+    internship_duration = IF(@duration <> '', @duration, internship_duration)
+WHERE id_internship_offer = @id_internship_offer
+    AND (@internship_offer_title <> '' OR @internship_offer_description <> '' OR @available_slots <> '' OR @business_sector <> '' OR @id_company <> '' OR @created_at <> '' OR @expires_at <> '' OR @duration <> '');
+
+SET @id_user = LAST_INSERT_ID();
+SET @id_class1 = '';
+SET @id_class2 = 2;
+SET @id_class3 = '';
+SET @id_class4 = 4;
+SET @id_class5 = '';
+SET @id_class6 = '';
+SET @id_class7 = '';
+SET @id_class8 = '';
+SET @id_class9 = 9;
+SET @id_class10 = '';
+SET @id_class11 = '';
+SET @id_class12 = '';
+SET @id_class13 = '';
+SET @id_class14 = '';
+SET @id_class15 = 15;
+SET @id_class16 = '';
+SET @id_class17 = '';
+SET @id_class18 = '';
+SET @id_class19 = 19;
+SET @id_class20 = '';
+SET @id_class21 = '';
+SET @id_class22 = '';
+SET @id_class23 = '';
+SET @id_class24 = '';
+SET @id_class25 = 25;
+SET @id_class26 = '';
+DELETE FROM Addressed_to 
+WHERE id_internship_offer = @id_internship_offer
+AND (@id_class1 <> '' OR @id_class2 <> '' OR @id_class3 <> '' OR @id_class4 <> '' OR @id_class5 <> '' OR @id_class6 <> '' OR @id_class7 <> '' OR @id_class8 <> '' OR @id_class9 <> '' OR @id_class10 <> '' OR @id_class11 <> '' OR @id_class12 <> '' OR @id_class13 <> '' OR @id_class14 <> '' OR @id_class15 <> '' OR @id_class16 <> '' OR @id_class17 <> '' OR @id_class18 <> '' OR @id_class19 <> '' OR @id_class20 <> '' OR @id_class21 <> '' OR @id_class22 <> '' OR @id_class23 <> '' OR @id_class24 <> '' OR @id_class25 <> '' OR @id_class26 <> '');
+INSERT INTO Addressed_to (id_internship_offer, id_class)
+SELECT @id_internship_offer, id_class FROM Class 
+WHERE id_class IN (
+    @id_class1, @id_class2, @id_class3, @id_class4, @id_class5,
+    @id_class6, @id_class7, @id_class8, @id_class9, @id_class10,
+    @id_class11, @id_class12, @id_class13, @id_class14, @id_class15,
+    @id_class16, @id_class17, @id_class18, @id_class19, @id_class20,
+    @id_class21, @id_class22, @id_class23, @id_class24, @id_class25,
+    @id_class26
+);
+
+
 -- SFx11 Supprimer une offre
 SET @offer_id := 1;
 UPDATE Internship_offers 
