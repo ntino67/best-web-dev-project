@@ -78,6 +78,8 @@ WHERE id_company = @company_id;
 
 
 -- SFx7	Consulter les stats des entreprises
+
+
 -- SFx8	Rechercher une offre
 
 
@@ -91,9 +93,111 @@ WHERE id_internship_offer = @offer_id;
 
 
 -- SFx12 Consulter les stats des offres
+
+
 -- SFx13 Rechercher un compte pilote
+
+
 -- SFx14 Créer un compte pilote
+SET @first_name = 'Taxe';
+SET @last_name = 'Endéter';
+SET @email = 'trouverunstage@grien.com';
+SET @password = 'peloton';
+SET @id_center = 1;
+INSERT INTO Users (first_name, last_name, email, password, user_created_at, id_center, id_role, user_active)
+VALUES (@first_name, @last_name, @email, @password, CURRENT_TIMESTAMP, @id_center, 2, 1);
+
+SET @id_user = LAST_INSERT_ID();
+SET @id_class1 = 1;
+SET @id_class2 = 2;
+SET @id_class3 = 3;
+SET @id_class4 = 4;
+SET @id_class5 = 5;
+SET @id_class6 = '';
+SET @id_class7 = '';
+SET @id_class8 = '';
+SET @id_class9 = '';
+SET @id_class10 = '';
+SET @id_class11 = '';
+SET @id_class12 = '';
+SET @id_class13 = '';
+SET @id_class14 = '';
+SET @id_class15 = '';
+SET @id_class16 = '';
+SET @id_class17 = '';
+SET @id_class18 = '';
+SET @id_class19 = '';
+SET @id_class20 = '';
+SET @id_class21 = '';
+SET @id_class22 = '';
+SET @id_class23 = '';
+SET @id_class24 = '';
+SET @id_class25 = '';
+SET @id_class26 = '';
+INSERT INTO Related_to_class (id_user, id_class)
+SELECT @id_user, id_class FROM Class 
+WHERE id_class IN (@id_class1, @id_class2, @id_class3, @id_class4, @id_class5, @id_class6, @id_class7, @id_class8, @id_class9, @id_class10, @id_class11, @id_class12, @id_class13, @id_class14, @id_class15, @id_class16, @id_class17, @id_class18, @id_class19, @id_class20, @id_class21, @id_class22, @id_class23, @id_class24, @id_class25, @id_class26);
+
+
 -- SFx15 Modifier un compte pilote
+SET @first_name = 'Taxichaise';
+SET @last_name = 'Ponpidou';
+SET @email = '';
+SET @password = '';
+SET @id_center = 5;
+SET @id_user = 6;
+UPDATE Users
+SET 
+    first_name = IF(@first_name <> '', @first_name, first_name),
+    last_name = IF(@last_name <> '', @last_name, last_name),
+    email = IF(@email <> '', @email, email),
+    password = IF(@password <> '', @password, password),
+    id_center = IF(@id_center <> '', @id_center, id_center)
+WHERE id_user = @id_user
+    AND (@first_name <> '' OR @last_name <> '' OR @email <> '' OR @password <> '' OR @id_center <> '');
+
+SET @id_user = LAST_INSERT_ID();
+SET @id_class1 = '';
+SET @id_class2 = 2;
+SET @id_class3 = '';
+SET @id_class4 = 4;
+SET @id_class5 = '';
+SET @id_class6 = '';
+SET @id_class7 = '';
+SET @id_class8 = '';
+SET @id_class9 = 9;
+SET @id_class10 = '';
+SET @id_class11 = '';
+SET @id_class12 = '';
+SET @id_class13 = '';
+SET @id_class14 = '';
+SET @id_class15 = 15;
+SET @id_class16 = '';
+SET @id_class17 = '';
+SET @id_class18 = '';
+SET @id_class19 = 19;
+SET @id_class20 = '';
+SET @id_class21 = '';
+SET @id_class22 = '';
+SET @id_class23 = '';
+SET @id_class24 = '';
+SET @id_class25 = 25;
+SET @id_class26 = '';
+DELETE FROM Related_to_class 
+WHERE id_user = @id_user
+AND (@id_class1 <> '' OR @id_class2 <> '' OR @id_class3 <> '' OR @id_class4 <> '' OR @id_class5 <> '' OR @id_class6 <> '' OR @id_class7 <> '' OR @id_class8 <> '' OR @id_class9 <> '' OR @id_class10 <> '' OR @id_class11 <> '' OR @id_class12 <> '' OR @id_class13 <> '' OR @id_class14 <> '' OR @id_class15 <> '' OR @id_class16 <> '' OR @id_class17 <> '' OR @id_class18 <> '' OR @id_class19 <> '' OR @id_class20 <> '' OR @id_class21 <> '' OR @id_class22 <> '' OR @id_class23 <> '' OR @id_class24 <> '' OR @id_class25 <> '' OR @id_class26 <> '');
+INSERT INTO Related_to_class (id_user, id_class)
+SELECT @id_user, id_class FROM Class 
+WHERE id_class IN (
+    @id_class1, @id_class2, @id_class3, @id_class4, @id_class5,
+    @id_class6, @id_class7, @id_class8, @id_class9, @id_class10,
+    @id_class11, @id_class12, @id_class13, @id_class14, @id_class15,
+    @id_class16, @id_class17, @id_class18, @id_class19, @id_class20,
+    @id_class21, @id_class22, @id_class23, @id_class24, @id_class25,
+    @id_class26
+);
+
+
 -- SFx16 Supprimer un compte pilote
 SET @user_id = 4;
 UPDATE Users 
@@ -102,8 +206,36 @@ WHERE id_user = @user_id AND id_role = 2;
 
 
 -- SFx17 Rechercher un compte étudiant
+
+
 -- SFx18 Créer un compte étudiant
+SET @first_name = 'jayzon';
+SET @last_name = 'duere';
+SET @email = 'monemail.fr';
+SET @password = 'motdepasse';
+SET @id_center = 9; 
+INSERT INTO Users (first_name, last_name, email, password, user_created_at, id_center, id_role, user_active)
+VALUES (@first_name, @last_name, @email, @password, CURRENT_TIMESTAMP, @id_center, 3, 1);
+
+
 -- SFx19 Modifier un compte étudiant
+SET @first_name = 'praujais part tèrd';
+SET @last_name = 'pouloupoupi';
+SET @email = '';
+SET @password = '';
+SET @id_center = 5;
+SET @id_user = 4;
+UPDATE Users
+SET 
+    first_name = IF(@first_name <> '', @first_name, first_name),
+    last_name = IF(@last_name <> '', @last_name, last_name),
+    email = IF(@email <> '', @email, email),
+    password = IF(@password <> '', @password, password),
+    id_center = IF(@id_center <> '', @id_center, id_center)
+WHERE id_user = @id_user
+    AND (@first_name <> '' OR @last_name <> '' OR @email <> '' OR @password <> '' OR @id_center <> '') AND id_role = 3;
+
+
 -- SFx20 Supprimer un compte étudiant
 SET @user_id = 4;
 UPDATE Users 
@@ -112,6 +244,25 @@ WHERE id_user = @user_id AND id_role = 3;
 
 
 -- SFx21 Consulter les stats des étudiants
+
+
 -- SFx22 Ajouter une offre à la wish-list
+SET @id_internship_offer = 2;
+SET @id_user = 5;
+INSERT INTO Wish_list (id_internship_offer, id_user) VALUES (@id_internship_offer, @id_user);
+
+
 -- SFx23 Retirer une offre à la wish-list
+SET @id_internship_offer = 2;
+SET @id_user = 5;
+DELETE FROM Wish_list
+WHERE id_internship_offer = @id_internship_offer AND id_user = @id_user;
+
+
 -- SFx24 Postuler à une offre
+SET @id_user = 3;
+SET @id_internship_offer = 49;
+SET @CV = 'test_Sfx24';
+SET @motivation_letter = 'je_veux_que cette_requete_fonctionne';
+INSERT INTO Applications (id_user, id_internship_offer, CV, motivation_letter)
+VALUES (@id_user, @id_internship_offer, @CV, @motivation_letter);
