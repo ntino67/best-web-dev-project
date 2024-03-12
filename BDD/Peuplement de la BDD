@@ -407,3 +407,11 @@ INSERT INTO Wish_list (id_internship_offer, id_user) VALUES
 (3, 3),
 (4, 4),
 (5, 5);
+
+#peuplement de la table 'Addressed_to' :
+INSERT INTO Addressed_to (id_class, id_internship_offer)
+VALUES
+(1, 1),
+(2, 1),
+(2, 2),
+(3, 3);
