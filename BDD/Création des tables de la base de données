@@ -164,6 +164,6 @@ ALTER TABLE `Required_Skills` ADD CONSTRAINT `internship_offer_exist2` FOREIGN K
 
 ALTER TABLE `Required_Skills` ADD CONSTRAINT `skill_exist` FOREIGN KEY (`id_skill`) REFERENCES `Skills` (`id_skill`);
 
-ALTER TABLE `addressed_to` ADD CONSTRAINT `classinter_exist` FOREIGN KEY (`id_class`) REFERENCES `Class` (`id_class`);
+ALTER TABLE `Addressed_to` ADD CONSTRAINT `classinter_exist` FOREIGN KEY (`id_class`) REFERENCES `Class` (`id_class`);
 
-ALTER TABLE `addressed_to` ADD CONSTRAINT `internship_offer_exist3` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
+ALTER TABLE `Addressed_to` ADD CONSTRAINT `internship_offer_exist3` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
