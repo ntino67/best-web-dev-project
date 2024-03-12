@@ -274,6 +274,10 @@ div.auth > * {
 }
 
 .auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select {
+  height: 3rem;
+}
+
+.auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select, .auth-input textarea {
   background-color: white;
   box-sizing: border-box;
   width: 100%;
@@ -283,10 +287,17 @@ div.auth > * {
   padding: 0 5% 0 5%;
 }
 
-.auth-input input[type=text], .auth-input input[type=password], .auth-input select {
+.auth-input input[type=text], .auth-input input[type=password], .auth-input select, .auth-input textarea {
   font-size: 1rem;
   color: #777;
   border-width: 2px;
+}
+
+.auth-input textarea {
+  resize: none;
+  font-family: Inter, sans-serif;
+  height: 7.5rem;
+  padding-top: 3%;
 }
 
 select.auth-input-extended-select {
