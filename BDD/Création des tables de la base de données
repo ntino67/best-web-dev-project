@@ -118,6 +118,15 @@ CREATE TABLE `Wish_list`(
    FOREIGN KEY(`id_user`) REFERENCES `Users`(`id_user`)
 );
 
+CREATE TABLE `Addressed_to`(
+   `id_class` INT,
+   `id_internship_offer` INT,
+   PRIMARY KEY(`id_class`, `id_internship_offer`),
+   FOREIGN KEY(`id_class`) REFERENCES `Class`(`id_class`),
+   FOREIGN KEY(`id_internship_offer`) REFERENCES `Internship_offers`(`id_internship_offer`)
+);
+
+
 
 ALTER TABLE `Users` ADD CONSTRAINT `user_has_role` FOREIGN KEY (`id_role`) REFERENCES `Roles` (`id_role`);
 
@@ -154,3 +163,7 @@ ALTER TABLE `Related_to_class` ADD CONSTRAINT `class_exist` FOREIGN KEY (`id_cla
 ALTER TABLE `Required_Skills` ADD CONSTRAINT `internship_offer_exist2` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
 
 ALTER TABLE `Required_Skills` ADD CONSTRAINT `skill_exist` FOREIGN KEY (`id_skill`) REFERENCES `Skills` (`id_skill`);
+
+ALTER TABLE `Addressed_to` ADD CONSTRAINT `classinter_exist` FOREIGN KEY (`id_class`) REFERENCES `Class` (`id_class`);
+
+ALTER TABLE `Addressed_to` ADD CONSTRAINT `internship_offer_exist3` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
