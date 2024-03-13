@@ -72,6 +72,10 @@ body {
   gap: 1rem;
 }
 
+.flex-gap-1-5 {
+  gap: 1.5rem;
+}
+
 .flex-gap-2-5 {
   gap: 2.5rem;
 }
@@ -348,6 +352,7 @@ div.sorting {
   margin: 0.5rem 0.5rem 0 0.5rem;
   gap: 2.5rem;
 }
+
 button.sorting-category {
   border: none;
   background: none;
@@ -532,143 +537,93 @@ main.search-container {
   }
 }
 
-.company-page-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
+/* Company page */
+
+.space-div {
+  flex: 0 0 20%;
 }
 
-.company-page-header h1 {
-  font-size: 5rem;
-  font-weight: bold;
-  order: 1;
-}
-
-.header-content {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  width: 50%;
-}
-
-.company-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.company-info > div {
-  flex: 1 1 150px;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-.company-info-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  line-height: 1.2125;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
-.company-info-center p:first-child {
-  font-weight: bold;
-  font-size: 1.6rem;
-}
-
-.company-info-center p:nth-child(2) {
-  display: flex;
-  justify-content: center;
-  height: 1.3rem;
-  margin-bottom: 5px;
-}
-
-.center-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.company-info-center span {
-  font-size: 1.2rem;
-  line-height: 1.2125;
-}
-
-.company-description {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  line-height: 1.2125;
-  align-items: flex-start;
-  width: 50%;
-}
-.company-aside {
-  width: 20%;
-  position: absolute;
-  top: 30vh;
+.company-page {
+  flex: 0 0 60%;
 }
 
 .edit-company {
-  display: flex;
-  flex-direction: column;
+  position: fixed;
+  top: 30vh;
   line-height: 2;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  a {
+    text-decoration: none;
+    gap: 0.5rem;
+
+    span {
+      font-size: 1rem;
+      font-weight: bold;
+      color: black;
+    }
+  }
 }
 
-.edit-company h2 {
-  font-size: 3rem;
+.company-page-header {
+  font-size: 4rem;
   font-weight: bold;
 }
 
-.edit-company a span {
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
+.company-info {
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.edit-company a {
-  text-decoration: none;
+.company-info-center {
+  text-align: center;
+  line-height: 1.2125;
+  word-wrap: break-word;
+
+  p:first-child {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  p:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    width: 6rem;
+  }
 }
 
-.main-container {
-  width: 100%;
+
+.company-rating {
+  font-size: 0.5625rem;
+  color: #6B7280;
+
+  span {
+    font-size: 0.625rem;
+    line-height: 1.2125;
+  }
+}
+
+.company-description {
+  font-size: 1.25rem;
+  line-height: 1.2125;
+  align-items: flex-start;
+}
+
+.tabs {
   display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.company-internship-offers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  gap: 1.5rem;
-  width: 50%;
-}
-
-.company-internship-offers h2:nth-child(1) {
-  grid-column: 1;
-  grid-row: 1;
+  justify-content: space-between;
   font-size: 2rem;
   font-weight: bold;
-}
 
-.company-internship-offers h2:nth-child(2) {
-  grid-column: 2;
-  grid-row: 1;
-  font-size: 2rem;
-  font-weight: bold;
-  justify-content: right;
-  text-align: right;
+  h2:hover {
+    color: #222;
+    cursor: pointer;
+  }
 }
 
 .paging {
@@ -687,15 +642,38 @@ main.search-container {
   }
 }
 
-.paging-current-page {
-  background-color: #D9D9D9;
+/* Tab effect */
+
+.active-tab {
+  color: black;
+  transition: color 0.3s ease;
 }
 
-.sorting {
-  grid-column: 2;
-  grid-row: 2;
+.inactive-tab {
+  color: #6B7280;
+  transition: color 0.3s ease;
 }
 
-.placeholder {
-  height: 20rem;
-} /*TODO: Remove this class when the page is finished*/
+/* Line effect for text decoration */
+
+.line-effect {
+  position: relative;
+  overflow: hidden; /* Hide the part of ::after that extends outside of a */
+}
+
+.line-effect::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: black;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.line-effect.hover::after {
+  transform: scaleX(1);
+}
