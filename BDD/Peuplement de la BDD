@@ -83,27 +83,22 @@ INSERT INTO Companies (company_name, company_business_sector, company_descriptio
 ('Airbus', 'Aerospace', 'Airbus is a global leader in the aerospace industry, designing, developing, and manufacturing a wide range of innovative commercial, military, and space aircraft.', TRUE),
 ('BNP Paribas', 'Finance', 'BNP Paribas is one of the leading global banks, offering a comprehensive range of banking and financial services to individuals, businesses, and institutions worldwide.', TRUE),
 ('L_Oréal', 'Cosmetics', 'L_Oréal is the world_s largest cosmetics company, offering a diverse portfolio of beauty products and services across skincare, haircare, makeup, and fragrance.', TRUE),
-('Orange', 'Telecommunications', 'Orange is a leading telecommunications operator, providing mobile, internet, and TV services to millions of customers worldwide.', TRUE),
 ('Michelin', 'Manufacturing', 'Michelin is a renowned tire manufacturer, known for its innovative tire technologies and commitment to sustainability in the automotive industry.', TRUE),
 ('Capgemini', 'Consulting', 'Capgemini is a global leader in consulting, technology services, and digital transformation, helping clients navigate the complexities of the digital world.', TRUE),
 ('Danone', 'Food & Beverage', 'Danone is a multinational food company, dedicated to bringing health through food to as many people as possible with a wide range of dairy and plant-based products.', TRUE),
 ('Société Générale', 'Finance', 'Société Générale is one of the largest European financial services groups, providing a wide range of retail, corporate, and investment banking services.', TRUE),
 ('Peugeot', 'Automotive', 'Peugeot is a leading automotive manufacturer, producing a range of cars, vans, and motorcycles known for their performance, style, and innovation.', TRUE),
-('Renault', 'Automotive', 'Renault is a global automotive company, designing and manufacturing a wide range of vehicles and providing innovative solutions for sustainable mobility.', TRUE),
 ('AXA', 'Insurance', 'AXA is a multinational insurance company, offering a range of insurance and financial services to individuals and businesses around the world.', TRUE),
 ('Dassault Systèmes', 'Software', 'Dassault Systèmes is a global leader in 3D design, simulation, and product lifecycle management software, enabling businesses to innovate and transform their operations.', TRUE),
 ('Accor', 'Hospitality', 'Accor is a world-leading hospitality group, offering unique experiences in over 5,000 hotels, resorts, and residences across 110 countries.', TRUE),
 ('Engie', 'Energy', 'Engie is a global energy and services group, providing sustainable solutions for businesses and communities to meet their energy needs.', TRUE),
 ('Thales', 'Aerospace & Defense', 'Thales is a multinational aerospace and defense company, delivering innovative solutions for the aerospace, transportation, and security sectors.', TRUE),
-('Veolia', 'Environmental Services', 'Veolia is a global leader in environmental services, providing water, waste, and energy management solutions to promote sustainable development.', TRUE),
 ('Vinci', 'Construction', 'Vinci is a leading construction and infrastructure company, delivering projects that shape the world around us with a focus on sustainability and innovation.', TRUE),
 ('Sanofi', 'Healthcare', 'Sanofi is a global healthcare company, focused on discovering, developing, and distributing pharmaceuticals and vaccines to improve health worldwide.', TRUE),
 ('Vivendi', 'Media & Telecommunications', 'Vivendi is a multimedia conglomerate, engaged in media, content creation, and telecommunications services, providing entertainment experiences to audiences worldwide.', TRUE),
 ('Sodexo', 'Facilities Management', 'Sodexo is a global provider of quality of life services, offering catering, facilities management, and employee benefits solutions to enhance well-being.', TRUE),
 ('EDF', 'Energy', 'EDF is a leading energy company, producing, distributing, and selling electricity and gas across Europe, with a commitment to sustainable development and renewable energy.', TRUE),
-('Air Liquide', 'Manufacturing', 'Air Liquide is a world leader in gases, technologies, and services for industry and healthcare, providing innovative solutions to improve efficiency and environmental performance.', TRUE),
 ('Schneider Electric', 'Energy Management & Automation', 'Schneider Electric is a global leader in energy management and automation solutions, providing integrated technologies for efficiency and sustainability in homes, buildings, data centers, infrastructure, and industries.', TRUE),
-('BNP Paribas', 'Finance', 'BNP Paribas is one of the leading global banks, offering a comprehensive range of banking and financial services to individuals, businesses, and institutions worldwide.', TRUE),
 ('Safran', 'Aerospace & Defense', 'Safran is an international high-technology group, operating in the aerospace, defense, and security markets, with a focus on innovation and sustainable mobility.', TRUE),
 ('EssilorLuxottica', 'Eyewear', 'EssilorLuxottica is a global leader in eyewear, combining the expertise of Essilor, the world leader in ophthalmic optics, and Luxottica, the world leader in the design, manufacture, and distribution of eyewear.', TRUE),
 ('Air France-KLM', 'Airline', 'Air France-KLM is a leading airline group, providing passenger and cargo transportation services worldwide, with a focus on customer experience, innovation, and sustainability.', TRUE),
@@ -119,14 +114,12 @@ INSERT INTO Companies (company_name, company_business_sector, company_descriptio
 ('Dassault Aviation', 'Aerospace', 'Dassault Aviation is a French aerospace company, specializing in the design and manufacture of military and business jets, with a reputation for innovation, performance, and safety.', TRUE),
 ('Ubisoft', 'Gaming', 'Ubisoft is a leading creator, publisher, and distributor of interactive entertainment and services, offering a diverse portfolio of video games and digital experiences for players worldwide.', TRUE),
 ('Aéroports de Paris', 'Transportation', 'Aéroports de Paris is the airport authority responsible for managing and operating the major airports in the Paris region, providing essential services for travelers and ensuring efficient airport operations.', TRUE),
-('Accor', 'Hospitality', 'Accor is a world-leading hospitality group, offering unique experiences in over 5,000 hotels, resorts, and residences across 110 countries.', TRUE),
 ('Saint-Gobain', 'Construction Materials', 'Saint-Gobain is a global leader in the production and distribution of construction materials, providing innovative solutions for sustainable building and living.', TRUE),
 ('Atos', 'Digital Transformation', 'Atos is a global leader in digital transformation, providing end-to-end IT services and solutions to help businesses and organizations harness the power of technology for innovation and growth.', TRUE),
 ('Hermès', 'Luxury Goods', 'Hermès is a French luxury goods manufacturer, renowned for its handcrafted leather goods, accessories, and ready-to-wear fashion, synonymous with elegance, craftsmanship, and timeless style.', TRUE),
 ('Credit Agricole', 'Finance', 'Credit Agricole is one of the largest banking groups in Europe, offering a comprehensive range of banking, insurance, and asset management services to individuals, businesses, and institutions.', TRUE),
 ('LafargeHolcim', 'Construction Materials', 'LafargeHolcim is the global leader in building materials and solutions, producing and distributing cement, aggregates, and ready-mix concrete for construction projects worldwide, with a focus on sustainability and innovation.', TRUE),
 ('Renault', 'Automotive', 'Renault is a global automotive company, designing and manufacturing a wide range of vehicles and providing innovative solutions for sustainable mobility.', TRUE),
-('Capgemini', 'Consulting & Technology', 'Capgemini is a global leader in consulting and technology services, enabling organizations to transform and thrive in the digital age through innovation, expertise, and partnership.', TRUE),
 
 -- United States
 ('Apple', 'Technology', 'Apple is a multinational technology company, designing and manufacturing consumer electronics, software, and online services, known for its iconic products such as the iPhone, iPad, and Mac.', TRUE),
@@ -396,9 +389,10 @@ INSERT INTO situated (id_city, id_company) VALUES
     (1, 101), (2, 102), (3, 103), (4, 104), (5, 105), (6, 106), (7, 107), (8, 108), (9, 109), (10, 110),
     (11, 111), (12, 112), (13, 113), (14, 114), (15, 115), (16, 116), (17, 117), (18, 118), (19, 119), (20, 120),
     (1, 121), (2, 122), (3, 123), (4, 124), (5, 125), (6, 126), (7, 127), (8, 128), (9, 129), (10, 130),
-    (11, 131), (12, 132), (13, 133), (14, 134), (15, 135), (16, 136), (17, 137), (18, 138), (19, 139), (20, 140),
-    (1, 141), (2, 142), (3, 143), (4, 144);
-
+    (11, 131), (12, 132), (13, 133), (14, 134), (15, 135), (16, 136), (17, 137), 
+    (2, 1), (3, 2), (4, 3), (5, 4), (6, 5), (7, 6), (8, 7), (9, 8), (10, 9), (11, 10),
+    (12, 11), (13, 12), (14, 13), (15, 14), (16, 15), (17, 16), (18, 17), (19, 18), (20, 19), (1, 20),
+    (2, 21), (3, 22), (4, 23), (5, 24), (6, 25), (7, 26), (8, 27), (9, 28), (10, 29), (11, 30);
 
 #peuplement de la table 'Wish_list :
 INSERT INTO Wish_list (id_internship_offer, id_user) VALUES
