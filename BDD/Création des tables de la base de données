@@ -44,6 +44,7 @@ CREATE TABLE `Internship_offers` (
   `internship_offer_expires_at` DATE,
   `business_sector` VARCHAR(255),
   `internship_duration` INT,
+  `base_salary` INT,
   `internship_offer_active` BOOL
 );
 

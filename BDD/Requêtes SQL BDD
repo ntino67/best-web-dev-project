@@ -8,28 +8,47 @@ SELECT email, password FROM Users WHERE email = @email_utilisateur AND password 
 
 
 -- SFx2	Rechercher une entreprise
-SET @company_name := 'Chibraltar';
-SELECT 
-    Companies.company_name AS Company_name,
-    Companies.company_description AS Company_description,
-    Cities.name AS City,
-    Country.name AS Country,
-    COUNT(Internship_offers.id_internship_offer) AS Number_of_offers,
-    AVG(Company_Reviews.review_score) AS Average_rating
-FROM 
+SET @company_name = '';
+SET @company_business_sector = 'Finance';
+SET @locality = '';
+SET @average_rating = '';
+SET @orderbyAZ = TRUE;
+SET @orderbyZA = FALSE;
+SET @orderby51 = FALSE;
+SET @orderby15 = FALSE;
+SET @orderbymax = FALSE;
+SET @orderbymin = FALSE;
+
+SELECT
+    Companies.company_name AS 'Nom de l_entreprise',
+    Companies.company_business_sector AS 'Secteur d_activité',
+    Cities.name AS 'Nom de la ville',
+    COUNT(Applications.id_user) AS 'Nombre de stagiaires ayant postulé à une offre de cette entreprise',
+    AVG(IFNULL(Company_Reviews.review_score, 0)) AS 'Moyenne des évaluations des stagiaires/des Pilotes de promotion'
+FROM
     Companies
-JOIN 
-    Cities ON Companies.id_city = Cities.id_city
-JOIN 
-    Country ON Cities.id_country = Country.id_country
-LEFT JOIN 
-    Internship_offers ON Companies.id_company = Internship_offers.id_company
-LEFT JOIN 
-    Company_Reviews ON Companies.id_company = Company_Reviews.id_company
-WHERE 
-    Companies.company_name = @company_name AND Companies.company_active = TRUE
-GROUP BY 
-    Companies.company_name, Companies.company_description, Cities.name, Country.name;
+    INNER JOIN Situated ON Companies.id_company = Situated.id_company
+    INNER JOIN Cities ON Situated.id_city = Cities.id_city
+    LEFT JOIN Applications ON Companies.id_company = Applications.id_user
+    LEFT JOIN Company_Reviews ON Companies.id_company = Company_Reviews.id_company
+WHERE
+    Companies.company_name LIKE CONCAT('%', @company_name, '%')
+    AND Companies.company_business_sector LIKE CONCAT('%', @company_business_sector, '%')
+    AND Cities.name LIKE CONCAT('%', @locality, '%')
+    AND company_active = TRUE
+GROUP BY
+    Companies.company_name,
+    Companies.company_business_sector,
+    Cities.name
+HAVING
+    AVG(IFNULL(Company_Reviews.review_score, 0)) >= @average_rating
+ORDER BY
+    IF(@orderbyAZ = TRUE, Companies.company_name, NULL) ASC,
+    IF(@orderbyZA = TRUE, Companies.company_name, NULL) DESC,
+    IF(@orderby51 = TRUE, AVG(IFNULL(Company_Reviews.review_score, 0)), NULL) DESC,
+    IF(@orderby15 = TRUE, AVG(IFNULL(Company_Reviews.review_score, 0)), NULL) ASC,
+    IF(@orderbymax = TRUE, COUNT(Applications.id_user), NULL) DESC,
+    IF(@orderbymin = TRUE, COUNT(Applications.id_user), NULL) ASC;
 
 	
 -- SFx3	Créer une entreprise
@@ -81,6 +100,87 @@ WHERE id_company = @company_id;
 
 
 -- SFx8	Rechercher une offre
+SET @skill_name = '';
+SET @locality = '';
+SET @company_name = '';
+SET @promotion_type = '';
+SET @internship_duration = '';
+SET @base_salary = '';
+SET @internship_offer_created_at = '';
+SET @available_slots = '';
+SET @applications_count = '';
+SET @orderbyAZ = TRUE;
+SET @orderbyZA = FALSE;
+SET @orderby51 = FALSE;
+SET @orderby15 = FALSE;
+SET @orderbymax = FALSE;
+SET @orderbymin = FALSE;
+
+SELECT
+    Internship_offers.internship_offer_title AS 'Titre de l_offre',
+    IFNULL(
+        (
+            SELECT GROUP_CONCAT(Class.class_year)
+            FROM Addressed_to
+            LEFT JOIN Class ON Addressed_to.id_class = Class.id_class
+            WHERE Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
+            GROUP BY Addressed_to.id_internship_offer
+        ),
+        ''
+    ) AS 'Types de promotions concernées',
+    IFNULL(
+        (
+            SELECT GROUP_CONCAT(Skills.skill_name)
+            FROM Required_Skills
+            LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
+            WHERE Required_Skills.id_internship_offer = Internship_offers.id_internship_offer
+            GROUP BY Required_Skills.id_internship_offer
+        ),
+        ''
+    ) AS 'Compétences requises',
+    Cities.name AS 'Localité',
+    Companies.company_name AS 'Nom de l_entreprise',
+    Internship_offers.internship_duration AS 'Durée du stage',
+    Internship_offers.base_salary AS 'Base de rémunération',
+    Internship_offers.internship_offer_created_at AS 'Date de l_offre',
+    Internship_offers.available_slots AS 'Nombre de places offertes aux étudiants',
+    COUNT(Applications.id_user) AS 'Nombre d_élèves ayant déjà postulé à cette offre'
+FROM
+    Internship_offers
+    LEFT JOIN Companies ON Internship_offers.id_company = Companies.id_company
+    LEFT JOIN Applications ON Internship_offers.id_internship_offer = Applications.id_internship_offer
+    LEFT JOIN Situated ON Internship_offers.id_company = Situated.id_company
+    LEFT JOIN Cities ON Situated.id_city = Cities.id_city
+    LEFT JOIN Addressed_to ON Internship_offers.id_internship_offer = Addressed_to.id_internship_offer
+    LEFT JOIN Class ON Addressed_to.id_class = Class.id_class
+    LEFT JOIN Required_Skills ON Internship_offers.id_internship_offer = Required_Skills.id_internship_offer
+    LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
+WHERE
+    (Cities.name LIKE CONCAT('%', @locality, '%') OR @locality = '')
+    AND (Companies.company_name LIKE CONCAT('%', @company_name, '%') OR @company_name = '')
+    AND (Class.class_year LIKE CONCAT('%', @promotion_type, '%') OR @promotion_type = '')
+    AND (Skills.skill_name LIKE CONCAT('%', @skill_name, '%') OR @skill_name = '')
+    AND (Internship_offers.internship_duration LIKE CONCAT('%', @internship_duration, '%') OR @internship_duration = '')
+    AND (Internship_offers.base_salary LIKE CONCAT('%', @base_salary, '%') OR @base_salary = '')
+    AND (Internship_offers.internship_offer_created_at LIKE CONCAT('%', @internship_offer_created_at, '%') OR @internship_offer_created_at = '')
+    AND (Internship_offers.available_slots LIKE CONCAT('%', @available_slots, '%') OR @available_slots = '')
+GROUP BY
+    Internship_offers.id_internship_offer,
+    Cities.name,
+    Companies.company_name,
+    Internship_offers.internship_duration,
+    Internship_offers.base_salary,
+    Internship_offers.internship_offer_created_at,
+    Internship_offers.available_slots
+HAVING
+    COUNT(Applications.id_user) >= @applications_count
+ORDER BY
+    IF(@orderbyAZ = TRUE, Internship_offers.internship_offer_title, NULL) ASC,
+    IF(@orderbyZA = TRUE, Internship_offers.internship_offer_title, NULL) DESC,
+    IF(@orderby51 = TRUE, Internship_offers.available_slots, NULL) DESC,
+    IF(@orderby15 = TRUE, Internship_offers.available_slots, NULL) ASC,
+    IF(@orderbymax = TRUE, COUNT(Applications.id_user), NULL) DESC,
+    IF(@orderbymin = TRUE, COUNT(Applications.id_user), NULL) ASC;
 
 
 -- SFx9	Créer une offre

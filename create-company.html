@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <script src="script/jquery/jquery-3.7.1.js"></script>
+    <script src="script/navbar.js"></script>
+  </head>
+  <body>
+    <div id="navbar-container" class="navbar-absolute"></div>
+    <div class="auth-container">
+      <div class="auth">
+        <div class="auth-text">
+          <h1>Create a company</h1>
+          <h2>Add a new organization to the platform</h2>
+        </div>
+        <div class="auth-input">
+          <form>
+            <input type="text" placeholder="Company name" id="create-company-name" required>
+            <textarea type="text" placeholder="Company description" id="create-company-description" required maxlength="500"></textarea>
+            <!-- TODO: Add remaining character counter -->
+
+            <!-- Select company cities -->
+            <div>
+              <input type="text" placeholder="City name or postal code" id="create-company-city">
+
+              <select class="auth-input-extended-select" id="create-company-cities" multiple required>
+                <option>Strasbourg, France - 67000</option>
+                <option>Kehl, Allemagne - 77694</option> 
+                <option>Paris, France - 75000</option>
+                <option>Nancy, France - 54000</option> 
+              </select>
+            </div>
+
+            <!-- Select company sectors -->
+            <div>
+              <input type="text" placeholder="Sectors" id="create-company-sector">
+
+              <select class="auth-input-extended-select" id="create-company-sectors" multiple required>
+                <option>Vente de Bananes</option>
+                <option>Élevage de singes</option> 
+                <option>Dropshipping de contrefacons</option>
+                <option>Mettre des feurs</option> 
+              </select>
+            </div>
+
+            <button>Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="footer-container"></div>
+  </body>
+</html>
