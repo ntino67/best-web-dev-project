@@ -92,24 +92,39 @@ body {
   justify-content: flex-end;
 }
 
-/* Align elements at the start of the cross axis of the flexbox */
-.flex-align-start-ca {
-  align-content: flex-start;
-}
-
-/* Align elements at the end of the cross axis of the flexbox */
-.flex-align-end-ca {
-  align-content: flex-end;
-}
-
 /* Center items on flexbox main axis*/
 .flex-align-center-ma {
   justify-content: center;
 }
 
+/* Align elements at the start of the cross axis of the flexbox */
+.flex-align-content-start-ca {
+  align-content: flex-start;
+}
+
+/* Align elements at the end of the cross axis of the flexbox */
+.flex-align-content-end-ca {
+  align-content: flex-end;
+}
+
+/* Align elements at the center of the cross axis of the flexbox */
+.flex-align-content-center-ca {
+  align-content: center;
+}
+
 /* Center items on flexbox cross axis*/
-.flex-align-center-ca {
+.flex-align-items-center-ca {
   align-items: center;
+}
+
+/* Align items on flexbox at the start of the cross axis*/
+.flex-align-items-start-ca {
+  align-items: flex-start;
+}
+
+/* Align items on flexbox at the end of the cross axis*/
+.flex-align-items-end-ca {
+  align-items: flex-end;
 }
 
 /* Center items on both flexbox axes*/
@@ -277,6 +292,7 @@ div.auth > * {
   display: flex;
   gap: 0.8rem;
   flex-direction: column;
+  width: 20rem;
 }
 
 .auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select {
@@ -291,7 +307,7 @@ div.auth > * {
 
 .auth-input input[type=text], .auth-input input[type=password], .auth-input select {
   font-size: 1rem;
-  color: #777;
+  color: #777777;
   border-width: 2px;
 }
 
@@ -318,7 +334,7 @@ select.auth-input-extended-select {
 
 .auth-input label {
   font-size: 1.2rem;
-  color: #777;
+  color: #777777;
 }
 
 .auth-input input[type=checkbox], input[type=radio] {
@@ -561,8 +577,20 @@ main.search-container {
 }
 
 .company-page-header {
-  font-size: 4rem;
   font-weight: bold;
+  align-items: flex-end;
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  div {
+    background-color: #D9D9D9;
+    color: #777;
+    border-radius: 9px;
+    padding: 0.5% 1% 0.5% 1%;
+    font-size: 1.2rem;
+  }
 }
 
 .company-info {
