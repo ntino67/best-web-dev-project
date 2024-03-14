@@ -20,6 +20,7 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -43,7 +44,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
 
 /* css reset end  */
 
@@ -97,6 +97,10 @@ body {
   justify-content: center;
 }
 
+.flex-align-between-ma {
+  justify-content: space-between;
+}
+
 /* Align elements at the start of the cross axis of the flexbox */
 .flex-align-content-start-ca {
   align-content: flex-start;
@@ -144,8 +148,7 @@ body {
 }
 
 /* Page header styling */
-header.page-header {
-  justify-content: space-between;
+.page-header {
   align-items: flex-end;
   flex-wrap: wrap;
   margin-bottom: 1rem;
@@ -154,8 +157,17 @@ header.page-header {
     font-size: 4rem;
     font-weight: bold;
   }
-}
 
+  div.header-tag {
+    background-color: #D9D9D9;
+    color: #777;
+    border-radius: 9px;
+    padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+  }
+}
 
 /* Navbar Styling */
 
@@ -245,7 +257,6 @@ div.navbar {
   color: #D3D3D3;
   gap: 0.4rem;
 }
-
 
 /* Login & Account creation styling */
 
@@ -350,7 +361,6 @@ select.auth-input-extended-select {
   font-size: 1.56rem;
 }
 
-
 /* Searching pages */
 /* Internship page */
 
@@ -381,6 +391,7 @@ button.sorting-category {
     font-weight: bold;
   }
 }
+
 button.sorting-category:hover {
   background-color: #f2f2f2;
 }
@@ -545,13 +556,12 @@ main.search-container {
 }
 
 /* Company page */
-
-.space-div {
-  flex: 0 0 20%;
+main.profile-page {
+  flex: 0 0 60%;
 }
 
-.company-page {
-  flex: 0 0 60%;
+aside.profile-page {
+  flex: 0 0 20%;
 }
 
 .edit-company {
@@ -573,23 +583,6 @@ main.search-container {
       font-weight: bold;
       color: black;
     }
-  }
-}
-
-.company-page-header {
-  font-weight: bold;
-  align-items: flex-end;
-
-  h1 {
-    font-size: 4rem;
-  }
-
-  div {
-    background-color: #D9D9D9;
-    color: #777;
-    border-radius: 9px;
-    padding: 0.5% 1% 0.5% 1%;
-    font-size: 1.2rem;
   }
 }
 
@@ -615,7 +608,6 @@ main.search-container {
     width: 6rem;
   }
 }
-
 
 .company-rating {
   font-size: 0.5625rem;
