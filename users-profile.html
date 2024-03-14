@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Company name</title>
+    <title>User name</title>
     <link href="style.css" rel="stylesheet">
     <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
     <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
     <script src="script/jquery/jquery-3.7.1.js"></script>
     <script src="script/components.js"></script>
     <script src="script/switching-tabs.js"></script>
+    <script src="script/load-wishlist.js"></script>
+    <script src="script/load-work-history.js"></script>
     <script src="script/effects.js"></script>
 </head>
 <body>
 <div id="navbar-container"></div>
 <div class="page-spacing flex-row">
     <aside class="profile-page">
-        <div class="edit-company flex-column flex-align-items-start-ca" id="scrolling-div">
+        <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
             <h2>Edit</h2>
             <a class="flex-row line-effect" href="#">
                 <span class="far"></span>
@@ -23,56 +25,34 @@
             </a>
             <a class="flex-row line-effect" href="#">
                 <span class="far"></span>
-                <span>Add Internship Offers</span>
+                <span>Add Internship to Wishlist</span>
             </a>
             <a class="flex-row line-effect" href="#">
                 <span class="far"></span>
-                <span>Delete Company</span>
+                <span>Delete User</span>
             </a>
         </div>
     </aside>
     <main class="profile-page flex-column flex-gap-1">
         <header class="page-header flex-row flex-align-content-end-ma flex-gap-1">
-            <h1>Feur International</h1>
+            <h1>Matteo Heidelberger</h1>
             <div class="header-tag">
-                <p>Secteur</p>
+                <p>Student</p>
             </div>
         </header>
-        <section class="company-info flex-row flex-gap-1">
-            <div class="company-info-center">
-                <div>
-                    <p>4,2</p>
-                    <p class="company-stars">
-                        <span class="fas"></span>
-                        <span class="fas"></span>
-                        <span class="fas"></span>
-                        <span class="fas"></span>
-                        <span class="far"></span>
+        <section class="flex-align-items-start-ca flex-row flex-gap-1">
+            <div class="profile-info-center">
+                <div class="flex-column">
+                    <p>
+                        <span class="fas"></span>
+                        <span> A1</span>
                     </p>
+                    <p>Promotion actuelle</p>
                 </div>
-                <p class="company-rating">500 Ratings</p>
-            </div>
-            <div class="company-info-center flex-column">
-                <p class="far"></p>
-                <p>Dans-tes-murs, France</p>
-            </div>
-            <div class="company-info-center flex-column">
-                <p>
-                    <span class="far"></span>
-                    <span> 900</span>
-                </p>
-                <p>Internship offers</p>
-            </div>
-            <div class="company-info-center flex-column">
-                <p>
-                    <span class="far"></span>
-                    <span> 69</span>
-                </p>
-                <p>Students working here</p>
             </div>
         </section>
         <section>
-            <div class="company-description">Lorem ipsum
+            <div class="profile-description">Lorem ipsum
                 <br><br>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bite sed tortor vitae finibus. Sed lacus
                 lectus,
@@ -84,14 +64,16 @@
             </div>
         </section>
         <div class="flex-column">
-            <div class="tabs">
-                <h2 class="active-tab">Internship Offers</h2>
-                <h2 class="inactive-tab">Reviews</h2>
-            </div>
+            <h2 class="users-headers">Work history</h2>
+        </div>
+        <div class="work-history-container"></div>
+        <div class="flex-column">
+            <h2 class="users-headers">Wishlist</h2>
             <div class="flex-row flex-align-content-center-ca">
                 <div class="paging-container"></div>
                 <div class="sorting-container"></div>
             </div>
+            <div class="wishlist-container"></div>
         </div>
     </main>
     <div class="search-results"></div>
