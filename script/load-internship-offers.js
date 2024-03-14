@@ -2,7 +2,7 @@ let placeholder ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisq
 
 $(document).ready(function () {
   $.get("components/internship-offer.html", function (data) {
-    for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 5; i++) {
       let newElement = document.createElement("div");
 
       newElement.innerHTML = data;
@@ -30,7 +30,7 @@ $(document).ready(function () {
 
 
       // Insert new element into page
-      $("div.search-results").append(newElement.children);
+          $("div.internship-container").append(newElement.children);
     }
   }
   )

@@ -475,7 +475,7 @@ main.search-container {
 }
 
 /* Search results */
-.search-results {
+.internship-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -667,20 +667,6 @@ aside.profile-page {
 .users-headers {
   font-size: 2rem;
   font-weight: bold;
-}
-
-.work-history-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  flex: 6;
-}
-
-.wishlist-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  flex: 6;
 }
 
 /* Tab effect */
