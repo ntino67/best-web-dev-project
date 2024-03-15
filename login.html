@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
+    <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
     <title>Login Page</title>
+    <script src="script/jquery/jquery-3.7.1.js"></script>
+    <script src="script/input_validation.js"></script>
 </head>
 <body>
 <div class="auth-container">
@@ -13,10 +17,10 @@
             <h2>Authentificate to gain access to the platform</h2>
         </div>
         <div class="auth-input">
-            <form>
-                <input id="login-email" placeholder="Email" required type="text">
+            <form action="internships.html" method="post">
+                <input class="input-email" id="login-email" placeholder="Email" required type="text">
                 <input id="login-password" placeholder="Password" required type="password">
-                <button>Login</button>
+                <button onclick="checkForm()">Login</button>
             </form>
         </div>
     </div>
