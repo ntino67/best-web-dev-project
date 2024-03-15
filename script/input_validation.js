@@ -1,14 +1,18 @@
 function checkForm() {
+    let dataCorrect = true;
+
     function validateInput(inputClass, regex, errorMessage) {
         $(inputClass).each(function () {
             if (!regex.test($(this).val() || "0")) { // Fixed regex stupid bug
                 if (!$(this).next().hasClass("error-text")) {
                     $(this).after(`<p class='error-text'><span class='far'></span><span> ${errorMessage}</span></p>`);
                     $(this).addClass('input-error');
+                    dataCorrect = false;
                 }
             } else if ($(this).next().hasClass("error-text")) {
                 $(this).next().remove();
                 $(this).removeClass('input-error');
+                dataCorrect = true;
             }
         });
     }

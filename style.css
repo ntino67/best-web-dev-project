@@ -476,9 +476,10 @@ main.search-container {
 
 /* Search results */
 .internship-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex: 6;
+}
+
+.company-container {
   flex: 6;
 }
 
