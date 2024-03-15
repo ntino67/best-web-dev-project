@@ -704,3 +704,14 @@ aside.profile-page {
 .line-effect.hover::after {
   transform: scaleX(1);
 }
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: -2%;
+}
+
+.input-error {
+  border-color: red;
+}

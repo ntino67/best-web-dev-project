@@ -5,7 +5,7 @@ let promotion_select_checkbox;
 function account_type() {
   switch (account_type_select.val())
   {
-    case "none": 
+    case "0":
       promotion_select_radio.hide();
       promotion_select_checkbox.hide();
       break;
