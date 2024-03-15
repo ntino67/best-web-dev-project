@@ -319,13 +319,7 @@ INSERT INTO Internship_offers (id_company, available_slots, internship_offer_tit
 
 #peuplement table 'Class' :
 INSERT INTO Class (class_year) VALUES 
-('A1'), ('A2 Informatique'), ('A2 Bâtiment & Travaux Publics'), ('A2 Généraliste'), ('A2 Systèmes Embarqués'),
-('A3 FISE Informatique'), ('A3 FISA Informatique'), ('A3 FISA Bâtiment & Travaux Publics'), 
-('A3 FISE Généraliste'), ('A3 FISA Généraliste'), ('A3 FISE Systèmes Embarqués'), ('A3 FISA Systèmes Embarqués'),
-('A4 FISE Informatique'), ('A4 FISA Informatique'), ('A4 FISA Bâtiment & Travaux Publics'), 
-('A4 FISE Généraliste'), ('A4 FISA Généraliste'), ('A4 FISE Systèmes Embarqués'), ('A4 FISA Systèmes Embarqués'),
-('A5 FISE Informatique'), ('A5 FISA Informatique'), ('A5 FISA Bâtiment & Travaux Publics'), 
-('A5 FISE Généraliste'), ('A5 FISA Généraliste'), ('A5 FISE Systèmes Embarqués'), ('A5 FISA Systèmes Embarqués');
+('A1'), ('A2'), ('A3'), ('A4'), ('A5');
 
 
 #peuplement table 'Users' :
