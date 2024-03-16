@@ -34,10 +34,13 @@ switch (array_shift($requestURI)) {
 case "city":
   $controller = new CityController;
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
 
 case "user":
   $controller = new UserController;
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
+
   // Add more request types here
 
 default:
