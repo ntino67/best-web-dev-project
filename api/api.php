@@ -1,32 +1,46 @@
 <?php
 
-global $conn;
-require_once "dbconfig.php";
+declare(strict_types=1);
 
-$parts = explode("/", $_SERVER["REQUEST_URI"]);
+// Automatically load classes defined in src/
+spl_autoload_register(function($class) {
+  require __DIR__ . "/src/$class.php";  
+});
 
+// Set Error and Exception handlers
+set_error_handler("ErrorHandler::handleError");
+set_exception_handler("ErrorHandler::handleException");
+
+// Set content type to json and define charset
 header('Content-Type: application/json; charset=utf-8');
 
-if($parts[2] == "city") {
-  // PDO::FETCH_ASSOC to fetch only the associative array or PDO::FETCH_NUM to fetch only the numeric array.
-  if(($parts[3] ?? null) == null) {
-    $response = $conn->query("SELECT Cities.id_city, Cities.name AS city_name, C.name AS country_name FROM web_project.Cities JOIN web_project.Country C on C.id_country = Cities.id_country")->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($response);
+// Separate the URI into parts and put into array
+$requestURI = explode("/", $_SERVER["REQUEST_URI"]);
 
+// Only keep the part of the URI that comes after api/
+while (true) {
+  if (sizeof($requestURI) == 0) {
+    http_response_code(500);
+    exit();
   }
-  else if (is_numeric($parts[3])) {
-    $id = $parts[3];
-    $response = $conn->query("SELECT Cities.id_city, Cities.name AS city_name, C.name AS country_name FROM web_project.Cities JOIN web_project.Country C on C.id_country = Cities.id_country WHERE id_city = $id")->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($response);
-  }
-  else {
-    http_response_code(400);
+
+  if (array_shift($requestURI) == "api") {
+    break;
   }
 }
-else {
+
+// Process request type 
+switch (array_shift($requestURI)) {
+case "city":
+  $controller = new CityController;
+  $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+
+case "user":
+  $controller = new UserController;
+  $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  // Add more request types here
+
+default:
   http_response_code(404);
+  exit();
 }
-
-
-
-
