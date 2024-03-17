@@ -291,7 +291,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100vh;
-    background-color: rgba(255, 255, 255, 0.20);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(8px);
     margin-left: -100%;
     transition: all 0.5s ease;
@@ -319,8 +319,14 @@ body {
   }
 
   .nav-links .main ul {
-    font-weight: normal;
+    font-weight: 600;
     gap: 2.5rem;
+  }
+
+  .nav-links .actions ul {
+    padding: 0;
+    background-color: transparent;
+    font-weight: 600;
   }
 
   .nav-links .actions ul li {
