@@ -3,9 +3,9 @@ let placeholder = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis
 $(document).ready(function () {
     $.get("components/company.html", function (data) {
             for (let i = 1; i <= 5; i++) {
-                let newElement = document.createElement("div");
+                let newElement = $('<div></div>');
 
-                newElement.innerHTML = data;
+                newElement.html(data);
 
                 // Insert title
                 $(".search-result-title", newElement).html("Company " + i);
@@ -15,12 +15,8 @@ $(document).ready(function () {
 
                 // Insert bottom info
                 let internships = i * 10;
-
-                if (internships == 1) {
-                    $(".search-result-bottom-info-element", newElement).html(internships + " Internship offer");
-                } else {
-                    $(".search-result-bottom-info-element", newElement).html(internships + " Internship offers");
-                }
+                let text = internships == 1 ? internships + " Internship offer" : internships + " Internship offers";
+                $(".search-result-bottom-info-element", newElement).html(text);
 
                 let students = i * 100;
                 $(".search-result-bottom-info-far span", newElement).eq(1).html(students + " students working there");
@@ -31,7 +27,7 @@ $(document).ready(function () {
                 $(".info-text", newElement).eq(1).html("Rating: " + i * 20 + "%");
 
                 // Insert new element into page
-                $("div.company-container").append(newElement.children);
+                $("div.company-container").append(newElement.children());
             }
         }
     )
