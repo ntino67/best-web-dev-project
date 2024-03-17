@@ -1,19 +1,24 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Get all the tabs
-    let tabs = document.querySelectorAll('.tabs h2');
+$(document).ready(function () {
+    // Initially hide the rating-container
+    $('#rating-container').hide();
 
-    // Add event listener to each tab
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function () {
-            // Remove active class from all tabs and add inactive class
-            tabs.forEach(tab => {
-                tab.classList.remove('active-tab');
-                tab.classList.add('inactive-tab');
-            });
+    $('.tabs h2').click(function () {
+        const tabId = $(this).attr('id');
 
-            // Add active class to the clicked tab and remove inactive class
-            this.classList.add('active-tab');
-            this.classList.remove('inactive-tab');
-        });
+        if (tabId === 'internship-tab') {
+            $('#internship-tab').removeClass('inactive-tab').addClass('active-tab');
+            $('#reviews-tab').removeClass('active-tab').addClass('inactive-tab');
+
+            // Hide the rating-container and show the internship-container with a fade-in effect
+            $('#rating-container').hide();
+            $('#internship-container').hide().fadeIn().addClass('fade-in');
+        } else if (tabId === 'reviews-tab') {
+            $('#reviews-tab').removeClass('inactive-tab').addClass('active-tab');
+            $('#internship-tab').removeClass('active-tab').addClass('inactive-tab');
+
+            // Hide the internship-container and show the rating-container with a fade-in effect
+            $('#internship-container').hide();
+            $('#rating-container').hide().fadeIn().addClass('fade-in');
+        }
     });
 });

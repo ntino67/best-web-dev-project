@@ -45,15 +45,28 @@ table {
   border-spacing: 0;
 }
 
+* {
+  text-decoration: none;
+  list-style: none;
+}
+
 /* css reset end  */
 body {
   width: 100vw;
   font-family: Inter, sans-serif;
 }
 
+.font-inter {
+  font-family: Inter, sans-serif;
+}
+
 /* Class to space all elements from the sides, top and bottom of the page */
 .page-spacing {
   margin: 1% 3% 2% 3%;
+}
+
+.navbar-spacing {
+  margin: 0 3% 0 3%;
 }
 
 /* Flex classes */
@@ -67,6 +80,8 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .flex-gap-1 {
@@ -137,13 +152,27 @@ body {
 }
 
 /* Standard button design */
-.bw-button {
-  background-color: black; 
-  color: white;
+.base-button {
   font-weight: 600;
-  font-size: 1.56rem;
+  font-size: 1.25rem;
   border-radius: 9px;
   border: none;
+}
+
+.bw-button {
+  background-color: black;
+  color: white;
+}
+
+.grey-button {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.no-bg-button {
+  background-color: #fff;
+  color: black;
+  font-size: 1.375rem;
 }
 
 /* Page header styling */
@@ -169,70 +198,162 @@ body {
 }
 
 /* Navbar Styling */
-
-/* Used to make the navbar not displace other elements on some pages */
-
-.navbar-absolute div.navbar {
-  position: absolute;
-}
-
-div.navbar {
-  height: 55px;
+.navbar-absolute {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  display: flex;
-  padding-top: 16px;
-  position: sticky;
-  justify-content: space-between;
+  z-index: 9999;
 }
 
-.navbar img {
-  height: 100%;
-}
-
-.navbar a {
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin-left: 20px;
-  margin-right: 20px;
-  text-decoration: none;
-  color: black;
-}
-
-.navbar button {
-  height: 40px;
-  width: 90px;
-  font-size: 20px;
-}
-
-.navbar > * {
-  height: 100%;
+.navbar {
   display: flex;
   align-items: center;
 }
 
-.navbar-left {
-  justify-content: left;
-  width: 15%;
-  padding-left: 2%;
-}
-
-.navbar-center {
-  justify-content: center;
-  width: 50%;
-}
-
-.navbar-right {
-  justify-content: space-around; 
+.logo {
   display: flex;
-  width: 15%;
-  padding-right: 2%;
+  justify-content: flex-start;
+  width: 45%;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 2.5rem;
+  font-size: 1.25rem;
+}
+
+.nav-links .main ul {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10rem;
+  width: 100%;
+  font-weight: bold;
+}
+
+.nav-links .actions ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.nav-links .actions ul li {
+  padding: 0.3rem 0.4rem;
+  background-color: #f2f2f2;
+  border-radius: 9px;
+  transition: all 0.3s ease;
+}
+
+.nav-links .actions ul li:hover {
+  background-color: #D9D9D9;
+  border-radius: 9px;
+}
+
+.nav-links a {
+  color: black;
+}
+
+.logo img {
+  height: 55px;
+}
+
+.menu-burger {
+  display: none;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.menu-burger.open {
+  position: fixed;
+  z-index: 100;
+}
+
+.mobile-menu {
+  margin-left: 0;
+}
+
+@media screen and (max-width: 1550px) {
+  .nav-links .main ul {
+    display: flex;
+    justify-content: flex-start;
+    gap: 7rem;
+    width: 100%;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar .nav-links {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(8px);
+    margin-left: -100%;
+    transition: all 0.5s ease;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .navbar .nav-links ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar .nav-links.mobile-menu {
+    margin-left: 0;
+  }
+
+  .navbar .nav-links ul li {
+    margin: 25px 0;
+    font-size: 1.2em;
+  }
+
+  .nav-links .main ul {
+    font-weight: normal;
+    gap: 2.5rem;
+  }
+
+  .nav-links .actions ul li {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .nav-links .actions ul li:hover {
+    background-color: transparent;
+  }
+
+  .navbar .menu-burger {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 100;
+  }
+}
+
+/* Button design */
+.bw-button {
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  font-size: 1.56rem;
+  border-radius: 9px;
+  border: none;
 }
 
 /* Footer styling */
 .footer {
   background-color: black;
   color: white;
-  padding: 1.5rem 0rem 0.8rem 0rem;
+  padding: 1.5rem 0 0.8rem 0;
   gap: 1.5rem;
   h1 {
     font-size: 2rem;
@@ -365,7 +486,7 @@ select.auth-input-extended-select {
 
 .auth-input button {
   margin-top: 0.9rem;
-  background-color: black; 
+  background-color: black;
   color: white;
   font-weight: bold;
   font-size: 1.56rem;
@@ -448,7 +569,7 @@ main.search-container {
   .far {
     width: 1.4rem;
     text-align: center;
-  }  
+  }
 }
 
 .search-bar-small {
@@ -481,6 +602,26 @@ main.search-container {
 
 .company-container {
   flex: 6;
+}
+
+.rating-container {
+  flex: 6;
+}
+
+.rating-info {
+  word-wrap: break-word;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #6B7280;
+    max-width: 100%;
+    line-height: 1.2;
+  }
 }
 
 /* Represents a single search result */
@@ -663,6 +804,11 @@ aside.profile-page {
   }
 }
 
+.company-rating-stars {
+  span {
+    color: black;
+  }
+}
 /* Users profiles */
 
 .users-headers {
@@ -715,4 +861,17 @@ aside.profile-page {
 
 .input-error {
   border-color: red;
+}
+
+.fade-in {
+  animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
