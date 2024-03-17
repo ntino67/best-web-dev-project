@@ -1,12 +1,12 @@
 <?php
 
-class CityController 
+class CityController
 {
-  private CityGateway $gateway;
+  private CityModel $model;
 
   public function __construct()
   {
-    $this->gateway = new CityGateway();
+    $this->model = new CityModel();
   }
 
   // Processes database requests for cities
@@ -25,14 +25,14 @@ class CityController
 
   private function processRessourceRequest(string $method, string $id) : void 
   {
-    $data = $this->gateway->get($id);
+    $data = $this->model->get($id);
 
     if (!$data) {
       http_response_code(404);
       echo json_encode(["message" => "City not found"]);
       return;
     }
-
+    
     switch($method) {
     case "GET" :
       http_response_code(200);
@@ -50,7 +50,7 @@ class CityController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      echo json_encode($this->gateway->getAll());
+      echo json_encode($this->model->getAll());
       break;
 
     default:
