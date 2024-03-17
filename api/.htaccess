@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^. api.php [L]
+RewriteRule ^. index.php [L]
