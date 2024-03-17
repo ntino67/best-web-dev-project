@@ -67,6 +67,8 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .flex-gap-1 {
@@ -483,6 +485,26 @@ main.search-container {
   flex: 6;
 }
 
+.rating-container {
+  flex: 6;
+}
+
+.rating-info {
+  word-wrap: break-word;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: #6B7280;
+    max-width: 100%;
+    line-height: 1.2;
+  }
+}
+
 /* Represents a single search result */
 .search-result-item {
   border: 2px solid #D9D9D9;
@@ -663,6 +685,11 @@ aside.profile-page {
   }
 }
 
+.company-rating-stars {
+  span {
+    color: black;
+  }
+}
 /* Users profiles */
 
 .users-headers {
@@ -715,4 +742,17 @@ aside.profile-page {
 
 .input-error {
   border-color: red;
+}
+
+.fade-in {
+  animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
