@@ -9,10 +9,9 @@ class InternshipOfferController
     $this->model = new InternshipOfferModel();
   }
 
-  // Processes database requests for Internship offers
+  // Processes requests for Internship offers
   // @param $method http method
   // @param $requestURI Elements of the link of the request
-  
   public function processRequest(string $method, array $requestURI) : void
   {
     if (array_key_exists(0, $requestURI)) {
@@ -23,6 +22,8 @@ class InternshipOfferController
     }
   }
 
+  // Process requests for a single Internship offer 
+  // @param $requestURI Elements of the link of the request
   private function processRessourceRequest(string $method, string $id) : void 
   {
     $data = $this->model->get($id);
@@ -45,6 +46,7 @@ class InternshipOfferController
     }
   }
 
+  // Process requests for multiple users
   private function processCollectionRequest(string $method) : void
   {
     switch ($method) {

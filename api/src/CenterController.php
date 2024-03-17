@@ -1,61 +1,39 @@
 <?php
 
-class UserController
+class CenterController
 {
-  private UserModel $model;
+  private CenterModel $model;
 
   public function __construct()
   {
-    $this->model = new UserModel();
+    $this->model = new CenterModel();
   }
 
-  // Processes requests for users 
+  // Processes database requests for centers
   // @param $method http method
   // @param $requestURI Elements of the link of the request
   public function processRequest(string $method, array $requestURI) : void
   {
     if (array_key_exists(0, $requestURI)) {
-      $this->processRessourceRequest($method, $requestURI);
+      $this->processRessourceRequest($method, $requestURI[0]);
     }
     else {
       $this->processCollectionRequest($method);
     }
   }
 
-  // Process requests for a single user
+  // Process requests for a single center
   // @param $requestURI Elements of the link of the request
-  private function processRessourceRequest(string $method, array $requestURI) : void 
+  private function processRessourceRequest(string $method, string $id) : void 
   {
-    $id = array_shift($requestURI);
-
     $data = $this->model->get($id);
 
     if (!$data) {
       http_response_code(404);
-      echo json_encode(["message" => "User not found"]);
+      echo json_encode(["message" => "Center not found"]);
       return;
     }
     
-    // If the wishlist or work history is requested
-    if (array_key_exists(0, $requestURI)) {
-      switch(array_shift($requestURI)) {
-
-      case "wishlist":
-        $controller = new WishlistController($id);
-        $controller->processRequest($method, $requestURI);
-        break;
-
-      case "work_history":
-        // TODO: Implement this
-        break;
-
-      default:
-        http_response_code(404);
-        break;
-      }
-      return;
-    }
-
     switch($method) {
     case "GET" :
       http_response_code(200);
@@ -68,7 +46,7 @@ class UserController
     }
   }
 
-  // Process requests for multiple users
+  // Process requests for multiple centers
   private function processCollectionRequest(string $method) : void
   {
     switch ($method) {
@@ -83,3 +61,4 @@ class UserController
     }
   }
 }
+

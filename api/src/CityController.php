@@ -9,10 +9,9 @@ class CityController
     $this->model = new CityModel();
   }
 
-  // Processes database requests for cities
+  // Processes requests for cities
   // @param $method http method
   // @param $requestURI Elements of the link of the request
-
   public function processRequest(string $method, array $requestURI) : void
   {
     if (array_key_exists(0, $requestURI)) {
@@ -23,6 +22,8 @@ class CityController
     }
   }
 
+  // Process requests for a single city 
+  // @param $requestURI Elements of the link of the request
   private function processRessourceRequest(string $method, string $id) : void 
   {
     $data = $this->model->get($id);
@@ -45,6 +46,7 @@ class CityController
     }
   }
 
+  // Process requests for multiple cities 
   private function processCollectionRequest(string $method) : void
   {
     switch ($method) {
