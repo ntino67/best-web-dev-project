@@ -45,6 +45,11 @@ table {
   border-spacing: 0;
 }
 
+* {
+  text-decoration: none;
+  list-style: none;
+}
+
 /* css reset end  */
 body {
   width: 100vw;
@@ -58,6 +63,10 @@ body {
 /* Class to space all elements from the sides, top and bottom of the page */
 .page-spacing {
   margin: 1% 3% 2% 3%;
+}
+
+.navbar-spacing {
+  margin: 0 3% 0 3%;
 }
 
 /* Flex classes */
@@ -189,66 +198,155 @@ body {
 }
 
 /* Navbar Styling */
-
-/* Used to make the navbar not displace other elements on some pages */
-
-.navbar-absolute div.navbar {
-  position: absolute;
+.navbar-absolute {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .navbar {
-  height: 55px;
-  width: 100%;
-  display: flex;
-  padding-top: 16px;
-  position: sticky;
-  justify-content: space-between;
-
-  img {
-    height: 100%
-  }
-}
-
-.navbar > * {
-  height: 100%;
   display: flex;
   align-items: center;
 }
 
-.navbar-left {
-  justify-content: left;
-  width: 20%;
-  padding-left: 2%;
-}
-
-.navbar-center {
-  justify-content: center;
-  width: 50%;
-
-  a {
-    font-weight: bold;
-    font-size: 1.25rem;
-    margin-left: 20px;
-    margin-right: 20px;
-    text-decoration: none;
-    color: black;
-  }
-}
-
-.navbar-right {
-  justify-content: space-around;
+.logo {
   display: flex;
-  flex-direction: row;
-  width: 20%;
+  justify-content: flex-start;
+  width: 45%;
+}
 
-  button {
-    padding: 0.3rem 0.4rem 0.3rem 0.4rem;
-    transition: background-color 0.3s ease-in-out;
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 2.5rem;
+  font-size: 1.25rem;
+}
+
+.nav-links .main ul {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10rem;
+  width: 100%;
+  font-weight: bold;
+}
+
+.nav-links .actions ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.nav-links .actions ul li {
+  padding: 0.3rem 0.4rem;
+  background-color: #f2f2f2;
+  border-radius: 9px;
+  transition: all 0.3s ease;
+}
+
+.nav-links .actions ul li:hover {
+  background-color: #D9D9D9;
+  border-radius: 9px;
+}
+
+.nav-links a {
+  color: black;
+}
+
+.logo img {
+  height: 55px;
+}
+
+.menu-burger {
+  display: none;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.menu-burger.open {
+  position: fixed;
+  z-index: 100;
+}
+
+.mobile-menu {
+  margin-left: 0;
+}
+
+@media screen and (max-width: 1550px) {
+  .nav-links .main ul {
+    display: flex;
+    justify-content: flex-start;
+    gap: 7rem;
+    width: 100%;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar .nav-links {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(8px);
+    margin-left: -100%;
+    transition: all 0.5s ease;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
 
-  button:hover {
-    background-color: #D9D9D9;
+  .navbar .nav-links ul {
+    flex-direction: column;
+    align-items: center;
   }
+
+  .navbar .nav-links.mobile-menu {
+    margin-left: 0;
+  }
+
+  .navbar .nav-links ul li {
+    margin: 25px 0;
+    font-size: 1.2em;
+  }
+
+  .nav-links .main ul {
+    font-weight: normal;
+    gap: 2.5rem;
+  }
+
+  .nav-links .actions ul li {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .nav-links .actions ul li:hover {
+    background-color: transparent;
+  }
+
+  .navbar .menu-burger {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 100;
+  }
+}
+
+/* Button design */
+.bw-button {
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  font-size: 1.56rem;
+  border-radius: 9px;
+  border: none;
 }
 
 /* Footer styling */
@@ -388,7 +486,7 @@ select.auth-input-extended-select {
 
 .auth-input button {
   margin-top: 0.9rem;
-  background-color: black; 
+  background-color: black;
   color: white;
   font-weight: bold;
   font-size: 1.56rem;
@@ -471,7 +569,7 @@ main.search-container {
   .far {
     width: 1.4rem;
     text-align: center;
-  }  
+  }
 }
 
 .search-bar-small {
