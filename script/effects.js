@@ -1,9 +1,5 @@
-document.querySelectorAll('.line-effect').forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        link.classList.add('hover');
-    });
-
-    link.addEventListener('mouseleave', () => {
-        link.classList.remove('hover');
-    });
+$('.line-effect').on('mouseenter', function () {
+    $(this).addClass('hover');
+}).on('mouseleave', function () {
+    $(this).removeClass('hover');
 });
