@@ -1,18 +1,18 @@
 <?php
 
-class UserController
+class InternshipOfferController
 {
-  private UserModel $model;
+  private InternshipOfferModel $model;
 
   public function __construct()
   {
-    $this->model = new UserModel();
+    $this->model = new InternshipOfferModel();
   }
 
-  // Processes database requests for users 
+  // Processes database requests for Internship offers
   // @param $method http method
   // @param $requestURI Elements of the link of the request
-
+  
   public function processRequest(string $method, array $requestURI) : void
   {
     if (array_key_exists(0, $requestURI)) {
@@ -29,7 +29,7 @@ class UserController
 
     if (!$data) {
       http_response_code(404);
-      echo json_encode(["message" => "User not found"]);
+      echo json_encode(["message" => "Internship not found"]);
       return;
     }
 

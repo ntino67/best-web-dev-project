@@ -1,6 +1,6 @@
 <?php
 
-class CityGateway
+class CityModel
 {
   private PDO $conn;
   
@@ -14,7 +14,17 @@ class CityGateway
   {
     $sql = "SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name FROM web_project.Cities JOIN web_project.Country C on C.id_country = Cities.id_country";
     
-    $statement = $this->conn->query($sql);
+    //Add paging
+    $sql = $sql . " LIMIT :offset , :limit";
+
+    $statement = $this->conn->prepare($sql);
+    
+    list($offset, $limit) = Paging::get();
+
+    $statement->bindValue(":offset", $offset);
+    $statement->bindValue(":limit", $limit);
+
+    $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }

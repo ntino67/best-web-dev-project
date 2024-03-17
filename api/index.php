@@ -7,15 +7,15 @@ spl_autoload_register(function($class) {
   require __DIR__ . "/src/$class.php";  
 });
 
+// Set content type to json and define charset
+header('Content-Type: application/json; charset=utf-8');
+
 // Set Error and Exception handlers
 set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
 
-// Set content type to json and define charset
-header('Content-Type: application/json; charset=utf-8');
-
-// Separate the URI into parts and put into array
-$requestURI = explode("/", $_SERVER["REQUEST_URI"]);
+// Separate the URI into parts and put into array, remove the querystring
+$requestURI = explode("/", strtok($_SERVER["REQUEST_URI"], '?'));
 
 // Only keep the part of the URI that comes after api/
 while (true) {
@@ -41,6 +41,10 @@ case "user":
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
   break;
 
+case "internship":
+  $controller = new InternshipOfferController;
+  $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
   // Add more request types here
 
 default:
