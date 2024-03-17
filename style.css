@@ -51,6 +51,10 @@ body {
   font-family: Inter, sans-serif;
 }
 
+.font-inter {
+  font-family: Inter, sans-serif;
+}
+
 /* Class to space all elements from the sides, top and bottom of the page */
 .page-spacing {
   margin: 1% 3% 2% 3%;
@@ -139,13 +143,27 @@ body {
 }
 
 /* Standard button design */
-.bw-button {
-  background-color: black; 
-  color: white;
+.base-button {
   font-weight: 600;
-  font-size: 1.56rem;
+  font-size: 1.25rem;
   border-radius: 9px;
   border: none;
+}
+
+.bw-button {
+  background-color: black;
+  color: white;
+}
+
+.grey-button {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.no-bg-button {
+  background-color: #fff;
+  color: black;
+  font-size: 1.375rem;
 }
 
 /* Page header styling */
@@ -178,32 +196,17 @@ body {
   position: absolute;
 }
 
-div.navbar {
+.navbar {
   height: 55px;
   width: 100%;
   display: flex;
   padding-top: 16px;
   position: sticky;
   justify-content: space-between;
-}
 
-.navbar img {
-  height: 100%;
-}
-
-.navbar a {
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin-left: 20px;
-  margin-right: 20px;
-  text-decoration: none;
-  color: black;
-}
-
-.navbar button {
-  height: 40px;
-  width: 90px;
-  font-size: 20px;
+  img {
+    height: 100%
+  }
 }
 
 .navbar > * {
@@ -214,27 +217,45 @@ div.navbar {
 
 .navbar-left {
   justify-content: left;
-  width: 15%;
+  width: 20%;
   padding-left: 2%;
 }
 
 .navbar-center {
   justify-content: center;
   width: 50%;
+
+  a {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .navbar-right {
-  justify-content: space-around; 
+  justify-content: space-around;
   display: flex;
-  width: 15%;
-  padding-right: 2%;
+  flex-direction: row;
+  width: 20%;
+
+  button {
+    padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  button:hover {
+    background-color: #D9D9D9;
+  }
 }
 
 /* Footer styling */
 .footer {
   background-color: black;
   color: white;
-  padding: 1.5rem 0rem 0.8rem 0rem;
+  padding: 1.5rem 0 0.8rem 0;
   gap: 1.5rem;
   h1 {
     font-size: 2rem;
