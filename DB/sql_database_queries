@@ -70,22 +70,29 @@ ORDER BY
 
 	
 -- SFx3	Créer une entreprise
-SET @id_business_sector := 2;
+SET @id_business_sector := 4;
 SET @company_name := 'Test nouvelle entreprise';
-SET @company_description := 'Elle propose rien de particulier à part de grande tasse de café';
+SET @company_description := 'Elle ne requiert rien de particulier à part de grande tasse de café';
 SET @company_active := FALSE;
+
 INSERT INTO Companies (id_business_sector, company_name, company_description, company_active)
 VALUES
 (@id_business_sector, @company_name, @company_description, @company_active);
 
+SET @company_id := LAST_INSERT_ID();
+CREATE TEMPORARY TABLE temp_city_ids (id_city INT);
+INSERT INTO temp_city_ids (id_city) VALUES (3), (55), (122);
+INSERT INTO Situated (id_city, id_company)
+SELECT temp_city_ids.id_city, @company_id
+FROM temp_city_ids;
+
 
 -- SFx4 Modifier une entreprise
-USE web_project;
-SET @company_id := 138;
-SET @new_company_name := 'Chibraltar';
-SET @new_company_description := 'Rien à voir';
-SET @new_company_active := FALSE;
-SET @new_business_sector := 4;
+SET @company_id := 141;
+SET @new_company_name := 'GEler';
+SET @new_company_description := 'Tout à voir';
+SET @new_company_active := TRUE;
+SET @new_business_sector := 3;
 
 UPDATE Companies 
 SET 
@@ -96,6 +103,12 @@ SET
 WHERE 
     id_company = @company_id;
 
+CREATE TEMPORARY TABLE temp_city_ids3 (id_city INT);
+DELETE FROM Situated WHERE id_company = @company_id;
+INSERT INTO temp_city_ids3 (id_city) VALUES (122), (123), (124);
+INSERT INTO Situated (id_city, id_company)
+SELECT temp_city_ids3.id_city, @company_id
+FROM temp_city_ids3;
 
 -- SFx5	Evaluer une entreprise
 SET @company_id := 145;
