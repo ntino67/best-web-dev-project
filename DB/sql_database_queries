@@ -133,7 +133,81 @@ WHERE id_company = @company_id;
 
 
 -- SFx7	Consulter les stats des entreprises
+-- Secteur --
+SELECT 
+    *
+FROM
+    (SELECT 
+        business_sectors.business_sector,
+            COUNT(business_sectors.business_sector) AS Total
+    FROM
+        companies
+    JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
+    WHERE
+        Companies.company_active = TRUE
+    GROUP BY business_sectors.business_sector
+    ORDER BY nbr DESC
+    LIMIT 10) AS subquery 
+UNION SELECT 
+    'AUTRES', SUM(subquery.nbr) AS total
+FROM
+    (SELECT 
+        business_sectors.business_sector AS 'Autres',
+            COUNT(business_sectors.business_sector) AS nbr
+    FROM
+        companies
+    JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
+    WHERE
+        Companies.company_active = TRUE
+    GROUP BY business_sectors.business_sector
+    ORDER BY nbr
+    LIMIT 10000 OFFSET 10) AS subquery;
+-- City --
+SELECT 
+    cities.name, 
+    COUNT(cities.name) AS total
+FROM
+    cities
+        JOIN
+    situated ON cities.id_city = situated.id_city
+        JOIN
+    Companies ON situated.id_company = Companies.id_company
+        JOIN
+    countries ON cities.id_country = countries.id_country
+WHERE
+    Companies.company_active = TRUE
+GROUP BY cities.name;
+-- Country --
+SELECT 
+    countries.name, COUNT(countries.name) AS total
+FROM
+    cities
+        JOIN
+    situated ON cities.id_city = situated.id_city
+        JOIN
+    Companies ON situated.id_company = Companies.id_company
+        JOIN
+    countries ON cities.id_country = countries.id_country
+WHERE
+    Companies.company_active = TRUE
+GROUP BY countries.name;
 
+-- City / Country --
+SET @country = 'France';
+SELECT 
+    cities.name, 
+    COUNT(cities.name) AS total
+FROM
+    cities
+        JOIN
+    situated ON cities.id_city = situated.id_city
+        JOIN
+    Companies ON situated.id_company = Companies.id_company
+        JOIN
+    countries ON cities.id_country = countries.id_country
+WHERE
+    IF(@country = '',Companies.company_active = TRUE,Companies.company_active = TRUE AND countries.name = @country)
+GROUP BY cities.name;
 
 -- SFx8	Rechercher une offre
 SET @skill_name = '';
@@ -297,7 +371,77 @@ WHERE id_internship_offer = @offer_id;
 
 
 -- SFx12 Consulter les stats des offres
-
+-- skills
+SELECT 
+    skill_name AS 'Skill name', COUNT(skill_name) AS total
+FROM
+    required_Skills
+        JOIN
+    Internship_offers ON required_Skills.id_internship_offer = Internship_offers.id_internship_offer
+        JOIN
+    Skills ON required_Skills.id_skill = Skills.id_skill
+WHERE
+    Internship_offers.internship_offer_active = TRUE
+GROUP BY skill_name;
+-- city
+SELECT 
+    cities.name AS 'City',
+    COUNT(cities.name) AS total
+FROM
+    cities
+        JOIN
+    situated ON cities.id_city = situated.id_city
+        JOIN
+    Companies ON situated.id_company = Companies.id_company
+        JOIN
+    Internship_offers ON Internship_offers.id_company = Companies.id_company
+        JOIN
+    countries ON cities.id_country = countries.id_country
+WHERE
+    Internship_offers.internship_offer_active = TRUE
+        AND Companies.company_active = TRUE
+GROUP BY cities.name;
+-- countries
+SELECT 
+    countries.name AS 'Country', COUNT(countries.name) AS total
+FROM
+    cities
+        JOIN
+    situated ON cities.id_city = situated.id_city
+        JOIN
+    Companies ON situated.id_company = Companies.id_company
+        JOIN
+    countries ON cities.id_country = countries.id_country
+        JOIN
+    Internship_offers ON Internship_offers.id_company = Companies.id_company
+WHERE
+    Internship_offers.internship_offer_active = TRUE
+        AND Companies.company_active = TRUE
+GROUP BY countries.name;
+-- promo
+SELECT 
+    classes.class_year AS 'Class', COUNT(classes.class_year) AS Total
+FROM
+    Internship_offers
+        JOIN
+    Addressed_to ON Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
+        JOIN
+    classes ON classes.id_class = Addressed_to.id_class
+WHERE
+    Internship_offers.internship_offer_active = TRUE
+GROUP BY classes.class_year;
+-- durée
+SELECT 
+    CONCAT(Internship_offers.internship_duration, ' mois') AS duration,
+    COUNT(Internship_offers.internship_duration) AS Total
+FROM
+    Internship_offers
+    join companies on companies.id_company = internship_offers.id_company
+WHERE
+    internship_offers.internship_offer_active = TRUE
+        AND Companies.company_active = TRUE
+GROUP BY internship_duration
+ORDER BY internship_duration;
 
 -- SFx13 Rechercher un compte pilote
 
@@ -401,7 +545,26 @@ WHERE id_user = @user_id AND id_role = 3;
 
 
 -- SFx21 Consulter les stats des étudiants
-
+-- whish-list
+set @user_id = 1;
+SELECT 
+    count(Users.id_user) AS 'total wish-list'
+FROM
+    Wish_list
+    JOIN Users ON Users.id_user = Wish_list.id_user
+    JOIN Internship_offers ON Internship_offers.id_internship_offer = Wish_list.id_internship_offer
+    WHERE Users.user_active = true AND Internship_offers.internship_offer_active = true AND Users.id_user = @user_id
+    group by Users.id_user;
+-- Application
+set @user_id = 1;
+SELECT 
+    count(Users.id_user) AS 'total application'
+FROM
+    Applications
+    JOIN Users ON Users.id_user = Applications.id_user
+    JOIN Internship_offers ON Internship_offers.id_internship_offer = Applications.id_internship_offer
+    WHERE Users.user_active = true AND Internship_offers.internship_offer_active = true AND Users.id_user = @user_id
+    group by Users.id_user;
 
 -- SFx22 Ajouter une offre à la wish-list
 SET @id_internship_offer = 2;
