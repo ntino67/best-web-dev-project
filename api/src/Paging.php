@@ -17,7 +17,7 @@ class Paging {
       && ((int) $_GET['per_page']) > 0
       && ((int) $_GET['per_page']) <= 200
       ? (int) $_GET['per_page']
-      : 200;
+      : 20;
 
     $offset = ($page - 1) * $limit;
 

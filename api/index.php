@@ -29,7 +29,7 @@ while (true) {
   }
 }
 
-// Process request type 
+// Process request type, send to corrent API endpoint 
 switch (array_shift($requestURI)) {
 case "city":
   $controller = new CityController;
@@ -49,6 +49,10 @@ case "user":
 case "internship":
   $controller = new InternshipOfferController;
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
+
+case "business-sectors":
+  // TODO implement this : GET, (maybe) POST
   break;
 
   // TODO: Add more request types here
