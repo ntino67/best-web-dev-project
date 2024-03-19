@@ -14,7 +14,7 @@ class CenterController
   // @param $requestURI Elements of the link of the request
   public function processRequest(string $method, array $requestURI) : void
   {
-    if (array_key_exists(0, $requestURI)) {
+    if (array_key_exists(0, $requestURI) && $requestURI[0]) {
       $this->processRessourceRequest($method, $requestURI[0]);
     }
     else {

@@ -18,7 +18,7 @@ class WishlistController
   public function processRequest(string $method, array $requestURI) : void
   {
 
-    if (array_key_exists(0, $requestURI)) {
+    if (array_key_exists(0, $requestURI) && $requestURI[0]) {
       $this->processRessourceRequest($method, $requestURI[0]);
     }
     else {
@@ -30,20 +30,20 @@ class WishlistController
   // @param $requestURI Elements of the link of the request
   private function processRessourceRequest(string $method, string $id) : void 
   {
-    // TODO: Add modify and delete for wishlist items here
-    // $data = $this->model->get($id);
-    //
-    // if (!$data) {
-    //   http_response_code(404);
-    //   echo json_encode(["message" => "Wishlist item not fount not found"]);
-    //   return;
-    // }
+    /* TODO: Add modify and delete for wishlist items here */
+    $data = $this->model->get($this->id_user, $id);
+    
+    if (!$data) {
+    http_response_code(404);
+    echo json_encode(["message" => "Wishlist item not found"]);
+    return;
+    }
 
     switch($method) {
-      // case "GET" :
-      //   http_response_code(200);
-      //   echo json_encode($data);
-      //   break;
+      case "GET" :
+      http_response_code(200);
+      echo json_encode($data);
+      break;
 
     default:
     http_response_code(405);

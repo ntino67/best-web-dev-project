@@ -55,6 +55,18 @@ class InternshipOfferController
       echo json_encode($this->model->getAll());
       break;
 
+    case "POST":
+      http_response_code(201);
+      $data = (array) json_decode(file_get_contents("php://input"), true);
+
+      $id = $this->model->create($data);
+
+      echo json_encode([
+        "message" => "Internship created",
+        "id" => $id
+      ]);
+      break;
+    
     default:
       http_response_code(405);
       break;
