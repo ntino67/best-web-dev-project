@@ -232,7 +232,7 @@ SET @id_class3 = 3;
 SET @id_class4 = 4;
 SET @id_class5 = 5;
 INSERT INTO Addressed_to (id_class, id_internship_offer) 
-SELECT id_class, @id_internship_offer FROM Class  
+SELECT id_class, @id_internship_offer FROM Classes  
 WHERE id_class IN (@id_class1, @id_class2, @id_class3, @id_class4, @id_class5);
 
 
@@ -270,7 +270,7 @@ DELETE FROM Addressed_to
 WHERE id_internship_offer = @id_internship_offer
 AND (@id_class1 <> '' OR @id_class2 <> '' OR @id_class3 <> '' OR @id_class4 <> '' OR @id_class5 <> '');
 INSERT INTO Addressed_to (id_internship_offer, id_class)
-SELECT @id_internship_offer, id_class FROM Class 
+SELECT @id_internship_offer, id_class FROM Classes 
 WHERE id_class IN (
     @id_class1, @id_class2, @id_class3, @id_class4, @id_class5
 );
@@ -305,7 +305,7 @@ SET @id_class3 = 3;
 SET @id_class4 = 4;
 SET @id_class5 = 5;
 INSERT INTO Related_to_class (id_user, id_class)
-SELECT @id_user, id_class FROM Class 
+SELECT @id_user, id_class FROM Classes 
 WHERE id_class IN (@id_class1, @id_class2, @id_class3, @id_class4, @id_class5);
 
 
@@ -336,7 +336,7 @@ DELETE FROM Related_to_class
 WHERE id_user = @id_user
 AND (@id_class1 <> '' OR @id_class2 <> '' OR @id_class3 <> '' OR @id_class4 <> '' OR @id_class5 <> '' );
 INSERT INTO Related_to_class (id_user, id_class)
-SELECT @id_user, id_class FROM Class 
+SELECT @id_user, id_class FROM Classes 
 WHERE id_class IN (
     @id_class1, @id_class2, @id_class3, @id_class4, @id_class5
 );
