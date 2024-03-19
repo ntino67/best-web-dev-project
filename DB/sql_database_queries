@@ -9,70 +9,106 @@ SELECT email, password FROM Users WHERE email = @email_utilisateur AND password 
 
 -- SFx2	Rechercher une entreprise
 SET @company_name = '';
-SET @company_business_sector = 'Finance';
+SET @business_sector = '';
 SET @locality = '';
-SET @average_rating = '';
+SET @average_rating = 0;
 SET @orderbyAZ = TRUE;
 SET @orderbyZA = FALSE;
 SET @orderby51 = FALSE;
 SET @orderby15 = FALSE;
-SET @orderbymax = FALSE;
+SET @orderbymax = TRUE;
 SET @orderbymin = FALSE;
 
 SELECT
     Companies.company_name AS 'Nom de l_entreprise',
-    Companies.company_business_sector AS 'Secteur d_activité',
+    Business_sectors.business_sector AS 'Secteur d_activité',
     Cities.name AS 'Nom de la ville',
-    COUNT(Applications.id_user) AS 'Nombre de stagiaires ayant postulé à une offre de cette entreprise',
-    AVG(IFNULL(Company_Reviews.review_score, 0)) AS 'Moyenne des évaluations des stagiaires/des Pilotes de promotion'
+    COUNT(DISTINCT Applications.id_user) AS 'Nombre de stagiaires ayant postulé à une offre de cette entreprise',
+    IFNULL(AVG(
+        CASE 
+            WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+            ELSE NULL
+        END), 'Non noté') AS 'Moyenne des évaluations des stagiaires/des Pilotes de promotion'
 FROM
     Companies
     INNER JOIN Situated ON Companies.id_company = Situated.id_company
     INNER JOIN Cities ON Situated.id_city = Cities.id_city
     LEFT JOIN Applications ON Companies.id_company = Applications.id_user
     LEFT JOIN Company_Reviews ON Companies.id_company = Company_Reviews.id_company
+    INNER JOIN Business_sectors ON Companies.id_business_sector = Business_sectors.id_business_sector
 WHERE
     Companies.company_name LIKE CONCAT('%', @company_name, '%')
-    AND Companies.company_business_sector LIKE CONCAT('%', @company_business_sector, '%')
+    AND Business_sectors.business_sector LIKE CONCAT('%', @business_sector, '%')
     AND Cities.name LIKE CONCAT('%', @locality, '%')
-    AND company_active = TRUE
+    AND Companies.company_active = TRUE
 GROUP BY
     Companies.company_name,
-    Companies.company_business_sector,
+    Business_sectors.business_sector,
     Cities.name
 HAVING
-    AVG(IFNULL(Company_Reviews.review_score, 0)) >= @average_rating
+    IFNULL(AVG(
+        CASE 
+            WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+            ELSE NULL
+        END), 0) >= @average_rating
 ORDER BY
     IF(@orderbyAZ = TRUE, Companies.company_name, NULL) ASC,
     IF(@orderbyZA = TRUE, Companies.company_name, NULL) DESC,
-    IF(@orderby51 = TRUE, AVG(IFNULL(Company_Reviews.review_score, 0)), NULL) DESC,
-    IF(@orderby15 = TRUE, AVG(IFNULL(Company_Reviews.review_score, 0)), NULL) ASC,
-    IF(@orderbymax = TRUE, COUNT(Applications.id_user), NULL) DESC,
-    IF(@orderbymin = TRUE, COUNT(Applications.id_user), NULL) ASC;
+    IF(@orderby51 = TRUE, IFNULL(AVG(
+        CASE 
+            WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+            ELSE NULL
+        END), 0), NULL) DESC,
+    IF(@orderby15 = TRUE, IFNULL(AVG(
+        CASE 
+            WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+            ELSE NULL
+        END), 0), NULL) ASC,
+    IF(@orderbymax = TRUE, COUNT(DISTINCT Applications.id_user), NULL) DESC,
+    IF(@orderbymin = TRUE, COUNT(DISTINCT Applications.id_user), NULL) ASC;
+
 
 	
 -- SFx3	Créer une entreprise
-SET @id_city := 1;
+SET @id_business_sector := 4;
 SET @company_name := 'Test nouvelle entreprise';
-SET @company_description := 'Elle propose rien de particulier à part de grande tasse de café';
+SET @company_description := 'Elle ne requiert rien de particulier à part de grande tasse de café';
 SET @company_active := FALSE;
-INSERT INTO Companies (id_city, company_name, company_description, company_active) VALUES
-(@id_city, @company_name, @company_description, @company_active);
+
+INSERT INTO Companies (id_business_sector, company_name, company_description, company_active)
+VALUES
+(@id_business_sector, @company_name, @company_description, @company_active);
+
+SET @company_id := LAST_INSERT_ID();
+CREATE TEMPORARY TABLE temp_city_ids (id_city INT);
+INSERT INTO temp_city_ids (id_city) VALUES (3), (55), (122);
+INSERT INTO Situated (id_city, id_company)
+SELECT temp_city_ids.id_city, @company_id
+FROM temp_city_ids;
 
 
--- SFx4	Modifier une entreprise
-SET @company_id := 145;
-SET @new_company_name := 'Chibraltar';
-SET @new_company_description := 'Rien à voir';
-SET @new_company_active := FALSE;
+-- SFx4 Modifier une entreprise
+SET @company_id := 141;
+SET @new_company_name := 'GEler';
+SET @new_company_description := 'Tout à voir';
+SET @new_company_active := TRUE;
+SET @new_business_sector := 3;
+
 UPDATE Companies 
 SET 
     company_name = @new_company_name,
     company_description = @new_company_description,
-    company_active = new_company_active
+    company_active = @new_company_active,
+    id_business_sector = @new_business_sector
 WHERE 
     id_company = @company_id;
 
+CREATE TEMPORARY TABLE temp_city_ids3 (id_city INT);
+DELETE FROM Situated WHERE id_company = @company_id;
+INSERT INTO temp_city_ids3 (id_city) VALUES (122), (123), (124);
+INSERT INTO Situated (id_city, id_company)
+SELECT temp_city_ids3.id_city, @company_id
+FROM temp_city_ids3;
 
 -- SFx5	Evaluer une entreprise
 SET @company_id := 145;
@@ -109,6 +145,7 @@ SET @base_salary = '';
 SET @internship_offer_created_at = '';
 SET @available_slots = '';
 SET @applications_count = '';
+SET @business_sector = 'Generalist';
 SET @orderbyAZ = TRUE;
 SET @orderbyZA = FALSE;
 SET @orderby51 = FALSE;
@@ -120,9 +157,9 @@ SELECT
     Internship_offers.internship_offer_title AS 'Titre de l_offre',
     IFNULL(
         (
-            SELECT GROUP_CONCAT(Class.class_year)
+            SELECT GROUP_CONCAT(Classes.class_year)
             FROM Addressed_to
-            LEFT JOIN Class ON Addressed_to.id_class = Class.id_class
+            LEFT JOIN Classes ON Addressed_to.id_class = Classes.id_class
             WHERE Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
             GROUP BY Addressed_to.id_internship_offer
         ),
@@ -138,6 +175,7 @@ SELECT
         ),
         ''
     ) AS 'Compétences requises',
+    Business_sectors.business_sector AS 'Secteur d_activité',
     Cities.name AS 'Localité',
     Companies.company_name AS 'Nom de l_entreprise',
     Internship_offers.internship_duration AS 'Durée du stage',
@@ -148,22 +186,24 @@ SELECT
 FROM
     Internship_offers
     LEFT JOIN Companies ON Internship_offers.id_company = Companies.id_company
+    LEFT JOIN Business_sectors ON Internship_offers.id_business_sector = Business_sectors.id_business_sector
     LEFT JOIN Applications ON Internship_offers.id_internship_offer = Applications.id_internship_offer
     LEFT JOIN Situated ON Internship_offers.id_company = Situated.id_company
     LEFT JOIN Cities ON Situated.id_city = Cities.id_city
     LEFT JOIN Addressed_to ON Internship_offers.id_internship_offer = Addressed_to.id_internship_offer
-    LEFT JOIN Class ON Addressed_to.id_class = Class.id_class
+    LEFT JOIN Classes ON Addressed_to.id_class = Classes.id_class
     LEFT JOIN Required_Skills ON Internship_offers.id_internship_offer = Required_Skills.id_internship_offer
     LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
 WHERE
     (Cities.name LIKE CONCAT('%', @locality, '%') OR @locality = '')
     AND (Companies.company_name LIKE CONCAT('%', @company_name, '%') OR @company_name = '')
-    AND (Class.class_year LIKE CONCAT('%', @promotion_type, '%') OR @promotion_type = '')
+    AND (Classes.class_year LIKE CONCAT('%', @promotion_type, '%') OR @promotion_type = '')
     AND (Skills.skill_name LIKE CONCAT('%', @skill_name, '%') OR @skill_name = '')
     AND (Internship_offers.internship_duration LIKE CONCAT('%', @internship_duration, '%') OR @internship_duration = '')
     AND (Internship_offers.base_salary LIKE CONCAT('%', @base_salary, '%') OR @base_salary = '')
     AND (Internship_offers.internship_offer_created_at LIKE CONCAT('%', @internship_offer_created_at, '%') OR @internship_offer_created_at = '')
     AND (Internship_offers.available_slots LIKE CONCAT('%', @available_slots, '%') OR @available_slots = '')
+    AND (Business_sectors.business_sector LIKE CONCAT('%', @business_sector, '%') OR @business_sector = '')
 GROUP BY
     Internship_offers.id_internship_offer,
     Cities.name,
@@ -183,17 +223,20 @@ ORDER BY
     IF(@orderbymin = TRUE, COUNT(Applications.id_user), NULL) ASC;
 
 
+
 -- SFx9	Créer une offre
-SET @id_company = 1; 
-SET @available_slots = 5;
-SET @title = 'Offre de stage en développement web';
-SET @description = 'Stage développement web qui concerne principalement la partie back-end.';
-SET @created_at = CURRENT_DATE; 
-SET @expires_at = '2024-06-30';
-SET @business_sector = 'Informatique';
-SET @duration = 4; 
-INSERT INTO Internship_offers (id_company, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, business_sector, internship_duration, internship_offer_active)
-VALUES (@id_company, @available_slots, @title, @description, @created_at, @expires_at, @business_sector, @duration, 1);
+SET @id_company := 1; 
+SET @available_slots := 5;
+SET @title := 'Offre de stage en développement web';
+SET @description := 'Stage développement web qui concerne principalement la partie back-end.';
+SET @created_at := CURRENT_DATE; 
+SET @expires_at := '2024-06-30';
+SET @id_business_sector := 3;
+SET @duration := 4; 
+SET @base_salary = 2000;
+INSERT INTO Internship_offers (id_company, id_business_sector, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, internship_duration, base_salary, internship_offer_active)
+VALUES (@id_company, @id_business_sector, @available_slots, @title, @description, @created_at, @expires_at, @duration, @base_salary, 1);
+
 
 SET @id_internship_offer = LAST_INSERT_ID();
 SET @id_class1 = 1;
@@ -202,32 +245,33 @@ SET @id_class3 = 3;
 SET @id_class4 = 4;
 SET @id_class5 = 5;
 INSERT INTO Addressed_to (id_class, id_internship_offer) 
-SELECT id_class, @id_internship_offer FROM Class  
+SELECT id_class, @id_internship_offer FROM Classes  
 WHERE id_class IN (@id_class1, @id_class2, @id_class3, @id_class4, @id_class5);
 
 
 -- SFx10 Modifier une offre
-SET @id_internship_offer = 25;
-SET @id_company = 3; 
-SET @available_slots = 10;
-SET @internship_offer_title = 'Offre de stage BTP';
-SET @internship_offer_description = 'Stage BTP';
-SET @expires_at = '2024-08-22';
-SET @business_sector = 'BTP';
-SET @duration = 7;
+SET @id_internship_offer := 25;
+SET @id_company := 3; 
+SET @available_slots := 10;
+SET @internship_offer_title := 'Offre de stage BTP';
+SET @internship_offer_description := 'Stage BTP';
+SET @expires_at := '2024-08-22';
+SET @id_business_sector := 2;
+SET @duration := 7;
 
 UPDATE Internship_offers
 SET 
     internship_offer_title = IF(@internship_offer_title <> '', @internship_offer_title, internship_offer_title),
     internship_offer_description = IF(@internship_offer_description <> '', @internship_offer_description, internship_offer_description),
     available_slots = IF(@available_slots <> '', @available_slots, available_slots),
-    business_sector = IF(@business_sector <> '', @business_sector, business_sector),
+    id_business_sector = IF(@id_business_sector <> '', @id_business_sector, id_business_sector),
     id_company = IF(@id_company <> '', @id_company, id_company),
     internship_offer_created_at = IF(@created_at <> '', @created_at, internship_offer_created_at),
     internship_offer_expires_at = IF(@expires_at <> '', @expires_at, internship_offer_expires_at),
     internship_duration = IF(@duration <> '', @duration, internship_duration)
 WHERE id_internship_offer = @id_internship_offer
-    AND (@internship_offer_title <> '' OR @internship_offer_description <> '' OR @available_slots <> '' OR @business_sector <> '' OR @id_company <> '' OR @created_at <> '' OR @expires_at <> '' OR @duration <> '');
+    AND (@internship_offer_title <> '' OR @internship_offer_description <> '' OR @available_slots <> '' OR @id_business_sector <> '' OR @id_company <> '' OR @created_at <> '' OR @expires_at <> '' OR @duration <> '');
+
 
 SET @id_user = LAST_INSERT_ID();
 SET @id_class1 = '';
@@ -239,7 +283,7 @@ DELETE FROM Addressed_to
 WHERE id_internship_offer = @id_internship_offer
 AND (@id_class1 <> '' OR @id_class2 <> '' OR @id_class3 <> '' OR @id_class4 <> '' OR @id_class5 <> '');
 INSERT INTO Addressed_to (id_internship_offer, id_class)
-SELECT @id_internship_offer, id_class FROM Class 
+SELECT @id_internship_offer, id_class FROM Classes 
 WHERE id_class IN (
     @id_class1, @id_class2, @id_class3, @id_class4, @id_class5
 );
@@ -274,7 +318,7 @@ SET @id_class3 = 3;
 SET @id_class4 = 4;
 SET @id_class5 = 5;
 INSERT INTO Related_to_class (id_user, id_class)
-SELECT @id_user, id_class FROM Class 
+SELECT @id_user, id_class FROM Classes 
 WHERE id_class IN (@id_class1, @id_class2, @id_class3, @id_class4, @id_class5);
 
 
@@ -305,7 +349,7 @@ DELETE FROM Related_to_class
 WHERE id_user = @id_user
 AND (@id_class1 <> '' OR @id_class2 <> '' OR @id_class3 <> '' OR @id_class4 <> '' OR @id_class5 <> '' );
 INSERT INTO Related_to_class (id_user, id_class)
-SELECT @id_user, id_class FROM Class 
+SELECT @id_user, id_class FROM Classes 
 WHERE id_class IN (
     @id_class1, @id_class2, @id_class3, @id_class4, @id_class5
 );
