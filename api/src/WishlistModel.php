@@ -44,7 +44,7 @@ class WishlistModel
     
     $statement->execute();
 
-    return $statement->fetch(PDO::FETCH_ASSOC);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // @return mixed[]

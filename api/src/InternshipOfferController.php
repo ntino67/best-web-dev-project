@@ -54,6 +54,11 @@ class InternshipOfferController
     switch($method) {
     case "GET" :
       http_response_code(200);
+
+      $requiredSkillsModel = new RequiredSkillsModel();
+      $data["required_skills"] = $requiredSkillsModel->getAll($id);
+        
+
       echo json_encode($data);
       break;
 
@@ -69,7 +74,16 @@ class InternshipOfferController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      echo json_encode($this->model->getAll());
+
+      // Add required skills to each item
+      $data = $this->model->getAll();
+
+      foreach ($data as &$item) {
+        $requiredSkillsModel = new RequiredSkillsModel();
+        $item["required_skills"] = $requiredSkillsModel->getAll($item["id_internship_offer"]);
+      }
+
+      echo json_encode($data);
       break;
 
     case "POST":

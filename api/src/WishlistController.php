@@ -32,22 +32,26 @@ class WishlistController
   {
     /* TODO: Add modify and delete for wishlist items here */
     $data = $this->model->get($this->id_user, $id);
-    
+
     if (!$data) {
-    http_response_code(404);
-    echo json_encode(["message" => "Wishlist item not found"]);
-    return;
+      http_response_code(404);
+      echo json_encode(["message" => "Wishlist item not found"]);
+      return;
     }
 
     switch($method) {
-      case "GET" :
+    case "GET" :
       http_response_code(200);
+
+      $requiredSkillsModel = new RequiredSkillsModel();
+      $data["required_skills"] = $requiredSkillsModel->getAll($id);
+
       echo json_encode($data);
       break;
 
     default:
-    http_response_code(405);
-    break;
+      http_response_code(405);
+      break;
     }
   }
 
@@ -57,7 +61,16 @@ class WishlistController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      echo json_encode($this->model->getAll($this->id_user));
+
+      $data = $this->model->getAll($this->id_user);
+      
+      // Fetch required skills for each wishlist item
+      foreach ($data as &$item) {
+        $requiredSkillsModel = new RequiredSkillsModel();
+        $item["required_skills"] = $requiredSkillsModel->getAll($item["id_wishlist_item"]);
+      }
+
+      echo json_encode($data);
       break;
 
     default:
