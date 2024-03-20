@@ -12,7 +12,10 @@ class CenterModel
   // @return mixed[]
   public function getAll(): array 
   {
-    $sql = "SELECT * FROM Centers";
+    $sql = "
+    SELECT *
+    FROM Centers
+    ";
 
     //Add paging
     $sql = $sql . " LIMIT :offset , :limit";
@@ -32,7 +35,11 @@ class CenterModel
   // @return mixed[]
   public function get(string $id) : array | false
   {
-    $sql = "SELECT * FROM Centers WHERE id_center = :id";
+    $sql = "
+    SELECT *
+    FROM Centers
+    WHERE id_center = :id
+    ";
 
     $statement = $this->conn->prepare($sql);
 

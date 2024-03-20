@@ -12,7 +12,11 @@ class CityModel
   // @return mixed[]
   public function getAll(): array
   {
-    $sql = "SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name FROM web_project.Cities JOIN web_project.Country C on C.id_country = Cities.id_country";
+    $sql = "
+    SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name
+    FROM web_project.Cities
+            JOIN web_project.Countries C on C.id_country = Cities.id_country
+    ";
     
     //Add paging
     $sql = $sql . " LIMIT :offset , :limit";
@@ -32,7 +36,12 @@ class CityModel
   // @return mixed[]
   public function get(string $id) : array | false
   {
-    $sql = "SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name FROM web_project.Cities JOIN web_project.Country C on C.id_country = Cities.id_country WHERE id_city = :id";
+    $sql = "
+    SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name
+    FROM web_project.Cities
+            JOIN web_project.Countries C on C.id_country = Cities.id_country
+    WHERE id_city = :id
+    ";
 
     $statement = $this->conn->prepare($sql);
 
