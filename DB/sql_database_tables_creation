@@ -21,7 +21,7 @@ CREATE TABLE `Countries` (
 
 CREATE TABLE `Business_sectors`(
    `id_business_sector` INT PRIMARY KEY AUTO_INCREMENT,
-   `business_sector` VARCHAR(255)
+   `business_sector_name` VARCHAR(255)
 );
 
 CREATE TABLE `Cities` (
