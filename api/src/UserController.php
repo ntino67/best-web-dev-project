@@ -27,16 +27,17 @@ class UserController
   private function processRessourceRequest(string $method, array $requestURI) : void 
   {
     $id = array_shift($requestURI);
-
+    
+    // Check if the user exists and fetch his data, if not return 404
     $data = $this->model->get($id);
-
+    
     if (!$data) {
       http_response_code(404);
       echo json_encode(["message" => "User not found"]);
       return;
     }
     
-    // If the wishlist or work history is requested
+    // If the users wishlist or work history requested
     if (array_key_exists(0, $requestURI)) {
       switch(array_shift($requestURI)) {
 
@@ -55,7 +56,8 @@ class UserController
       }
       return;
     }
-
+    
+    // If the request is for the user itself
     switch($method) {
     case "GET" :
       http_response_code(200);

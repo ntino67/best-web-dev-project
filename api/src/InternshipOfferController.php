@@ -14,8 +14,8 @@ class InternshipOfferController
   // @param $requestURI Elements of the link of the request
   public function processRequest(string $method, array $requestURI) : void
   {
-    if (array_key_exists(0, $requestURI)) {
-      $this->processRessourceRequest($method, $requestURI[0]);
+    if (array_key_exists(0, $requestURI) && $requestURI[0]) {
+      $this->processRessourceRequest($method, $requestURI);
     }
     else {
       $this->processCollectionRequest($method);
@@ -24,13 +24,30 @@ class InternshipOfferController
 
   // Process requests for a single Internship offer 
   // @param $requestURI Elements of the link of the request
-  private function processRessourceRequest(string $method, string $id) : void 
+  private function processRessourceRequest(string $method, array $requestURI) : void 
   {
+    $id = array_shift($requestURI);
+
     $data = $this->model->get($id);
 
     if (!$data) {
       http_response_code(404);
       echo json_encode(["message" => "Internship not found"]);
+      return;
+    }
+    
+    // If the required skills are requested
+    if (array_key_exists(0, $requestURI)) {
+      switch(array_shift($requestURI)) {
+      case "required_skill":
+        $controller = new RequiredSkillsController($id);
+        $controller->processRequest($method, $requestURI);
+        break;
+
+      default:
+        http_response_code(404);
+        break;
+      }
       return;
     }
 

@@ -89,6 +89,7 @@ class InternshipOfferModel
                                   internship_offer_created_at,
                                   internship_offer_expires_at,
                                   id_business_sector,
+                                  base_salary,
                                   internship_duration,
                                   internship_offer_active)
     VALUES (:id_company,
@@ -98,21 +99,19 @@ class InternshipOfferModel
             :internship_offer_created_at,
             :internship_offer_expires_at,
             :id_business_sector,
+            :base_salary,
             :internship_duration,
             1)
     ";
 
     $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id_company", $data["id_company"]);
-    $statement->bindValue(":available_slots", $data["available_slots"]);
-    $statement->bindValue(":internship_offer_title", $data["internship_offer_title"]);
-    $statement->bindValue(":internship_offer_description", $data["internship_offer_description"]);
-    $statement->bindValue(":internship_offer_created_at", $data["internship_offer_created_at"]);
-    $statement->bindValue(":internship_offer_expires_at", $data["internship_offer_expires_at"]);
-    $statement->bindValue(":id_business_sector", $data["id_business_sector"]);
-    $statement->bindValue(":internship_duration", $data["internship_duration"]);
     
+    $insert = array("id_company", "available_slots", "internship_offer_title", "internship_offer_description", "internship_offer_created_at", "internship_offer_expires_at", "id_business_sector", "base_salary", "internship_duration");
+    
+    foreach ($insert as $i) {
+      $statement->bindValue(":$i", $data[$i]);
+    }
+
     $statement->execute();
     
     return $this->conn->lastInsertId();

@@ -48,7 +48,7 @@ class WishlistModel
   }
 
   // @return mixed[]
-  public function get(string $id_user, string $id_internship_offer)
+  public function get(string $id_user, string $id_internship_offer) : array | false
   {
     $sql = "SELECT
       Wish_list.id_internship_offer AS id_wishlist_item,

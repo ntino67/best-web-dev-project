@@ -51,6 +51,11 @@ case "internship":
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
   break;
 
+case "skill":
+  $controller = new SkillController;
+  $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
+
 case "business-sectors":
   // TODO implement this : GET, (maybe) POST
   break;
