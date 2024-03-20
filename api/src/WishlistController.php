@@ -67,7 +67,7 @@ class WishlistController
       // Fetch required skills for each wishlist item
       foreach ($data as &$item) {
         $requiredSkillsModel = new RequiredSkillsModel();
-        $item["required_skills"] = $requiredSkillsModel->getAll($item["id_wishlist_item"]);
+        $item["required_skills"] = $requiredSkillsModel->getAll($item["id_internship_offer"]);
       }
 
       echo json_encode($data);

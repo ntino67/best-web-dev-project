@@ -13,7 +13,7 @@ class WishlistModel
   public function getAll(string $id_user) : array | false
   {
     $sql = "SELECT
-      Wish_list.id_internship_offer AS id_wishlist_item,
+      Wish_list.id_internship_offer,
       C.id_company,
       available_slots,
       base_salary,
@@ -51,7 +51,7 @@ class WishlistModel
   public function get(string $id_user, string $id_internship_offer) : array | false
   {
     $sql = "SELECT
-      Wish_list.id_internship_offer AS id_wishlist_item,
+      Wish_list.id_internship_offer,
       C.id_company,
       available_slots,
       base_salary,
