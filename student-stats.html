@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="css/style_Stats_Ent.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="js/js_Stats_Ent.js"> -->
+</head>
+<body>
+<h1>Statistics</h1>
+<div class="stats-container">
+    <div class="stats-child">
+        <h3>Stat1</h3>
+        <canvas id="myChart">azerty</canvas>
+    </div>
+    <div class="stats-child">
+        <h3>Stat2</h3>
+        <canvas id="myChart2">azerty</Canvas>
+    </div>
+    <div class="stats-child">
+        <h3>Stat3</h3>
+        <canvas id="myChart3">azerty</Canvas>
+    </div>
+</div>
+<!-- <div>
+  <h2>Top internship offers</h2>
+</div> -->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx1 = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3')
+
+    new Chart(ctx1, {
+        type: 'scatter',
+        data: {
+            labels: ['January', 'February', 'March', 'April'],
+            datasets: [{
+                type: 'bar',
+                label: 'Bar Dataset',
+                data: [10, 20, 30, 40],
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)'
+            },
+                {
+                    type: 'line',
+                    label: 'Line Dataset',
+                    data: [30, 40, 15, 25],
+                    fill: false,
+                    borderColor: 'rgb(54, 162, 235)'
+                }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['Socomec', 'Lily', 'Orange', 'USOCOME', 'CODRIS', 'BNP'],
+            datasets: [{
+                label: 'companies by sector of activity',
+                data: [12, 19, 3, 5, 2, 3],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+            }],
+        },
+    });
+
+    new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: ['Socomec', 'Lily', 'Orange', 'USOCOME', 'CODRIS', 'BNP'],
+            datasets: [{
+                label: 'companies by sector of activity',
+                data: [12, 19, 3, 5, 2, 3],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+            }],
+        },
+    })
+</script>
+</html>
