@@ -90,7 +90,10 @@ class InternshipOfferController
 
     case "POST":
       http_response_code(201);
+
       $data = (array) json_decode(file_get_contents("php://input"), true);
+
+      $this->getValidationErrors($data, 422);
 
       $id = $this->model->create($data);
 
@@ -104,5 +107,37 @@ class InternshipOfferController
       http_response_code(405);
       break;
     }
+  }
+
+  // Check data for errors
+  // @param $data Data to check
+  private function getValidationErrors(array $data, int $errorCode) : void
+  {
+    $errors = array();
+    
+    $string_data = array(
+      "internship_offer_title" => "/^[a-z ,.'-]+$/i", 
+      "internship_offer_description" => "/^[a-z ,.'-?!]+$/i", 
+      );
+
+    $int_data = array(
+      "id_company",
+      "available_slots",
+      "id_business_sector",
+      "base_salary",
+      "internship_duration");
+
+    $errors = array_merge(
+      DataValidator::getStringErrors($data, $string_data),
+      DataValidator::getIntegerErrors($data, $int_data)
+    );
+
+    if (!empty($errors))
+    {
+      http_response_code($errorCode);
+      echo json_encode(["errors" => $errors]);
+      exit(); 
+    }
+    return;
   }
 }

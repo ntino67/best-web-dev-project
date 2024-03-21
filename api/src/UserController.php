@@ -27,16 +27,16 @@ class UserController
   private function processRessourceRequest(string $method, array $requestURI) : void 
   {
     $id = array_shift($requestURI);
-    
+
     // Check if the user exists and fetch his data, if not return 404
     $data = $this->model->get($id);
-    
+
     if (!$data) {
       http_response_code(404);
       echo json_encode(["message" => "User not found"]);
       return;
     }
-    
+
     // If the users wishlist or work history requested
     if (array_key_exists(0, $requestURI)) {
       switch(array_shift($requestURI)) {
@@ -56,7 +56,7 @@ class UserController
       }
       return;
     }
-    
+
     // If the request is for the user itself
     switch($method) {
     case "GET" :
@@ -84,14 +84,7 @@ class UserController
       http_response_code(201);
       $data = (array) json_decode(file_get_contents("php://input"), true);
 
-      $errors = $this->getValidationErrors($data);
-
-      if (!empty($errors))
-      {
-        http_response_code(422);
-        echo json_encode(["errors" => $errors]);
-        break; 
-      }
+      $this->getValidationErrors($data, 422);
 
       $id = $this->model->create($data);
 
@@ -109,30 +102,31 @@ class UserController
 
   // Check data for errors
   // @param $data Data to check
-  private function getValidationErrors(array $data) : array 
+  private function getValidationErrors(array $data, int $errorCode) : void
   {
     $errors = array();
-    
+
     $string_data = array(
       "first_name" => "/^[a-z ,.'-]+$/i", 
       "last_name" => "/^[a-z ,.'-]+$/i", 
       "email" => "/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/", 
       "password" => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/");
 
-    $int_data = array("id_center", "id_role");
+    $int_data = array(
+      "id_center",
+      "id_role");
 
-    foreach ($string_data as $key => $pattern) {
-      if (!array_key_exists($key, $data) || !preg_match($pattern, $data[$key]) || strlen($data[$key]) > 255) {
-      $errors[] = "Invalid $key";
-      }
-    }
-    
-    foreach ($int_data as $key) {
-      if (!array_key_exists($key, $data) || !is_int($data[$key])) {
-      $errors[] = "Invalid $key";
-      }
-    }
+    $errors = array_merge(
+      DataValidator::getStringErrors($data, $string_data),
+      DataValidator::getIntegerErrors($data, $int_data)
+    );
 
-    return $errors;
+    if (!empty($errors))
+    {
+      http_response_code($errorCode);
+      echo json_encode(["errors" => $errors]);
+      exit(); 
+    }
+    return;
   }
 }
