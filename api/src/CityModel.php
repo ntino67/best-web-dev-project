@@ -13,7 +13,7 @@ class CityModel
   public function getAll(): array
   {
     $sql = "
-    SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name
+    SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name, COUNT(*) OVER() AS total_count
     FROM web_project.Cities
             JOIN web_project.Countries C on C.id_country = Cities.id_country
     ";
@@ -30,7 +30,7 @@ class CityModel
 
     $statement->execute();
 
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return Paging::appendToResults($statement->fetchAll(PDO::FETCH_ASSOC));
   }
 
   // @return mixed[]

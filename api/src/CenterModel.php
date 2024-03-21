@@ -13,7 +13,7 @@ class CenterModel
   public function getAll(): array 
   {
     $sql = "
-    SELECT *
+    SELECT *, COUNT(*) OVER() AS total_count
     FROM Centers
     ";
 
@@ -29,7 +29,7 @@ class CenterModel
 
     $statement->execute();
 
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return Paging::appendToResults($statement->fetchAll(PDO::FETCH_ASSOC));
   }
 
   // @return mixed[]

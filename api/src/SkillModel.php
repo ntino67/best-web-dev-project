@@ -13,7 +13,7 @@ class SkillModel
   public function getAll(): array
   {
     $sql = "
-    SELECT id_skill, skill_name
+    SELECT id_skill, skill_name, COUNT(*) OVER() AS total_count
     FROM Skills
     ";
 
@@ -29,7 +29,7 @@ class SkillModel
 
     $statement->execute();
 
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return Paging::appendToResults($statement->fetchAll(PDO::FETCH_ASSOC));
   }
 
   // @return mixed[]

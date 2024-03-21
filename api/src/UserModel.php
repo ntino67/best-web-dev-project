@@ -21,7 +21,8 @@ class UserModel
           C.id_center,
           C.center_name,
           R.id_role,
-          R.name AS role_name
+          R.name AS role_name,
+          COUNT(*) OVER() AS total_count
     FROM Users
             JOIN web_project.Centers C on C.id_center = Users.id_center
             JOIN web_project.Roles R on R.id_role = Users.id_role
@@ -41,7 +42,7 @@ class UserModel
 
     $statement->execute();
 
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return Paging::appendToResults($statement->fetchAll(PDO::FETCH_ASSOC));
   }
 
   // @return mixed[]
