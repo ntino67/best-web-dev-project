@@ -478,6 +478,20 @@ select.auth-input-extended-select {
   gap: 0.4rem;
 }
 
+.auth-input .date-label {
+  flex-wrap: nowrap;
+  gap: 0;
+}
+
+.date-label p {
+  display: flex;
+  flex-direction: row;
+  color: #777;
+  font-size: 0.9rem;
+  justify-content: flex-start;
+  width: 50%;
+}
+
 .auth-input label {
   font-size: 1.2rem;
   color: #777777;
@@ -494,6 +508,16 @@ select.auth-input-extended-select {
   color: white;
   font-weight: bold;
   font-size: 1.56rem;
+}
+
+input[type="date"] {
+  padding: 0.9rem;
+  font-size: 0.9rem;
+  font-family: Inter, sans-serif;
+  width: 39%;
+  border-radius: 9px;
+  border: solid #D9D9D9 2px;
+  color: #777;
 }
 
 /* Searching pages */

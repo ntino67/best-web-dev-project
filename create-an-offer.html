@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <script src="script/jquery/jquery-3.7.1.js"></script>
+    <script src="script/components.js"></script>
+</head>
+<body>
+<div class="navbar-absolute" id="navbar-container"></div>
+<div class="auth-container flex-column flex-align-content-center-ca">
+    <div class="auth flex-align-content-center-ca">
+        <div class="auth-text">
+            <h1>Create an offer</h1>
+            <h2>Add a new internship offer to the platform</h2>
+        </div>
+        <div class="auth-input">
+            <form>
+                <input id="create-offer-title" placeholder="Offer Title" required type="text">
+                <textarea id="create-offer-description" maxlength="500" placeholder="Offer description" required
+                          type="text"></textarea>
+                <!-- TODO: Add remaining character counter -->
+                <div class="date-label">
+                    <p>Start date :</p>
+                    <p>End date :</p>
+                </div>
+                <div>
+                    <input class="datepicker" id="start" min="2024-03-21" name="start-internship" type="date"
+                           value="2024-03-21">
+                    <input class="datepicker" id="end" min="2024-03-21" name="end-internship" type="date"
+                           value="2024-03-21">
+                </div>
+                <div>
+                    <input id="create-company-sector" placeholder="Sectors" type="text">
+
+                    <select class="auth-input-extended-select" id="create-company-sectors" multiple required>
+                        <option>Vente de Bananes</option>
+                        <option>Élevage de singes</option>
+                        <option>Dropshipping de contrefacons</option>
+                        <option>Mettre des feurs</option>
+                    </select>
+                </div>
+
+                <button>Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="footer-container"></div>
+</body>
+</html>
