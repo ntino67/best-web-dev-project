@@ -37,7 +37,7 @@ class InternshipOfferController
     }
     
     // If the required skills are requested
-    if (array_key_exists(0, $requestURI)) {
+    if (array_key_exists(0, $requestURI) && $requestURI[0]) {
       switch(array_shift($requestURI)) {
       case "required_skill":
         $controller = new RequiredSkillsController($id);
@@ -57,9 +57,8 @@ class InternshipOfferController
 
       $requiredSkillsModel = new RequiredSkillsModel();
       $data["required_skills"] = $requiredSkillsModel->getAll($id);
-        
 
-      echo json_encode($data);
+      echo json_encode(["data" => $data]);
       break;
 
     default:
@@ -82,6 +81,9 @@ class InternshipOfferController
         $requiredSkillsModel = new RequiredSkillsModel();
         $item["required_skills"] = $requiredSkillsModel->getAll($item["id_internship_offer"]);
       }
+
+      // Add paging data
+      $data = Paging::appendToResults($data);
 
       echo json_encode($data);
       break;

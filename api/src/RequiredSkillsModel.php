@@ -19,15 +19,7 @@ class RequiredSkillsModel {
     WHERE id_internship_offer = :id_internship_offer
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
     $statement = $this->conn->prepare($sql);
-    
-    list($offset, $limit) = Paging::get();
-    
-    $statement->bindValue(":offset", $offset);
-    $statement->bindValue(":limit", $limit);
     
     $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
 

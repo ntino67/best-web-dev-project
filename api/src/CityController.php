@@ -37,7 +37,7 @@ class CityController
     switch($method) {
     case "GET" :
       http_response_code(200);
-      echo json_encode($data);
+      echo json_encode(["data" => $data]);
       break;
 
     default:
@@ -52,7 +52,8 @@ class CityController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      echo json_encode($this->model->getAll());
+      $data = Paging::appendToResults($this->model->getAll());
+      echo json_encode($data);
       break;
 
     default:

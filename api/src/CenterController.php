@@ -6,7 +6,7 @@ class CenterController
 
   public function __construct()
   {
-    $this->model = new CenterModel();
+    $this->model = new CenterModel;
   }
 
   // Processes database requests for centers
@@ -37,7 +37,7 @@ class CenterController
     switch($method) {
     case "GET" :
       http_response_code(200);
-      echo json_encode($data);
+      echo json_encode(["data" => $data]);
       break;
 
     default:
@@ -52,7 +52,8 @@ class CenterController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      echo json_encode($this->model->getAll());
+      $data = Paging::appendToResults($this->model->getAll());
+      echo json_encode($data);
       break;
 
     default:

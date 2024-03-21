@@ -29,7 +29,7 @@ class CenterModel
 
     $statement->execute();
 
-    return Paging::appendToResults($statement->fetchAll(PDO::FETCH_ASSOC));
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // @return mixed[]

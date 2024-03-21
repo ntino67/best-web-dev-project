@@ -42,7 +42,7 @@ class UserModel
 
     $statement->execute();
 
-    return Paging::appendToResults($statement->fetchAll(PDO::FETCH_ASSOC));
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // @return mixed[]
@@ -71,5 +71,40 @@ class UserModel
     $statement->execute();
 
     return $statement->fetch(PDO::FETCH_ASSOC);
+  }
+
+  // @param mixed[] $data
+  public function create(array $data) : int | false
+  {
+    $sql = "
+    INSERT INTO Users (first_name,
+                      last_name,
+                      email, password,
+                      user_created_at,
+                      id_center,
+                      id_role,
+                      user_active)
+
+    VALUES (:first_name,
+            :last_name,
+            :email,
+            :password,
+            CURRENT_TIMESTAMP,
+            :id_center,
+            :id_role,
+            1);
+    ";
+
+    $statement = $this->conn->prepare($sql);
+    
+    $insert = array("first_name", "last_name", "email", "password", "id_center", "id_role");
+    
+    foreach ($insert as $i) {
+      $statement->bindValue(":$i", $data[$i]);
+    }
+
+    $statement->execute();
+    
+    return $this->conn->lastInsertId();
   }
 }

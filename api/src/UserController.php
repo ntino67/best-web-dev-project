@@ -61,7 +61,7 @@ class UserController
     switch($method) {
     case "GET" :
       http_response_code(200);
-      echo json_encode($data);
+      echo json_encode(["data" => $data]);
       break;
 
     default:
@@ -76,12 +76,63 @@ class UserController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      echo json_encode($this->model->getAll());
+      $data = Paging::appendToResults($this->model->getAll());
+      echo json_encode($data);
+      break;
+
+    case "POST":
+      http_response_code(201);
+      $data = (array) json_decode(file_get_contents("php://input"), true);
+
+      $errors = $this->getValidationErrors($data);
+
+      if (!empty($errors))
+      {
+        http_response_code(422);
+        echo json_encode(["errors" => $errors]);
+        break; 
+      }
+
+      $id = $this->model->create($data);
+
+      echo json_encode([
+        "message" => "User created",
+        "id" => $id
+      ]);
       break;
 
     default:
       http_response_code(405);
       break;
     }
+  }
+
+  // Check data for errors
+  // @param $data Data to check
+  private function getValidationErrors(array $data) : array 
+  {
+    $errors = array();
+    
+    $string_data = array(
+      "first_name" => "/^[a-z ,.'-]+$/i", 
+      "last_name" => "/^[a-z ,.'-]+$/i", 
+      "email" => "/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/", 
+      "password" => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/");
+
+    $int_data = array("id_center", "id_role");
+
+    foreach ($string_data as $key => $pattern) {
+      if (!array_key_exists($key, $data) || !preg_match($pattern, $data[$key]) || strlen($data[$key]) > 255) {
+      $errors[] = "Invalid $key";
+      }
+    }
+    
+    foreach ($int_data as $key) {
+      if (!array_key_exists($key, $data) || !is_int($data[$key])) {
+      $errors[] = "Invalid $key";
+      }
+    }
+
+    return $errors;
   }
 }

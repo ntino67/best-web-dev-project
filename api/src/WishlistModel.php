@@ -22,7 +22,8 @@ class WishlistModel
       internship_offer_created_at,
       internship_offer_description,
       internship_offer_expires_at,
-      internship_offer_title
+      internship_offer_title,
+      COUNT(*) OVER() AS total_count
       FROM Wish_list
       JOIN web_project.Internship_offers I
       on Wish_list.id_internship_offer = I.id_internship_offer

@@ -23,7 +23,8 @@ class InternshipOfferModel
           internship_offer_expires_at,
           base_salary,
           C.id_company,
-          C.company_name
+          C.company_name,
+          COUNT(*) OVER() AS total_count
     FROM Internship_offers
             JOIN web_project.Companies C on Internship_offers.id_company = C.id_company
             JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Internship_offers.id_business_sector

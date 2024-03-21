@@ -1,28 +1,28 @@
 <?php
 
-class CityModel
+class BusinessSectorModel
 {
   private PDO $conn;
-  
+
   public function __construct()
-  {
+  { 
     $this->conn = Database::getConnection();
   }
 
-  // @return mixed[]
+  //@return mixed[]
   public function getAll() : array
   {
     $sql = "
-    SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name, COUNT(*) OVER() AS total_count
-    FROM web_project.Cities
-            JOIN web_project.Countries C on C.id_country = Cities.id_country
+    SELECT *,
+          COUNT(*) OVER () AS total_count
+    FROM Business_sectors
     ";
-    
+
     //Add paging
     $sql = $sql . " LIMIT :offset , :limit";
 
     $statement = $this->conn->prepare($sql);
-    
+
     list($offset, $limit) = Paging::get();
 
     $statement->bindValue(":offset", $offset);
@@ -37,10 +37,10 @@ class CityModel
   public function get(string $id) : array | false
   {
     $sql = "
-    SELECT Cities.id_city, Cities.name AS city_name, C.id_country, C.name AS country_name
-    FROM web_project.Cities
-            JOIN web_project.Countries C on C.id_country = Cities.id_country
-    WHERE id_city = :id
+    SELECT *,
+          COUNT(*) OVER () AS total_count
+    FROM Business_sectors
+    WHERE id_business_sector = :id
     ";
 
     $statement = $this->conn->prepare($sql);
