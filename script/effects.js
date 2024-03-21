@@ -9,14 +9,14 @@ $(document).ready(function () {
         $(".nav-links").toggleClass("mobile-menu");
     });
 
-    $('#logout').click(function (e) {
-        e.preventDefault();  // Prevent the default action (redirect to logout)
-
+    function logout(e) {
+        e.preventDefault();
         var result = confirm("Are you sure you want to logout?");
-
         if (result) {
             // If confirmed, redirect to login.html
             window.location.href = "login.html";
         }
-    });
+    }
+
+    $('#logout, #logout-2').click(logout);
 });

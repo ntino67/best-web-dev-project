@@ -9,6 +9,8 @@
     <script src="script/components.js"></script>
     <script src="script/sorting-categories.js"></script>
     <script src="script/load-internship-offers.js"></script>
+    <script src="script/filter-fetch.js"></script>
+    <script src="script/reset-filters.js"></script>
     <title>Search an Internship</title>
   </head>
   <body>
@@ -16,41 +18,31 @@
     <div class="page-spacing flex-column flex-gap-1">
       <header class="page-header flex-row flex-align-between-ma">
         <h1>Internship Offers</h1>
-        <div class="sorting">
-          <button class="sorting-category" id="test">
-            <span class="far"></span>
-            <span>Name</span>
-          </button>
-          <button class="sorting-category">
-            <span class="far"></span>
-            <span>Ratings</span>
-          </button>
-          <button class="sorting-category">
-            <span class="far"></span>
-            <span>Applications</span>
-          </button>
-        </div>
+        <div class="sorting-container"></div>
       </header>
       <main class="search-container">
         <!-- Search Filters -->
         <aside class="search-filter-container">
           <div class="search-filters">
             <input class="search-bar-small" placeholder="Search ..." type="search">
+            <!-- TODO Implement the searching functionality -->
             <p>
               <span class="far"></span>
-              <span>Cities</span>
+              <select id="cities">
+                <!-- TODO Jquery event with server to fill this dynamically from the database -->
+                <option selected="selected" value="0">Cities</option>
+              </select>
             </p>
             <p>
               <span class="far"></span>
-              <span>Sectors</span>
-            </p>
-            <p>
-              <span class="far"></span>
-              <span>Ratings</span>
+              <select id="sectors">
+                <!-- TODO Jquery event with server to fill this dynamically from the database -->
+                <option selected="selected" value="0">Sectors</option>
+              </select>
             </p>
           </div>
           <div class="search-filters">
-            <p>
+            <p id="reset">
               <span class="far"></span>
               <span>Reset filters</span>
             </p>
