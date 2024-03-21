@@ -46,7 +46,7 @@ class UserModel
   }
 
   // @return mixed[]
-  public function get(string $id) : array | false
+  public function get(string $id_user) : array | false
   {
     $sql = "
     SELECT id_user,
@@ -61,12 +61,12 @@ class UserModel
             JOIN web_project.Centers C on C.id_center = Users.id_center
             JOIN web_project.Roles R on R.id_role = Users.id_role
     WHERE user_active = 1
-      AND id_user = :id
+      AND id_user = :id_user
     ";
 
     $statement = $this->conn->prepare($sql);
 
-    $statement->bindValue(":id", $id, PDO::PARAM_INT);
+    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
 
     $statement->execute();
 

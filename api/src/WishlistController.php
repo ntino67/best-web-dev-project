@@ -74,10 +74,43 @@ class WishlistController
 
       echo json_encode($data);
       break;
+      
+    case "POST":
+      http_response_code(201);
+      $data = (array) json_decode(file_get_contents("php://input"), true);
+
+      $this->getValidationErrors($data, 422);
+
+      $this->model->create($this->id_user, $data["id_internship_offer"]);
+
+      echo json_encode([
+        "message" => "Wishlist item created",
+      ]);
+      break;
 
     default:
       http_response_code(405);
       break;
     }
+  }
+
+  // Check data for errors
+  // @param $data Data to check
+  private function getValidationErrors(array $data, int $errorCode) : void
+  {
+    $int_data = array(
+      "id_internship_offer"
+    );
+
+    $errors = DataValidator::getIntegerErrors($data, $int_data);
+
+    if (!empty($errors))
+    {
+      http_response_code($errorCode);
+      echo json_encode(["errors" => $errors]);
+      exit(); 
+    }
+    return;
+
   }
 }
