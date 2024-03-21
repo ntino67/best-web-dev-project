@@ -7,6 +7,7 @@
     <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
     <script src="script/jquery/jquery-3.7.1.js"></script>
     <script src="script/components.js"></script>
+    <script src="script/char-counter.js"></script>
 </head>
 <body>
 <div class="navbar-absolute" id="navbar-container"></div>
@@ -19,9 +20,9 @@
         <div class="auth-input">
             <form>
                 <input id="create-offer-title" placeholder="Offer Title" required type="text">
-                <textarea id="create-offer-description" maxlength="500" placeholder="Offer description" required
-                          type="text"></textarea>
-                <!-- TODO: Add remaining character counter -->
+                <textarea id="create-offer-description" maxlength="500" placeholder="Offer description"
+                          required></textarea>
+                <div id="counter"></div>
                 <div class="date-label">
                     <p>Start date :</p>
                     <p>End date :</p>

@@ -520,6 +520,13 @@ input[type="date"] {
   color: #777;
 }
 
+#counter {
+  color: #777;
+  font-size: 0.8rem;
+  display: none;
+  transform: translateY(-0.5rem);
+}
+
 /* Searching pages */
 /* Internship page */
 
