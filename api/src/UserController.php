@@ -104,29 +104,16 @@ class UserController
   // @param $data Data to check
   private function getValidationErrors(array $data, int $errorCode) : void
   {
-    $errors = array();
+    $pattern = array(
+      "first_name" => DataValidator::NAME, 
+      "last_name" => DataValidator::NAME,
+      "email" => DataValidator::EMAIL,
+      "password" => DataValidator::PASSWORD,
+      "id_center" => DataValidator::NUMBER,
+      "id_role" => DataValidator::NUMBER);
 
-    $string_data = array(
-      "first_name" => "/^[a-z ,.'-]+$/i", 
-      "last_name" => "/^[a-z ,.'-]+$/i", 
-      "email" => "/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/", 
-      "password" => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/");
+    DataValidator::catchValidationErrors($data, $pattern, $errorCode);
 
-    $int_data = array(
-      "id_center",
-      "id_role");
-
-    $errors = array_merge(
-      DataValidator::getStringErrors($data, $string_data),
-      DataValidator::getIntegerErrors($data, $int_data)
-    );
-
-    if (!empty($errors))
-    {
-      http_response_code($errorCode);
-      echo json_encode(["errors" => $errors]);
-      exit(); 
-    }
     return;
   }
 }

@@ -113,31 +113,17 @@ class InternshipOfferController
   // @param $data Data to check
   private function getValidationErrors(array $data, int $errorCode) : void
   {
-    $errors = array();
-    
-    $string_data = array(
-      "internship_offer_title" => "/^[a-z ,.'-]+$/i", 
-      "internship_offer_description" => "/^[a-z ,.'-?!]+$/i", 
-      );
+    $pattern = array(
+      "internship_offer_title" => DataValidator::NAME, 
+      "internship_offer_description" => DataValidator::NOT_EMPTY,
+      "id_company" => DataValidator::NUMBER,
+      "available_slots" => DataValidator::NUMBER,
+      "id_business_sector" => DataValidator::NUMBER,
+      "base_salary" => DataValidator::NUMBER,
+      "internship_duration" => DataValidator::NUMBER);
 
-    $int_data = array(
-      "id_company",
-      "available_slots",
-      "id_business_sector",
-      "base_salary",
-      "internship_duration");
+    DataValidator::catchValidationErrors($data, $pattern, $errorCode);
 
-    $errors = array_merge(
-      DataValidator::getStringErrors($data, $string_data),
-      DataValidator::getIntegerErrors($data, $int_data)
-    );
-
-    if (!empty($errors))
-    {
-      http_response_code($errorCode);
-      echo json_encode(["errors" => $errors]);
-      exit(); 
-    }
     return;
   }
 }

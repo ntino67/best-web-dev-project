@@ -23,7 +23,7 @@ class Paging {
   }
 
   // @return array<int, int> Offset and limit values calculated from the querystring
-  public static function get() : array {
+  public static function getValues() : array {
     list($page, $limit) = self::getFromQueryString();
 
     $offset = ($page - 1) * $limit;

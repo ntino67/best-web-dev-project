@@ -22,7 +22,7 @@ class CenterModel
 
     $statement = $this->conn->prepare($sql);
 
-    list($offset, $limit) = Paging::get();
+    list($offset, $limit) = Paging::getValues();
 
     $statement->bindValue(":limit", $limit);
     $statement->bindValue(":offset", $offset);

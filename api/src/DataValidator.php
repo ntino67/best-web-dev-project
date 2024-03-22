@@ -1,38 +1,45 @@
 <?php
 
-class DataValidator 
+class DataValidator
 {
+  public const EMAIL = "/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/";
+  public const PASSWORD = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+  public const NAME = "/^[a-z ,.'-]+$/i";
+  public const NOT_EMPTY = "/^(?!\s*$).+/";
+  public const NUMBER = "int";
+
+
   // @param mixed[] $data Data to be validated
   // @param mixed[] $pattern Regex patterns to check the data against, format : ["data-type" => "Regex", "data-type-2" => "Regex-2", ...]
   // @return mixed[] list of found errors
-  public static function getStringErrors(array $data, array $pattern) : array
+  public static function catchValidationErrors(array $data, array $pattern, int $errorCode) : void
   {
     $errors = array();
 
-    foreach ($pattern as $key => $pattern) {
-      if (!array_key_exists($key, $data) || !preg_match($pattern, $data[$key]) || strlen($data[$key]) > 255) 
+    foreach ($pattern as $key => $itemPattern) {
+      // If the data is supposed to be an integer
+      if ($itemPattern == self::NUMBER)
       {
-      $errors[] = "Invalid $key";
+        if (!array_key_exists($key, $data) || !is_int($data[$key])) 
+        {
+          $errors[] = "$key";
+        }
       }
-    }
-    
-    return $errors;
-  }
 
-  // @param mixed[] $data Data to be validated
-  // @param mixed[] $pattern list of the keys that are supposed to be present in $data, format ["id_1", "id_2", ...]
-  // @return mixed[] list of found errors
-  public static function getIntegerErrors(array $data, array $pattern) : array
-  {
-    $errors = array();
-
-    foreach ($pattern as $key) {
-      if (!array_key_exists($key, $data) || !is_int($data[$key])) 
+      // If the data is supposed to be a type of string
+      else if (!array_key_exists($key, $data) || !preg_match($itemPattern, $data[$key]) || strlen($data[$key]) > 255)
       {
-      $errors[] = "Invalid $key";
+        $errors[] = "$key";
       }
     }
 
-    return $errors;
+    if (!empty($errors))
+    {
+      http_response_code($errorCode);
+      echo json_encode(["dataErrors" => $errors]);
+      exit(); 
+    }
+
+    return;
   }
 }

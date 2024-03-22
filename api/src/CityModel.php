@@ -23,7 +23,7 @@ class CityModel
 
     $statement = $this->conn->prepare($sql);
     
-    list($offset, $limit) = Paging::get();
+    list($offset, $limit) = Paging::getValues();
 
     $statement->bindValue(":offset", $offset);
     $statement->bindValue(":limit", $limit);

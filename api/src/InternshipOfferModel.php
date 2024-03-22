@@ -36,12 +36,14 @@ class InternshipOfferModel
     $sql = $sql . " LIMIT :offset , :limit";
 
     $statement = $this->conn->prepare($sql);
-
-    list($offset, $limit) = Paging::get();
+    
+    // Get and bind paging data
+    list($offset, $limit) = Paging::getValues();
 
     $statement->bindValue(":offset", $offset);
     $statement->bindValue(":limit", $limit);
-
+    
+    // Execute the query
     $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
