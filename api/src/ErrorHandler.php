@@ -5,14 +5,21 @@ class ErrorHandler
   public static function handleException(Throwable $exception): void 
   {
     http_response_code(500);
-
-    echo json_encode([
+    
+    $errorInfo = array(
       "code" => $exception->getCode(),
       "message" => $exception->getMessage(),
-      "file" => $exception->getFile(),
-      "line" => $exception->getLine(),
-    ]);
+    );
+
+    if (Config::DEBUG) {
+      $errorInfo["file"] = $exception->getFile();
+      $errorInfo["line"] = $exception->getLine();
+      /* $errorInfo["trace"] = $exception->getTrace(); */
+    }
+
+    echo json_encode($errorInfo);
   }
+
   public static function handleError(
     int $errno,
     string $errstr,
