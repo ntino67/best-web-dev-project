@@ -119,4 +119,22 @@ class InternshipOfferModel
     
     return $this->conn->lastInsertId();
   }
+
+  // Delete an internship offer
+  public function delete(string $id) : int
+  {
+    $sql = "
+    UPDATE Internship_offers
+    SET internship_offer_active = 0
+    WHERE id_internship_offer = :id
+    ";
+
+    $statement = $this->conn->prepare($sql);
+
+    $statement->bindValue(":id", $id, PDO::PARAM_INT);
+
+    $statement->execute();
+
+    return $statement->rowCount();
+  }
 }

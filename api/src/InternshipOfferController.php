@@ -60,6 +60,15 @@ class InternshipOfferController
 
       echo json_encode(["data" => $data]);
       break;
+    
+    case "DELETE" :
+      $affectedRows = $this->model->delete($id);
+
+      echo json_encode([
+      "message" => "Internship $id deleted",
+      "rows" => $affectedRows
+      ]);
+      break;
 
     default:
       http_response_code(405);

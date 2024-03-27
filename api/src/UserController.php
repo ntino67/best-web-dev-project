@@ -66,10 +66,12 @@ class UserController
     
     case "DELETE" :
       $affectedRows = $this->model->delete($id);
+
       echo json_encode([
         "message" => "User $id disabled",
         "rows" => $affectedRows
       ]);
+
       break;
       
     default:
