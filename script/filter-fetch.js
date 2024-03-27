@@ -1,9 +1,6 @@
 // This is a sample data. You might be fetching this data from server in your case
 var cityData = ["New York", "London", "Paris"];
 var sectorData = ["Software", "Hardware", "Networking"];
-const $sectors = $('#sectors');
-const $cities = $('#cities');
-const $reset = $('#reset');
 
 function handleDropdownChange(elementId, containerClass, defaultValue = "0") {
     $(elementId).change(function () {
@@ -36,8 +33,8 @@ $(document).ready(function () {
     });
 
     $("#reset").click(function () {
-        $cities.val("0");
-        $sectors.val("0");
+        $("#cities").val("0");
+        $("#sectors").val("0");
         $('.filter-tag').each(function () {
             $(this).trigger('click');
         });
