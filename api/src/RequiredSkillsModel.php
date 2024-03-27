@@ -45,6 +45,7 @@ class RequiredSkillsModel {
     $statement->bindValue(":id_skill", $id_skill, PDO::PARAM_INT);
 
     $statement->execute();
+
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
@@ -58,9 +59,30 @@ class RequiredSkillsModel {
     VALUES (:id_internship_offer,
             :id_skill)
     ";
+
     $statement = $this->conn->prepare($sql);
+
     $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
     $statement->bindValue(":id_skill", $id_skill, PDO::PARAM_INT);
+
     $statement->execute();
+  }
+
+  public function delete(string $id_internship_offer, string $id_skill) : int
+  {
+    $sql = "
+    DELETE FROM Required_Skills
+    WHERE id_internship_offer = :id_internship_offer
+    AND id_skill = :id_skill
+    ";
+
+    $statement = $this->conn->prepare($sql);
+
+    $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
+    $statement->bindValue(":id_skill", $id_skill, PDO::PARAM_INT);
+
+    $statement->execute();
+
+    return $statement->rowCount();
   }
 }

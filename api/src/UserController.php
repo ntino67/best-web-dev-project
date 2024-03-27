@@ -63,7 +63,15 @@ class UserController
       http_response_code(200);
       echo json_encode(["data" => $data]);
       break;
-
+    
+    case "DELETE" :
+      $affectedRows = $this->model->delete($id);
+      echo json_encode([
+        "message" => "User $id disabled",
+        "rows" => $affectedRows
+      ]);
+      break;
+      
     default:
       http_response_code(405);
       break;
@@ -84,7 +92,7 @@ class UserController
       http_response_code(201);
       $data = (array) json_decode(file_get_contents("php://input"), true);
 
-      $this->getValidationErrors($data, 422);
+      $this->checkData($data, 422);
 
       $id = $this->model->create($data);
 
@@ -102,7 +110,7 @@ class UserController
 
   // Check data for errors
   // @param $data Data to check
-  private function getValidationErrors(array $data, int $errorCode) : void
+  private function checkData(array $data, int $errorCode) : void
   {
     $pattern = array(
       "first_name" => DataValidator::NAME, 

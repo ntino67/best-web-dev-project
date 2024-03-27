@@ -48,6 +48,14 @@ class WishlistController
 
       echo json_encode(["data" => $data]);
       break;
+    
+      case "DELETE" :
+        $affectedRows = $this->model->delete($this->id_user, $id);
+
+        echo json_encode([
+          "message" => "Wishlist item $id deleted for user $this->id_user",
+          "rows" => $affectedRows
+        ]);
 
     default:
       http_response_code(405);

@@ -32,7 +32,7 @@ class Paging {
   }
   
   // @param mixed[] $input The results from an SQL query, containing a total_count key
-  // @return mixed[] The results with the paging information appended and the total_count key removed
+  // @return mixed[] The results with the paging information appended and the total_count key is removed
   public static function appendToResults(array $input) : array {
     
    // Get page and per_page 

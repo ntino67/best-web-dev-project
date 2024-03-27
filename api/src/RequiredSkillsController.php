@@ -32,7 +32,7 @@ class RequiredSkillsController
     $data = $this->model->get($this->id_internship_offer, $id);
     if (!$data) {
       http_response_code(404);
-      echo json_encode(["message" => "Required skill not found"]);
+      echo json_encode(["message" => "Required skill $id not found for internship $this->id_internship_offer"]);
       return;
     }
     
@@ -40,7 +40,16 @@ class RequiredSkillsController
     case "GET" :
       http_response_code(200);
       echo json_encode($data);
+
+    case "DELETE" :
+      $affectedRows = $this->model->delete($this->id_internship_offer, $id);
+
+      echo json_encode([
+        "message" => "Required skill $id deleted for internship $this->id_internship_offer",
+        "rows" => $affectedRows
+      ]);
       break;
+
     default:
       http_response_code(405);
       break;

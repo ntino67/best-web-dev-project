@@ -107,4 +107,22 @@ class UserModel
     
     return $this->conn->lastInsertId();
   }
+  
+  // Disable a user
+  public function delete(string $id_user) : int
+  {
+    $sql = "
+    UPDATE Users
+    SET user_active = 0
+    WHERE id_user = :id_user
+    ";
+
+    $statement = $this->conn->prepare($sql);
+
+    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
+
+    $statement->execute();
+
+    return $statement->rowCount();
+  }
 }

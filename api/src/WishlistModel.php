@@ -109,4 +109,24 @@ class WishlistModel
 
     return;
   }
+
+  public function delete(string $id_user, string $id_internship_offer) : int
+  {
+    $sql = "
+    DELETE
+    FROM Wish_list
+    WHERE id_user = :id_user
+      AND id_internship_offer = :id_internship_offer
+    ";
+
+    $statement = $this->conn->prepare($sql);
+    
+    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
+    $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
+
+    $statement->execute();
+
+    return $statement->rowCount();
+  }
+
 }
