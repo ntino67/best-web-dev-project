@@ -1,0 +1,49 @@
+-- Procedure to add a user with password hashing and salt
+DELIMITER //
+CREATE PROCEDURE uspAddUser (
+    IN pLogin VARCHAR(50), 
+    IN pPassword VARCHAR(50),
+    IN pFirstName VARCHAR(40), 
+    IN pLastName VARCHAR(40),
+    IN pCenter integer,
+    IN pRole integer,
+    IN pActive bool,
+    OUT responseMessage bool
+)
+BEGIN
+    DECLARE salt BINARY(16);
+    SET salt = UNHEX(REPLACE(UUID(), '-', ''));
+
+    BEGIN
+        INSERT INTO Users (first_name, last_name, email, password, salt, user_created_at, id_center, id_role, user_active)
+        VALUES (pFirstName, pLastName, pLogin, SHA2(CONCAT(pPassword, HEX(salt)), 512), salt, NOW(), pCenter, pRole, pActive);
+
+        SET responseMessage = 1;
+
+    END;
+END //
+DELIMITER ;
+
+
+-- Procedure to authenticate a user
+DELIMITER //
+CREATE PROCEDURE uspLogin (
+    IN pLoginName VARCHAR(254),
+    IN pPassword VARCHAR(50),
+	  OUT responseMessage bool
+)
+BEGIN
+    DECLARE userEmail VARCHAR(254);
+    DECLARE hashedPassword VARCHAR(255);
+    DECLARE userSalt BINARY(16);
+
+    SELECT email, password, salt INTO userEmail, hashedPassword, userSalt
+    FROM Users WHERE email = pLoginName LIMIT 1;
+
+        IF hashedPassword = SHA2(CONCAT(pPassword, HEX(userSalt)), 512) THEN
+            SET responseMessage = 1;
+        ELSE
+            SET responseMessage = 0;
+        END IF;
+END //
+DELIMITER ;
