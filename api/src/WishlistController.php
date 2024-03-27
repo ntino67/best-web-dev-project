@@ -96,21 +96,15 @@ class WishlistController
 
   // Check data for errors
   // @param $data Data to check
+  // @param $errorCode Error code to return if an error is found
   private function getValidationErrors(array $data, int $errorCode) : void
   {
-    $int_data = array(
-      "id_internship_offer"
+    $pattern = array(
+      "id_internship_offer" => DataValidator::NUMBER,
     );
+    
+    DataValidator::catchValidationErrors($data, $pattern, $errorCode);
 
-    $errors = DataValidator::getIntegerErrors($data, $int_data);
-
-    if (!empty($errors))
-    {
-      http_response_code($errorCode);
-      echo json_encode(["errors" => $errors]);
-      exit(); 
-    }
     return;
-
   }
 }

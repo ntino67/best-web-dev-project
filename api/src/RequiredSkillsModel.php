@@ -47,4 +47,20 @@ class RequiredSkillsModel {
     $statement->execute();
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
+
+  //@return mixed[] $data
+  public function create(string $id_internship_offer, string $id_skill) : void
+  {
+    $sql = "
+    INSERT INTO Required_Skills (
+                                id_internship_offer,
+                                id_skill)
+    VALUES (:id_internship_offer,
+            :id_skill)
+    ";
+    $statement = $this->conn->prepare($sql);
+    $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
+    $statement->bindValue(":id_skill", $id_skill, PDO::PARAM_INT);
+    $statement->execute();
+  }
 }

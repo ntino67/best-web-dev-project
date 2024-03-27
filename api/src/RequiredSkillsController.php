@@ -56,9 +56,34 @@ class RequiredSkillsController
       http_response_code(200);
       echo json_encode($this->model->getAll($this->id_internship_offer));
       break;
+    case "POST":
+      $data = (array) json_decode(file_get_contents("php://input"), true);
+
+      self::checkData($data, 422);
+
+      $this->model->create($this->id_internship_offer, $data["id_skill"]);
+      echo json_encode([
+        "message" => "Required skill created",
+      ]);
+      break;
+          
     default:
       http_response_code(405);
       break;
     }
+  }
+
+  // Check data for errors
+  // @param $data Data to check
+  // @param $errorCode Error code to return if an error is found
+  public static function checkData(array $data, $errorCode) : void
+  {
+    $pattern = array(
+      "id_skill" => DataValidator::NUMBER
+    );
+
+    DataValidator::catchValidationErrors($data, $pattern, $errorCode);
+
+    return;
   }
 }
