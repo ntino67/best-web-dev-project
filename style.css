@@ -569,14 +569,38 @@ main.search-container {
     gap: 0.4rem;
   }
 
-  div:hover {
-    text-decoration: underline;
-  }
-
   .far {
     width: 1.4rem;
     text-align: center;
   }
+}
+
+.filter-container:empty {
+  display: none;
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-decoration: none;
+}
+
+.filter-tag {
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.filter-tag:hover {
+  color: #dc3545;
+  background-color: #fff;
+  text-decoration: none !important;
 }
 
 .search-bar-small {
@@ -624,15 +648,7 @@ main.search-container {
   color: red;
 }
 /* Search results */
-.internship-container {
-  flex: 6;
-}
-
-.company-container {
-  flex: 6;
-}
-
-.rating-container {
+.flex-6 {
   flex: 6;
 }
 

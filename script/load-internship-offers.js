@@ -28,7 +28,7 @@ $(document).ready(function () {
                 $(".info-text", newElement).eq(1).html("Feur Internatinal LLC");
 
                 // Insert new element into page
-                $("div.internship-container").append(newElement.children());
+                $("div.flex-6").append(newElement.children());
             }
         }
     )

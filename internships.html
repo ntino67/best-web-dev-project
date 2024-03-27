@@ -10,7 +10,6 @@
     <script src="script/sorting-categories.js"></script>
     <script src="script/load-internship-offers.js"></script>
     <script src="script/filter-fetch.js"></script>
-    <script src="script/reset-filters.js"></script>
     <title>Search an Internship</title>
   </head>
   <body>
@@ -40,6 +39,8 @@
                 <option selected="selected" value="0">Sectors</option>
               </select>
             </p>
+            <div class="filter-container cities-container"></div>
+            <div class="filter-container sectors-container"></div>
           </div>
           <div class="search-filters">
             <p id="reset">
@@ -48,7 +49,7 @@
             </p>
           </div>
         </aside>
-        <div class="internship-container flex-column flex-gap-1"></div>
+        <div class="flex-6 flex-column flex-gap-1"></div>
       </main>
       <div class="paging-container flex-row flex-align-end-ma"></div>
     </div>
