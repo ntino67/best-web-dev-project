@@ -64,6 +64,7 @@ CREATE TABLE `Users` (
   `last_name` VARCHAR(255),
   `email` VARCHAR(255),
   `password` VARCHAR(255),
+  `salt` BINARY(16),
   `user_created_at` TIMESTAMP,
   `id_center` INTEGER,
   `id_role` INTEGER,
