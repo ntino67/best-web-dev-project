@@ -20,7 +20,7 @@ Class Config
 
       file_put_contents("connectionString.json", json_encode($connectionInfo));
 
-      echo DEBUG ? "connectionString.json created, please fill in the connection details" : "";
+      echo self::DEBUG ? "connectionString.json created, please fill in the connection details" : "";
       exit();
     }
 
