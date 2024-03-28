@@ -35,7 +35,7 @@ class WishlistController
 
     if (!$data) {
       http_response_code(404);
-      echo json_encode(["message" => "Wishlist item not found"]);
+      echo json_encode(["message" => "Wishlist $id item not found for $this->id_user"]);
       return;
     }
 
@@ -87,12 +87,12 @@ class WishlistController
       http_response_code(201);
       $data = (array) json_decode(file_get_contents("php://input"), true);
 
-      $this->getValidationErrors($data, 422);
+      $this->checkData($data, 422);
 
       $this->model->create($this->id_user, $data["id_internship_offer"]);
 
       echo json_encode([
-        "message" => "Wishlist item created",
+        "message" => "Wishlist item created for user",
       ]);
       break;
 
@@ -105,7 +105,7 @@ class WishlistController
   // Check data for errors
   // @param $data Data to check
   // @param $errorCode Error code to return if an error is found
-  private function getValidationErrors(array $data, int $errorCode) : void
+  private function checkData(array $data, int $errorCode) : void
   {
     $pattern = array(
       "id_internship_offer" => DataValidator::NUMBER,
