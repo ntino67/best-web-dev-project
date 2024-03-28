@@ -348,12 +348,23 @@ INSERT INTO Classes (class_year) VALUES
 
 
 #peuplement table 'Users' :
-INSERT INTO Users (first_name, last_name, email, password, user_created_at, id_center, id_role, user_active) VALUES 
-('John', 'Doe', 'john.doe@example.com', 'password123', '2024-03-05 08:00:00', 1, 1, TRUE),
-('Jane', 'Smith', 'jane.smith@example.com', 'securepass', '2024-03-05 08:00:00', 2, 2, TRUE),
-('Alice', 'Johnson', 'alice.johnson@example.com', 'pass1234', '2024-03-05 08:00:00', 3, 3, TRUE),
-('Bob', 'Brown', 'bob.brown@example.com', 'letmein', '2024-03-05 08:00:00', 4, 1, TRUE),
-('Eve', 'White', 'eve.white@example.com', 'p@ssw0rd', '2024-03-05 08:00:00', 5, 2, TRUE);
+INSERT INTO Users (first_name, last_name, email, password, salt, user_created_at, id_center, id_role, user_active)
+VALUES  
+('John', 'Doe', 'john.doe@example.com', '', UNHEX(REPLACE(UUID(), '-', '')), '2024-03-05 08:00:00', 1, 1, TRUE), 
+('Jane', 'Smith', 'jane.smith@example.com', '', UNHEX(REPLACE(UUID(), '-', '')), '2024-03-05 08:00:00', 2, 2, TRUE), 
+('Alice', 'Johnson', 'alice.johnson@example.com', '', UNHEX(REPLACE(UUID(), '-', '')), '2024-03-05 08:00:00', 3, 3, TRUE), 
+('Bob', 'Brown', 'bob.brown@example.com', '', UNHEX(REPLACE(UUID(), '-', '')), '2024-03-05 08:00:00', 4, 1, TRUE), 
+('Eve', 'White', 'eve.white@example.com', '', UNHEX(REPLACE(UUID(), '-', '')), '2024-03-05 08:00:00', 5, 2, TRUE);
+UPDATE Users
+SET password =
+    CASE 
+        WHEN email = 'john.doe@example.com' THEN SHA2(CONCAT('pissweard', HEX(salt)), 512)
+        WHEN email = 'jane.smith@example.com' THEN SHA2(CONCAT('pouloupape', HEX(salt)), 512)
+        WHEN email = 'alice.johnson@example.com' THEN SHA2(CONCAT('456treuy9', HEX(salt)), 512)
+        WHEN email = 'bob.brown@example.com' THEN SHA2(CONCAT('hyed654ze65', HEX(salt)), 512)
+        WHEN email = 'eve.white@example.com' THEN SHA2(CONCAT('mèlencauly', HEX(salt)), 512)
+    END
+WHERE email IN ('john.doe@example.com', 'jane.smith@example.com', 'alice.johnson@example.com', 'bob.brown@example.com', 'eve.white@example.com');
 
 
 #peuplement table 'Applications' :
