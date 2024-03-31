@@ -13,7 +13,7 @@ class RelatedClassModel {
   // @return mixed[]
   public function getAll(string $id_user): array {
     $sql = "
-    SELECT id_user, C.id_class as id_class, class_year as class_name
+    SELECT C.id_class as id_class, class_year as class_name
     FROM Related_to_class
             JOIN web_project.Classes C on C.id_class = Related_to_class.id_class
     WHERE id_user = :id_user
@@ -32,7 +32,7 @@ class RelatedClassModel {
   public function get(string $id_user, string $id_class) : array | false
   {
     $sql = "
-    SELECT id_user, C.id_class as id_class, class_year as class_name
+    SELECT C.id_class as id_class, class_year as class_name
     FROM Related_to_class
             JOIN web_project.Classes C on C.id_class = Related_to_class.id_class
     WHERE id_user = :id_user

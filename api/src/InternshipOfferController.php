@@ -83,11 +83,12 @@ class InternshipOfferController
     case "GET":
       http_response_code(200);
 
-      // Add required skills to each item
       $data = $this->model->getAll();
 
+      // Add required skills to each item
+      $requiredSkillsModel = new RequiredSkillsModel();
+
       foreach ($data as &$item) {
-        $requiredSkillsModel = new RequiredSkillsModel();
         $item["required_skills"] = $requiredSkillsModel->getAll($item["id_internship_offer"]);
       }
 

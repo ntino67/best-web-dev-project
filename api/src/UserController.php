@@ -38,11 +38,16 @@ class UserController
     }
 
     // If the users wishlist or work history requested
-    if (array_key_exists(0, $requestURI)) {
+    if (array_key_exists(0, $requestURI) && $requestURI[0]) {
       switch(array_shift($requestURI)) {
 
       case "wishlist":
         $controller = new WishlistController($id);
+        $controller->processRequest($method, $requestURI);
+        break;
+      
+      case "class":
+        $controller = new RelatedClassController($id);
         $controller->processRequest($method, $requestURI);
         break;
 
@@ -61,6 +66,10 @@ class UserController
     switch($method) {
     case "GET" :
       http_response_code(200);
+      
+      $relatedClassModel = new RelatedClassModel();
+      $data["classes"] = $relatedClassModel->getAll($id);
+
       echo json_encode(["data" => $data]);
       break;
     
@@ -86,7 +95,16 @@ class UserController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      $data = Paging::appendToResults($this->model->getAll());
+
+      $data = $this->model->getAll();
+
+      $relatedClassModel = new RelatedClassModel();
+      foreach ($data as &$user) {
+        $user["classes"] = $relatedClassModel->getAll($user["id_user"]);
+      }
+      
+      $data = Paging::appendToResults($data);
+
       echo json_encode($data);
       break;
 

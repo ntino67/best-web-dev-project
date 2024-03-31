@@ -40,7 +40,10 @@ class RelatedClassController
     switch($method) {
     case "GET" :
       http_response_code(200);
+
       echo json_encode($data);
+
+      break;
 
     case "DELETE" :
       $affectedRows = $this->model->delete($this->id_user, $id);
@@ -51,6 +54,7 @@ class RelatedClassController
       ]);
 
       break;
+
     default:
       http_response_code(405);
       break;
@@ -61,9 +65,10 @@ class RelatedClassController
   {
     switch($method) {
     case "GET" :
+      http_response_code(200);
+
       $data = $this->model->getAll($this->id_user);
 
-      http_response_code(200);
 
       echo json_encode($data);
 

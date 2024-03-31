@@ -30,7 +30,7 @@ class WishlistController
   // @param $requestURI Elements of the link of the request
   private function processRessourceRequest(string $method, string $id) : void 
   {
-    /* TODO: Add modify and delete for wishlist items here */
+    /* TODO: Add modify for wishlist items here */
     $data = $this->model->get($this->id_user, $id);
 
     if (!$data) {
