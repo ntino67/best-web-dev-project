@@ -38,3 +38,21 @@ $(document).ready(function() {
   account_type();
 }
 )
+
+$(document).ready(function () {
+  function checkWidth() {
+    var windowSize = $(window).width();
+
+    if (windowSize < 770) {
+      $('#navbar-container').removeClass('navbar-absolute');
+    } else {
+      $('#navbar-container').addClass('navbar-absolute');
+    }
+  }
+
+  // Execute on load
+  checkWidth();
+
+  // Bind the function to the window resize event
+  $(window).resize(checkWidth);
+});

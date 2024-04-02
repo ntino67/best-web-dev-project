@@ -14,7 +14,7 @@ $(document).ready(function () {
                 $(".search-result-description", newElement).html(placeholder1 + i);
 
                 // Insert new element into page
-                $("div.flex-6").append(newElement.children);
+                $("#rating-container").append(newElement.children);
             }
         }
     )
