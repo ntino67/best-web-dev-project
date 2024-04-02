@@ -1,42 +1,59 @@
 <?php
 
 class Model {
+  
+  // ## SQL queries ##  
+  // Get all records
   protected $sql_getAll = "";
+
+  // Get a specific record
   protected $sql_get = "";
+
+  // Create a new record
   protected $sql_create = "";
+
+  // Update a record
   protected $sql_update = "";
+
+  // Delete a record
   protected $sql_delete = "";
 
-  # Data required when creating a new item
+  // ## Class options ##
+  // Data required when creating a new item
   protected array $insert_params = [];
 
-  # Use paging
+  // Use paging
   protected bool $use_paging = true;
 
-  # Use parent_id, example : only get wishlist items of a specific user id
+  // Use parent_id, example : only get wishlist items of a specific user id
   protected bool $use_parent_id = false;
 
-  # Use filters
+  // Use filters
   protected bool $use_filters = false;
 
-  # User sorting
+  // User sorting
   protected bool $use_sorting = false;
   
-  # Allowed filters and sorting
+  // Allowed filters and sorting
   protected array $allowed_filters = [];
   protected array $allowed_sorting = [];
   
-  # Database connection
+  // ## Database connection ##
   private PDO $conn;
 
+  // ## Constructor ##
   public function __construct() {
     $this->conn = Database::getConnection();
   }
 
+  // ## Query methods ##
 
   // Get all records
 
   public function getAll(string $parent_id = "") : array | false {
+    // Return if this method is not defined in the child class
+    if ($this->sql_getAll == "") { return false; }
+
     $sql = $this->sql_getAll;
 
     if ($this->use_paging) {
@@ -70,6 +87,8 @@ class Model {
   // Get a specific record
 
   public function get(string $id_object, string $id_parent = "") : array | false {
+    // Return if this method is not defined in the child class
+    if ($this->sql_get == "") { return false; }
 
     $sql = $this->sql_get;
 
@@ -93,6 +112,8 @@ class Model {
 
   // @param mixed[] $data
   public function create(array $data, string $id_parent = "") : int | false {
+    // Return if this method is not defined in the child class
+    if ($this->sql_create == "") { return false; }
  
     // Check if the required data was provided and if a create statement was defined by the child class
     if (!$this->insert_params || $this->sql_create == "")
@@ -123,8 +144,8 @@ class Model {
   // Delete a record
 
   public function delete(string $id_object, string $id_parent = "") : int | false {
-    if ($this->sql_delete == "")
-    { return false; }
+    // Return if this method is not defined in the child class
+    if ($this->sql_delete == "") { return false; }
 
     $sql = $this->sql_delete;
 

@@ -1,52 +1,26 @@
 <?php
 
-class SkillModel
-{
-  private PDO $conn;
-
+class SkillModel extends Model {
   public function __construct()
   {
-    $this->conn = Database::getConnection();
-  }
+    parent::__construct();
+    
+    // Create is not supported, so insert_params is left empty
+    $this->insert_params = [""];
 
-  // @return mixed[]
-  public function getAll(): array
-  {
-    $sql = "
+    $this->use_paging = true;
+
+    $this->use_parent_id = false;
+
+    $this->sql_getAll = " 
     SELECT id_skill, skill_name, COUNT(*) OVER() AS total_count
     FROM Skills
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
-    $statement = $this->conn->prepare($sql);
-
-    list($offset, $limit) = Paging::getValues();
-
-    $statement->bindValue(":offset", $offset);
-    $statement->bindValue(":limit", $limit);
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[]
-  public function get(string $id) : array | false
-  {
-    $sql = "
+    $this->sql_get = "
     SELECT id_skill, skill_name
     FROM Skills
-    WHERE id_skill = :id
+    WHERE id_skill = :id_object
     ";
-
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id", $id, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->fetch(PDO::FETCH_ASSOC);
   }
 }

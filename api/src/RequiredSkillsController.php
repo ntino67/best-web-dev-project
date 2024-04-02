@@ -29,7 +29,7 @@ class RequiredSkillsController
   // @param $requestURI Elements of the link of the request
   private function processRessourceRequest(string $method, string $id) : void 
   {
-    $data = $this->model->get($this->id_internship_offer, $id);
+    $data = $this->model->get($id, $this->id_internship_offer);
     if (!$data) {
       http_response_code(404);
       echo json_encode(["message" => "Required skill $id not found for internship $this->id_internship_offer"]);
@@ -40,9 +40,10 @@ class RequiredSkillsController
     case "GET" :
       http_response_code(200);
       echo json_encode($data);
+      break;
 
     case "DELETE" :
-      $affectedRows = $this->model->delete($this->id_internship_offer, $id);
+      $affectedRows = $this->model->delete($id, $this->id_internship_offer);
 
       echo json_encode([
         "message" => "Required skill $id deleted for internship $this->id_internship_offer",
@@ -70,7 +71,7 @@ class RequiredSkillsController
 
       self::checkData($data, 422);
 
-      $this->model->create($this->id_internship_offer, $data["id_skill"]);
+      $this->model->create($data, $this->id_internship_offer);
       echo json_encode([
         "message" => "Required skill created",
       ]);

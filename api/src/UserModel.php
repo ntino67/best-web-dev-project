@@ -1,19 +1,18 @@
 <?php
 
-class UserModel
+class UserModel extends Model
 {
-  private PDO $conn;
-
   public function __construct()
   {
-    $this->conn = Database::getConnection();
-  }
+    parent::__construct();
 
-  // @return mixed[]
-  // @param int $offset Amout of elements to ignore
-  // @param int $limit Max amount of elements to fetch
-  public function getAll(): array {
-    $sql = "
+    $this->insert_params = ["first_name", "last_name", "email", "password", "id_center", "id_role"];
+
+    $this->use_paging = true;
+
+    $this->use_parent_id = false;
+    
+    $this->sql_getAll = "
     SELECT id_user,
           first_name,
           last_name,
@@ -30,25 +29,7 @@ class UserModel
     ORDER BY Users.id_user
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
-    $statement = $this->conn->prepare($sql);
-
-    list($offset, $limit) = Paging::getValues();
-
-    $statement->bindValue(":limit", $limit);
-    $statement->bindValue(":offset", $offset);
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[]
-  public function get(string $id_user) : array | false
-  {
-    $sql = "
+    $this->sql_get = "
     SELECT id_user,
           first_name,
           last_name,
@@ -61,22 +42,10 @@ class UserModel
             JOIN web_project.Centers C on C.id_center = Users.id_center
             JOIN web_project.Roles R on R.id_role = Users.id_role
     WHERE user_active = 1
-      AND id_user = :id_user
+      AND id_user = :id_object
     ";
 
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->fetch(PDO::FETCH_ASSOC);
-  }
-
-  // @param mixed[] $data
-  public function create(array $data) : int | false
-  {
-    $sql = "
+    $this->sql_create = "
     INSERT INTO Users (first_name,
                       last_name,
                       email, password,
@@ -95,34 +64,10 @@ class UserModel
             1);
     ";
 
-    $statement = $this->conn->prepare($sql);
-    
-    $insert = array("first_name", "last_name", "email", "password", "id_center", "id_role");
-    
-    foreach ($insert as $i) {
-      $statement->bindValue(":$i", $data[$i]);
-    }
-
-    $statement->execute();
-    
-    return $this->conn->lastInsertId();
-  }
-  
-  // Disable a user
-  public function delete(string $id_user) : int
-  {
-    $sql = "
+    $this->sql_delete = "
     UPDATE Users
     SET user_active = 0
-    WHERE id_user = :id_user
+    WHERE id_user = :id_object
     ";
-
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->rowCount();
   }
 }
