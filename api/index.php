@@ -61,6 +61,11 @@ case "business-sector":
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
   break;
 
+case "company":
+  $controller = new CompanyController;
+  $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
+
   // TODO: Add more request types here
 
 default:
