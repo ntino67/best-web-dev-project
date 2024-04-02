@@ -31,7 +31,7 @@ class WishlistController
   private function processRessourceRequest(string $method, string $id) : void 
   {
     /* TODO: Add modify for wishlist items here */
-    $data = $this->model->get($this->id_user, $id);
+    $data = $this->model->get($id, $this->id_user);
 
     if (!$data) {
       http_response_code(404);
@@ -71,28 +71,29 @@ class WishlistController
       http_response_code(200);
 
       $data = $this->model->getAll($this->id_user);
-      
+
       // Fetch required skills for each wishlist item
       foreach ($data as &$item) {
         $requiredSkillsModel = new RequiredSkillsModel();
         $item["required_skills"] = $requiredSkillsModel->getAll($item["id_internship_offer"]);
       }
-      
+
       $data = Paging::appendToResults($data);
 
       echo json_encode($data);
       break;
-      
+
     case "POST":
       http_response_code(201);
       $data = (array) json_decode(file_get_contents("php://input"), true);
-
+      
       $this->checkData($data, 422);
 
-      $this->model->create($this->id_user, $data["id_internship_offer"]);
+      $affectedRows = $this->model->create($data, $this->id_user);
 
       echo json_encode([
         "message" => "Wishlist item created for user",
+        "rows" => $affectedRows
       ]);
       break;
 

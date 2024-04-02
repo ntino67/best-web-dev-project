@@ -1,18 +1,18 @@
 <?php
 
-class WishlistModel
-{
-  private PDO $conn;
+class WishlistModel extends Model {
 
-  public function __construct()
-  {
-    $this->conn = Database::getConnection();
-  }
+  public function __construct() {
+    parent::__construct();
 
-  // @return mixed[]
-  public function getAll(string $id_user) : array | false
-  {
-    $sql = "
+    $this->insert_params = ["id_internship_offer"];
+
+    $this->use_paging = true;
+
+    // Wishlist refers to a user, so we use the parent_id field
+    $this->use_parent_id = true;
+
+    $this->sql_getAll = "
     SELECT Wish_list.id_internship_offer,
           C.id_company,
           available_slots,
@@ -29,30 +29,10 @@ class WishlistModel
                   on Wish_list.id_internship_offer = I.id_internship_offer
             JOIN web_project.Companies C
                   on C.id_company = I.id_company
-    WHERE id_user = :id_user
+    WHERE id_user = :id_parent
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
-    $statement = $this->conn->prepare($sql);
-    
-    list($offset, $limit) = Paging::getValues();
-
-    $statement->bindValue(":offset", $offset);
-    $statement->bindValue(":limit", $limit);
-
-    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
-    
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[]
-  public function get(string $id_user, string $id_internship_offer) : array | false
-  {
-    $sql = "
+    $this->sql_get = "
     SELECT Wish_list.id_internship_offer,
           C.id_company,
           available_slots,
@@ -68,65 +48,23 @@ class WishlistModel
                   on Wish_list.id_internship_offer = I.id_internship_offer
             JOIN web_project.Companies C
                   on C.id_company = I.id_company
-    WHERE id_user = :id_user
-      AND Wish_list.id_internship_offer = :id_internship_offer
+    WHERE id_user = :id_parent
+      AND Wish_list.id_internship_offer = :id_object;
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
-    $statement = $this->conn->prepare($sql);
-    
-    list($offset, $limit) = Paging::getValues();
-
-    $statement->bindValue(":offset", $offset);
-    $statement->bindValue(":limit", $limit);
-
-    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
-    $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
-    
-    $statement->execute();
-
-    return $statement->fetch(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[] $data
-  public function create(string $id_user, string $id_internship_offer) : void
-  {
-    $sql = "
+    $this->sql_create = "
     INSERT INTO Wish_list (id_user,
                           id_internship_offer)
-    VALUES (:id_user, 
-            :id_internship_offer)
+    VALUES (:id_parent, 
+            :id_internship_offer);
     ";
 
-    $statement = $this->conn->prepare($sql);
-    
-    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
-    $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return;
-  }
-
-  public function delete(string $id_user, string $id_internship_offer) : int
-  {
-    $sql = "
+    $this->sql_delete = "
     DELETE
     FROM Wish_list
-    WHERE id_user = :id_user
-      AND id_internship_offer = :id_internship_offer
+    WHERE id_user =:id_parent
+      AND id_internship_offer = :id_object;
     ";
-
-    $statement = $this->conn->prepare($sql);
-    
-    $statement->bindValue(":id_user", $id_user, PDO::PARAM_INT);
-    $statement->bindValue(":id_internship_offer", $id_internship_offer, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->rowCount();
   }
 
 }
