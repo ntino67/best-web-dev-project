@@ -51,7 +51,7 @@ $(document).ready(function () {
             $(".info-text", newElement).eq(1).html("Feur International LLC");
 
             // Insert new element into page
-            $("div.flex-6").append(newElement.children());
+            $("#internship-container, #wishlist-container").append(newElement.children());
 
             // call truncateToFit after inserting the newElement into the DOM
             let vh_in_px = $(window).height() * 0.11;

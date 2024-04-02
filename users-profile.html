@@ -15,26 +15,27 @@
 </head>
 <body class="profile-body">
 <div id="navbar-container"></div>
-<button id="openNav">☰</button>
-<div id="sidebar">
-    <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
-        <h2>Edit</h2>
-        <a class="flex-row line-effect" href="modify-an-account.html">
-            <span class="far"></span>
-            <span>Modify Data</span>
-        </a>
-        <a class="flex-row line-effect" href="#">
-            <span class="far"></span>
-            <span>Add Internship to Wishlist</span>
-        </a>
-        <a class="flex-row line-effect" href="#">
-            <span class="far"></span>
-            <span>Delete User</span>
-        </a>
-    </div>
-</div>
 <div class="page-spacing flex-row" id="main">
-    <aside class="profile-page"></aside>
+    <aside class="profile-page">
+        <button id="openNav">☰</button>
+        <div id="sidebar">
+            <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
+                <h2>Edit</h2>
+                <a class="flex-row line-effect" href="modify-an-account.html">
+                    <span class="far"></span>
+                    <span>Modify Data</span>
+                </a>
+                <a class="flex-row line-effect" href="#">
+                    <span class="far"></span>
+                    <span>Add Internship to Wishlist</span>
+                </a>
+                <a class="flex-row line-effect" href="#">
+                    <span class="far"></span>
+                    <span>Delete User</span>
+                </a>
+            </div>
+        </div>
+    </aside>
     <main class="profile-page flex-column flex-gap-1">
         <header class="page-header flex-row flex-align-content-end-ma flex-gap-1">
             <h1>Matteo Heidelberger</h1>
@@ -68,14 +69,14 @@
         <div class="flex-column">
             <h2 class="users-headers">Work history</h2>
         </div>
-        <div class="flex-6 flex-column flex-gap-1"></div>
+        <div class="flex-6 flex-column flex-gap-1" id="internship-container"></div>
         <div class="flex-column">
             <h2 class="users-headers">Wishlist</h2>
             <div class="flex-row flex-align-content-center-ca">
                 <div class="paging-container"></div>
                 <div class="sorting-container"></div>
             </div>
-            <div class="flex-6 flex-column flex-gap-1"></div>
+            <div class="flex-6 flex-column flex-gap-1" id="wishlist-container"></div>
         </div>
     </main>
     <aside class="profile-page"></aside>

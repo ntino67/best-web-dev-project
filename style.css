@@ -56,6 +56,12 @@ table {
 }
 
 /* css reset end  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   width: 100vw;
   font-family: Inter, sans-serif;
@@ -412,6 +418,10 @@ div.auth > * {
 @media (max-width: 768px) {
   div.auth > * {
     align-items: center;
+  }
+
+  .auth-input form {
+    width: 100%;
   }
 }
 
@@ -842,8 +852,6 @@ main.search-container {
   left: 2vw;
   overflow-x: hidden;
   transition: width .5s;
-  background-color: rgb(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
 }
 
 #openNav {
@@ -857,6 +865,7 @@ main.search-container {
   border-radius: 9px;
   justify-content: center;
   z-index: 2;
+  display: none;
 }
 
 #openNav:hover {
@@ -871,13 +880,32 @@ aside.profile-page {
   flex: 0 0 20%;
 }
 
+@media screen and (max-width: 900px) {
+  main.profile-page {
+    flex: 0 0 80%;
+  }
+
+  aside.profile-page {
+    flex: 0 0 10%;
+  }
+
+  #openNav {
+    display: block;
+  }
+
+  #sidebar {
+    background-color: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+  }
+}
+
 .edit-profile {
   position: fixed;
   top: 30vh;
   line-height: 2;
 
   h2 {
-    font-size: clamp(1.3rem, 3vw, 2.5rem);
+    font-size: clamp(1rem, 3vw, 2rem);
     font-weight: bold;
   }
 
@@ -886,9 +914,10 @@ aside.profile-page {
     gap: 0.5rem;
 
     span {
-      font-size: clamp(0.7rem, 3vw, 1rem);
+      font-size: clamp(0.6rem, 1.5vw, 0.7rem);
       font-weight: bold;
       color: black;
+      white-space: normal;
     }
   }
 }
