@@ -1,3 +1,24 @@
+// Define a function to extract cookie data
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Get the user data object from the cookie
+var cookieData = getCookie('userData');
+
+if (cookieData) {
+    // Parse the string back into an object
+    var userData = JSON.parse(cookieData);
+    console.log(userData); // You can now access the data using dot notation
+}
+
 $(document).ready(function () {
     // Breaking down the current URL and retrieving the last identifier (userId)
     const currentUrl = window.location.href;
@@ -8,6 +29,9 @@ $(document).ready(function () {
     $.ajax({
         url: `http://webp.local/api/internship/${interId}`,
         type: "GET",
+        headers: {
+            "authorization-token": userData.token
+        },
         success: function (response) {
             // access the data property of the response
             var internshipData = response.data;
