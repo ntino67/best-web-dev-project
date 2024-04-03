@@ -166,6 +166,12 @@ body {
 .bw-button {
   background-color: black;
   color: white;
+  transition: all 0.5s ease;
+}
+
+.bw-button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 .grey-button {
@@ -269,6 +275,7 @@ body {
 
 .menu-burger {
   display: none;
+  cursor: pointer;
 }
 
 .navbar img {
