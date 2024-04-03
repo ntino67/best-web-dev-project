@@ -3,6 +3,8 @@
 Class Config
 {
   public const DEBUG = true; 
+  
+  public const JWT_SECRET = "qBefq44FL7g9ujqm+tYYFSK56jzPbxLWYSLXCKAUnz79AZGuXJ9AbujWJCoVLYq6";
 
   // Read connection info from connectionString.json, if it doesn't exist, create it
   public static function getConnectionInfo() : array
