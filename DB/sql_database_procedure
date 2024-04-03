@@ -55,7 +55,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE uspGetCompanyData (
     IN p_company_name VARCHAR(255),
-    IN p_business_sector VARCHAR(255),
+    IN p_business_sector_name VARCHAR(255),
     IN p_locality VARCHAR(255),
     IN p_average_rating INTEGER,
     IN p_orderbyAZ BOOLEAN,
@@ -71,7 +71,7 @@ BEGIN
     END IF;
     SELECT
         Companies.company_name AS 'Nom de l_entreprise',
-        Business_sectors.business_sector AS 'Secteur d_activité',
+        Business_sectors.business_sector_name AS 'Secteur d_activité',
         Cities.name AS 'Nom de la ville',
     COUNT(DISTINCT Applications.id_user) AS 'Nombre de stagiaires ayant postulé à une offre de cette entreprise',
     IFNULL(
@@ -91,15 +91,15 @@ BEGIN
         INNER JOIN Cities ON Situated.id_city = Cities.id_city
         LEFT JOIN Applications ON Companies.id_company = Applications.id_user
         LEFT JOIN Company_Reviews ON Companies.id_company = Company_Reviews.id_company
-        INNER JOIN Business_sectors ON Companies.id_business_sector = Business_sectors.id_business_sector
+        INNER JOIN Business_sectors ON Companies.id_business_sector_name = Business_sectors.id_business_sector_name
     WHERE
         Companies.company_name LIKE CONCAT('%', p_company_name, '%')
-        AND Business_sectors.business_sector LIKE CONCAT('%', p_business_sector, '%')
+        AND Business_sectors.business_sector_name LIKE CONCAT('%', p_business_sector_name, '%')
         AND Cities.name LIKE CONCAT('%', p_locality, '%')
         AND Companies.company_active = TRUE
     GROUP BY
         Companies.company_name,
-        Business_sectors.business_sector,
+        Business_sectors.business_sector_name,
         Cities.name
     HAVING
         IFNULL(AVG(
@@ -130,7 +130,7 @@ DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE uspInsertCompany(
-    IN p_id_business_sector INT,
+    IN p_id_business_sector_name INT,
     IN p_company_name VARCHAR(255),
     IN p_company_description VARCHAR(255),
     IN p_company_active BOOLEAN
@@ -139,8 +139,8 @@ BEGIN
     DECLARE company_id INT;
 
     -- Insérer l'entreprise
-    INSERT INTO Companies (id_business_sector, company_name, company_description, company_active)
-    VALUES (p_id_business_sector, p_company_name, p_company_description, p_company_active);
+    INSERT INTO Companies (id_business_sector_name, company_name, company_description, company_active)
+    VALUES (p_id_business_sector_name, p_company_name, p_company_description, p_company_active);
 END //
 DELIMITER ;
 DELIMITER //
@@ -182,7 +182,7 @@ CREATE PROCEDURE uspUpdateCompany(
     IN p_new_company_name VARCHAR(255),
     IN p_new_company_description VARCHAR(255),
     IN p_new_company_active BOOLEAN,
-    IN p_new_business_sector INT,
+    IN p_new_business_sector_name INT,
     IN p_city_ids_to_add VARCHAR(255),
     IN p_city_ids_to_remove VARCHAR(255)
 )
@@ -198,7 +198,7 @@ BEGIN
         company_name = p_new_company_name,
         company_description = p_new_company_description,
         company_active = p_new_company_active,
-        id_business_sector = p_new_business_sector
+        id_business_sector_name = p_new_business_sector_name
     WHERE 
         id_company = p_company_id;
 
@@ -448,28 +448,28 @@ CREATE PROCEDURE uspCompanyStat_Sectors()
 BEGIN
     SELECT * FROM (
         SELECT 
-            business_sectors.business_sector,
-            COUNT(business_sectors.business_sector) AS Total
+            business_sectors.business_sector_name,
+            COUNT(business_sectors.business_sector_name) AS Total
         FROM
             companies
-        JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
+        JOIN business_sectors ON business_sectors.id_business_sector_name = companies.id_business_sector_name
         WHERE
             Companies.company_active = TRUE
-        GROUP BY business_sectors.business_sector
+        GROUP BY business_sectors.business_sector_name
         ORDER BY Total DESC
         LIMIT 10
     ) AS subquery 
     UNION 
     SELECT 'AUTRES', SUM(subquery.Total) AS total FROM (
         SELECT 
-            business_sectors.business_sector AS 'Autres',
-            COUNT(business_sectors.business_sector) AS Total
+            business_sectors.business_sector_name AS 'Autres',
+            COUNT(business_sectors.business_sector_name) AS Total
         FROM
             companies
-        JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
+        JOIN business_sectors ON business_sectors.id_business_sector_name = companies.id_business_sector_name
         WHERE
             Companies.company_active = TRUE
-        GROUP BY business_sectors.business_sector
+        GROUP BY business_sectors.business_sector_name
         ORDER BY Total
         LIMIT 10000 OFFSET 10
     ) AS subquery;
@@ -546,7 +546,7 @@ CREATE PROCEDURE uspInternshipOffersSearch(
     IN internship_offer_created_at DATE,
     IN available_slots INT,
     IN applications_count INT,
-    IN business_sector VARCHAR(255),
+    IN business_sector_name VARCHAR(255),
     IN orderbyAZ BOOLEAN,
     IN orderbyZA BOOLEAN,
     IN orderby51 BOOLEAN,
@@ -584,7 +584,7 @@ SET applications_count := IF(applications_count <> '', NULL, applications_count)
             ),
             ''
         ) AS 'Compétences requises',
-        Business_sectors.business_sector AS 'Secteur d_activité',
+        Business_sectors.business_sector_name AS 'Secteur d_activité',
         Cities.name AS 'Localité',
         Companies.company_name AS 'Nom de l_entreprise',
         Internship_offers.internship_duration AS 'Durée du stage',
@@ -595,7 +595,7 @@ SET applications_count := IF(applications_count <> '', NULL, applications_count)
     FROM
         Internship_offers
         LEFT JOIN Companies ON Internship_offers.id_company = Companies.id_company
-        LEFT JOIN Business_sectors ON Internship_offers.id_business_sector = Business_sectors.id_business_sector
+        LEFT JOIN Business_sectors ON Internship_offers.id_business_sector_name = Business_sectors.id_business_sector_name
         LEFT JOIN Applications ON Internship_offers.id_internship_offer = Applications.id_internship_offer
         LEFT JOIN Situated ON Internship_offers.id_company = Situated.id_company
         LEFT JOIN Cities ON Situated.id_city = Cities.id_city
@@ -612,7 +612,7 @@ SET applications_count := IF(applications_count <> '', NULL, applications_count)
         AND (Internship_offers.base_salary LIKE CONCAT('%', base_salary, '%') OR base_salary = '')
         AND (Internship_offers.internship_offer_created_at LIKE CONCAT('%', internship_offer_created_at, '%') OR internship_offer_created_at = '')
         AND (Internship_offers.available_slots LIKE CONCAT('%', available_slots, '%') OR available_slots = '')
-        AND (Business_sectors.business_sector LIKE CONCAT('%', business_sector, '%') OR business_sector = '')
+        AND (Business_sectors.business_sector_name LIKE CONCAT('%', business_sector_name, '%') OR business_sector_name = '')
     GROUP BY
         Internship_offers.id_internship_offer,
         Cities.name,
@@ -651,7 +651,7 @@ CREATE PROCEDURE uspInternshipOffersCreate(
 )
 BEGIN
     -- Insertion dans la table Internship_offers
-    INSERT INTO Internship_offers (id_company, id_business_sector, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, internship_duration, base_salary, internship_offer_active)
+    INSERT INTO Internship_offers (id_company, id_business_sector_name, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, internship_duration, base_salary, internship_offer_active)
     VALUES (id_company_val, id_business_sector_val, available_slots_val, title_val, description_val, created_at_val, expires_at_val, duration_val, base_salary_val, 1);
 
     -- Récupération de l'ID de l'offre de stage insérée
@@ -691,7 +691,7 @@ BEGIN
         internship_offer_title = IF(internship_offer_title_val <> '', internship_offer_title_val, internship_offer_title),
         internship_offer_description = IF(internship_offer_description_val <> '', internship_offer_description_val, internship_offer_description),
         available_slots = IF(available_slots_val <> '', available_slots_val, available_slots),
-        id_business_sector = IF(id_business_sector_val <> '', id_business_sector_val, id_business_sector),
+        id_business_sector_name = IF(id_business_sector_val <> '', id_business_sector_val, id_business_sector_name),
         id_company = IF(id_company_val <> '', id_company_val, id_company),
         internship_offer_created_at = IF(created_at_val <> '', created_at_val, internship_offer_created_at),
         internship_offer_expires_at = IF(expires_at_val <> '', expires_at_val, internship_offer_expires_at),
