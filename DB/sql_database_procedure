@@ -26,28 +26,25 @@ DELIMITER ;
 
 
 -- Procedure to authenticate a user
-DELIMITER //
-CREATE PROCEDURE uspLogin (
-    IN pLoginName VARCHAR(254),
-    IN pPassword VARCHAR(50),
-    OUT responseMessage bool
-)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspLogin`(IN pLoginName varchar(254), IN pPassword varchar(50),
+                                                OUT responseMessage tinyint(1))
 BEGIN
     DECLARE userEmail VARCHAR(254);
-    DECLARE hashedPassword BINARY(64); -- Correspond à la longueur du hachage SHA2 512
+    DECLARE inputHashedPassword BINARY(128); -- Correspond à la longueur du hachage SHA2 512
     DECLARE userSalt BINARY(16);
+    DECLARE hashedPassword BINARY(128);
 
     SELECT email, password, salt INTO userEmail, hashedPassword, userSalt
     FROM Users WHERE email = pLoginName LIMIT 1;
 
-        SET hashedPassword = SHA2(CONCAT(pPassword, HEX(userSalt)), 512);
+    SET inputHashedPassword = SHA2(CONCAT(pPassword, HEX(userSalt)), 512);
 
-        IF hashedPassword = hashedPassword THEN
-            SET responseMessage = TRUE;
-        ELSE
-            SET responseMessage = FALSE;
-        END IF;
-END //
+    IF inputHashedPassword = hashedPassword THEN
+        SET responseMessage = TRUE;
+    ELSE
+        SET responseMessage = FALSE;
+    END IF;
+END
 DELIMITER ;
 
 
