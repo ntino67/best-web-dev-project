@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>User name</title>
-    <link href="style.css" rel="stylesheet">
-    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
-    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
-    <script src="script/jquery/jquery-3.7.1.js"></script>
-    <script src="script/components.js"></script>
-    <script src="script/switching-tabs.js"></script>
-    <script src="script/effects.js"></script>
-    <script src="script/load-internship-offers.js"></script>
-    <script src="script/edit-menu.js"></script>
+    <title></title>
+    <link href="/style.css" rel="stylesheet">
+    <link href="/fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+    <link href="/fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <script src="/script/jquery/jquery-3.7.1.js"></script>
+    <script src="/script/components.js"></script>
+    <script src="/script/effects.js"></script>
+    <script src="/script/edit-menu.js"></script>
+    <script src="/script/API-internship.js"></script>
+    <script src="/script/load-user-profile.js"></script>
 </head>
 <body class="profile-body">
 <div id="navbar-container"></div>
@@ -21,7 +21,7 @@
         <div id="sidebar">
             <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
                 <h2>Edit</h2>
-                <a class="flex-row line-effect" href="modify-an-account.html">
+                <a class="flex-row line-effect" href="/modify-an-account.html">
                     <span class="far"></span>
                     <span>Modify Data</span>
                 </a>
@@ -38,9 +38,9 @@
     </aside>
     <main class="profile-page flex-column flex-gap-1">
         <header class="page-header flex-row flex-align-content-end-ma flex-gap-1">
-            <h1>Matteo Heidelberger</h1>
+            <h1 id="User-name"></h1>
             <div class="header-tag">
-                <p>Student</p>
+                <p id="User-role"></p>
             </div>
         </header>
         <section class="flex-align-items-start-ca flex-row flex-gap-1">
@@ -48,7 +48,7 @@
                 <div class="flex-column">
                     <p>
                         <span class="fas"></span>
-                        <span> A1</span>
+                        <span id="user-class"></span>
                     </p>
                     <p>Promotion actuelle</p>
                 </div>

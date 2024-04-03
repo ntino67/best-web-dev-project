@@ -12,6 +12,7 @@ require_once(__DIR__ . "/vendor/autoload.php");
 
 // Set content type to json and define charset
 header('Content-Type: application/json; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
 
 // Allow CORS
 header("Access-Control-Allow-Origin: *");
