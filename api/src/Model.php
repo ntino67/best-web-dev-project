@@ -140,9 +140,38 @@ class Model {
     return $this->conn->lastInsertId();
   }
 
+    // Update a record
+    public function update(array $data, string $id_object, string $id_parent = "") : int
+    {
+        // Check if the required data was provided and if a create statement was defined by the child class
+        if (!$this->insert_params || $this->sql_update == "")
+        { return 0; }
 
-  // Delete a record
+        $sql = $this->sql_update;
 
+        $statement = $this->conn->prepare($sql);
+
+        // Insert the sumbitted data into the statement
+        if ($this->use_parent_id) {
+            if (!$id_parent) { return 0; }
+
+            $statement->bindValue(":id_parent", $id_parent, PDO::PARAM_INT);
+        }
+
+        $statement->bindValue(":id_object", $id_object, PDO::PARAM_INT);
+
+        // Insert the sumbitted data into the statement
+        foreach ($this->insert_params as $i) {
+            $statement->bindValue(":$i", $data[$i]);
+        }
+
+        $statement->execute();
+
+        return $statement->rowCount();
+    }
+
+
+    // Delete a record
   public function delete(string $id_object, string $id_parent = "") : int | false {
     // Return if this method is not defined in the child class
     if ($this->sql_delete == "") { return false; }
