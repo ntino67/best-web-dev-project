@@ -7,16 +7,20 @@ function loadInternships(url, containerId, specificHandler) {
             $.get("/components/internship-offer.html", function (data) {
                 // Iterate through each offer
                 $.each(response.data, function (i, offer) {
-                    let newElement = $('<div></div>');
-                    newElement.html(data);
+                    let newElement = $(data); // parse the data as jQuery element
                     // Insert title and description
                     $(".search-result-title", newElement).html(offer.internship_offer_title);
                     $(".search-result-description", newElement).html(offer.internship_offer_description);
 
+                    // Add click event to the button
+                    $(".bw-button", newElement).click(function () {
+                        window.location.href = `internship/${offer.id_internship_offer}`;
+                    });
+
                     specificHandler(newElement, offer); // Call the specific handler for additional handling
 
                     // Insert new element into page
-                    $(containerId).append(newElement.children());
+                    $(containerId).append(newElement);
 
                     // call truncateToFit after inserting the newElement into the DOM
                     let vh_in_px = $(window).height() * 0.11;
