@@ -31,9 +31,6 @@ class Model {
   // Use filters
   protected bool $use_filters = false;
 
-  // User sorting
-  protected bool $use_sorting = false;
-  
   // Allowed filters and sorting
   protected array $allowed_filters = [];
   protected array $allowed_sorting = [];
