@@ -976,8 +976,41 @@ aside.profile-page {
   }
 }
 
-/* Company profiles */
+.internship-info {
+  justify-content: center;
+}
 
+.internship-info div {
+  width: 6rem;
+}
+
+.internship-info-center {
+  text-align: center;
+  line-height: 1.2125;
+  word-wrap: break-word;
+  margin-bottom: 2rem;
+
+  p:first-child {
+    font-weight: bold;
+    font-size: clamp(0.7rem, 5vw, 1rem);
+  }
+
+  p, li {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    max-width: 6rem;
+  }
+}
+
+.internship-description {
+  font-size: clamp(0.8rem, 5vw, 1.25rem);
+  line-height: 1.2125;
+  align-items: flex-start;
+  margin-bottom: 7rem;
+}
+
+/* Company profiles */
 .company-rating {
   font-size: 0.5625rem;
   color: #6B7280;
@@ -995,7 +1028,6 @@ aside.profile-page {
 }
 
 /* Users profiles */
-
 .users-headers {
   font-size: clamp(1.2rem, 5vw, 2rem);
   font-weight: bold;
