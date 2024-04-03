@@ -16,7 +16,7 @@ $(document).ready(function () {
             $('h1').text(internshipData.internship_offer_title);
             $('.internship-description').text(internshipData.internship_offer_description);
             $('.header-tag p').text(internshipData.business_sector_name);
-            $('.internship-info-center:nth-child(1) p:nth-child(2)').text(internshipData.company_name + ', France');
+            $('.internship-info-center:nth-child(1) p:nth-child(2)').text(internshipData.company_name + ', France'); /*TODO: implement city too*/
             $('.internship-info-center:nth-child(2) span:nth-child(2)').text(internshipData.available_slots);
             $('.internship-info-center:nth-child(3) p:nth-child(2)').text(internshipData.internship_duration + ' months');
             $('.internship-info-center:nth-child(4) p:nth-child(2)').text(internshipData.base_salary + ' $');
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
             // Make the skills list empty before appending new items
             $('.internship-info-center:nth-child(8) ul').empty();
-            $('.internship-info-center:nth-child(9) ul').empty();
+            $('.internship-info-center:nth-child(9) ul').empty(); /*TODO: implement asked classes*/
 
             // Fill in the required skills
             for (let i = 0; i < internshipData.required_skills.length; i++) {
