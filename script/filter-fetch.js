@@ -1,3 +1,24 @@
+// Define a function to extract cookie data
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Get the user data object from the cookie
+var cookieData = getCookie('userData');
+
+if (cookieData) {
+    // Parse the string back into an object
+    var userData = JSON.parse(cookieData);
+    console.log(userData); // You can now access the data using dot notation
+}
+
 function handleDropdownChange(elementId, containerClass, defaultValue = "0") {
     $(elementId).change(function () {
         const dropdownValue = $(this).val();
@@ -17,6 +38,9 @@ $(document).ready(function () {
     $.ajax({
         url: 'http://webp.local/api/city',
         type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
         success: function (response) {
             var cities = response.data; //access the data property of the response
             $.each(cities, function (index, city) {
@@ -35,6 +59,9 @@ $(document).ready(function () {
     $.ajax({
         url: 'http://webp.local/api/business-sector',
         type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
         success: function (sectors) {
             $.each(sectors, function (index, sector) {
                 $("#sectors")
