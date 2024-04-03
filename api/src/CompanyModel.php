@@ -6,7 +6,7 @@ class CompanyModel extends Model
   { 
     parent::__construct();
 
-    $this->insert_params = [""];
+    $this->insert_params = ["id_business_sector", "company_name", "company_description"];
 
     $this->use_paging = true;
 
@@ -29,8 +29,22 @@ class CompanyModel extends Model
       AND id_company = :id_object
     ";
     
-    // TODO: Add this
-    $this->sql_create = "";
+    $this->sql_create = "
+        INSERT INTO Companies (id_business_sector, company_name, company_description, company_active)
+        VALUES (:id_business_sector, :company_name, :company_description, 1)
+    ";
+
+    $this->sql_update = "
+    UPDATE Companies 
+    SET 
+        id_business_sector = :id_business_sector,
+        company_name = :company_name,
+        company_description = :company_description
+    WHERE 
+        id_company = :id_object
+    ";
+
+
 
     $this->sql_delete = "
     UPDATE Companies
