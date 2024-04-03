@@ -14,6 +14,7 @@ require_once(__DIR__ . "/vendor/autoload.php");
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 
+
 // Allow CORS
 header("Access-Control-Allow-Origin: *");
 
@@ -38,6 +39,7 @@ while (true) {
 
 $controller = new AuthController;
 
+// ## Authentification ##
 // Auth endpoint
 if ($requestURI[0] == "auth")
 {
@@ -52,6 +54,8 @@ else if (!array_key_exists("HTTP_AUTHORIZATION_TOKEN", $_SERVER)|| !$controller-
   exit();
 }
 
+
+// ## API Endpoints ##
 // Process request type, send to corrent API endpoint
 switch (array_shift($requestURI)) {
 case "city":
