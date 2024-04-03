@@ -37,7 +37,7 @@ function loadInternships(url, containerId, specificHandler) {
 
                     // Add click event to the button
                     $(".bw-button", newElement).click(function () {
-                        window.location.href = `internship/${offer.id_internship_offer}`;
+                        window.location.href = `/internship/${offer.id_internship_offer}`;
                     });
 
                     specificHandler(newElement, offer); // Call the specific handler for additional handling
@@ -49,6 +49,41 @@ function loadInternships(url, containerId, specificHandler) {
                     let vh_in_px = $(window).height() * 0.11;
                     truncateToFit(".search-result-description", vh_in_px);
                 });
+
+                // Clear paging container
+                $(".paging-container").empty();
+
+                console.log("Create")
+
+                // Create paging links dynamically based on total pages
+                for (let i = 1; i <= response.paging.total_pages; i++) {
+                    // Create anchor tag
+                    let anchorTag = $('<a>').attr('href', '#').text(i);
+
+                    // Add 'paging-current-page' class if it's the current page
+                    if (i == response.paging.page) {
+                        anchorTag.addClass('paging-current-page');
+                    }
+
+                    // Add click event listener
+                    anchorTag.on("click", function (event) {
+                        event.preventDefault();
+                        let baseUrl = url.includes('?') ? url.split('?')[0] : url;
+
+                        // Clear the internships' container
+                        $(containerId).empty();
+
+                        // Scroll to the top of the page
+                        window.scrollTo(0, 0);
+
+                        loadInternships(`${baseUrl}?page=${i}`, containerId, specificHandler);
+                    });
+
+                    // Append to the paging container
+                    $(".paging-container").append(anchorTag);
+                }
+
+                console.log("Finished")
 
                 // Truncate again on window resize
                 $(window).on('resize', function () {
