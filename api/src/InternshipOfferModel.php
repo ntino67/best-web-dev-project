@@ -1,17 +1,14 @@
 <?php
 
-class InternshipOfferModel
-{
-  private PDO $conn;
-
+class InternshipOfferModel extends Model {
   public function __construct()
   {
-    $this->conn = Database::getConnection();
-  }
+    parent::__construct();
+    $this->insert_params = ["id_company", "available_slots", "internship_offer_title", "internship_offer_description", "internship_offer_created_at", "internship_offer_expires_at", "id_business_sector", "base_salary", "internship_duration"];
+    $this->use_paging = true;
+    $this->use_parent_id = false;
 
-  //@return mixed[]
-  public function getAll(): array {
-    $sql = "
+    $this->sql_getAll = "
     SELECT id_internship_offer,
           internship_offer_title,
           internship_offer_description,
@@ -32,27 +29,7 @@ class InternshipOfferModel
     ORDER BY id_internship_offer
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
-    $statement = $this->conn->prepare($sql);
-    
-    // Get and bind paging data
-    list($offset, $limit) = Paging::getValues();
-
-    $statement->bindValue(":offset", $offset);
-    $statement->bindValue(":limit", $limit);
-    
-    // Execute the query
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[]
-  public function get(string $id) : array | false
-  {
-    $sql = "
+    $this->sql_get = "
     SELECT id_internship_offer,
           internship_offer_title,
           internship_offer_description,
@@ -69,22 +46,10 @@ class InternshipOfferModel
             JOIN web_project.Companies C on Internship_offers.id_company = C.id_company
             JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Internship_offers.id_business_sector
     WHERE internship_offer_active = 1
-    AND id_internship_offer = :id
+    AND id_internship_offer = :id_object
     ";
-
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id", $id, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->fetch(PDO::FETCH_ASSOC);
-  }
-  
-  // @param mixed[] $data
-  public function create(array $data) : int | false
-  {
-    $sql = "
+    
+    $this->sql_create = "
     INSERT INTO Internship_offers (id_company,
                                   available_slots,
                                   internship_offer_title,
@@ -107,34 +72,10 @@ class InternshipOfferModel
             1)
     ";
 
-    $statement = $this->conn->prepare($sql);
-    
-    $insert = array("id_company", "available_slots", "internship_offer_title", "internship_offer_description", "internship_offer_created_at", "internship_offer_expires_at", "id_business_sector", "base_salary", "internship_duration");
-    
-    foreach ($insert as $i) {
-      $statement->bindValue(":$i", $data[$i]);
-    }
-
-    $statement->execute();
-    
-    return $this->conn->lastInsertId();
-  }
-
-  // Delete an internship offer
-  public function delete(string $id) : int
-  {
-    $sql = "
+    $this->sql_delete = "
     UPDATE Internship_offers
-    SET internship_offer_active = 0
-    WHERE id_internship_offer = :id
+        SET internship_offer_active = 0
+        WHERE id_internship_offer = :id_object
     ";
-
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id", $id, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->rowCount();
   }
 }

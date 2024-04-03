@@ -1,52 +1,25 @@
 <?php
 
-class CenterModel
+class CenterModel extends Model
 {
-  private PDO $conn;
-
   public function __construct()
   {
-    $this->conn = Database::getConnection();
-  }
+    parent::__construct();
 
-  // @return mixed[]
-  public function getAll(): array 
-  {
-    $sql = "
-    SELECT *, COUNT(*) OVER() AS total_count
-    FROM Centers
+    $this->insert_params = [""];
+
+    $this->use_paging = false;
+
+    $this->use_parent_id = false;
+
+    $this->sql_getAll = "
+    SELECT * FROM Centers
     ";
 
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-
-    $statement = $this->conn->prepare($sql);
-
-    list($offset, $limit) = Paging::getValues();
-
-    $statement->bindValue(":limit", $limit);
-    $statement->bindValue(":offset", $offset);
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[]
-  public function get(string $id) : array | false
-  {
-    $sql = "
+    $this->sql_get = "
     SELECT *
     FROM Centers
-    WHERE id_center = :id
+    WHERE id_center = :id_object
     ";
-
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id", $id, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->fetch(PDO::FETCH_ASSOC);
   }
 }

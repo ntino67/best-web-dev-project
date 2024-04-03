@@ -1,18 +1,18 @@
 <?php
 
-class CompanyModel
+class CompanyModel extends Model 
 {
-  private PDO $conn;
- 
   public function __construct()
-  {
-    $this->conn = Database::getConnection();
-  }
+  { 
+    parent::__construct();
 
-  // @return mixed[]
-  public function getAll() : array
-  {
-    $sql = "
+    $this->insert_params = [""];
+
+    $this->use_paging = true;
+
+    $this->use_parent_id = false;
+
+    $this->sql_getAll = "
     SELECT id_company, company_name, company_description, company_active, Companies.id_business_sector, business_sector_name, COUNT(*) OVER() AS total_count
     FROM Companies
     JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Companies.id_business_sector
@@ -20,38 +20,22 @@ class CompanyModel
     ORDER BY Companies.id_company
     ";
     
-    //Add paging
-    $sql = $sql . " LIMIT :offset , :limit";
-    $statement = $this->conn->prepare($sql);
-    
-    list($offset, $limit) = Paging::getValues();
 
-    $statement->bindValue(":offset", $offset);
-    $statement->bindValue(":limit", $limit);
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  // @return mixed[]
-  public function get(string $id) : array | false
-  {
-    
-    $sql = "
+    $this->sql_get = "
     SELECT id_company, company_name, company_description, company_active, Companies.id_business_sector, business_sector_name
     FROM Companies
     JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Companies.id_business_sector
     WHERE company_active = 1
-      AND id_company = :id
+      AND id_company = :id_object
     ";
+    
+    // TODO: Add this
+    $this->sql_create = "";
 
-    $statement = $this->conn->prepare($sql);
-
-    $statement->bindValue(":id", $id, PDO::PARAM_INT);
-
-    $statement->execute();
-
-    return $statement->fetch(PDO::FETCH_ASSOC);
+    $this->sql_delete = "
+    UPDATE Companies
+    SET company_active = 0
+    WHERE id_company = :id_object
+    ";
   }
 }

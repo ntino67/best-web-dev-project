@@ -52,8 +52,7 @@ class CenterController
     switch ($method) {
     case "GET":
       http_response_code(200);
-      $data = Paging::appendToResults($this->model->getAll());
-      echo json_encode($data);
+      echo json_encode($this->model->getAll());
       break;
 
     default:

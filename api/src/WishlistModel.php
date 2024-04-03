@@ -2,7 +2,8 @@
 
 class WishlistModel extends Model {
 
-  public function __construct() {
+  public function __construct() 
+  {
     parent::__construct();
 
     $this->insert_params = ["id_internship_offer"];
