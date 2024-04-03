@@ -1,10 +1,9 @@
 function handleDropdownChange(elementId, containerClass, defaultValue = "0") {
     $(elementId).change(function () {
         const dropdownValue = $(this).val();
-        const dropdownText = $(this).find('option:selected').text();
         if (dropdownValue !== defaultValue) {
             const filterContainer = $(`.filter-container.${containerClass}`);
-            const newFilter = `<div class="filter-tag" data-origin="${elementId}" data-value="${dropdownValue}">${dropdownText}</div>`;
+            const newFilter = `<div class="filter-tag" data-origin="${elementId}">${dropdownValue}</div>`;
             filterContainer.append(newFilter);
             filterContainer.show();
             $(`${elementId} option[value='${dropdownValue}']`).prop('disabled', true);
@@ -17,8 +16,7 @@ $(document).ready(function () {
     $.ajax({
         url: 'http://webp.local/api/city',
         type: 'GET',
-        success: function (response) {
-            var cities = response.data; //access the data property of the response
+        success: function (cities) {
             $.each(cities, function (index, city) {
                 $("#cities")
                     .append($("<option></option>")
@@ -59,8 +57,8 @@ $(document).ready(function () {
     $(document).on('click', '.filter-tag', function () {
         const $this = $(this);
         const originId = $this.data('origin');
-        const filterValue = $this.data('value'); // Get the stored value
-        $(`${originId} option[value='${filterValue}']`).prop('disabled', false); // enable the option with the stored value
+        const filterValue = $this.text();
+        $(`${originId} option[value='${filterValue}']`).prop('disabled', false);
         $this.remove();
         const $parentContainer = $this.parent();
         if (!$parentContainer.children().length) {
