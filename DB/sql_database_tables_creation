@@ -1,4 +1,4 @@
-'USE web_project;
+USE web_project;
 CREATE TABLE `Roles` (
   `id_role` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(255)
@@ -63,7 +63,7 @@ CREATE TABLE `Users` (
   `first_name` VARCHAR(255),
   `last_name` VARCHAR(255),
   `email` VARCHAR(255),
-  `password` BINARY(64),
+  `password` BINARY(128),
   `salt` BINARY(16),
   `user_created_at` TIMESTAMP,
   `id_center` INTEGER,
