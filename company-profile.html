@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Company name</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <script src="script/jquery/jquery-3.7.1.js"></script>
+    <script src="script/components.js"></script>
+    <script src="script/switching-tabs.js"></script>
+    <script src="script/effects.js"></script>
+    <script src="script/load-internship-offers.js"></script>
+    <script src="script/load-ratings.js"></script>
+</head>
+<body>
+<div id="navbar-container"></div>
+<div class="page-spacing flex-row">
+    <aside class="profile-page">
+        <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
+            <h2>Edit</h2>
+            <a class="flex-row line-effect" href="#">
+                <span class="far"></span>
+                <span>Modify Data</span>
+            </a>
+            <a class="flex-row line-effect" href="#">
+                <span class="far"></span>
+                <span>Add Internship Offers</span>
+            </a>
+            <a class="flex-row line-effect" href="#">
+                <span class="far"></span>
+                <span>Delete Company</span>
+            </a>
+        </div>
+    </aside>
+    <main class="profile-page flex-column flex-gap-1">
+        <header class="page-header flex-row flex-align-content-end-ma flex-gap-1">
+            <h1>Feur International</h1>
+            <div class="header-tag">
+                <p>Secteur</p>
+            </div>
+        </header>
+        <section class="flex-align-items-start-ca flex-row flex-gap-1">
+            <div class="profile-info-center">
+                <div>
+                    <p>4,2</p>
+                    <p class="company-stars">
+                        <span class="fas"></span>
+                        <span class="fas"></span>
+                        <span class="fas"></span>
+                        <span class="fas"></span>
+                        <span class="far"></span>
+                    </p>
+                </div>
+                <p class="company-rating">500 Ratings</p>
+            </div>
+            <div class="profile-info-center flex-column">
+                <p class="far"></p>
+                <p>Dans-tes-murs, France</p>
+            </div>
+            <div class="profile-info-center flex-column">
+                <p>
+                    <span class="far"></span>
+                    <span> 900</span>
+                </p>
+                <p>Internship offers</p>
+            </div>
+            <div class="profile-info-center flex-column">
+                <p>
+                    <span class="far"></span>
+                    <span> 69</span>
+                </p>
+                <p>Students working here</p>
+            </div>
+        </section>
+        <section>
+            <div class="profile-description">Lorem ipsum
+                <br><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bite sed tortor vitae finibus. Sed lacus
+                lectus,
+                finibus nec mauris vel, aliquam commodo dui.
+                <br><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bite sed tortor vitae finibus. Sed lacus
+                lectus,
+                finibus nec mauris vel, aliquam commodo dui.
+            </div>
+        </section>
+        <div class="flex-column">
+            <div class="tabs">
+                <h2 class="active-tab" id="internship-tab">Internship Offers</h2>
+                <h2 class="inactive-tab" id="reviews-tab">Reviews</h2>
+            </div>
+            <div class="flex-row flex-align-items-center-ca flex-align-between-ma">
+                <div class="paging-container"></div>
+                <div class="sorting-container" id="sorting-container"></div>
+            </div>
+        </div>
+        <div class="tabs-content" style="position: relative;">
+            <div class="flex-6 flex-column flex-gap-1" id="internship-container"></div>
+            <div class="flex-6 flex-column flex-gap-1" id="rating-container"></div>
+        </div>
+    </main>
+    <aside class="profile-page"></aside>
+</div>
+<div id="footer-container"></div>
+</body>
+</html>

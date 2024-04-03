@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="css/style_Stats_Ent.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="js/js_Stats_Ent.js"> -->
+</head>
+<body>
+<h1>Statistics</h1>
+<div class="stats-container">
+    <div class="stats-child">
+        <h3>Stat1</h3>
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="stats-child">
+        <h3>Stat2</h3>
+        <canvas id="myChart2"></Canvas>
+    </div>
+    <div class="stats-child">
+        <h3>Stat3</h3>
+        <canvas id="myChart3"></Canvas>
+    </div>
+    <div class="stats-child">
+        <h3>Stat4</h3>
+        <canvas id="myChart4"></Canvas>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx1 = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+    const ctx4 = document.getElementById('myChart4');
+
+    new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+            labels: ['Socomec', 'Lily', 'Orange', 'USOCOME', 'CODRIS', 'BNP'],
+            datasets: [{
+                label: 'companies by sector of activity',
+                data: [12, 19, 3, 5, 2, 3],
+            }],
+            hoverOffset: 4
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    align: 'start',
+                }
+            }
+        }
+    });
+
+
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Socomec', 'Lily', 'Orange', 'USOCOME', 'CODRIS', 'BNP'],
+            datasets: [{
+                label: 'companies by sector of activity',
+                data: [12, 19, 3, 5, 2, 3],
+            }],
+            hoverOffset: 4
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    align: 'start',
+                }
+            }
+        }
+    });
+
+    new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: ['Socomec', 'Lily', 'Orange', 'USOCOME', 'CODRIS', 'BNP'],
+            datasets: [{
+                label: 'companies by sector of activity',
+                data: [12, 19, 3, 5, 2, 3],
+            }],
+            hoverOffset: 4
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    align: 'start',
+                }
+            }
+        }
+    });
+
+    new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['A1', 'A2', 'A3 FISE INFO', 'A3 FISA INFO', 'A3 BTP'],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+</script>
+</html>

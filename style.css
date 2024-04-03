@@ -9,8 +9,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
@@ -20,39 +20,64 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
+* {
+  text-decoration: none;
+  list-style: none;
+}
+
 /* css reset end  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   width: 100vw;
+  font-family: Inter, sans-serif;
+}
+
+.font-inter {
   font-family: Inter, sans-serif;
 }
 
 /* Class to space all elements from the sides, top and bottom of the page */
 .page-spacing {
   margin: 1% 3% 2% 3%;
+}
+
+.navbar-spacing {
+  margin: 0 3%;
 }
 
 /* Flex classes */
@@ -66,10 +91,16 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .flex-gap-1 {
   gap: 1rem;
+}
+
+.flex-gap-1-5 {
+  gap: 1.5rem;
 }
 
 .flex-gap-2-5 {
@@ -86,24 +117,43 @@ body {
   justify-content: flex-end;
 }
 
-/* Align elements at the start of the cross axis of the flexbox */
-.flex-align-start-ca {
-  align-content: flex-start;
-}
-
-/* Align elements at the end of the cross axis of the flexbox */
-.flex-align-end-ca {
-  align-content: flex-end;
-}
-
 /* Center items on flexbox main axis*/
 .flex-align-center-ma {
   justify-content: center;
 }
 
+.flex-align-between-ma {
+  justify-content: space-between;
+}
+
+/* Align elements at the start of the cross axis of the flexbox */
+.flex-align-content-start-ca {
+  align-content: flex-start;
+}
+
+/* Align elements at the end of the cross axis of the flexbox */
+.flex-align-content-end-ca {
+  align-content: flex-end;
+}
+
+/* Align elements at the center of the cross axis of the flexbox */
+.flex-align-content-center-ca {
+  align-content: center;
+}
+
 /* Center items on flexbox cross axis*/
-.flex-align-center-ca {
+.flex-align-items-center-ca {
   align-items: center;
+}
+
+/* Align items on flexbox at the start of the cross axis*/
+.flex-align-items-start-ca {
+  align-items: flex-start;
+}
+
+/* Align items on flexbox at the end of the cross axis*/
+.flex-align-items-end-ca {
+  align-items: flex-end;
 }
 
 /* Center items on both flexbox axes*/
@@ -114,7 +164,183 @@ body {
 
 /* Standard button design */
 .bw-button {
-  background-color: black; 
+  background-color: black;
+  color: white;
+}
+
+.grey-button {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.no-bg-button {
+  background-color: #fff;
+  color: black;
+  font-size: 1.375rem;
+}
+
+/* Page header styling */
+.page-header {
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: bold;
+  }
+
+  div.header-tag {
+    background-color: #D9D9D9;
+    color: #777;
+    border-radius: 9px;
+    padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+    font-size: clamp(0.8rem, 5vw, 1.2rem);
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+  }
+}
+
+/* Navbar Styling */
+.navbar-absolute {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+  min-height: 50px;
+  padding: 0;
+  width: 94%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.navbar div {
+  width: 25vw;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  gap: 0.8rem;
+}
+
+.navbar .actions ul {
+  justify-content: flex-end;
+}
+
+.main a {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: black;
+}
+
+.actions a {
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: #f2f2f2;
+  border-radius: 9px;
+  color: black;
+  padding: 3px 12px;
+  transition: background-color 0.3s ease;
+}
+
+.actions .logout {
+  background-color: #fff;
+}
+
+.actions a:hover {
+  background-color: #D9D9D9;
+}
+
+.menu-burger {
+  display: none;
+}
+
+.navbar img {
+  max-height: min(55px, 12vw);
+}
+
+.nav-links {
+  display: none;
+}
+
+.nav-links a {
+  color: black;
+  font-weight: 600;
+}
+
+.nav-links ul {
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-links li {
+  margin: 25px 0;
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar {
+    justify-content: space-between;
+
+  }
+
+  .nav-links {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    top: 0;
+    left: 0;
+    margin-left: -100%;
+    transition: all 0.5s ease;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.2em;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .main {
+    display: none;
+  }
+
+  .navbar .nav-links.mobile-menu {
+    margin-left: 0;
+    width: 100vw;
+    z-index: 3;
+  }
+
+  .navbar .menu-burger {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 100;
+  }
+}
+
+/* Button design */
+.bw-button {
+  background-color: black;
   color: white;
   font-weight: 600;
   font-size: 1.56rem;
@@ -122,115 +348,49 @@ body {
   border: none;
 }
 
-/* Page header styling */
-header.page-header {
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-
-  h1 {
-    font-size: 4rem;
-    font-weight: bold;
-  }
-}
-
-
-/* Navbar Styling */
-
-/* Used to make the navbar not displace other elements on some pages */
-
-.navbar-absolute div.navbar {
-  position: absolute;
-}
-
-div.navbar {
-  height: 55px;
-  width: 100%;
-  display: flex;
-  padding-top: 16px;
-  position: sticky;
-  justify-content: space-between;
-}
-
-.navbar img {
-  height: 100%;
-}
-
-.navbar a {
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin-left: 20px;
-  margin-right: 20px;
-  text-decoration: none;
-  color: black;
-}
-
-.navbar button {
-  height: 40px;
-  width: 90px;
-  font-size: 20px;
-}
-
-.navbar > * {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.navbar-left {
-  justify-content: left;
-  width: 15%;
-  padding-left: 2%;
-}
-
-.navbar-center {
-  justify-content: center;
-  width: 50%;
-}
-
-.navbar-right {
-  justify-content: space-around; 
-  display: flex;
-  width: 15%;
-  padding-right: 2%;
-}
-
 /* Footer styling */
 .footer {
   background-color: black;
   color: white;
-  padding: 1.5rem 0rem 0.8rem 0rem;
+  padding: 1.5rem 0 0.8rem 0;
   gap: 1.5rem;
+
   h1 {
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 5vw, 2rem);
     font-weight: bold;
   }
 }
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 2.5rem;
+  justify-content: center;
+
   a {
     display: flex;
     gap: 0.4rem;
     color: white;
     text-decoration: none;
-    p {font-weight: 600;}
+
+    p {
+      font-weight: 600;
+      font-size: clamp(0.8rem, 4vw, 1rem);
+    }
   }
 }
 
 .footer-copyright {
   color: #D3D3D3;
   gap: 0.4rem;
+  font-size: clamp(0.9rem, 4vw, 1rem);
 }
-
 
 /* Login & Account creation styling */
 
 div.auth-container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -242,7 +402,7 @@ div.auth {
   gap: 2.5rem;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 80%;
+  width: 80%;
 }
 
 div.auth > * {
@@ -255,14 +415,24 @@ div.auth > * {
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  div.auth > * {
+    align-items: center;
+  }
+
+  .auth-input form {
+    width: 100%;
+  }
+}
+
 .auth-text h1 {
   font-weight: bold;
-  font-size: 3.45rem;
+  font-size: clamp(2rem, 5vw, 3.45rem);
   padding-bottom: 15px;
 }
 
 .auth-text h2 {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2.8vw, 1.5rem);
   color: #4F4F4F;
   padding-bottom: 15px;
 }
@@ -271,44 +441,45 @@ div.auth > * {
   display: flex;
   gap: 0.8rem;
   flex-direction: column;
+  max-width: 20rem;
 }
 
 .auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select {
-  height: 3rem;
+  min-height: 1rem;
 }
 
 .auth-input input[type="text"], .auth-input input[type="password"], .auth-input button, .auth-input select, .auth-input textarea {
   background-color: white;
   box-sizing: border-box;
   width: 100%;
-  height: 3rem;
+  min-height: 3rem;
   border-radius: 9px;
   border-style: solid;
   padding: 0 5% 0 5%;
 }
 
 .auth-input input[type=text], .auth-input input[type=password], .auth-input select, .auth-input textarea {
-  font-size: 1rem;
-  color: #777;
+  font-size: clamp(0.8rem, 5vw, 1rem);
+  color: #777777;
   border-width: 2px;
 }
 
 .auth-input textarea {
   resize: none;
   font-family: Inter, sans-serif;
-  height: 7.5rem;
+  min-height: 7.5rem;
   padding-top: 3%;
 }
 
 select.auth-input-extended-select {
-  height: 7.5rem;
+  min-height: 7.5rem;
   padding: 0.25rem;
 
   option {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 2rem;
+    min-height: 2rem;
     border-radius: 9px;
     padding-left: 0.8rem;
   }
@@ -322,23 +493,22 @@ select.auth-input-extended-select {
 }
 
 .auth-input label {
-  font-size: 1.2rem;
-  color: #777;
+  font-size: clamp(1rem, 5vw, 1.2rem);
+  color: #777777;
 }
 
 .auth-input input[type=checkbox], input[type=radio] {
-  height: 1rem;
-  width: 1rem;
+  min-height: 1rem;
+  max-width: 1rem;
 }
 
 .auth-input button {
   margin-top: 0.9rem;
-  background-color: black; 
+  background-color: black;
   color: white;
   font-weight: bold;
   font-size: 1.56rem;
 }
-
 
 /* Searching pages */
 /* Internship page */
@@ -348,6 +518,7 @@ div.sorting {
   margin: 0.5rem 0.5rem 0 0.5rem;
   gap: 2.5rem;
 }
+
 button.sorting-category {
   border: none;
   background: none;
@@ -360,18 +531,22 @@ button.sorting-category {
 
   display: flex;
   gap: 0.5rem;
+
   span {
-    font-size: 1.125rem;
+    font-size: clamp(1rem, 3vw, 1.125rem);
   }
+
   span.far {
-    font-size: 1.4rem;
-    width: 1.4rem;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    max-width: 1.4rem;
     font-weight: bold;
   }
 }
+
 button.sorting-category:hover {
   background-color: #f2f2f2;
 }
+
 .sorting-category > * {
   display: inline-block;
   gap: 1.2rem;
@@ -397,7 +572,7 @@ main.search-container {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  font-size: 1.1rem;
+  font-size: clamp(0.7rem, 5vh, 1.1rem);
 
   input {
     margin-bottom: 0.8rem;
@@ -408,14 +583,38 @@ main.search-container {
     gap: 0.4rem;
   }
 
-  div:hover {
-    text-decoration: underline;
-  }
-
   .far {
-    width: 1.4rem;
+    max-width: 1.4rem;
     text-align: center;
-  }  
+  }
+}
+
+.filter-container:empty {
+  display: none;
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-decoration: none;
+}
+
+.filter-tag {
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-size: clamp(0.9rem, 5vw, 1.1rem);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.filter-tag:hover {
+  color: #dc3545;
+  background-color: #fff;
+  text-decoration: none !important;
 }
 
 .search-bar-small {
@@ -424,10 +623,10 @@ main.search-container {
   border-bottom: 2px solid #D9D9D9;
   border-left: none;
   color: #D9D9D9;
-  font-size: 1.18rem;
+  font-size: clamp(0.9rem, 3vw, 1.18rem);
   transition: 0.125s;
   width: 100%;
-  height: 3rem;
+  max-height: 3rem;
   background: none;
 }
 
@@ -441,27 +640,62 @@ main.search-container {
   outline: none;
 }
 
+.search-filters p {
+  flex-direction: row;
+  align-items: center;
+}
+
+.search-filters select {
+  border: none;
+  background-color: white;
+  font-family: Inter, sans-serif;
+  font-size: clamp(0.8rem, 4.5vw, 1.1rem);
+  width: 100%;
+  cursor: pointer;
+}
+
+#reset {
+  cursor: pointer;
+  font-size: clamp(0.8rem, 4.5vw, 1.1rem);
+}
+
+#reset:hover {
+  color: red;
+}
 /* Search results */
-.search-results {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.flex-6 {
   flex: 6;
+}
+
+.rating-info {
+  word-wrap: break-word;
+
+  h1 {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    font-weight: 600;
+  }
+
+  p {
+    font-size: clamp(0.8rem, 5vw, 1.1rem);
+    color: #6B7280;
+    width: 100%;
+    line-height: 1.2;
+  }
 }
 
 /* Represents a single search result */
 .search-result-item {
   border: 2px solid #D9D9D9;
   border-radius: 10px;
-  padding: 1.5rem 3rem 1.5rem 3rem;
+  padding: 1.5rem 3rem;
   display: flex;
   flex-wrap: wrap;
   gap: 4rem;
 }
 
 .search-result-item:hover {
-   border-color: #777;
-   transition: 0.225s;
+  border-color: #777;
+  transition: 0.225s;
 }
 
 .search-result-item-section-left {
@@ -477,14 +711,17 @@ main.search-container {
   flex-direction: column;
   gap: 1.2rem;
   word-wrap: break-word;
+  font-size: clamp(0.6rem, 4vw, 1rem);
+
   h1 {
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 5vw, 2rem);
     font-weight: 600;
   }
+
   p {
-    font-size: 1.1rem;
+    font-size: clamp(0.8rem, 5vw, 1.1rem);
     color: #6B7280;
-    max-width: 100%;
+    width: 100%;
     line-height: 1.2;
   }
 }
@@ -512,7 +749,7 @@ main.search-container {
   min-width: 10rem;
 
   button {
-    height: 2.5rem;
+    min-height: 2.5rem;
   }
 }
 
@@ -523,179 +760,324 @@ main.search-container {
 }
 
 .search-result-right-info-item {
-  font-size: 1.1rem;
+  font-size: clamp(0.8rem, 5vw, 1.1rem);
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+
   .info-title {
     font-weight: bold;
   }
 }
 
-.company-page-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
+@media screen and (max-width: 900px) {
+  .flex-column {
+    flex-wrap: nowrap;
+  }
+
+  .search-filters select {
+    width: auto;
+  }
+
+  #reset {
+    width: auto;
+  }
+
+  .search-filter-container {
+    min-width: 0;
+    flex: 0;
+    gap: 1.5rem;
+  }
+
+  main.search-container {
+    flex-direction: column;
+  }
+
+  .search-result-item {
+    flex-direction: column;
+    max-width: 100%;
+    padding: 0.75rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .search-result-left-info p {
+    width: auto;
+  }
+
+  .search-result-item-section-right {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .search-result-right-info {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  div.sorting {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .internships {
+    gap: 0;
+  }
+
+  .auth-input div {
+    gap: 0;
+  }
 }
 
-.company-page-header h1 {
-  font-size: 5rem;
-  font-weight: bold;
-  order: 1;
-}
-
-.header-content {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  width: 50%;
-}
-
-.company-info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.company-info > div {
-  flex: 1 1 150px;
+/* Profile pages */
+.profile-body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  transition: margin-left .5s;
+}
+
+#main {
+  padding-left: 1.2rem;
+}
+
+#sidebar {
+  height: 100vh;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 2vw;
+  overflow-x: hidden;
+  transition: width .5s;
+}
+
+#openNav {
+  position: fixed;
+  top: 25vh;
+  left: 2vw;
+  border: none;
+  background-color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 9px;
+  justify-content: center;
+  z-index: 2;
+  display: none;
+}
+
+#openNav:hover {
+  background-color: #D9D9D9;
+}
+
+main.profile-page {
+  flex: 0 0 60%;
+}
+
+aside.profile-page {
+  flex: 0 0 20%;
+}
+
+@media screen and (max-width: 900px) {
+  main.profile-page {
+    flex: 0 0 80%;
+  }
+
+  aside.profile-page {
+    flex: 0 0 10%;
+  }
+
+  #openNav {
+    display: block;
+  }
+
+  #sidebar {
+    background-color: rgb(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.edit-profile {
+  position: fixed;
+  top: 30vh;
+  line-height: 2;
+
+  h2 {
+    font-size: clamp(1rem, 3vw, 2rem);
+    font-weight: bold;
+  }
+
+  a {
+    text-decoration: none;
+    gap: 0.5rem;
+
+    span {
+      font-size: clamp(0.6rem, 1.5vw, 0.7rem);
+      font-weight: bold;
+      color: black;
+      white-space: normal;
+    }
+  }
+}
+
+.profile-info-center {
   text-align: center;
-}
-
-.company-info-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
   line-height: 1.2125;
-  overflow-wrap: break-word;
   word-wrap: break-word;
+  margin-bottom: 2rem;
+
+  p:first-child {
+    font-weight: bold;
+    font-size: clamp(0.7rem, 5vw, 1rem);
+  }
+
+  p:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    max-width: 6rem;
+  }
 }
 
-.company-info-center p:first-child {
-  font-weight: bold;
-  font-size: 1.6rem;
-}
-
-.company-info-center p:nth-child(2) {
-  display: flex;
-  justify-content: center;
-  height: 1.3rem;
-  margin-bottom: 5px;
-}
-
-.center-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.company-info-center span {
-  font-size: 1.2rem;
-  line-height: 1.2125;
-}
-
-.company-description {
-  margin-top: 20px;
-  font-size: 1.2rem;
+.profile-description {
+  font-size: clamp(0.8rem, 5vw, 1.25rem);
   line-height: 1.2125;
   align-items: flex-start;
-  width: 50%;
-}
-.company-aside {
-  width: 20%;
-  position: absolute;
-  top: 30vh;
 }
 
-.edit-company {
+.tabs {
   display: flex;
-  flex-direction: column;
-  line-height: 2;
-}
-
-.edit-company h2 {
-  font-size: 3rem;
+  justify-content: space-between;
+  font-size: clamp(1.2rem, 5vw, 2rem);
   font-weight: bold;
-}
 
-.edit-company a span {
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-}
-
-.edit-company a {
-  text-decoration: none;
-}
-
-.main-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.company-internship-offers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  gap: 1.5rem;
-  width: 50%;
-}
-
-.company-internship-offers h2:nth-child(1) {
-  grid-column: 1;
-  grid-row: 1;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.company-internship-offers h2:nth-child(2) {
-  grid-column: 2;
-  grid-row: 1;
-  font-size: 2rem;
-  font-weight: bold;
-  justify-content: right;
-  text-align: right;
+  h2:hover {
+    color: #222;
+    cursor: pointer;
+  }
 }
 
 .paging {
   gap: 0.8rem;
+
   a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1.4rem;
-    height: 1.8rem;
+    max-width: 1.4rem;
+    min-height: 1.8rem;
     border-radius: 9px;
     color: #777777;
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: clamp(0.8rem, 5vw, 1.25rem);
     text-decoration: none;
   }
 }
 
-.paging-current-page {
-  background-color: #D9D9D9;
+/* Company profiles */
+
+.company-rating {
+  font-size: 0.5625rem;
+  color: #6B7280;
+
+  span {
+    font-size: 0.625rem;
+    line-height: 1.2125;
+  }
 }
 
-.sorting {
-  grid-column: 2;
-  grid-row: 2;
+.company-rating-stars {
+  span {
+    color: black;
+  }
 }
 
-.placeholder {
-  height: 20rem;
-} /*TODO: Remove this class when the page is finished*/
+/* Users profiles */
+
+.users-headers {
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  font-weight: bold;
+}
+
+/* Tab effect */
+
+.active-tab {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.inactive-tab {
+  color: #6B7280;
+  transition: color 0.3s ease;
+}
+
+/* Line effect for text decoration */
+
+.line-effect {
+  position: relative;
+  overflow: hidden; /* Hide the part of ::after that extends outside of a */
+}
+
+.line-effect::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: black;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.line-effect.hover::after {
+  transform: scaleX(1);
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: -2%;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.fade-in {
+  animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Stats
+.stats-container {
+  border: 3px solid #fff;
+  padding: 20px;
+}
+
+.stats-child {
+  min-height: 25rem;
+  max-width: 25rem;
+  float: left;
+  padding: 1rem;
+  margin: 0.5rem;
+  border: 2px solid #D9D9D9;
+  border-radius: 10px;
+}
+
+canvas {
+  min-height: 320px;
+  max-width: 320px;
+}
