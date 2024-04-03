@@ -9,6 +9,7 @@ spl_autoload_register(function($class) {
 
 // Set content type to json and define charset
 header('Content-Type: application/json; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
 
 // Set Error and Exception handlers
 set_error_handler("ErrorHandler::handleError");

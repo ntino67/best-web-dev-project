@@ -1,7 +1,3 @@
-// This is a sample data. You might be fetching this data from server in your case
-var cityData = ["New York", "London", "Paris"];
-var sectorData = ["Software", "Hardware", "Networking"];
-
 function handleDropdownChange(elementId, containerClass, defaultValue = "0") {
     $(elementId).change(function () {
         const dropdownValue = $(this).val();
@@ -17,19 +13,37 @@ function handleDropdownChange(elementId, containerClass, defaultValue = "0") {
 
 $(document).ready(function () {
     // Populate City Dropdown
-    $.each(cityData, function (key, value) {
-        $('#cities')
-            .append($("<option></option>")
-                .attr("value", value)
-                .text(value));
+    $.ajax({
+        url: 'http://webp.local/api/city',
+        type: 'GET',
+        success: function (cities) {
+            $.each(cities, function (index, city) {
+                $("#cities")
+                    .append($("<option></option>")
+                        .attr("value", city.id_city)
+                        .text(city.city_name));
+            });
+        },
+        error: function (jqXHR, exception) {
+            console.log('Error occurred:', jqXHR, exception);
+        }
     });
 
     // Populate Sector Dropdown
-    $.each(sectorData, function (key, value) {
-        $('#sectors')
-            .append($("<option></option>")
-                .attr("value", value)
-                .text(value));
+    $.ajax({
+        url: 'http://webp.local/api/business-sector',
+        type: 'GET',
+        success: function (sectors) {
+            $.each(sectors, function (index, sector) {
+                $("#sectors")
+                    .append($("<option></option>")
+                        .attr("value", sector.id_business_sector)
+                        .text(sector.business_sector_name));
+            });
+        },
+        error: function (jqXHR, exception) {
+            console.log('Error occurred:', jqXHR, exception);
+        }
     });
 
     $("#reset").click(function () {

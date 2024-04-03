@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Company name</title>
+    <title></title>
     <link href="style.css" rel="stylesheet">
     <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
     <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
@@ -10,9 +10,10 @@
     <script src="script/components.js"></script>
     <script src="script/switching-tabs.js"></script>
     <script src="script/effects.js"></script>
-    <script src="script/load-internship-offers.js"></script>
+    <script src="script/load-internship.js"></script>
     <script src="script/load-ratings.js"></script>
     <script src="script/edit-menu.js"></script>
+    <script src="script/load-company-profile.js"></script>
 </head>
 <body>
 <div id="navbar-container"></div>
@@ -39,9 +40,9 @@
     </aside>
     <main class="profile-page flex-column flex-gap-1">
         <header class="page-header flex-row flex-align-content-end-ma flex-gap-1">
-            <h1>Feur International</h1>
+            <h1 id="company-name"></h1>
             <div class="header-tag">
-                <p>Secteur</p>
+                <p id="company-sector"></p>
             </div>
         </header>
         <section class="flex-align-items-start-ca flex-row flex-gap-1">
@@ -78,16 +79,7 @@
             </div>
         </section>
         <section>
-            <div class="profile-description">Lorem ipsum
-                <br><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bite sed tortor vitae finibus. Sed lacus
-                lectus,
-                finibus nec mauris vel, aliquam commodo dui.
-                <br><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bite sed tortor vitae finibus. Sed lacus
-                lectus,
-                finibus nec mauris vel, aliquam commodo dui.
-            </div>
+            <div class="profile-description"></div>
         </section>
         <div class="flex-column">
             <div class="tabs">
