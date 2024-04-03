@@ -2,7 +2,7 @@ $(document).ready(function () {
     function checkWidth() {
         var windowSize = $(window).width();
 
-        if (windowSize < 900) {
+        if (windowSize < 901) {
             // When the window is less than 900 pixels wide, hide the sidebar
             $("#sidebar").css({
                 'width': 'max(160px, 10vw)',
