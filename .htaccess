@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule    ^user/([0-9]+)/?$    users-profile.html?id=1    [NC,L]
+RewriteRule    ^internship/([0-9]+)/?$    Internship-page.html?id=1    [NC,L]

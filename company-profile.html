@@ -12,25 +12,29 @@
     <script src="script/effects.js"></script>
     <script src="script/load-internship-offers.js"></script>
     <script src="script/load-ratings.js"></script>
+    <script src="script/edit-menu.js"></script>
 </head>
 <body>
 <div id="navbar-container"></div>
 <div class="page-spacing flex-row">
     <aside class="profile-page">
-        <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
-            <h2>Edit</h2>
-            <a class="flex-row line-effect" href="#">
-                <span class="far"></span>
-                <span>Modify Data</span>
-            </a>
-            <a class="flex-row line-effect" href="#">
-                <span class="far"></span>
-                <span>Add Internship Offers</span>
-            </a>
-            <a class="flex-row line-effect" href="#">
-                <span class="far"></span>
-                <span>Delete Company</span>
-            </a>
+        <button id="openNav">☰</button>
+        <div id="sidebar">
+            <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
+                <h2>Edit</h2>
+                <a class="flex-row line-effect" href="#">
+                    <span class="far"></span>
+                    <span>Modify Data</span>
+                </a>
+                <a class="flex-row line-effect" href="#">
+                    <span class="far"></span>
+                    <span>Add Internship Offers</span>
+                </a>
+                <a class="flex-row line-effect" href="#">
+                    <span class="far"></span>
+                    <span>Delete Company</span>
+                </a>
+            </div>
         </div>
     </aside>
     <main class="profile-page flex-column flex-gap-1">

@@ -47,7 +47,7 @@ if ($requestURI[0] == "auth")
 
   exit();
 }
-else if (!array_key_exists("HTTP_AUTHORIZATION_TOKEN", $_SERVER) || !$controller->verifyToken($_SERVER["HTTP_AUTHORIZATION_TOKEN"]))
+else if (!array_key_exists("HTTP_AUTHORIZATION_TOKEN", $_SERVER)|| !$controller->verifyToken($_SERVER["HTTP_AUTHORIZATION_TOKEN"]))
 {
   http_response_code(401);
   echo json_encode(["message" => "Unauthorized"]);
@@ -56,7 +56,7 @@ else if (!array_key_exists("HTTP_AUTHORIZATION_TOKEN", $_SERVER) || !$controller
 
 
 // ## API Endpoints ##
-// Process request type, send to corrent API endpoint 
+// Process request type, send to corrent API endpoint
 switch (array_shift($requestURI)) {
 case "city":
   $controller = new CityController;
