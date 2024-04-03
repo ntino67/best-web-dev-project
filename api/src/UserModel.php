@@ -8,6 +8,30 @@ class UserModel extends Model
 
     $this->insert_params = ["first_name", "last_name", "email", "password", "id_center", "id_role"];
 
+    $allowed_orderby = [
+      "id_user" => "Users.id_user",
+      "first_name" => "Users.first_name",
+      "last_name" => "Users.last_name",
+      "email" => "User.email",
+      "center_name" => "C.center_name",
+      "role_name" => "R.name"
+    ];
+
+    $sorting = Sorting::getFromQueryString($allowed_orderby);
+
+    $allowed_filters = [
+      "id_user" => ["type" => Filter::NUMBER, "replace" => "Users.id_user"],
+      "first_name" => ["type" => Filter::STRING, "replace" => "Users.first_name"],
+      "last_name" => ["type" => Filter::STRING, "replace" => "Users.last_name"],
+      "email" => ["type" => Filter::STRING, "replace" => "Users.email"],
+      "id_center" => ["type" => Filter::NUMBER, "replace" => "Users.id_center"],
+      "center_name" => ["type" => Filter::STRING, "replace" => "C.center_name"],
+      "id_role" => ["type" => Filter::NUMBER, "replace" => "Users.id_role"],
+      "role_name" => ["type" => Filter::STRING, "replace" => "R.name"]
+    ];
+    
+    $filter = Filter::getFromQueryString($allowed_filters);
+
     $this->use_paging = true;
 
     $this->use_parent_id = false;
@@ -25,10 +49,10 @@ class UserModel extends Model
     FROM Users
             JOIN web_project.Centers C on C.id_center = Users.id_center
             JOIN web_project.Roles R on R.id_role = Users.id_role
-    WHERE user_active = 1
-    ORDER BY Users.id_user
+    WHERE $filter user_active = 1 
+    ORDER BY $sorting
     ";
-
+    
     $this->sql_get = "
     SELECT id_user,
           first_name,
