@@ -1,11 +1,11 @@
-$.get("components/navbar.html", function (data) {
+$.get(`/components/navbar.html`, function (data) {
     $("#navbar-container").html(data);
 })
 
-$.get("components/footer.html", function (data) {
+$.get("/components/footer.html", function (data) {
     $("#footer-container").html(data);
 })
 
-$.get("components/paging.html", function (data) {
+$.get("/components/paging.html", function (data) {
     $(".paging-container").html(data);
 })
