@@ -1,58 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
+    <title>Search an Internship</title>
     <link href="style.css" rel="stylesheet">
     <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
     <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
     <script src="script/jquery/jquery-3.7.1.js"></script>
     <script src="script/components.js"></script>
     <script src="script/sorting-categories.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script/load-internship-offers.js"></script>
     <script src="script/filter-fetch.js"></script>
-    <script src="script/reset-filters.js"></script>
-    <title>Search an Internship</title>
-  </head>
-  <body>
-    <div id="navbar-container"></div>
-    <div class="page-spacing flex-column flex-gap-1">
-      <header class="page-header flex-row flex-align-between-ma">
+</head>
+<body>
+<div id="navbar-container"></div>
+<div class="page-spacing flex-column flex-gap-1 internships">
+    <header class="page-header flex-row flex-align-between-ma">
         <h1>Internship Offers</h1>
         <div class="sorting-container"></div>
-      </header>
-      <main class="search-container">
+    </header>
+    <main class="search-container">
         <!-- Search Filters -->
         <aside class="search-filter-container">
-          <div class="search-filters">
-            <input class="search-bar-small" placeholder="Search ..." type="search">
-            <!-- TODO Implement the searching functionality -->
-            <p>
-              <span class="far"></span>
-              <select id="cities">
-                <!-- TODO Jquery event with server to fill this dynamically from the database -->
-                <option selected="selected" value="0">Cities</option>
-              </select>
-            </p>
-            <p>
-              <span class="far"></span>
-              <select id="sectors">
-                <!-- TODO Jquery event with server to fill this dynamically from the database -->
-                <option selected="selected" value="0">Sectors</option>
-              </select>
-            </p>
-          </div>
-          <div class="search-filters">
-            <p id="reset">
-              <span class="far"></span>
-              <span>Reset filters</span>
-            </p>
-          </div>
+            <div class="search-filters">
+                <input class="search-bar-small" placeholder="Search ..." type="search">
+                <!-- TODO Implement the searching functionality -->
+                <p>
+                    <span class="far"></span>
+                    <select id="cities">
+                        <!-- TODO Jquery event with server to fill this dynamically from the database -->
+                        <option selected="selected" value="0">Cities</option>
+                    </select>
+                </p>
+                <p>
+                    <span class="far"></span>
+                    <select id="sectors">
+                        <!-- TODO Jquery event with server to fill this dynamically from the database -->
+                        <option selected="selected" value="0">Sectors</option>
+                    </select>
+                </p>
+                <div class="filter-container cities-container"></div>
+                <div class="filter-container sectors-container"></div>
+            </div>
+            <div class="search-filters">
+                <p id="reset">
+                    <span class="far"></span>
+                    <span>Reset filters</span>
+                </p>
+            </div>
         </aside>
-        <div class="internship-container flex-column flex-gap-1"></div>
-      </main>
-      <div class="paging-container flex-row flex-align-end-ma"></div>
-    </div>
-    <div id="footer-container">
-    </div>
-  </body>
+        <div class="flex-6 flex-column flex-gap-1" id="internship-container"></div>
+    </main>
+    <div class="paging-container flex-row flex-align-end-ma"></div>
+</div>
+<div id="footer-container">
+</div>
+</body>
 </html>

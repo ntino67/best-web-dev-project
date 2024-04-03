@@ -1,0 +1,442 @@
+-- Procedure to add a user with password hashing and salt (pilote/student)
+DELIMITER //
+CREATE PROCEDURE uspAddUser (
+    IN pLogin VARCHAR(50), 
+    IN pPassword VARCHAR(50),
+    IN pFirstName VARCHAR(40), 
+    IN pLastName VARCHAR(40),
+    IN pCenter integer,
+    IN pRole integer,
+    IN pActive bool,
+    OUT responseMessage bool
+)
+BEGIN
+    DECLARE salt BINARY(16);
+    SET salt = UNHEX(REPLACE(UUID(), '-', ''));
+
+    BEGIN
+        INSERT INTO Users (first_name, last_name, email, password, salt, user_created_at, id_center, id_role, user_active)
+        VALUES (pFirstName, pLastName, pLogin, SHA2(CONCAT(pPassword, HEX(salt)), 512), salt, NOW(), pCenter, pRole, pActive);
+
+        SET responseMessage = 1;
+
+    END;
+END //
+DELIMITER ;
+
+
+-- Procedure to authenticate a user
+DELIMITER //
+CREATE PROCEDURE uspLogin (
+    IN pLoginName VARCHAR(254),
+    IN pPassword VARCHAR(50),
+    OUT responseMessage bool
+)
+BEGIN
+    DECLARE userEmail VARCHAR(254);
+    DECLARE hashedPassword BINARY(64); -- Correspond à la longueur du hachage SHA2 512
+    DECLARE userSalt BINARY(16);
+
+    SELECT email, password, salt INTO userEmail, hashedPassword, userSalt
+    FROM Users WHERE email = pLoginName LIMIT 1;
+
+        SET hashedPassword = SHA2(CONCAT(pPassword, HEX(userSalt)), 512);
+
+        IF hashedPassword = hashedPassword THEN
+            SET responseMessage = TRUE;
+        ELSE
+            SET responseMessage = FALSE;
+        END IF;
+END //
+DELIMITER ;
+
+
+-- Procedure to get company's data
+DELIMITER //
+CREATE PROCEDURE uspGetCompanyData (
+    IN p_company_name VARCHAR(255),
+    IN p_business_sector VARCHAR(255),
+    IN p_locality VARCHAR(255),
+    IN p_average_rating INTEGER,
+    IN p_orderbyAZ BOOLEAN,
+    IN p_orderbyZA BOOLEAN,
+    IN p_orderby51 BOOLEAN,
+    IN p_orderby15 BOOLEAN,
+    IN p_orderbymax BOOLEAN,
+    IN p_orderbymin BOOLEAN
+)
+BEGIN
+    IF p_orderbymin IS NULL THEN
+        SET p_orderbymin = FALSE;
+    END IF;
+    SELECT
+        Companies.company_name AS 'Nom de l_entreprise',
+        Business_sectors.business_sector AS 'Secteur d_activité',
+        Cities.name AS 'Nom de la ville',
+    COUNT(DISTINCT Applications.id_user) AS 'Nombre de stagiaires ayant postulé à une offre de cette entreprise',
+    IFNULL(
+        CAST(
+            AVG(
+                CASE 
+                    WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+                    ELSE NULL
+                END
+            ) AS FLOAT	
+        ),
+        'Non noté'
+    ) AS 'Moyenne des évaluations des stagiaires/des Pilotes de promotion'
+    FROM
+        Companies
+        INNER JOIN Situated ON Companies.id_company = Situated.id_company
+        INNER JOIN Cities ON Situated.id_city = Cities.id_city
+        LEFT JOIN Applications ON Companies.id_company = Applications.id_user
+        LEFT JOIN Company_Reviews ON Companies.id_company = Company_Reviews.id_company
+        INNER JOIN Business_sectors ON Companies.id_business_sector = Business_sectors.id_business_sector
+    WHERE
+        Companies.company_name LIKE CONCAT('%', p_company_name, '%')
+        AND Business_sectors.business_sector LIKE CONCAT('%', p_business_sector, '%')
+        AND Cities.name LIKE CONCAT('%', p_locality, '%')
+        AND Companies.company_active = TRUE
+    GROUP BY
+        Companies.company_name,
+        Business_sectors.business_sector,
+        Cities.name
+    HAVING
+        IFNULL(AVG(
+            CASE 
+                WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+                ELSE NULL
+            END), 0) >= p_average_rating
+    ORDER BY
+        IF(p_orderbyAZ = TRUE, Companies.company_name, NULL) ASC,
+        IF(p_orderbyZA = TRUE, Companies.company_name, NULL) DESC,
+        IF(p_orderby51 = TRUE, IFNULL(AVG(
+            CASE 
+                WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+                ELSE NULL
+            END), 0), NULL) DESC,
+        IF(p_orderby15 = TRUE, IFNULL(AVG(
+            CASE 
+                WHEN Company_Reviews.review_score IS NOT NULL THEN Company_Reviews.review_score
+                ELSE NULL
+            END), 0), NULL) ASC,
+        IF(p_orderbymax = TRUE, COUNT(DISTINCT Applications.id_user), NULL) DESC,
+        IF(p_orderbymin = TRUE, COUNT(DISTINCT Applications.id_user), NULL) ASC;
+END //
+DELIMITER ;
+
+
+-- Procedure to create a company
+DELIMITER //
+
+CREATE PROCEDURE uspInsertCompany(
+    IN p_id_business_sector INT,
+    IN p_company_name VARCHAR(255),
+    IN p_company_description VARCHAR(255),
+    IN p_company_active BOOLEAN
+)
+BEGIN
+    DECLARE company_id INT;
+
+    -- Insérer l'entreprise
+    INSERT INTO Companies (id_business_sector, company_name, company_description, company_active)
+    VALUES (p_id_business_sector, p_company_name, p_company_description, p_company_active);
+END //
+DELIMITER ;
+DELIMITER //
+
+
+-- Procedure to associate city to a company
+CREATE PROCEDURE uspInsertCompanyCities(
+    IN p_company_id INT,
+    IN p_city_ids VARCHAR(255) -- Liste d'IDs de ville séparés par des virgules
+)
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE city_id INT;
+    DECLARE cur CURSOR FOR SELECT id_city FROM Cities WHERE FIND_IN_SET(id_city, p_city_ids);
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO city_id;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        INSERT INTO Situated (id_city, id_company) VALUES (city_id, p_company_id);
+    END LOOP;
+    CLOSE cur;
+END //
+
+DELIMITER ;
+
+-- Procedure to update a company
+DELIMITER //
+
+
+-- Procedure to update a company (city(ies) also)
+DELIMITER //
+
+CREATE PROCEDURE uspUpdateCompany(
+    IN p_company_id INT,
+    IN p_new_company_name VARCHAR(255),
+    IN p_new_company_description VARCHAR(255),
+    IN p_new_company_active BOOLEAN,
+    IN p_new_business_sector INT,
+    IN p_city_ids_to_add VARCHAR(255),
+    IN p_city_ids_to_remove VARCHAR(255)
+)
+BEGIN
+    DECLARE i INT;
+    DECLARE j INT;
+    DECLARE city_id INT;
+    DECLARE city_id_to_add INT;
+    
+    -- Mise à jour des informations de l'entreprise
+    UPDATE Companies 
+    SET 
+        company_name = p_new_company_name,
+        company_description = p_new_company_description,
+        company_active = p_new_company_active,
+        id_business_sector = p_new_business_sector
+    WHERE 
+        id_company = p_company_id;
+
+    -- Suppression des villes associées
+    IF p_city_ids_to_remove IS NOT NULL THEN
+        SET i = 1;
+        
+        WHILE i <= LENGTH(p_city_ids_to_remove) DO
+            SET city_id = SUBSTRING_INDEX(SUBSTRING_INDEX(p_city_ids_to_remove, ',', i), ',', -1);
+            DELETE FROM Situated WHERE id_company = p_company_id AND id_city = city_id;
+            SET i = i + 1;
+        END WHILE;
+    END IF;
+
+    -- Ajout des nouvelles villes associées
+    IF p_city_ids_to_add IS NOT NULL THEN
+        SET j = 1;
+        
+        WHILE j <= LENGTH(p_city_ids_to_add) DO
+            SET city_id_to_add = SUBSTRING_INDEX(SUBSTRING_INDEX(p_city_ids_to_add, ',', j), ',', -1);
+            
+            -- Vérifier si la ville n'est pas déjà associée à l'entreprise
+            IF NOT EXISTS (SELECT * FROM Situated WHERE id_company = p_company_id AND id_city = city_id_to_add) THEN
+                INSERT INTO Situated (id_city, id_company) VALUES (city_id_to_add, p_company_id);
+            END IF;
+            
+            SET j = j + 1;
+        END WHILE;
+    END IF;
+END //
+
+DELIMITER ;
+
+-- Procedure to assess a company
+DELIMITER //
+
+CREATE PROCEDURE uspEvaluateCompany(
+    IN p_company_id INT,
+    IN p_user_id INT,
+    IN p_review_text TEXT,
+    IN p_review_score INT
+)
+BEGIN
+    INSERT INTO Company_Reviews (id_company, id_user, review_text, review_score)
+    SELECT 
+        p_company_id, p_user_id, p_review_text, p_review_score
+    FROM 
+        Companies
+    WHERE 
+        id_company = p_company_id
+        AND company_active = TRUE;
+END //
+
+DELIMITER ;
+
+
+-- Procedure to add an offer to the wishlist
+DELIMITER //
+
+CREATE PROCEDURE uspAddOfferToWishlist(
+    IN p_id_internship_offer INT,
+    IN p_id_user INT
+)
+BEGIN
+    INSERT INTO Wish_list (id_internship_offer, id_user)
+    VALUES (p_id_internship_offer, p_id_user);
+END //
+
+DELIMITER ;
+
+
+-- Procedure to remove an offer from the wishlist
+DELIMITER //
+
+CREATE PROCEDURE uspRemoveOfferFromWishlist(
+    IN p_id_internship_offer INT,
+    IN p_id_user INT
+)
+BEGIN
+    DELETE FROM Wish_list
+    WHERE id_internship_offer = p_id_internship_offer AND id_user = p_id_user;
+END //
+
+DELIMITER ;
+
+
+-- Procedure to add an application
+DELIMITER //
+
+CREATE PROCEDURE uspAddApplication(
+    IN p_id_user INT,
+    IN p_id_internship_offer INT,
+    IN p_CV VARCHAR(255),
+    IN p_motivation_letter VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Applications (id_user, id_internship_offer, CV, motivation_letter)
+    VALUES (p_id_user, p_id_internship_offer, p_CV, p_motivation_letter);
+END //
+
+DELIMITER ;
+
+
+
+-- Procedure to update an user(pilote/student)
+DELIMITER //
+
+CREATE PROCEDURE uspUpdateUser (
+    IN pUserId INT,
+    IN pLoginName VARCHAR(254),
+    IN pPassword VARCHAR(50),
+    IN pFirstName VARCHAR(40),
+    IN pLastName VARCHAR(40),
+    IN pCenter VARCHAR(40)
+)
+BEGIN
+    DECLARE userEmail VARCHAR(254);
+    DECLARE hashedPassword BINARY(64);
+    DECLARE userSalt BINARY(16);
+    DECLARE oldCenter INT;
+
+    SELECT email, password, salt, id_center INTO userEmail, hashedPassword, userSalt, oldCenter
+    FROM Users WHERE id_user = pUserId LIMIT 1;
+
+    -- Si un nouveau mot de passe est fourni, hasher le mot de passe
+    IF pPassword <> '' THEN
+        SET hashedPassword = SHA2(CONCAT(pPassword, HEX(userSalt)), 512);
+    END IF;
+
+    -- Vérifier si pCenter est vide ou NULL, et le définir sur la valeur actuelle si c'est le cas
+    -- Actuellement ne fonctionne pas, utliser coté php :
+    -- Récupérer l'ancienne valeur du centre pour l'utilisateur;
+	-- SET @oldCenter = (SELECT id_center FROM Users WHERE id_user = 1);
+	-- Appeler la procédure en utilisant l'ancienne valeur du centre;
+	-- CALL uspUpdateUser(1, '', '', '', '', @oldCenter);
+    
+    IF pCenter IS NULL OR pCenter = '' THEN
+        SET pCenter = oldCenter;
+    END IF;
+
+    UPDATE Users
+    SET 
+        first_name = IF(pFirstName <> '', pFirstName, first_name),
+        last_name = IF(pLastName <> '', pLastName, last_name),
+        email = IF(pLoginName <> '', pLoginName, email),
+        id_center = pCenter,
+        password = IF(pPassword <> '', hashedPassword, password)
+    WHERE id_user = pUserId;
+END //
+
+DELIMITER ;
+
+
+-- Procedure to 'delete' an user(pilote/student)
+DELIMITER //
+
+CREATE PROCEDURE uspDeactivateUser(
+    IN p_user_id INT
+)
+BEGIN
+    UPDATE Users 
+    SET user_active = FALSE
+    WHERE id_user = p_user_id AND id_role = 3;-- (3=student and 2=pilote)
+END //
+
+DELIMITER ;
+
+
+
+-- Procedure to get user's data
+DELIMITER //
+
+CREATE PROCEDURE uspGetUserData(
+    IN p_first_name VARCHAR(255),
+    IN p_last_name VARCHAR(255),
+    IN p_id_role INT,
+    IN p_center_name VARCHAR(255),
+    IN p_orderbyFirstNameDesc BOOLEAN,
+    IN p_orderbyFirstNameASC BOOLEAN,
+    IN p_orderbyPromotionsDesc BOOLEAN,
+    IN p_orderbyPromotionsASC BOOLEAN,
+    IN p_orderbyRoleIdDesc BOOLEAN,
+    IN p_orderbyRoleIdAsc BOOLEAN
+)
+BEGIN
+    SELECT
+        Users.first_name,
+        Users.last_name,
+        Centers.center_name,
+        IFNULL(promotions_assignees, '') AS promotions_assignees,
+        IFNULL(wish_list_count, 0) AS wish_list_count
+    FROM
+        Users
+    JOIN
+        Works_for ON Users.id_user = Works_for.id_user
+    JOIN
+        Companies ON Works_for.id_company = Companies.id_company
+    JOIN
+        Centers ON Users.id_center = Centers.id_center
+    LEFT JOIN (
+        SELECT
+            Users.first_name,
+            Users.last_name,
+            GROUP_CONCAT(DISTINCT Classes.class_year ORDER BY Classes.class_year ASC) AS promotions_assignees
+        FROM
+            Users
+        JOIN
+            Related_to_class ON Related_to_class.id_user = Users.id_user
+        JOIN
+            Classes ON Related_to_class.id_class = Classes.id_class
+        GROUP BY
+            Users.first_name, Users.last_name
+    ) AS T ON T.first_name = Users.first_name AND T.last_name = Users.last_name
+    LEFT JOIN (
+        SELECT
+            id_user,
+            COUNT(id_internship_offer) AS wish_list_count
+        FROM
+            Wish_list
+        GROUP BY
+            id_user
+    ) AS WL ON WL.id_user = Users.id_user
+    WHERE
+        Users.first_name LIKE CONCAT('%', p_first_name, '%')
+        AND Users.last_name LIKE CONCAT('%', p_last_name, '%')
+        AND Users.id_role LIKE CONCAT('%', p_id_role, '%')
+        AND Centers.center_name LIKE CONCAT('%', p_center_name, '%')
+    GROUP BY
+        Users.first_name, 
+        Users.last_name, 
+        Centers.center_name
+    ORDER BY
+        IF(p_orderbyFirstNameDesc = TRUE, Users.first_name, NULL) DESC,
+        IF(p_orderbyFirstNameASC = TRUE, Users.first_name, NULL) ASC,
+        IF(p_orderbyPromotionsDesc = TRUE, promotions_assignees, NULL) DESC,
+        IF(p_orderbyPromotionsASC = TRUE, promotions_assignees, NULL) ASC,
+        IF(p_orderbyRoleIdDesc = TRUE, Users.id_role, NULL) ASC,
+        IF(p_orderbyRoleIdAsc = TRUE, Users.id_role, NULL) DESC;
+END //
+
+DELIMITER ;

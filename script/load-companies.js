@@ -27,7 +27,7 @@ $(document).ready(function () {
                 $(".info-text", newElement).eq(1).html("Rating: " + i * 20 + "%");
 
                 // Insert new element into page
-                $("div.company-container").append(newElement.children());
+                $("div.flex-6").append(newElement.children());
             }
         }
     )

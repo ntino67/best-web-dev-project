@@ -16,7 +16,7 @@ $(document).ready(function () {
             $('#reviews-tab').removeClass('inactive-tab').addClass('active-tab');
             $('#internship-tab').removeClass('active-tab').addClass('inactive-tab');
 
-            // Hide the internship-container and sorting-container and show the rating-container with a fade-in effect
+            // Hide the internship-container and show the rating-container with a fade-in effect
             $('#internship-container, #sorting-container').hide();
             $('#rating-container').hide().fadeIn().addClass('fade-in');
         }
