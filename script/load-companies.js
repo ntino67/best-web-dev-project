@@ -1,4 +1,5 @@
 let ApiUrl = null;
+let sortOrder = 'ASC';
 
 function processCompany(newElement, company) {
     $(".search-result-title", newElement).html(company.company_name);
@@ -50,6 +51,53 @@ function handleDropdownChange(id, filterKey) {
     });
 }
 
+function switch_sorting_companies() {
+    const sortingButtons = $(".sorting-category");
+    let states = {'name': 0, 'ratings': 0, 'applications': 0};
+
+    sortingButtons.each(function () {
+        $(this).click(function (event) {
+            const thisButton = $(event.target).closest('.sorting-category');
+            const sortType = $("span:last", thisButton).text().toLowerCase();  // 'name', 'ratings', or 'applications'
+            const allOtherButtons = sortingButtons.not(thisButton);
+            let orderBy;
+
+            $("span.far", allOtherButtons).html("");
+            for (let propName in states) {
+                if (propName !== sortType) {
+                    states[propName] = 0;
+                }
+            }
+
+            switch (states[sortType]) {
+                case 0:
+                    $("span.far", thisButton).html("");
+                    states[sortType]++;
+                    orderBy = sortType === 'name' ? 'company_name' : (sortType === 'applications' ? 'student_amt' : 'review_avg');
+                    sortOrder = 'ASC';
+                    break;
+                case 1:
+                    $("span.far", thisButton).html("");
+                    states[sortType]++;
+                    orderBy = sortType === 'name' ? 'company_name' : (sortType === 'applications' ? 'student_amt' : 'review_avg');
+                    sortOrder = 'DESC';
+                    break;
+                case 2:
+                    $("span.far", thisButton).html("");
+                    states[sortType] = 0;
+                    orderBy = 'id_company';
+                    sortOrder = 'ASC';
+                    break;
+            }
+
+            ApiUrl = `http://webp.local/api/company?orderby=${orderBy} ${sortOrder}`;
+
+            $('#companies-container').empty();
+            loadEntities(ApiUrl, '#companies-container', processCompany, "/components/company.html");
+        });
+    });
+}
+
 $(document).ready(function () {
     // Fetching Sector data
     $.ajax({
@@ -95,4 +143,6 @@ $(document).ready(function () {
         ApiUrl = 'http://webp.local/api/company';
         loadEntities(ApiUrl, "#companies-container", processCompany, "/components/company.html");
     });
+
+    switch_sorting_companies();
 });
