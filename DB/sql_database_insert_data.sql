@@ -340,7 +340,27 @@ INSERT INTO Internship_offers (id_company, available_slots, internship_offer_tit
 (48, 2, 'Medical Image Processing Intern', 'Internship to develop algorithms for medical image processing for diagnostic aid.', '2024-04-23', '2024-10-23', FLOOR(RAND() * 4) + 1, FLOOR(RAND() * 4) + 3, FLOOR(RAND() * (1500 - 600 + 1) + 600), TRUE),
 (49, 3, 'Messaging Applications Development Intern', 'Internship to design and develop instant messaging applications.', '2024-04-24', '2024-10-24', FLOOR(RAND() * 4) + 1, FLOOR(RAND() * 4) + 3, FLOOR(RAND() * (1500 - 600 + 1) + 600), TRUE),
 (50, 2, 'Cloud-Native Applications Development Intern', 'Internship to design and develop cloud-native applications for agile deployments.', '2024-04-25', '2024-10-25', FLOOR(RAND() * 4) + 1, FLOOR(RAND() * 4) + 3, FLOOR(RAND() * (1500 - 600 + 1) + 600), TRUE);
-
+DELIMITER //
+CREATE PROCEDURE InsertRandomCityForNullCityOffers()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE max_id INT;
+    
+    -- Obtenez l'ID maximum de l'offre de stage
+    SELECT MAX(id_internship_offer) INTO max_id FROM Internship_offers;
+    
+    -- Début de la boucle
+    WHILE i <= max_id DO
+        -- Insérez un ID de ville aléatoire pour les offres de stage où l'ID de la ville est NULL
+        UPDATE Internship_offers
+        SET id_city = FLOOR(RAND() * 144) + 1
+        WHERE id_internship_offer = i AND id_city IS NULL;
+        
+        SET i = i + 1;
+    END WHILE;
+END//
+DELIMITER ;
+call web_project.InsertRandomCityForNullCityOffers();
 
 #peuplement table 'Classes' :
 INSERT INTO Classes (class_year) VALUES 
