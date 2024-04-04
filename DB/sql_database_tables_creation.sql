@@ -156,6 +156,8 @@ ALTER TABLE `Company_Reviews` ADD CONSTRAINT `fk_company_reviews_companies` FORE
 
 ALTER TABLE `Company_Reviews` ADD CONSTRAINT `fk_company_reviews_users` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
 
+ALTER TABLE `Company_Reviews` ADD CONSTRAINT Company_Reviews_pk PRIMARY KEY (id_user, id_company);
+
 ALTER TABLE `Wish_list` ADD CONSTRAINT `user_is_here` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id_user`);
 
 ALTER TABLE `Wish_list` ADD CONSTRAINT `internship_offer_exist` FOREIGN KEY (`id_internship_offer`) REFERENCES `Internship_offers` (`id_internship_offer`);
