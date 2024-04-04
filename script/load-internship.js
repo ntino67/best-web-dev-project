@@ -36,5 +36,39 @@ $(document).ready(function () {
             // prevent the default action
             return false;
         }
+
+        $('#cities').change(function () {
+            let city = $(this).val();
+            console.log(city);
+
+            if (city) {
+                url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=city_name eq ${city}`;
+            } else {
+                url = 'http://webp.local/api/internship';
+            }
+
+            $('#internship-container').empty();
+
+            loadInternships(url, '#internship-container', function (newElement, offer) {
+                // specific handler code
+            });
+        });
+
+        $('#sectors').change(function () {
+            let sector = $(this).val();
+            console.log(sector);
+
+            if (sector) {
+                url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=business_sector_name eq ${sector}`;
+            } else {
+                url = 'http://webp.local/api/internship';
+            }
+
+            $('#internship-container').empty();
+
+            loadInternships(url, '#internship-container', function (newElement, offer) {
+                // specific handler code
+            });
+        });
     });
 });

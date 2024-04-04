@@ -60,6 +60,7 @@ $(document).ready(function () {
         },
         error: function (jqXHR, exception) { // Handling any errors from request
             console.log('Error occurred:', jqXHR, exception);
+            window.location.href = "/login.html";
         }
     });
 });

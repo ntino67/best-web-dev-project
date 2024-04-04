@@ -51,6 +51,7 @@ function checkForm() {
                 console.log('HTTP Error Status: ' + jqXHR.status);
                 console.log('textStatus: ' + textStatus);
                 console.log('errorThrown: ' + errorThrown);
+                alert("User not found. Please try again.")
             },
             data: JSON.stringify({email: email, password: password})
         });

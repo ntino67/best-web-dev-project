@@ -23,7 +23,7 @@ function loadInternships(url, containerId, specificHandler) {
         url: url,
         type: 'GET',
         headers: {
-            "authorization-token": userData.token
+            "authorization-token": userData ? userData.token : ''
         },
         success: function (response) {
             // Get Internship Offer HTML Template
@@ -94,6 +94,7 @@ function loadInternships(url, containerId, specificHandler) {
         },
         error: function (jqXHR, exception) { // Handling any errors from request
             console.log('Error occurred:', jqXHR, exception);
+            window.location.href = "/login.html";
         }
     });
 }
