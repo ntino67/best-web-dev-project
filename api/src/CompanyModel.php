@@ -14,7 +14,8 @@ class CompanyModel extends Model
       "company_description" => "Companies.company_description",
       "business_sector_name" => "Bs.business_sector_name",
       "internship_amt" => "uspGetCompanyInternshipCount(Companies.id_company)",
-      "review_avg" => "uspGetCompanyAverageReviews(Companies.id_company)"
+      "review_avg" => "uspGetCompanyAverageReviews(Companies.id_company)",
+      "student_amt" => "uspGetCompanyStudentCount(Companies.id_company)"
     ];
 
     $orderBy = Sorting::getFromQueryString($allowed_orderby);
@@ -26,7 +27,8 @@ class CompanyModel extends Model
       "id_business_sector" => ["type" => Filter::NUMBER, "replace" => "Companies.id_business_sector"],
       "business_sector_name" => ["type" => Filter::STRING, "replace" => "Bs.business_sector_name"],
       "internship_amt" => ["type" => Filter::NUMBER, "replace" => "uspGetCompanyInternshipCount(Companies.id_company)"],
-      "review_avg" => ["type" => Filter::NUMBER, "replace" => "uspGetCompanyAverageReviews(Companies.id_company)"]
+      "review_avg" => ["type" => Filter::NUMBER, "replace" => "uspGetCompanyAverageReviews(Companies.id_company)"],
+      "student_amt" => ["type" => Filter::NUMBER, "replace" => "uspGetCompanyStudentCount(Companies.id_company)"]
     ];
 
     $filter = Filter::getFromQueryString($allowed_filters);
@@ -36,7 +38,16 @@ class CompanyModel extends Model
     $this->use_parent_id = false;
 
     $this->sql_getAll = "
-    SELECT id_company, company_name, company_description, company_active, Companies.id_business_sector, business_sector_name, COUNT(*) OVER() AS total_count, uspGetCompanyInternshipCount(Companies.id_company) AS internship_amt, uspGetCompanyAverageReviews(Companies.id_company) AS review_avg
+    SELECT id_company, 
+           company_name, 
+           company_description, 
+           company_active, 
+           Companies.id_business_sector, 
+           business_sector_name, 
+           COUNT(*) OVER() AS total_count, 
+           uspGetCompanyInternshipCount(Companies.id_company) AS internship_amt, 
+           uspGetCompanyAverageReviews(Companies.id_company) AS review_avg,
+           uspGetCompanyStudentCount(Companies.id_company) AS student_amt
     FROM Companies
     JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Companies.id_business_sector
     WHERE $filter company_active = 1
@@ -45,7 +56,14 @@ class CompanyModel extends Model
     
 
     $this->sql_get = "
-    SELECT id_company, company_name, company_description, company_active, Companies.id_business_sector, business_sector_name, uspGetCompanyInternshipCount(Companies.id_company) AS internship_amt
+    SELECT id_company, 
+           company_name, 
+           company_description, 
+           company_active, 
+           Companies.id_business_sector, 
+           business_sector_name, 
+           uspGetCompanyInternshipCount(Companies.id_company) AS internship_amt, 
+           uspGetCompanyStudentCount(Companies.id_company) AS student_amt
     FROM Companies
     JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Companies.id_business_sector
     WHERE company_active = 1
