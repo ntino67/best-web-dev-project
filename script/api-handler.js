@@ -19,9 +19,13 @@ if (cookieData) {
     console.log(userData); // You can now access the data using dot notation
 }
 
+let currentApiUrl = null;
+
 function loadEntities(url, containerId, specificHandler, templateFilePath) {
+    currentApiUrl = url; // store the current URL
+
     $.ajax({
-        url: url,
+        url: currentApiUrl,
         type: 'GET',
         headers: {
             "authorization-token": userData ? userData.token : ''
@@ -38,7 +42,7 @@ function loadEntities(url, containerId, specificHandler, templateFilePath) {
                     $(containerId).append(newElement);
                 });
 
-                console.log("Create")
+                console.log(response)
 
                 $(".paging-container").empty(); // Clear the paging container
 
@@ -55,7 +59,9 @@ function loadEntities(url, containerId, specificHandler, templateFilePath) {
                     // Add click event listener
                     anchorTag.on("click", function (event) {
                         event.preventDefault();
-                        let baseUrl = url.includes('?') ? url.split('?')[0] : url;
+
+                        // Determine whether to append with ? or &
+                        let appendChar = currentApiUrl.includes('?') ? '&' : '?';
 
                         // Clear the entities' container
                         $(containerId).empty();
@@ -63,7 +69,7 @@ function loadEntities(url, containerId, specificHandler, templateFilePath) {
                         // Scroll to the top of the page
                         window.scrollTo(0, 0);
 
-                        loadEntities(`${baseUrl}?page=${i}`, containerId, specificHandler, templateFilePath);
+                        loadEntities(`${currentApiUrl}${appendChar}page=${i}`, containerId, specificHandler, templateFilePath);
                     });
 
                     // Append to the paging container

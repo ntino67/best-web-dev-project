@@ -1,3 +1,5 @@
+let ApiUrl = null;
+
 function processInternship(newElement, offer) {
     $(".search-result-title", newElement).html(offer.internship_offer_title);
     $(".search-result-description", newElement).html(offer.internship_offer_description);
@@ -19,10 +21,10 @@ function processInternship(newElement, offer) {
 function handleDropdownChange(id, filterKey) {
     $(id).change(function () {
         const selected = $(this).val();
-        const url = selected ? `http://webp.local/api/internship?orderby=id_internship_offer&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/internship';
+        const ApiUrl = selected ? `http://webp.local/api/internship?orderby=id_internship_offer&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/internship';
 
         $('#internship-container').empty();
-        loadEntities(url, '#internship-container', processInternship, "/components/internship-offer.html");
+        loadEntities(ApiUrl, '#internship-container', processInternship, "/components/internship-offer.html");
     });
 }
 
@@ -71,28 +73,30 @@ $(document).ready(function () {
         }
     });
 
-    var url = "http://webp.local/api/internship";
-    loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
+    ApiUrl = "http://webp.local/api/internship";
+    loadEntities(ApiUrl, "#internship-container", processInternship, "/components/internship-offer.html");
 
     $(".search-bar-small").keypress(function (e) {
         if (e.which === 13) {  // 13 is the enter key's keycode
             let input = $(this).val();
             if (input) {
-                url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=internship_offer_title startswith ${input}`;
+                ApiUrl = `http://webp.local/api/internship?orderby=id_internship_offer&filter=internship_offer_title startswith ${input}`;
             } else {
-                url = 'http://webp.local/api/internship';
+                ApiUrl = 'http://webp.local/api/internship';
             }
 
             $("#internship-container").empty();
-            loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
+            loadEntities(ApiUrl, "#internship-container", processInternship, "/components/internship-offer.html");
 
             return false;  // Prevent the default action (form submission)
         }
     });
 
     $("#reset").click(function () {
+        $('#cities').val('0');
+        $('#sectors').val('0');
         $('#internship-container').empty();
-        url = 'http://webp.local/api/internship';
-        loadEntities(url, '#internship-container', processInternship, "/components/internship-offer.html");
+        ApiUrl = 'http://webp.local/api/internship';
+        loadEntities(ApiUrl, '#internship-container', processInternship, "/components/internship-offer.html");
     });
 });
