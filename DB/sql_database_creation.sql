@@ -1,2 +1,2 @@
-DROP DATABSE web_project;
+DROP DATABASE IF EXISTS web_project;
 CREATE DATABASE web_project;

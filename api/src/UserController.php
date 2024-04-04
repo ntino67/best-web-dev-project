@@ -52,8 +52,9 @@ class UserController
         break;
 
       case "work_history":
-        // TODO: Implement this
-        break;
+          $controller = new UserWorkForController($id);
+          $controller->processRequest($method, $requestURI);
+          break;
 
       default:
         http_response_code(404);
@@ -72,7 +73,17 @@ class UserController
 
       echo json_encode(["data" => $data]);
       break;
-    
+
+    case "PATCH":
+        $data = json_decode(file_get_contents("php://input"), true);
+        $this->checkData($data, 422);
+        $rows = $this->model->update($data, $id);
+        echo json_encode([
+            "message" => "User edited",
+            "rows" => $rows
+        ]);
+        break;
+
     case "DELETE" :
       $affectedRows = $this->model->delete($id);
 
