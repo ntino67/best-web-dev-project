@@ -36,23 +36,23 @@ class CompanyController
             return;
         }
 
-        /* // If the business sector is requested */
-        /* if (array_key_exists(0, $requestURI) && $requestURI[0]) { */
-        /*   switch(array_shift($requestURI)) { */
-        /*   case "Reviews": */
-        /*     $controller = new BusinessSectorController($id); */
-        /*     $controller->processRequest($method, $requestURI); */
-        /*     break; */
+        // If the business sector is requested */
+        if (array_key_exists(0, $requestURI) && $requestURI[0]) {
+           switch(array_shift($requestURI)) {
+           case "review":
+             $controller = new CompanyReviewController($id);
+             $controller->processRequest($method, $requestURI);
+             break;
         /*   case "Locations": */
         /*     $controller = new BusinessSectorController($id); */
         /*     $controller->processRequest($method, $requestURI); */
         /*     break; */
-        /*   default: */
-        /*     http_response_code(404); */
-        /*     break; */
-        /*   } */
-        /*   return; */
-        /* } */
+           default:
+             http_response_code(404);
+             break;
+           }
+           return;
+         }
 
         switch ($method) {
 
@@ -65,6 +65,9 @@ class CompanyController
 
             case "PATCH":
                 $data = json_decode(file_get_contents("php://input"), true);
+
+                $this->checkData($data, 422);
+
                 $rows = $this->model->update($data, $id);
 
                 echo json_encode([
@@ -108,6 +111,9 @@ class CompanyController
 
             case "POST" :
                 $data = json_decode(file_get_contents("php://input"), true);
+
+                $this->checkData($data, 422);
+
                 $id = $this->model->create($data);
 
                 echo json_encode([
@@ -121,5 +127,16 @@ class CompanyController
                 http_response_code(405);
                 break;
         }
+    }
+    private function checkData(array $data, int $errorCode) : void
+    {
+        $pattern = array(
+            "id_business_sector" => DataValidator::NUMBER,
+            "company_name" => DataValidator::NAME,
+            "company_description" => DataValidator::NAME);
+
+        DataValidator::catchValidationErrors($data, $pattern, $errorCode);
+
+        return;
     }
 }
