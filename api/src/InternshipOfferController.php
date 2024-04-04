@@ -44,6 +44,11 @@ class InternshipOfferController
         $controller->processRequest($method, $requestURI);
         break;
 
+      case "applications":
+          $controller = new ApplicationForInternshipOfferController($id);
+          $controller->processRequest($method, $requestURI);
+          break;
+
       default:
         http_response_code(404);
         break;
