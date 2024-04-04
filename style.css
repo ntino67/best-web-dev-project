@@ -1110,16 +1110,15 @@ aside.profile-page {
   }
 }
 
-// Stats
-.stats-container {
+/* Stats */
+div.stats-container {
   border: 3px solid #fff;
   padding: 20px;
 }
 
-.stats-child {
-  min-height: 25rem;
-  max-width: 25rem;
-  float: left;
+div.stats-child {
+  /*min-height: 25rem; */
+  /* max-width: 25rem; */
   padding: 1rem;
   margin: 0.5rem;
   border: 2px solid #D9D9D9;
@@ -1127,6 +1126,7 @@ aside.profile-page {
 }
 
 canvas {
-  min-height: 320px;
+  height: 500px;
   max-width: 320px;
+
 }

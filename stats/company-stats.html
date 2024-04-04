@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="/style.css" rel="stylesheet">
+  <title>Statistiques</title>
+  <!-- <script src="chartJs.js"></script> -->
+</head>
+
+<body>
+  <h1>Statistics</h1>
+  <div>
+    <h2>Top internship offers</h2>
+  </div>
+  <div class="stats-container flex-row">
+    <h2>Autres</h2>
+    <div class="stats-child">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div class="stats-child">
+      <canvas id="myChart1"></Canvas>
+    </div>
+  </div>
+</body>
+
+<script src="/script/chart/chart.js"></script>
+<script>
+  const SFX7_Sector = document.getElementById('myChart');
+  const SFX7_City = document.getElementById('myChart1');
+  new Chart(SFX7_Sector, {
+    type: 'doughnut',
+    data: {
+      labels: ['Socomec', 'Lily', 'USOCOME', 'CODRIS', 'BNP'],
+      datasets: [{
+        label: 'companies by sector of activity',
+        data: [24, 13, 11, 11, 85],
+      }
+      ],
+      hoverOffset: 4
+    },
+    options: {
+      aspectRatio: 1 | 1,
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'right',
+          //align : 'start',
+        },
+        title: {
+          display: true,
+          text: 'Distribution by sector of business activity',
+        }
+      }
+    }
+  });
+
+  new Chart(SFX7_City, {
+    type: 'bar',
+    data: {
+      labels: ['A1', 'A2', 'A3 FISE INFO', 'A3 FISA INFO', 'A3 BTP'],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [165, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      aspectRatio: 1 | 1,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Histogramme',
+        }
+      }
+    }
+  })
+</script>
+
+</html>
