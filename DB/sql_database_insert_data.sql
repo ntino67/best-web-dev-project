@@ -361,6 +361,8 @@ BEGIN
 END//
 DELIMITER ;
 call web_project.InsertRandomCityForNullCityOffers();
+DROP PROCEDURE IF EXISTS InsertRandomCityForNullCityOffers;
+
 
 #peuplement table 'Classes' :
 INSERT INTO Classes (class_year) VALUES 
