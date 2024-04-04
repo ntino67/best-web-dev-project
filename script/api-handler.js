@@ -40,6 +40,8 @@ function loadEntities(url, containerId, specificHandler, templateFilePath) {
 
                 console.log("Create")
 
+                $(".paging-container").empty(); // Clear the paging container
+
                 // Create paging links dynamically based on total pages
                 for (let i = 1; i <= response.paging.total_pages; i++) {
                     // Create anchor tag
