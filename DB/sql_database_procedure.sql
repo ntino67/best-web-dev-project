@@ -930,3 +930,17 @@ BEGIN
 
     RETURN avg_review_score;
 END;
+
+-- Get the amount of students working for a company
+
+CREATE FUNCTION uspGetCompanyStudentCount(company_id INTEGER)
+    RETURNS INTEGER
+BEGIN
+    DECLARE num_students INTEGER;
+
+    SELECT COUNT(*) INTO num_students
+    FROM Works_for
+    WHERE Works_for.id_company = company_id;
+
+    RETURN num_students;
+END;

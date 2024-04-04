@@ -93,6 +93,10 @@ case "company":
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
   break;
 
+case "role":
+  $controller = new RoleController;
+  $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+  break;
   // TODO: Add more request types here
 
 default:

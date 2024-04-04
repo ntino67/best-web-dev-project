@@ -27,6 +27,7 @@ class SkillController
   private function processRessourceRequest(string $method, string $id) : void 
   {
     $data = $this->model->get($id);
+
     if (!$data) {
       http_response_code(404);
       echo json_encode(["message" => "Skill not found"]);
@@ -38,6 +39,7 @@ class SkillController
       http_response_code(200);
       echo json_encode(["data" => $data]);
       break;
+
     default:
       http_response_code(405);
       break;

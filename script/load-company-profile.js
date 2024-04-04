@@ -41,6 +41,7 @@ $(document).ready(function () {
         },
         error: function (jqXHR, exception) {
             console.log('Error occurred:', jqXHR, exception);
+            window.location.href = "/login.html";
         }
     });
 });

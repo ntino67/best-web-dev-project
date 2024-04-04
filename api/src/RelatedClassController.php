@@ -29,7 +29,7 @@ class RelatedClassController
   // @param $requestURI Elements of the link of the request
   private function processRessourceRequest(string $method, string $id) : void 
   {
-    $data = $this->model->get($this->id_user, $id);
+    $data = $this->model->get($id, $this->id_user);
 
     if (!$data) {
       http_response_code(404);
@@ -46,7 +46,7 @@ class RelatedClassController
       break;
 
     case "DELETE" :
-      $affectedRows = $this->model->delete($this->id_user, $id);
+      $affectedRows = $this->model->delete($id, $this->id_user);
 
       echo json_encode([
         "message" => "Related class $id deleted for user $this->id_user",
@@ -80,7 +80,7 @@ class RelatedClassController
       
       $this->checkData($data, 422);
 
-      $this->model->create($this->id_user, $data["id_class"]);
+      $this->model->create($data, $this->id_user);
 
       echo json_encode([
         "message" => "Related class created for user"

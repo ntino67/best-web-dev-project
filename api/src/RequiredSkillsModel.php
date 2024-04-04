@@ -5,10 +5,9 @@ class RequiredSkillsModel extends Model {
   {
     parent::__construct();
     
-    // Create is not supported, so insert_params is left empty
     $this->insert_params = ["id_skill"];
     
-    $this->use_paging = true;
+    $this->use_paging = false;
 
     $this->use_parent_id = true;
 
