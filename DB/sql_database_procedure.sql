@@ -33,7 +33,6 @@ CREATE PROCEDURE uspLogin(
     IN pPassword varchar(50),
     OUT o_responseMessage tinyint(1),
     OUT o_id_user int)
-
 BEGIN
     DECLARE userEmail VARCHAR(254);
     DECLARE inputHashedPassword BINARY(128); -- Correspond à la longueur du hachage SHA2 512
@@ -455,14 +454,14 @@ CREATE PROCEDURE uspCompanyStat_Sectors()
 BEGIN
     SELECT * FROM (
         SELECT 
-            business_sectors.business_sector_name,
-            COUNT(business_sectors.business_sector_name) AS Total
+            Business_sectors.business_sector_name,
+            COUNT(Business_sectors.business_sector_name) AS Total
         FROM
-            companies
-        JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
+            Companies
+        JOIN Business_sectors ON Business_sectors.id_business_sector = Companies.id_business_sector
         WHERE
             Companies.company_active = TRUE
-        GROUP BY business_sectors.business_sector_name
+        GROUP BY Business_sectors.business_sector_name
         ORDER BY Total DESC
         LIMIT 10
     ) AS subquery 
@@ -470,13 +469,13 @@ BEGIN
     SELECT 'AUTRES', SUM(subquery.Total) AS total FROM (
         SELECT 
             business_sectors.business_sector_name AS 'Autres',
-            COUNT(business_sectors.business_sector_name) AS Total
+            COUNT(Business_sectors.business_sector_name) AS Total
         FROM
-            companies
-        JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
+            Companies
+        JOIN Business_sectors ON Business_sectors.id_business_sector = Companies.id_business_sector
         WHERE
             Companies.company_active = TRUE
-        GROUP BY business_sectors.business_sector_name
+        GROUP BY Business_sectors.business_sector_name
         ORDER BY Total
         LIMIT 10000 OFFSET 10
     ) AS subquery;
@@ -488,16 +487,16 @@ DELIMITER //
 
 CREATE PROCEDURE uspCompanyStat_Cities()
 BEGIN
-    SELECT 
-        cities.name, 
-        COUNT(cities.name) AS total
+    SELECT
+        Cities.name,
+        COUNT(Cities.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
+    JOIN Countries ON Cities.id_country = Countries.id_country
     WHERE Companies.company_active = TRUE
-    GROUP BY cities.name;
+    GROUP BY Cities.name;
 END //
 
 DELIMITER ;
@@ -507,15 +506,15 @@ DELIMITER //
 
 CREATE PROCEDURE uspCompanyStat_Countries()
 BEGIN
-    SELECT 
-        countries.name, COUNT(countries.name) AS total
+    SELECT
+        Countries.name, COUNT(Countries.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
+    JOIN Countries ON Cities.id_country = Countries.id_country
     WHERE Companies.company_active = TRUE
-    GROUP BY countries.name;
+    GROUP BY Countries.name;
 END //
 
 DELIMITER ;
@@ -672,55 +671,6 @@ END //
 
 DELIMITER ;
 
--- Procedure to Update InternshipOffer
-DELIMITER //
-
-CREATE PROCEDURE uspInternshipOffersUpdate(
-    IN id_internship_offer_val INT,
-    IN id_company_val INT,
-    IN available_slots_val INT,
-    IN internship_offer_title_val VARCHAR(255),
-    IN internship_offer_description_val VARCHAR(255),
-    IN expires_at_val DATE,
-    IN id_business_sector_val INT,
-    IN duration_val INT
-)
-BEGIN
-    DECLARE created_at_val DATE;
-    DECLARE id_user_val INT;
-
-    -- Définir la date actuelle
-    SET created_at_val := CURRENT_DATE;
-
-    -- Mise à jour de l'offre de stage
-    UPDATE Internship_offers
-    SET 
-        internship_offer_title = IF(internship_offer_title_val <> '', internship_offer_title_val, internship_offer_title),
-        internship_offer_description = IF(internship_offer_description_val <> '', internship_offer_description_val, internship_offer_description),
-        available_slots = IF(available_slots_val <> '', available_slots_val, available_slots),
-        id_business_sector = IF(id_business_sector_val <> '', id_business_sector_val, id_business_sector),
-        id_company = IF(id_company_val <> '', id_company_val, id_company),
-        internship_offer_created_at = IF(created_at_val <> '', created_at_val, internship_offer_created_at),
-        internship_offer_expires_at = IF(expires_at_val <> '', expires_at_val, internship_offer_expires_at),
-        internship_duration = IF(duration_val <> '', duration_val, internship_duration)
-    WHERE id_internship_offer = id_internship_offer_val
-        AND (internship_offer_title_val <> '' OR internship_offer_description_val <> '' OR available_slots_val <> '' OR id_business_sector_val <> '' OR id_company_val <> '' OR expires_at_val <> '' OR duration_val <> '');
-
-    -- Récupérer l'ID de l'utilisateur inséré
-    SELECT LAST_INSERT_ID() INTO id_user_val;
-
-    -- Suppression des associations existantes entre l'offre de stage et les classes
-    DELETE FROM Addressed_to 
-    WHERE id_internship_offer = id_internship_offer_val
-        AND (id_class1_val <> '' OR id_class2_val <> '' OR id_class3_val <> '' OR id_class4_val <> '' OR id_class5_val <> '');
-
-    -- Insertion des nouvelles associations entre l'offre de stage et les classes
-    INSERT INTO Addressed_to (id_internship_offer, id_class) 
-    SELECT id_internship_offer_val, id_class FROM Classes 
-    WHERE id_class IN (1, 2, 3, 4, 5);
-END //
-
-DELIMITER ;
 
 -- Procedure to Delete InternshipOffer
 DELIMITER //
@@ -745,9 +695,9 @@ BEGIN
     SELECT 
         skill_name AS 'Skill name', COUNT(skill_name) AS total
     FROM
-        required_Skills
-    JOIN Internship_offers ON required_Skills.id_internship_offer = Internship_offers.id_internship_offer
-    JOIN Skills ON required_Skills.id_skill = Skills.id_skill
+        Required_Skills
+    JOIN Internship_offers ON Required_Skills.id_internship_offer = Internship_offers.id_internship_offer
+    JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
     WHERE
         Internship_offers.internship_offer_active = TRUE
     GROUP BY skill_name;
@@ -760,19 +710,19 @@ DELIMITER //
 
 CREATE PROCEDURE uspInternshipOffersStat_Cities()
 BEGIN
-    SELECT 
-        cities.name AS 'City',
-        COUNT(cities.name) AS total
+    SELECT
+        Cities.name AS 'City',
+        COUNT(Cities.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
     JOIN Internship_offers ON Internship_offers.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+    JOIN Countries ON Cities.id_country = Countries.id_country
     WHERE
         Internship_offers.internship_offer_active = TRUE
         AND Companies.company_active = TRUE
-    GROUP BY cities.name;
+    GROUP BY Cities.name;
 END //
 
 DELIMITER ;
@@ -782,18 +732,18 @@ DELIMITER //
 
 CREATE PROCEDURE uspInternshipOffersStat_Countries()
 BEGIN
-    SELECT 
-        countries.name AS 'Country', COUNT(countries.name) AS total
+    SELECT
+        Countries.name AS 'Country', COUNT(Countries.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
+    JOIN Countries ON Cities.id_country = Countries.id_country
     JOIN Internship_offers ON Internship_offers.id_company = Companies.id_company
     WHERE
         Internship_offers.internship_offer_active = TRUE
         AND Companies.company_active = TRUE
-    GROUP BY countries.name;
+    GROUP BY Countries.name;
 END //
 
 DELIMITER ;
@@ -803,15 +753,15 @@ DELIMITER //
 
 CREATE PROCEDURE uspInternshipOffersStat_Classes()
 BEGIN
-    SELECT 
-        classes.class_year AS 'Class', COUNT(classes.class_year) AS Total
+    SELECT
+        Classes.class_year AS 'Class', COUNT(Classes.class_year) AS Total
     FROM
         Internship_offers
     JOIN Addressed_to ON Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
-    JOIN classes ON classes.id_class = Addressed_to.id_class
+    JOIN Classes ON Classes.id_class = Addressed_to.id_class
     WHERE
         Internship_offers.internship_offer_active = TRUE
-    GROUP BY classes.class_year;
+    GROUP BY Classes.class_year;
 END //
 
 DELIMITER ;
@@ -826,9 +776,9 @@ BEGIN
         COUNT(Internship_offers.internship_duration) AS Total
     FROM
         Internship_offers
-        JOIN companies ON companies.id_company = internship_offers.id_company
+        JOIN Companies ON Companies.id_company = Internship_offers.id_company
     WHERE
-        internship_offers.internship_offer_active = TRUE
+        Internship_offers.internship_offer_active = TRUE
         AND Companies.company_active = TRUE
     GROUP BY internship_duration
     ORDER BY internship_duration;
@@ -926,7 +876,7 @@ BEGIN
     WHERE 
         Users.user_active = TRUE 
         AND Internship_offers.internship_offer_active = TRUE 
-        AND Users.id_user = user_idupdateUserAndRelatedClassesupdateUserAndRelatedClasses
+        AND Users.id_user = user_id updateUser And RelatedClassesupdateUser And RelatedClasses -- TODO FIX THIS MESS
     GROUP BY Users.id_user;
 END //
 
@@ -951,3 +901,17 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Fonction nombre de stages d'une entreprise
+
+CREATE FUNCTION uspGetCompanyInternshipCount(company_id INTEGER)
+    RETURNS INTEGER
+BEGIN
+    DECLARE num_internships INTEGER;
+
+    SELECT COUNT(*) INTO num_internships
+    FROM Internship_offers
+    WHERE Internship_offers.id_company = company_id;
+
+    RETURN num_internships;
+END;
