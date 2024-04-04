@@ -1,74 +1,56 @@
+function processInternship(newElement, offer) {
+    $(".search-result-title", newElement).html(offer.internship_offer_title);
+    $(".search-result-description", newElement).html(offer.internship_offer_description);
+
+    let slots = offer.available_slots;
+    // Insert bottom info
+    $(".search-result-bottom-info-element", newElement).html(slots + (slots === 1 ? " Slot" : " Slots"));
+
+    // Insert right info
+    $(".info-text", newElement).eq(0).html("Base Salary: " + offer.base_salary + "$");
+    $(".info-text", newElement).eq(1).html(offer.company_name);
+}
+
 $(document).ready(function () {
+    var url = "http://webp.local/api/internship";
+    loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
 
-    // Load internship offers initially using AJAX GET request
-    var url = 'http://webp.local/api/internship';
-    loadInternships(url, '#internship-container', function (newElement, offer) {
-        // Insert bottom info
-        let slots = offer.available_slots;
-        $(".search-result-bottom-info-element", newElement).html(slots + (slots === 1 ? " Slot" : " Slots"));
-
-        // Insert right info
-        $(".info-text", newElement).eq(0).html("Base Salary: " + offer.base_salary + "$");
-        $(".info-text", newElement).eq(1).html(offer.company_name);
-    });
-
-    $('.search-bar-small').keypress(function (e) {
-        console.log('Key Pressed:', e.which);
-        // When enter key is pressed
+    $(".search-bar-small").keypress(function (e) {
         if (e.which === 13) {  // 13 is the enter key's keycode
             let input = $(this).val();
-
             if (input) {
-                // Load internships with filter if there's input
-                console.log(input)
                 url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=internship_offer_title startswith ${input}`;
             } else {
-                // Load all internships if input is empty
                 url = 'http://webp.local/api/internship';
             }
 
-            $('#internship-container').empty();
+            $("#internship-container").empty();
+            loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
 
-            loadInternships(url, '#internship-container', function (newElement, offer) {
-                // specific handler code
-            });
-
-            // prevent the default action
-            return false;
+            return false;  // Prevent the default action (form submission)
         }
-
-        $('#cities').change(function () {
-            let city = $(this).val();
-            console.log(city);
-
-            if (city) {
-                url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=city_name eq ${city}`;
-            } else {
-                url = 'http://webp.local/api/internship';
-            }
-
-            $('#internship-container').empty();
-
-            loadInternships(url, '#internship-container', function (newElement, offer) {
-                // specific handler code
-            });
-        });
-
-        $('#sectors').change(function () {
-            let sector = $(this).val();
-            console.log(sector);
-
-            if (sector) {
-                url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=business_sector_name eq ${sector}`;
-            } else {
-                url = 'http://webp.local/api/internship';
-            }
-
-            $('#internship-container').empty();
-
-            loadInternships(url, '#internship-container', function (newElement, offer) {
-                // specific handler code
-            });
-        });
     });
+
+    $("#cities").change(function () {
+        let city = $(this).val();
+        if (city) {
+            url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=city_name eq ${city}`;
+        } else {
+            url = 'http://webp.local/api/internship';
+        }
+        $("#internship-container").empty();
+        loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
+    });
+
+    $("#sectors").change(function () {
+        let sector = $(this).val();
+        if (sector) {
+            url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=business_sector_name eq ${sector}`;
+        } else {
+            url = 'http://webp.local/api/internship';
+        }
+        $("#internship-container").empty();
+        loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
+    });
+
 });
