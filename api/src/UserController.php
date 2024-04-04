@@ -52,8 +52,9 @@ class UserController
         break;
 
       case "work_history":
-        // TODO: Implement this
-        break;
+          $controller = new UserWorkForController($id);
+          $controller->processRequest($method, $requestURI);
+          break;
 
       default:
         http_response_code(404);
