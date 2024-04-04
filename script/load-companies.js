@@ -3,9 +3,10 @@ function processCompany(newElement, company) {
     $(".search-result-description", newElement).html(company.company_description);
 
     var internship_amt = company.internship_amt;
+    var student_amt = company.student_amt;
     // Insert bottom info
     $(".search-result-bottom-info-element", newElement).eq(0).html(internship_amt + (internship_amt === 1 ? " Internship Offer" : " Internships Offers"));
-    $(".search-result-bottom-info-element", newElement).eq(1).html("TODO" /*TODO: Student working there*/);
+    $(".search-result-bottom-info-element", newElement).eq(1).html(student_amt + (student_amt === 1 ? " Student working there" : " Students working there"));
 
     // Insert right info
     $(".info-text", newElement).eq(0).html("TODO" /*TODO: Location*/);
@@ -38,7 +39,61 @@ function getStars(rating) {
     return stars.join('');
 }
 
+function handleDropdownChange(id, filterKey) {
+    $(id).change(function () {
+        const selected = $(this).val();
+        const url = selected ? `http://webp.local/api/company?orderby=id_company&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/company';
+
+        $('#companies-container').empty();
+        loadEntities(url, '#companies-container', processCompany, "/components/company.html");
+    });
+}
+
 $(document).ready(function () {
+    // Fetching Sector data
+    $.ajax({
+        url: 'http://webp.local/api/business-sector',
+        type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (sectors) {
+            $.each(sectors, function (index, sector) {
+                $("#sectors")
+                    .append($("<option></option>")
+                        .attr("value", sector.id_business_sector)
+                        .text(sector.business_sector_name));
+            });
+            handleDropdownChange("#sectors", "business_sector_name");
+        },
+        error: function (jqXHR, exception) {
+            console.log('Sector fetch error: ', jqXHR, exception);
+        }
+    });
+
+    // Fetching City data
+    $.ajax({
+        url: 'http://webp.local/api/city',
+        type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (response) {
+            let cities = response.data;
+
+            $.each(cities, function (index, city) {
+                $("#cities")
+                    .append($("<option></option>")
+                        .attr("value", city.id_city)
+                        .text(city.city_name));
+            });
+            handleDropdownChange("#cities", "city_name");
+        },
+        error: function (jqXHR, exception) {
+            console.log('City fetch error: ', jqXHR, exception);
+        }
+    });
+
     var url = "http://webp.local/api/company";
     loadEntities(url, "#companies-container", processCompany, "/components/company.html"); // replace path with relevant one
 
@@ -80,4 +135,9 @@ $(document).ready(function () {
         loadEntities(url, "#companies-container", processCompany, "/components/company.html");
     });
 
+    $("#reset").click(function () {
+        $("#companies-container").empty();
+        url = 'http://webp.local/api/company';
+        loadEntities(url, "#companies-container", processCompany, "/components/company.html");
+    });
 });
