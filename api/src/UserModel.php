@@ -70,23 +70,14 @@ class UserModel extends Model
     ";
 
     $this->sql_create = "
-    INSERT INTO Users (first_name,
-                      last_name,
-                      email, password,
-                      user_created_at,
-                      id_center,
-                      id_role,
-                      user_active)
-
-    VALUES (:first_name,
-            :last_name,
-            :email,
-            :password,
-            CURRENT_TIMESTAMP,
-            :id_center,
-            :id_role,
-            1);
+    CALL web_project.uspAddUser(:email, :password, :first_name, :last_name, :id_center, :id_role, 1)
     ";
+
+
+    $this->sql_update = "
+    call web_project.uspUpdateUser(:id_object, :email, :password, :first_name, :last_name, :id_center, :id_role)
+    ";
+
 
     $this->sql_delete = "
     UPDATE Users
