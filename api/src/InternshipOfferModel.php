@@ -19,7 +19,10 @@ class InternshipOfferModel extends Model {
       "base_salary" => "base_salary",
       "id_company" => "C.id_company",
       "company_name" => "C.company_name",
-      "id_city" => "id_city"
+      "id_city" => "Internship_offers.id_city",
+      "city_name" => "C2.name",
+      "id_business_sector" => "Internship_offers.id_business_sector",
+      "business_sector_name" => "Bs.business_sector_name"
     ];
 
     $orderBy = Sorting::getFromQueryString($allowed_orderby);
@@ -35,7 +38,10 @@ class InternshipOfferModel extends Model {
       "base_salary" => ["type" => Filter::NUMBER, "replace" => "base_salary"],
       "id_company" => ["type" => Filter::NUMBER, "replace" => "C.id_company"],
       "company_name" => ["type" => Filter::STRING, "replace" => "C.company_name"],
-      "id_city" => ["type" => Filter::NUMBER, "replace" => "id_city"]
+      "id_city" => ["type" => Filter::NUMBER, "replace" => "Internship_offers.id_city"],
+      "city_name" => ["type" => Filter::STRING, "replace" => "C2.name"],
+      "id_business_sector" => ["type" => Filter::NUMBER, "replace" => "Internship_offers.id_business_sector"],
+      "business_sector_name" => ["type" => Filter::STRING, "replace" => "Bs.business_sector_name"]
     ];
 
     $filter = Filter::getFromQueryString($allowed_filters);
@@ -56,11 +62,13 @@ class InternshipOfferModel extends Model {
           base_salary,
           C.id_company,
           C.company_name,
-          id_city,
+          Internship_offers.id_city,
+          C2.name AS city_name,
           COUNT(*) OVER() AS total_count
     FROM Internship_offers
             JOIN web_project.Companies C on Internship_offers.id_company = C.id_company
             JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Internship_offers.id_business_sector
+            JOIN web_project.Cities C2 on Internship_offers.id_city = C2.id_city
     WHERE $filter internship_offer_active = 1
     ORDER BY $orderBy
     ";
@@ -78,10 +86,13 @@ class InternshipOfferModel extends Model {
           base_salary,
           C.id_company,
           C.company_name,
-          id_city
+          Internship_offers.id_city,
+          C2.name AS city_name,
+          COUNT(*) OVER() AS total_count
     FROM Internship_offers
             JOIN web_project.Companies C on Internship_offers.id_company = C.id_company
             JOIN web_project.Business_sectors Bs on Bs.id_business_sector = Internship_offers.id_business_sector
+            JOIN web_project.Cities C2 on Internship_offers.id_city = C2.id_city
     WHERE internship_offer_active = 1
     AND id_internship_offer = :id_object
     ";
