@@ -1,0 +1,111 @@
+<?php
+
+class UserWorkForController
+{
+    private UserWorkForModel $model;
+    private string $id_user;
+
+    public function __construct(string $id_user)
+    {
+        $this->id_user = $id_user;
+
+        $this->model = new UserWorkForModel();
+    }
+
+    // Processes requests for a user's related classes
+    // @param $method http method
+    // @param $requestURI Elements of the link of the request
+    public function processRequest(string $method, array $requestURI) : void
+    {
+        if (array_key_exists(0, $requestURI) && $requestURI[0]) {
+            $this->processRessourceRequest($method, $requestURI[0]);
+        }
+        else {
+            $this->processCollectionRequest($method);
+        }
+    }
+
+    // Process requests for a single related class
+    // @param $requestURI Elements of the link of the request
+    private function processRessourceRequest(string $method, string $id) : void
+    {
+        $data = $this->model->get($id, $this->id_user);
+
+        if (!$data) {
+            http_response_code(404);
+            echo json_encode(["message" => "Worked for $id not found for user $this->id_user"]);
+            return;
+        }
+
+        switch($method) {
+            case "GET" :
+                http_response_code(200);
+
+                echo json_encode($data);
+
+                break;
+
+            case "DELETE" :
+                $affectedRows = $this->model->delete($id, $this->id_user);
+
+                echo json_encode([
+                    "message" => "Worked for $id deleted for user $this->id_user",
+                    "rows" => $affectedRows
+                ]);
+
+                break;
+
+            default:
+                http_response_code(405);
+                break;
+        }
+    }
+
+    private function processCollectionRequest(string $method) : void
+    {
+        switch($method) {
+            case "GET" :
+                http_response_code(200);
+
+                $data = $this->model->getAll($this->id_user);
+
+
+                echo json_encode($data);
+
+                break;
+
+            case "POST" :
+                http_response_code(201);
+                $data = (array) json_decode(file_get_contents("php://input"));
+
+                $this->checkData($data, 422);
+
+                $this->model->create($data, $this->id_user);
+
+                echo json_encode([
+                    "message" => "Worked for created for user"
+                ]);
+                break;
+
+            default:
+                http_response_code(405);
+                break;
+        }
+    }
+
+    // Check data for errors
+    // @param $data Data to check
+    // @param $errorCode Error code to return if an error is found
+    private function checkData(array $data, int $errorCode) : void
+    {
+        $pattern = array(
+            "id_company" => DataValidator::NUMBER,
+            "start_date" => DataValidator::DATE,
+            "end_date" => DataValidator::DATE
+        );
+
+        DataValidator::catchValidationErrors($data, $pattern, $errorCode);
+
+        return;
+    }
+}

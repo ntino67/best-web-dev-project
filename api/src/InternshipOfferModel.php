@@ -17,6 +17,7 @@ class InternshipOfferModel extends Model {
       "internship_offer_created_at" => "internship_offer_created_at",
       "internship_offer_expires_at" => "internship_offer_expires_at",
       "base_salary" => "base_salary",
+      "id_company" => "C.id_company",
       "company_name" => "C.company_name",
       "id_city" => "id_city"
     ];
@@ -32,6 +33,7 @@ class InternshipOfferModel extends Model {
       "available_slots" => ["type" => Filter::NUMBER, "replace" => "available_slots"],
       "internship_duration" => ["type" => Filter::NUMBER, "replace" => "internship_duration"],
       "base_salary" => ["type" => Filter::NUMBER, "replace" => "base_salary"],
+      "id_company" => ["type" => Filter::NUMBER, "replace" => "C.id_company"],
       "company_name" => ["type" => Filter::STRING, "replace" => "C.company_name"],
       "id_city" => ["type" => Filter::NUMBER, "replace" => "id_city"]
     ];
