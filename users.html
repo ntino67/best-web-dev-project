@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Search a User</title>
+    <link href="/style.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <script defer src="/script/jquery/jquery-3.7.1.js"></script>
+    <script defer src="/script/components.js"></script>
+    <script defer src="/script/sorting-categories.js"></script>
+    <script defer src="/script/jquery/jquery-3.7.1.js"></script>
+    <script defer src="/script/api-handler.js"></script>
+    <script defer src="/script/load-users.js"></script>
+</head>
+<body>
+<div id="navbar-container"></div>
+<div class="page-spacing flex-column flex-gap-1 internships">
+    <header class="page-header flex-row flex-align-between-ma">
+        <h1>Users</h1>
+        <div class="sorting-container"></div>
+    </header>
+    <main class="search-container">
+        <!-- Search Filters -->
+        <aside class="search-filter-container">
+            <div class="search-filters">
+                <input class="search-bar-small" placeholder="Search ..." type="search">
+                <p>
+                    <span class="far"></span>
+                    <select id="role">
+                        <option selected="selected" value="0">Role</option>
+                    </select>
+                </p>
+                <p>
+                    <span class="far"></span>
+                    <select id="centers">
+                        <option selected="selected" value="0">Centers</option>
+                    </select>
+                </p>
+                <div class="filter-container cities-container"></div>
+                <div class="filter-container centers-container"></div>
+            </div>
+            <div class="search-filters">
+                <p id="reset">
+                    <span class="far"></span>
+                    <span>Reset filters</span>
+                </p>
+            </div>
+        </aside>
+        <div class="flex-6 flex-column flex-gap-1" id="users-container"></div>
+    </main>
+    <div class="paging-container flex-row flex-align-end-ma"></div>
+</div>
+<div id="footer-container"></div>
+</body>
+</html>

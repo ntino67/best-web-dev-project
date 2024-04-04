@@ -18,38 +18,58 @@ if (cookieData) {
     var userData = JSON.parse(cookieData);
     console.log(userData); // You can now access the data using dot notation
 }
-function loadInternships(url, containerId, specificHandler) {
+
+function loadEntities(url, containerId, specificHandler, templateFilePath) {
     $.ajax({
         url: url,
         type: 'GET',
         headers: {
-            "authorization-token": userData.token
+            "authorization-token": userData ? userData.token : ''
         },
         success: function (response) {
-            // Get Internship Offer HTML Template
-            $.get("/components/internship-offer.html", function (data) {
-                // Iterate through each offer
-                $.each(response.data, function (i, offer) {
+            // Get HTML Template
+            $.get(templateFilePath, function (data) {
+                // Iterate through each entity
+                $.each(response.data, function (i, entity) {
                     let newElement = $(data); // parse the data as jQuery element
-                    // Insert title and description
-                    $(".search-result-title", newElement).html(offer.internship_offer_title);
-                    $(".search-result-description", newElement).html(offer.internship_offer_description);
-
-                    // Add click event to the button
-                    $(".bw-button", newElement).click(function () {
-                        window.location.href = `internship/${offer.id_internship_offer}`;
-                    });
-
-                    specificHandler(newElement, offer); // Call the specific handler for additional handling
+                    specificHandler(newElement, entity); // Call the specific handler for additional handling
 
                     // Insert new element into page
                     $(containerId).append(newElement);
-
-                    // call truncateToFit after inserting the newElement into the DOM
-                    let vh_in_px = $(window).height() * 0.11;
-                    truncateToFit(".search-result-description", vh_in_px);
                 });
 
+                console.log("Create")
+
+                $(".paging-container").empty(); // Clear the paging container
+
+                // Create paging links dynamically based on total pages
+                for (let i = 1; i <= response.paging.total_pages; i++) {
+                    // Create anchor tag
+                    let anchorTag = $('<a>').attr('href', '#').text(i);
+
+                    // Add 'paging-current-page' class if it's the current page
+                    if (i == response.paging.page) {
+                        anchorTag.addClass('paging-current-page');
+                    }
+
+                    // Add click event listener
+                    anchorTag.on("click", function (event) {
+                        event.preventDefault();
+                        let baseUrl = url.includes('?') ? url.split('?')[0] : url;
+
+                        // Clear the entities' container
+                        $(containerId).empty();
+
+                        // Scroll to the top of the page
+                        window.scrollTo(0, 0);
+
+                        loadEntities(`${baseUrl}?page=${i}`, containerId, specificHandler, templateFilePath);
+                    });
+
+                    // Append to the paging container
+                    $(".paging-container").append(anchorTag);
+                }
+                console.log("Finished.")
                 // Truncate again on window resize
                 $(window).on('resize', function () {
                     let vh_in_px = $(window).height() * 0.11;
@@ -59,6 +79,7 @@ function loadInternships(url, containerId, specificHandler) {
         },
         error: function (jqXHR, exception) { // Handling any errors from request
             console.log('Error occurred:', jqXHR, exception);
+            window.location.href = "/login.html";
         }
     });
 }
