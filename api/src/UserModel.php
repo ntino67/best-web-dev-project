@@ -17,7 +17,7 @@ class UserModel extends Model
       "role_name" => "R.name"
     ];
 
-    $sorting = Sorting::getFromQueryString($allowed_orderby);
+    $orderby = Sorting::getFromQueryString($allowed_orderby);
 
     $allowed_filters = [
       "id_user" => ["type" => Filter::NUMBER, "replace" => "Users.id_user"],
@@ -50,7 +50,7 @@ class UserModel extends Model
             JOIN web_project.Centers C on C.id_center = Users.id_center
             JOIN web_project.Roles R on R.id_role = Users.id_role
     WHERE $filter user_active = 1 
-    ORDER BY $sorting
+    ORDER BY $orderby
     ";
     
     $this->sql_get = "

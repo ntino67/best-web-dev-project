@@ -38,12 +38,12 @@ FROM
     INNER JOIN Business_sectors ON Companies.id_business_sector = Business_sectors.id_business_sector
 WHERE
     Companies.company_name LIKE CONCAT('%', @company_name, '%')
-    AND Business_sectors.business_sector LIKE CONCAT('%', @business_sector, '%')
+    AND Business_sectors.business_sector_name LIKE CONCAT('%', @business_sector, '%')
     AND Cities.name LIKE CONCAT('%', @locality, '%')
     AND Companies.company_active = TRUE
 GROUP BY
     Companies.company_name,
-    Business_sectors.business_sector,
+    Business_sectors.business_sector_name,
     Cities.name
 HAVING
     IFNULL(AVG(
@@ -138,21 +138,21 @@ SELECT
     *
 FROM
     (SELECT 
-        business_sectors.business_sector,
-            COUNT(business_sectors.business_sector) AS Total
+        business_sectors.business_sector_name,
+            COUNT(business_sectors.business_sector_name) AS Total
     FROM
         companies
     JOIN business_sectors ON business_sectors.id_business_sector = companies.id_business_sector
     WHERE
         Companies.company_active = TRUE
-    GROUP BY business_sectors.business_sector
+    GROUP BY business_sectors.business_sector_name
     ORDER BY nbr DESC
     LIMIT 10) AS subquery 
 UNION SELECT 
     'AUTRES', SUM(subquery.nbr) AS total
 FROM
     (SELECT 
-        business_sectors.business_sector AS 'Autres',
+        business_sectors.business_sector_name AS 'Autres',
             COUNT(business_sectors.business_sector) AS nbr
     FROM
         companies
@@ -249,7 +249,7 @@ SELECT
         ),
         ''
     ) AS 'Compétences requises',
-    Business_sectors.business_sector AS 'Secteur d_activité',
+    Business_sectors.business_sector_name AS 'Secteur d_activité',
     Cities.name AS 'Localité',
     Companies.company_name AS 'Nom de l_entreprise',
     Internship_offers.internship_duration AS 'Durée du stage',
@@ -277,7 +277,7 @@ WHERE
     AND (Internship_offers.base_salary LIKE CONCAT('%', @base_salary, '%') OR @base_salary = '')
     AND (Internship_offers.internship_offer_created_at LIKE CONCAT('%', @internship_offer_created_at, '%') OR @internship_offer_created_at = '')
     AND (Internship_offers.available_slots LIKE CONCAT('%', @available_slots, '%') OR @available_slots = '')
-    AND (Business_sectors.business_sector LIKE CONCAT('%', @business_sector, '%') OR @business_sector = '')
+    AND (Business_sectors.business_sector_name LIKE CONCAT('%', @business_sector, '%') OR @business_sector = '')
 GROUP BY
     Internship_offers.id_internship_offer,
     Cities.name,

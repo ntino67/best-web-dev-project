@@ -33,7 +33,6 @@ CREATE PROCEDURE uspLogin(
     IN pPassword varchar(50),
     OUT o_responseMessage tinyint(1),
     OUT o_id_user int)
-
 BEGIN
     DECLARE userEmail VARCHAR(254);
     DECLARE inputHashedPassword BINARY(128); -- Correspond à la longueur du hachage SHA2 512
@@ -98,7 +97,7 @@ BEGIN
         INNER JOIN Cities ON Situated.id_city = Cities.id_city
         LEFT JOIN Applications ON Companies.id_company = Applications.id_user
         LEFT JOIN Company_Reviews ON Companies.id_company = Company_Reviews.id_company
-        INNER JOIN Business_sectors ON Companies.id_business_sector_name = Business_sectors.id_business_sector_name
+        INNER JOIN Business_sectors ON Companies.id_business_sector = Business_sectors.id_business_sector
     WHERE
         Companies.company_name LIKE CONCAT('%', p_company_name, '%')
         AND Business_sectors.business_sector_name LIKE CONCAT('%', p_business_sector_name, '%')
@@ -137,7 +136,7 @@ DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE uspInsertCompany(
-    IN p_id_business_sector_name INT,
+    IN p_id_business_sector INT,
     IN p_company_name VARCHAR(255),
     IN p_company_description VARCHAR(255),
     IN p_company_active BOOLEAN
@@ -146,8 +145,8 @@ BEGIN
     DECLARE company_id INT;
 
     -- Insérer l'entreprise
-    INSERT INTO Companies (id_business_sector_name, company_name, company_description, company_active)
-    VALUES (p_id_business_sector_name, p_company_name, p_company_description, p_company_active);
+    INSERT INTO Companies (id_business_sector, company_name, company_description, company_active)
+    VALUES (p_id_business_sector, p_company_name, p_company_description, p_company_active);
 END //
 DELIMITER ;
 DELIMITER //
@@ -189,7 +188,7 @@ CREATE PROCEDURE uspUpdateCompany(
     IN p_new_company_name VARCHAR(255),
     IN p_new_company_description VARCHAR(255),
     IN p_new_company_active BOOLEAN,
-    IN p_new_business_sector_name INT,
+    IN p_new_business_sector INT,
     IN p_city_ids_to_add VARCHAR(255),
     IN p_city_ids_to_remove VARCHAR(255)
 )
@@ -205,7 +204,7 @@ BEGIN
         company_name = p_new_company_name,
         company_description = p_new_company_description,
         company_active = p_new_company_active,
-        id_business_sector_name = p_new_business_sector_name
+        id_business_sector = p_new_business_sector
     WHERE 
         id_company = p_company_id;
 
@@ -376,77 +375,77 @@ DELIMITER ;
 
 
 -- Procedure to get user's data
-DELIMITER //
-
-CREATE PROCEDURE uspGetUserData(
-    IN p_first_name VARCHAR(255),
-    IN p_last_name VARCHAR(255),
-    IN p_id_role INT,
-    IN p_center_name VARCHAR(255),
-    IN p_orderbyFirstNameDesc BOOLEAN,
-    IN p_orderbyFirstNameASC BOOLEAN,
-    IN p_orderbyPromotionsDesc BOOLEAN,
-    IN p_orderbyPromotionsASC BOOLEAN,
-    IN p_orderbyRoleIdDesc BOOLEAN,
-    IN p_orderbyRoleIdAsc BOOLEAN
-)
-BEGIN
-    SELECT
-        Users.first_name,
-        Users.last_name,
-        Centers.center_name,
-        IFNULL(promotions_assignees, '') AS promotions_assignees,
-        IFNULL(wish_list_count, 0) AS wish_list_count
-    FROM
-        Users
-    JOIN
-        Works_for ON Users.id_user = Works_for.id_user
-    JOIN
-        Companies ON Works_for.id_company = Companies.id_company
-    JOIN
-        Centers ON Users.id_center = Centers.id_center
-    LEFT JOIN (
-        SELECT
-            Users.first_name,
-            Users.last_name,
-            GROUP_CONCAT(DISTINCT Classes.class_year ORDER BY Classes.class_year ASC) AS promotions_assignees
-        FROM
-            Users
-        JOIN
-            Related_to_class ON Related_to_class.id_user = Users.id_user
-        JOIN
-            Classes ON Related_to_class.id_class = Classes.id_class
-        GROUP BY
-            Users.first_name, Users.last_name
-    ) AS T ON T.first_name = Users.first_name AND T.last_name = Users.last_name
-    LEFT JOIN (
-        SELECT
-            id_user,
-            COUNT(id_internship_offer) AS wish_list_count
-        FROM
-            Wish_list
-        GROUP BY
-            id_user
-    ) AS WL ON WL.id_user = Users.id_user
-    WHERE
-        Users.first_name LIKE CONCAT('%', p_first_name, '%')
-        AND Users.last_name LIKE CONCAT('%', p_last_name, '%')
-        AND Users.id_role LIKE CONCAT('%', p_id_role, '%')
-        AND Centers.center_name LIKE CONCAT('%', p_center_name, '%')
-    GROUP BY
-        Users.first_name, 
-        Users.last_name, 
-        Centers.center_name
-    ORDER BY
-        IF(p_orderbyFirstNameDesc = TRUE, Users.first_name, NULL) DESC,
-        IF(p_orderbyFirstNameASC = TRUE, Users.first_name, NULL) ASC,
-        IF(p_orderbyPromotionsDesc = TRUE, promotions_assignees, NULL) DESC,
-        IF(p_orderbyPromotionsASC = TRUE, promotions_assignees, NULL) ASC,
-        IF(p_orderbyRoleIdDesc = TRUE, Users.id_role, NULL) ASC,
-        IF(p_orderbyRoleIdAsc = TRUE, Users.id_role, NULL) DESC;
-END //
-
-DELIMITER ;
+-- DELIMITER //
+--
+-- CREATE PROCEDURE uspGetUserData(
+--     IN p_first_name VARCHAR(255),
+--     IN p_last_name VARCHAR(255),
+--     IN p_id_role INT,
+--     IN p_center_name VARCHAR(255),
+--     IN p_orderbyFirstNameDesc BOOLEAN,
+--     IN p_orderbyFirstNameASC BOOLEAN,
+--     IN p_orderbyPromotionsDesc BOOLEAN,
+--     IN p_orderbyPromotionsASC BOOLEAN,
+--     IN p_orderbyRoleIdDesc BOOLEAN,
+--     IN p_orderbyRoleIdAsc BOOLEAN
+-- )
+-- BEGIN
+--     SELECT
+--         Users.first_name,
+--         Users.last_name,
+--         Centers.center_name,
+--         IFNULL(promotions_assignees, '') AS promotions_assignees,
+--         IFNULL(wish_list_count, 0) AS wish_list_count
+--     FROM
+--         Users
+--     JOIN
+--         Works_for ON Users.id_user = Works_for.id_user
+--     JOIN
+--         Companies ON Works_for.id_company = Companies.id_company
+--     JOIN
+--         Centers ON Users.id_center = Centers.id_center
+--     LEFT JOIN (
+--         SELECT
+--             Users.first_name,
+--             Users.last_name,
+--             GROUP_CONCAT(DISTINCT Classes.class_year ORDER BY Classes.class_year ASC) AS promotions_assignees
+--         FROM
+--             Users
+--         JOIN
+--             Related_to_class ON Related_to_class.id_user = Users.id_user
+--         JOIN
+--             Classes ON Related_to_class.id_class = Classes.id_class
+--         GROUP BY
+--             Users.first_name, Users.last_name
+--     ) AS T ON T.first_name = Users.first_name AND T.last_name = Users.last_name
+--     LEFT JOIN (
+--         SELECT
+--             id_user,
+--             COUNT(id_internship_offer) AS wish_list_count
+--         FROM
+--             Wish_list
+--         GROUP BY
+--             id_user
+--     ) AS WL ON WL.id_user = Users.id_user
+--     WHERE
+--         Users.first_name LIKE CONCAT('%', p_first_name, '%')
+--         AND Users.last_name LIKE CONCAT('%', p_last_name, '%')
+--         AND Users.id_role LIKE CONCAT('%', p_id_role, '%')
+--         AND Centers.center_name LIKE CONCAT('%', p_center_name, '%')
+--     GROUP BY
+--         Users.first_name,
+--         Users.last_name,
+--         Centers.center_name
+--     ORDER BY
+--         IF(p_orderbyFirstNameDesc = TRUE, Users.first_name, NULL) DESC,
+--         IF(p_orderbyFirstNameASC = TRUE, Users.first_name, NULL) ASC,
+--         IF(p_orderbyPromotionsDesc = TRUE, promotions_assignees, NULL) DESC,
+--         IF(p_orderbyPromotionsASC = TRUE, promotions_assignees, NULL) ASC,
+--         IF(p_orderbyRoleIdDesc = TRUE, Users.id_role, NULL) ASC,
+--         IF(p_orderbyRoleIdAsc = TRUE, Users.id_role, NULL) DESC;
+-- END //
+--
+-- DELIMITER ;
 
 -- Procedure to Stats Companies
 DELIMITER //
@@ -455,28 +454,28 @@ CREATE PROCEDURE uspCompanyStat_Sectors()
 BEGIN
     SELECT * FROM (
         SELECT 
-            business_sectors.business_sector_name,
-            COUNT(business_sectors.business_sector_name) AS Total
+            Business_sectors.business_sector_name,
+            COUNT(Business_sectors.business_sector_name) AS Total
         FROM
-            companies
-        JOIN business_sectors ON business_sectors.id_business_sector_name = companies.id_business_sector_name
+            Companies
+        JOIN Business_sectors ON Business_sectors.id_business_sector = Companies.id_business_sector
         WHERE
             Companies.company_active = TRUE
-        GROUP BY business_sectors.business_sector_name
+        GROUP BY Business_sectors.business_sector_name
         ORDER BY Total DESC
         LIMIT 10
     ) AS subquery 
     UNION 
     SELECT 'AUTRES', SUM(subquery.Total) AS total FROM (
-        SELECT 
-            business_sectors.business_sector_name AS 'Autres',
-            COUNT(business_sectors.business_sector_name) AS Total
+        SELECT
+            Business_sectors.business_sector_name AS 'Autres',
+            COUNT(Business_sectors.business_sector_name) AS Total
         FROM
-            companies
-        JOIN business_sectors ON business_sectors.id_business_sector_name = companies.id_business_sector_name
+            Companies
+        JOIN Business_sectors ON Business_sectors.id_business_sector = Companies.id_business_sector
         WHERE
             Companies.company_active = TRUE
-        GROUP BY business_sectors.business_sector_name
+        GROUP BY Business_sectors.business_sector_name
         ORDER BY Total
         LIMIT 10000 OFFSET 10
     ) AS subquery;
@@ -488,16 +487,16 @@ DELIMITER //
 
 CREATE PROCEDURE uspCompanyStat_Cities()
 BEGIN
-    SELECT 
-        cities.name, 
-        COUNT(cities.name) AS total
+    SELECT
+        Cities.name,
+        COUNT(Cities.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
+    JOIN Countries ON Cities.id_country = Countries.id_country
     WHERE Companies.company_active = TRUE
-    GROUP BY cities.name;
+    GROUP BY Cities.name;
 END //
 
 DELIMITER ;
@@ -507,139 +506,139 @@ DELIMITER //
 
 CREATE PROCEDURE uspCompanyStat_Countries()
 BEGIN
-    SELECT 
-        countries.name, COUNT(countries.name) AS total
+    SELECT
+        Countries.name, COUNT(Countries.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
+    JOIN Countries ON Cities.id_country = Countries.id_country
     WHERE Companies.company_active = TRUE
-    GROUP BY countries.name;
+    GROUP BY Countries.name;
 END //
 
 DELIMITER ;
 
 -- Cities / Country 
-DELIMITER //
-
-CREATE PROCEDURE uspCompanyStat_CitiesInCountry(IN country_name VARCHAR(255))
-BEGIN
-    SELECT 
-        cities.name, 
-        COUNT(cities.name) AS total
-    FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
-    WHERE
-        IF(country_name = '', Companies.company_active = TRUE, Companies.company_active = TRUE AND countries.name = country_name)
-    GROUP BY cities.name;
-END //
+-- DELIMITER //
+--
+-- CREATE PROCEDURE uspCompanyStat_CitiesInCountry(IN country_name VARCHAR(255))
+-- BEGIN
+--     SELECT
+--         cities.name,
+--         COUNT(cities.name) AS total
+--     FROM
+--         cities
+--     JOIN situated ON cities.id_city = situated.id_city
+--     JOIN Companies ON situated.id_company = Companies.id_company
+--     JOIN countries ON cities.id_country = countries.id_country
+--     WHERE
+--         IF(country_name = '', Companies.company_active = TRUE, Companies.company_active = TRUE AND countries.name = country_name)
+--     GROUP BY cities.name;
+-- END //
 
 DELIMITER ;
 
 -- Procedure Search_InternshipOffer
-DELIMITER //
-
-CREATE PROCEDURE uspInternshipOffersSearch(
-    IN skill_name VARCHAR(255),
-    IN locality VARCHAR(255),
-    IN company_name VARCHAR(255),
-    IN promotion_type VARCHAR(255),
-    IN internship_duration INT,
-    IN base_salary INT,
-    IN internship_offer_created_at DATE,
-    IN available_slots INT,
-    IN applications_count INT,
-    IN business_sector_name VARCHAR(255),
-    IN orderbyAZ BOOLEAN,
-    IN orderbyZA BOOLEAN,
-    IN orderby51 BOOLEAN,
-    IN orderby15 BOOLEAN,
-    IN orderbymax BOOLEAN,
-    IN orderbymin BOOLEAN
-)
-BEGIN
-
-SET internship_duration := IF(internship_duration <> '', NULL, internship_duration);
-SET base_salary := IF(base_salary <> '', NULL, base_salary);
-SET internship_offer_created_at := IF(internship_offer_created_at <> '', '2020-01-01', internship_offer_created_at);
-SET available_slots := IF(available_slots <> '', NULL,available_slots);
-SET applications_count := IF(applications_count <> '', NULL, applications_count);
-
-    SELECT
-        Internship_offers.internship_offer_title AS 'Titre de l_offre',
-        IFNULL(
-            (
-                SELECT GROUP_CONCAT(Classes.class_year)
-                FROM Addressed_to
-                LEFT JOIN Classes ON Addressed_to.id_class = Classes.id_class
-                WHERE Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
-                GROUP BY Addressed_to.id_internship_offer
-            ),
-            ''
-        ) AS 'Types de promotions concernées',
-        IFNULL(
-            (
-                SELECT GROUP_CONCAT(Skills.skill_name)
-                FROM Required_Skills
-                LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
-                WHERE Required_Skills.id_internship_offer = Internship_offers.id_internship_offer
-                GROUP BY Required_Skills.id_internship_offer
-            ),
-            ''
-        ) AS 'Compétences requises',
-        Business_sectors.business_sector_name AS 'Secteur d_activité',
-        Cities.name AS 'Localité',
-        Companies.company_name AS 'Nom de l_entreprise',
-        Internship_offers.internship_duration AS 'Durée du stage',
-        Internship_offers.base_salary AS 'Base de rémunération',
-        Internship_offers.internship_offer_created_at AS 'Date de l_offre',
-        Internship_offers.available_slots AS 'Nombre de places offertes aux étudiants',
-        COUNT(Applications.id_user) AS 'Nombre d_élèves ayant déjà postulé à cette offre'
-    FROM
-        Internship_offers
-        LEFT JOIN Companies ON Internship_offers.id_company = Companies.id_company
-        LEFT JOIN Business_sectors ON Internship_offers.id_business_sector_name = Business_sectors.id_business_sector_name
-        LEFT JOIN Applications ON Internship_offers.id_internship_offer = Applications.id_internship_offer
-        LEFT JOIN Situated ON Internship_offers.id_company = Situated.id_company
-        LEFT JOIN Cities ON Situated.id_city = Cities.id_city
-        LEFT JOIN Addressed_to ON Internship_offers.id_internship_offer = Addressed_to.id_internship_offer
-        LEFT JOIN Classes ON Addressed_to.id_class = Classes.id_class
-        LEFT JOIN Required_Skills ON Internship_offers.id_internship_offer = Required_Skills.id_internship_offer
-        LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
-    WHERE
-        (Cities.name LIKE CONCAT('%', locality, '%') OR locality = '')
-        AND (Companies.company_name LIKE CONCAT('%', company_name, '%') OR company_name = '')
-        AND (Classes.class_year LIKE CONCAT('%', promotion_type, '%') OR promotion_type = '')
-        AND (Skills.skill_name LIKE CONCAT('%', skill_name, '%') OR skill_name = '')
-        AND (Internship_offers.internship_duration LIKE CONCAT('%', internship_duration, '%') OR internship_duration = '')
-        AND (Internship_offers.base_salary LIKE CONCAT('%', base_salary, '%') OR base_salary = '')
-        AND (Internship_offers.internship_offer_created_at LIKE CONCAT('%', internship_offer_created_at, '%') OR internship_offer_created_at = '')
-        AND (Internship_offers.available_slots LIKE CONCAT('%', available_slots, '%') OR available_slots = '')
-        AND (Business_sectors.business_sector_name LIKE CONCAT('%', business_sector_name, '%') OR business_sector_name = '')
-    GROUP BY
-        Internship_offers.id_internship_offer,
-        Cities.name,
-        Companies.company_name,
-        Internship_offers.internship_duration,
-        Internship_offers.base_salary,
-        Internship_offers.internship_offer_created_at,
-        Internship_offers.available_slots
-    HAVING
-        COUNT(Applications.id_user) >= applications_count
-    ORDER BY
-        IF(orderbyAZ = TRUE, Internship_offers.internship_offer_title, NULL) ASC,
-        IF(orderbyZA = TRUE, Internship_offers.internship_offer_title, NULL) DESC,
-        IF(orderby51 = TRUE, Internship_offers.available_slots, NULL) DESC,
-        IF(orderby15 = TRUE, Internship_offers.available_slots, NULL) ASC,
-        IF(orderbymax = TRUE, COUNT(Applications.id_user), NULL) DESC,
-        IF(orderbymin = TRUE, COUNT(Applications.id_user), NULL) ASC;
-END //
-
-DELIMITER ;
+-- DELIMITER //
+--
+-- CREATE PROCEDURE uspInternshipOffersSearch(
+--     IN skill_name VARCHAR(255),
+--     IN locality VARCHAR(255),
+--     IN company_name VARCHAR(255),
+--     IN promotion_type VARCHAR(255),
+--     IN internship_duration INT,
+--     IN base_salary INT,
+--     IN internship_offer_created_at DATE,
+--     IN available_slots INT,
+--     IN applications_count INT,
+--     IN business_sector_name VARCHAR(255),
+--     IN orderbyAZ BOOLEAN,
+--     IN orderbyZA BOOLEAN,
+--     IN orderby51 BOOLEAN,
+--     IN orderby15 BOOLEAN,
+--     IN orderbymax BOOLEAN,
+--     IN orderbymin BOOLEAN
+-- )
+-- BEGIN
+--
+-- SET internship_duration := IF(internship_duration <> '', NULL, internship_duration);
+-- SET base_salary := IF(base_salary <> '', NULL, base_salary);
+-- SET internship_offer_created_at := IF(internship_offer_created_at <> '', '2020-01-01', internship_offer_created_at);
+-- SET available_slots := IF(available_slots <> '', NULL,available_slots);
+-- SET applications_count := IF(applications_count <> '', NULL, applications_count);
+--
+--     SELECT
+--         Internship_offers.internship_offer_title AS 'Titre de l_offre',
+--         IFNULL(
+--             (
+--                 SELECT GROUP_CONCAT(Classes.class_year)
+--                 FROM Addressed_to
+--                 LEFT JOIN Classes ON Addressed_to.id_class = Classes.id_class
+--                 WHERE Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
+--                 GROUP BY Addressed_to.id_internship_offer
+--             ),
+--             ''
+--         ) AS 'Types de promotions concernées',
+--         IFNULL(
+--             (
+--                 SELECT GROUP_CONCAT(Skills.skill_name)
+--                 FROM Required_Skills
+--                 LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
+--                 WHERE Required_Skills.id_internship_offer = Internship_offers.id_internship_offer
+--                 GROUP BY Required_Skills.id_internship_offer
+--             ),
+--             ''
+--         ) AS 'Compétences requises',
+--         Business_sectors.business_sector_name AS 'Secteur d_activité',
+--         Cities.name AS 'Localité',
+--         Companies.company_name AS 'Nom de l_entreprise',
+--         Internship_offers.internship_duration AS 'Durée du stage',
+--         Internship_offers.base_salary AS 'Base de rémunération',
+--         Internship_offers.internship_offer_created_at AS 'Date de l_offre',
+--         Internship_offers.available_slots AS 'Nombre de places offertes aux étudiants',
+--         COUNT(Applications.id_user) AS 'Nombre d_élèves ayant déjà postulé à cette offre'
+--     FROM
+--         Internship_offers
+--         LEFT JOIN Companies ON Internship_offers.id_company = Companies.id_company
+--         LEFT JOIN Business_sectors ON Internship_offers.id_business_sector = Business_sectors.id_business_sector
+--         LEFT JOIN Applications ON Internship_offers.id_internship_offer = Applications.id_internship_offer
+--         LEFT JOIN Situated ON Internship_offers.id_company = Situated.id_company
+--         LEFT JOIN Cities ON Situated.id_city = Cities.id_city
+--         LEFT JOIN Addressed_to ON Internship_offers.id_internship_offer = Addressed_to.id_internship_offer
+--         LEFT JOIN Classes ON Addressed_to.id_class = Classes.id_class
+--         LEFT JOIN Required_Skills ON Internship_offers.id_internship_offer = Required_Skills.id_internship_offer
+--         LEFT JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
+--     WHERE
+--         (Cities.name LIKE CONCAT('%', locality, '%') OR locality = '')
+--         AND (Companies.company_name LIKE CONCAT('%', company_name, '%') OR company_name = '')
+--         AND (Classes.class_year LIKE CONCAT('%', promotion_type, '%') OR promotion_type = '')
+--         AND (Skills.skill_name LIKE CONCAT('%', skill_name, '%') OR skill_name = '')
+--         AND (Internship_offers.internship_duration LIKE CONCAT('%', internship_duration, '%') OR internship_duration = '')
+--         AND (Internship_offers.base_salary LIKE CONCAT('%', base_salary, '%') OR base_salary = '')
+--         AND (Internship_offers.internship_offer_created_at LIKE CONCAT('%', internship_offer_created_at, '%') OR internship_offer_created_at = '')
+--         AND (Internship_offers.available_slots LIKE CONCAT('%', available_slots, '%') OR available_slots = '')
+--         AND (Business_sectors.business_sector_name LIKE CONCAT('%', business_sector_name, '%') OR business_sector_name = '')
+--     GROUP BY
+--         Internship_offers.id_internship_offer,
+--         Cities.name,
+--         Companies.company_name,
+--         Internship_offers.internship_duration,
+--         Internship_offers.base_salary,
+--         Internship_offers.internship_offer_created_at,
+--         Internship_offers.available_slots
+--     HAVING
+--         COUNT(Applications.id_user) >= applications_count
+--     ORDER BY
+--         IF(orderbyAZ = TRUE, Internship_offers.internship_offer_title, NULL) ASC,
+--         IF(orderbyZA = TRUE, Internship_offers.internship_offer_title, NULL) DESC,
+--         IF(orderby51 = TRUE, Internship_offers.available_slots, NULL) DESC,
+--         IF(orderby15 = TRUE, Internship_offers.available_slots, NULL) ASC,
+--         IF(orderbymax = TRUE, COUNT(Applications.id_user), NULL) DESC,
+--         IF(orderbymin = TRUE, COUNT(Applications.id_user), NULL) ASC;
+-- END //
+--
+-- DELIMITER ;
 
 -- Procedure to Create InternshipOffer
 DELIMITER //
@@ -658,7 +657,7 @@ CREATE PROCEDURE uspInternshipOffersCreate(
 )
 BEGIN
     -- Insertion dans la table Internship_offers
-    INSERT INTO Internship_offers (id_company, id_business_sector_name, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, internship_duration, base_salary, internship_offer_active)
+    INSERT INTO Internship_offers (id_company, id_business_sector, available_slots, internship_offer_title, internship_offer_description, internship_offer_created_at, internship_offer_expires_at, internship_duration, base_salary, internship_offer_active)
     VALUES (id_company_val, id_business_sector_val, available_slots_val, title_val, description_val, created_at_val, expires_at_val, duration_val, base_salary_val, 1);
 
     -- Récupération de l'ID de l'offre de stage insérée
@@ -672,55 +671,6 @@ END //
 
 DELIMITER ;
 
--- Procedure to Update InternshipOffer
-DELIMITER //
-
-CREATE PROCEDURE uspInternshipOffersUpdate(
-    IN id_internship_offer_val INT,
-    IN id_company_val INT,
-    IN available_slots_val INT,
-    IN internship_offer_title_val VARCHAR(255),
-    IN internship_offer_description_val VARCHAR(255),
-    IN expires_at_val DATE,
-    IN id_business_sector_val INT,
-    IN duration_val INT
-)
-BEGIN
-    DECLARE created_at_val DATE;
-    DECLARE id_user_val INT;
-
-    -- Définir la date actuelle
-    SET created_at_val := CURRENT_DATE;
-
-    -- Mise à jour de l'offre de stage
-    UPDATE Internship_offers
-    SET 
-        internship_offer_title = IF(internship_offer_title_val <> '', internship_offer_title_val, internship_offer_title),
-        internship_offer_description = IF(internship_offer_description_val <> '', internship_offer_description_val, internship_offer_description),
-        available_slots = IF(available_slots_val <> '', available_slots_val, available_slots),
-        id_business_sector_name = IF(id_business_sector_val <> '', id_business_sector_val, id_business_sector_name),
-        id_company = IF(id_company_val <> '', id_company_val, id_company),
-        internship_offer_created_at = IF(created_at_val <> '', created_at_val, internship_offer_created_at),
-        internship_offer_expires_at = IF(expires_at_val <> '', expires_at_val, internship_offer_expires_at),
-        internship_duration = IF(duration_val <> '', duration_val, internship_duration)
-    WHERE id_internship_offer = id_internship_offer_val
-        AND (internship_offer_title_val <> '' OR internship_offer_description_val <> '' OR available_slots_val <> '' OR id_business_sector_val <> '' OR id_company_val <> '' OR expires_at_val <> '' OR duration_val <> '');
-
-    -- Récupérer l'ID de l'utilisateur inséré
-    SELECT LAST_INSERT_ID() INTO id_user_val;
-
-    -- Suppression des associations existantes entre l'offre de stage et les classes
-    DELETE FROM Addressed_to 
-    WHERE id_internship_offer = id_internship_offer_val
-        AND (id_class1_val <> '' OR id_class2_val <> '' OR id_class3_val <> '' OR id_class4_val <> '' OR id_class5_val <> '');
-
-    -- Insertion des nouvelles associations entre l'offre de stage et les classes
-    INSERT INTO Addressed_to (id_internship_offer, id_class) 
-    SELECT id_internship_offer_val, id_class FROM Classes 
-    WHERE id_class IN (1, 2, 3, 4, 5);
-END //
-
-DELIMITER ;
 
 -- Procedure to Delete InternshipOffer
 DELIMITER //
@@ -745,9 +695,9 @@ BEGIN
     SELECT 
         skill_name AS 'Skill name', COUNT(skill_name) AS total
     FROM
-        required_Skills
-    JOIN Internship_offers ON required_Skills.id_internship_offer = Internship_offers.id_internship_offer
-    JOIN Skills ON required_Skills.id_skill = Skills.id_skill
+        Required_Skills
+    JOIN Internship_offers ON Required_Skills.id_internship_offer = Internship_offers.id_internship_offer
+    JOIN Skills ON Required_Skills.id_skill = Skills.id_skill
     WHERE
         Internship_offers.internship_offer_active = TRUE
     GROUP BY skill_name;
@@ -760,19 +710,19 @@ DELIMITER //
 
 CREATE PROCEDURE uspInternshipOffersStat_Cities()
 BEGIN
-    SELECT 
-        cities.name AS 'City',
-        COUNT(cities.name) AS total
+    SELECT
+        Cities.name AS 'City',
+        COUNT(Cities.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
     JOIN Internship_offers ON Internship_offers.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+    JOIN Countries ON Cities.id_country = Countries.id_country
     WHERE
         Internship_offers.internship_offer_active = TRUE
         AND Companies.company_active = TRUE
-    GROUP BY cities.name;
+    GROUP BY Cities.name;
 END //
 
 DELIMITER ;
@@ -782,18 +732,18 @@ DELIMITER //
 
 CREATE PROCEDURE uspInternshipOffersStat_Countries()
 BEGIN
-    SELECT 
-        countries.name AS 'Country', COUNT(countries.name) AS total
+    SELECT
+        Countries.name AS 'Country', COUNT(Countries.name) AS total
     FROM
-        cities
-    JOIN situated ON cities.id_city = situated.id_city
-    JOIN Companies ON situated.id_company = Companies.id_company
-    JOIN countries ON cities.id_country = countries.id_country
+        Cities
+    JOIN Situated ON Cities.id_city = Situated.id_city
+    JOIN Companies ON Situated.id_company = Companies.id_company
+    JOIN Countries ON Cities.id_country = Countries.id_country
     JOIN Internship_offers ON Internship_offers.id_company = Companies.id_company
     WHERE
         Internship_offers.internship_offer_active = TRUE
         AND Companies.company_active = TRUE
-    GROUP BY countries.name;
+    GROUP BY Countries.name;
 END //
 
 DELIMITER ;
@@ -803,15 +753,15 @@ DELIMITER //
 
 CREATE PROCEDURE uspInternshipOffersStat_Classes()
 BEGIN
-    SELECT 
-        classes.class_year AS 'Class', COUNT(classes.class_year) AS Total
+    SELECT
+        Classes.class_year AS 'Class', COUNT(Classes.class_year) AS Total
     FROM
         Internship_offers
     JOIN Addressed_to ON Addressed_to.id_internship_offer = Internship_offers.id_internship_offer
-    JOIN classes ON classes.id_class = Addressed_to.id_class
+    JOIN Classes ON Classes.id_class = Addressed_to.id_class
     WHERE
         Internship_offers.internship_offer_active = TRUE
-    GROUP BY classes.class_year;
+    GROUP BY Classes.class_year;
 END //
 
 DELIMITER ;
@@ -826,9 +776,9 @@ BEGIN
         COUNT(Internship_offers.internship_duration) AS Total
     FROM
         Internship_offers
-        JOIN companies ON companies.id_company = internship_offers.id_company
+        JOIN Companies ON Companies.id_company = Internship_offers.id_company
     WHERE
-        internship_offers.internship_offer_active = TRUE
+        Internship_offers.internship_offer_active = TRUE
         AND Companies.company_active = TRUE
     GROUP BY internship_duration
     ORDER BY internship_duration;
@@ -865,72 +815,72 @@ END //
 DELIMITER ;
 
 -- Procedure to Update Pilot
-DELIMITER //
-
-CREATE PROCEDURE uspUpdatePilot(
-    IN first_name_val VARCHAR(255),
-    IN last_name_val VARCHAR(255),
-    IN email_val VARCHAR(255),
-    IN password_val VARCHAR(255),
-    IN id_center_val INT,
-    IN id_user_val INT
-)
-BEGIN
-    UPDATE Users
-    SET 
-        first_name = IF(first_name_val <> '', first_name_val, first_name),
-        last_name = IF(last_name_val <> '', last_name_val, last_name),
-        email = IF(email_val <> '', email_val, email),
-        password = IF(password_val <> '', password_val, password),
-        id_center = IF(id_center_val <> '', id_center_val, id_center)
-    WHERE id_user = id_user_val
-        AND (first_name_val <> '' OR last_name_val <> '' OR email_val <> '' OR password_val <> '' OR id_center_val <> '');
-
-    DELETE FROM Related_to_class 
-    WHERE id_user = id_user_val
-    AND (id_class1_val <> '' OR id_class2_val <> '' OR id_class3_val <> '' OR id_class4_val <> '' OR id_class5_val <> '');
-
-    INSERT INTO Related_to_class (id_user, id_class)
-    SELECT id_user_val, id_class FROM Classes 
-    WHERE id_class IN ('', 2, '', 4, '');
-END //
-
-DELIMITER ;
-
--- Procedure to Delete Pilot
-DELIMITER //
-
-CREATE PROCEDURE uspDeletePilot(
-    IN user_id_val INT
-)
-BEGIN
-    UPDATE Users 
-    SET user_active = FALSE
-    WHERE id_user = user_id_val AND id_role = 2;
-END //
-
-DELIMITER ;
+-- DELIMITER //
+--
+-- CREATE PROCEDURE uspUpdatePilot(
+--     IN first_name_val VARCHAR(255),
+--     IN last_name_val VARCHAR(255),
+--     IN email_val VARCHAR(255),
+--     IN password_val VARCHAR(255),
+--     IN id_center_val INT,
+--     IN id_user_val INT
+-- )
+-- BEGIN
+--     UPDATE Users
+--     SET
+--         first_name = IF(first_name_val <> '', first_name_val, first_name),
+--         last_name = IF(last_name_val <> '', last_name_val, last_name),
+--         email = IF(email_val <> '', email_val, email),
+--         password = IF(password_val <> '', password_val, password),
+--         id_center = IF(id_center_val <> '', id_center_val, id_center)
+--     WHERE id_user = id_user_val
+--         AND (first_name_val <> '' OR last_name_val <> '' OR email_val <> '' OR password_val <> '' OR id_center_val <> '');
+--
+--     DELETE FROM Related_to_class
+--     WHERE id_user = id_user_val
+--     AND (id_class1_val <> '' OR id_class2_val <> '' OR id_class3_val <> '' OR id_class4_val <> '' OR id_class5_val <> '');
+--
+--     INSERT INTO Related_to_class (id_user, id_class)
+--     SELECT id_user_val, id_class FROM Classes
+--     WHERE id_class IN ('', 2, '', 4, '');
+-- END //
+--
+-- DELIMITER ;
+--
+-- -- Procedure to Delete Pilot
+-- DELIMITER //
+--
+-- CREATE PROCEDURE uspDeletePilot(
+--     IN user_id_val INT
+-- )
+-- BEGIN
+--     UPDATE Users
+--     SET user_active = FALSE
+--     WHERE id_user = user_id_val AND id_role = 2;
+-- END //
+--
+-- DELIMITER ;
 
 -- Procedure to Stat_Student
 -- whish-list
-DELIMITER //
-
-CREATE PROCEDURE uspStudentStat_Wishlist(IN user_id INT)
-BEGIN
-    SELECT 
-        COUNT(Users.id_user) AS 'total wish-list'
-    FROM
-        Wish_list
-        JOIN Users ON Users.id_user = Wish_list.id_user
-        JOIN Internship_offers ON Internship_offers.id_internship_offer = Wish_list.id_internship_offer
-    WHERE 
-        Users.user_active = TRUE 
-        AND Internship_offers.internship_offer_active = TRUE 
-        AND Users.id_user = user_idupdateUserAndRelatedClassesupdateUserAndRelatedClasses
-    GROUP BY Users.id_user;
-END //
-
-DELIMITER ;
+-- DELIMITER //
+--
+-- CREATE PROCEDURE uspStudentStat_Wishlist(IN user_id INT)
+-- BEGIN
+--     SELECT
+--         COUNT(Users.id_user) AS 'total wish-list'
+--     FROM
+--         Wish_list
+--         JOIN Users ON Users.id_user = Wish_list.id_user
+--         JOIN Internship_offers ON Internship_offers.id_internship_offer = Wish_list.id_internship_offer
+--     WHERE
+--         Users.user_active = TRUE
+--         AND Internship_offers.internship_offer_active = TRUE
+--         AND Users.id_user = user_id updateUser And RelatedClassesupdateUser And RelatedClasses -- TODO FIX THIS MESS
+--     GROUP BY Users.id_user;
+-- END //
+--
+-- DELIMITER ;
 
 -- Application
 DELIMITER //
@@ -951,3 +901,32 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Get the amount of internships of a company
+
+CREATE FUNCTION uspGetCompanyInternshipCount(company_id INTEGER)
+    RETURNS INTEGER
+BEGIN
+    DECLARE num_internships INTEGER;
+
+    SELECT COUNT(*) INTO num_internships
+    FROM Internship_offers
+    WHERE Internship_offers.id_company = company_id;
+
+    RETURN num_internships;
+END;
+
+
+-- Get the average review score of a company
+
+CREATE FUNCTION uspGetCompanyAverageReviews(i_company_id INTEGER)
+    RETURNS INTEGER
+BEGIN
+    DECLARE avg_review_score INTEGER;
+
+    SELECT COALESCE(AVG(Company_Reviews.review_score), 0) INTO avg_review_score
+    FROM Company_Reviews
+    WHERE Company_Reviews.id_company = i_company_id;
+
+    RETURN avg_review_score;
+END;
