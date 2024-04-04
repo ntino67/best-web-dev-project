@@ -8,7 +8,6 @@
     <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
     <script defer src="/script/jquery/jquery-3.7.1.js"></script>
     <script defer src="/script/components.js"></script>
-    <script defer src="/script/sorting-categories.js"></script>
     <script defer src="/script/jquery/jquery-3.7.1.js"></script>
     <script defer src="/script/api-handler.js"></script>
     <script defer src="/script/load-users.js"></script>
@@ -18,7 +17,12 @@
 <div class="page-spacing flex-column flex-gap-1 internships content">
     <header class="page-header flex-row flex-align-between-ma">
         <h1>Users</h1>
-        <div class="sorting-container"></div>
+        <div class="sorting sorting-container">
+            <button class="sorting-category">
+                <span class="far"></span>
+                <span>Name</span>
+            </button>
+        </div>
     </header>
     <main class="search-container">
         <!-- Search Filters -->

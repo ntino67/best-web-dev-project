@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".sorting-container").load("components/sorting.html", function () {
+    $(".sorting-container").load("/components/sorting.html", function () {
         let sorting_categories = $(".sorting-category");
 
         function switch_sorting(event) {

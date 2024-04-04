@@ -2,7 +2,7 @@ let ApiUrl = null;
 
 function processUser(newElement, user) {
     $(".search-result-title", newElement).html(user.first_name + " " + user.last_name);
-    $(".search-result-description", newElement).html("Salut, je m'appelle " + user.first_name + " " + user.last_name + " et je suis " + user.role_name + " à " + user.center_name + ".");
+    $(".search-result-description", newElement).html("Hello, my name is " + user.first_name + " " + user.last_name + " and I am a " + user.role_name + " at " + user.center_name + ".");
     if (user.id_role === 3) {
         // Insert bottom info
         $(".search-result-bottom-info-element", newElement).eq(0).html("TODO");
@@ -29,6 +29,31 @@ function handleDropdownChange(id, filterKey) {
     $(id).change(function () {
         const selected = $(this).val();
         ApiUrl = selected ? `http://webp.local/api/user?orderby=id_user&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/user';
+        $('#users-container').empty();
+        loadEntities(ApiUrl, '#users-container', processUser, "/components/user.html");
+    });
+}
+
+function switch_sorting_user() {
+    const sortingButton = $(".sorting-category");
+    let state = 0;  // 0 represents 'id_user', 1 represents 'first_name asc', 2 represents 'first_name desc'
+
+    sortingButton.click(function () {
+        if (state === 0) {
+            $("span.far", this).html("");
+            ApiUrl = `http://webp.local/api/user?orderby=first_name`;
+            state = 1;
+        } else if (state === 1) {
+            $("span.far", this).html("");
+            ApiUrl = `http://webp.local/api/user?orderby=first_name DESC`;
+            state = 2;
+        } else if (state === 2) {
+            $("span.far", this).html("");
+            ApiUrl = 'http://webp.local/api/user';
+            state = 0;
+        }
+
+        // Reload entities after sorting
         $('#users-container').empty();
         loadEntities(ApiUrl, '#users-container', processUser, "/components/user.html");
     });
@@ -98,4 +123,6 @@ $(document).ready(function () {
 
     handleDropdownChange("#role", "role_name");
     handleDropdownChange("#centers", "id_center");
+
+    switch_sorting_user();
 });
