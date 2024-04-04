@@ -1124,16 +1124,25 @@ aside.profile-page {
 /* Stats */
 div.stats-container {
   border: 3px solid #fff;
-  padding: 20px;
 }
 
 div.stats-child {
-  /*min-height: 25rem; */
+  max-height: 25rem;
   /* max-width: 25rem; */
   padding: 1rem;
   margin: 0.5rem;
   border: 2px solid #D9D9D9;
   border-radius: 10px;
+}
+
+h2.stats-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+canvas {
+  height: 500px;
+  max-width: 320px;
 }
 
 canvas {
