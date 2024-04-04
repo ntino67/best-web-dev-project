@@ -4,12 +4,17 @@ function processCompany(newElement, company) {
 
     var internship_amt = company.internship_amt;
     // Insert bottom info
-    $(".search-result-bottom-info-element", newElement).eq(0).html(internship_amt + (internship_amt === 1 ? " Internship" : " Internships"));
+    $(".search-result-bottom-info-element", newElement).eq(0).html(internship_amt + (internship_amt === 1 ? " Internship Offer" : " Internships Offers"));
     $(".search-result-bottom-info-element", newElement).eq(1).html("TODO" /*TODO: Student working there*/);
 
     // Insert right info
     $(".info-text", newElement).eq(0).html("TODO" /*TODO: Location*/);
     $(".info-text", newElement).eq(1).html(getStars(Math.floor(company.review_avg)));
+
+    // Redirect to correct page
+    $(".bw-button", newElement).on("click", function () {
+        window.location.href = `/company/${company.id_company}`;
+    });
 }
 
 function getStars(rating) {

@@ -9,6 +9,11 @@ function processInternship(newElement, offer) {
     // Insert right info
     $(".info-text", newElement).eq(0).html("Base Salary: " + offer.base_salary + "$");
     $(".info-text", newElement).eq(1).html(offer.company_name);
+
+    // Redirect to correct page
+    $(".bw-button", newElement).on("click", function () {
+        window.location.href = `/internship/${offer.id_internship_offer}`;
+    });
 }
 
 $(document).ready(function () {

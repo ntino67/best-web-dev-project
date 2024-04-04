@@ -17,6 +17,11 @@ function processUser(newElement, user) {
     if (user.classes.length > 0) {
         $(".info-text", newElement).eq(1).html(user.classes[0].class_name);
     }
+
+    // Redirect to correct page
+    $(".bw-button", newElement).on("click", function () {
+        window.location.href = `/user/${user.id_user}`;
+    });
 }
 
 $(document).ready(function () {
