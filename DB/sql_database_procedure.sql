@@ -902,7 +902,7 @@ END //
 
 DELIMITER ;
 
--- Fonction nombre de stages d'une entreprise
+-- Get the amount of internships of a company
 
 CREATE FUNCTION uspGetCompanyInternshipCount(company_id INTEGER)
     RETURNS INTEGER
@@ -914,4 +914,19 @@ BEGIN
     WHERE Internship_offers.id_company = company_id;
 
     RETURN num_internships;
+END;
+
+
+-- Get the average review score of a company
+
+CREATE FUNCTION uspGetCompanyAverageReviews(i_company_id INTEGER)
+    RETURNS INTEGER
+BEGIN
+    DECLARE avg_review_score INTEGER;
+
+    SELECT COALESCE(AVG(Company_Reviews.review_score), 0) INTO avg_review_score
+    FROM Company_Reviews
+    WHERE Company_Reviews.id_company = i_company_id;
+
+    RETURN avg_review_score;
 END;
