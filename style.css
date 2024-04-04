@@ -356,6 +356,10 @@ body {
 }
 
 /* Footer styling */
+.footer-container {
+  margin-top: auto;
+}
+
 .footer {
   background-color: black;
   color: white;
@@ -391,6 +395,10 @@ body {
   color: #D3D3D3;
   gap: 0.4rem;
   font-size: clamp(0.9rem, 4vw, 1rem);
+}
+
+.content {
+  flex: 1;
 }
 
 /* Login & Account creation styling */
@@ -839,11 +847,14 @@ main.search-container {
 }
 
 /* Profile pages */
-.profile-body {
+.body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   transition: margin-left .5s;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 #main {

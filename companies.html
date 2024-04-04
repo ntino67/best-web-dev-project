@@ -12,9 +12,9 @@
     <script defer src="/script/load-companies.js"></script>
     <script defer src="/script/sorting-categories.js"></script>
 </head>
-<body>
+<body class="body">
 <div id="navbar-container"></div>
-<div class="page-spacing flex-column flex-gap-1">
+<div class="page-spacing flex-column flex-gap-1 content">
     <header class="page-header flex-row flex-align-between-ma">
         <h1>Companies</h1>
         <div class="sorting-container"></div>
@@ -24,12 +24,6 @@
         <aside class="search-filter-container">
             <div class="search-filters">
                 <input class="search-bar-small" placeholder="Search ..." type="search">
-                <p>
-                    <span class="far"></span>
-                    <select id="cities">
-                        <option selected="selected" value="0">Cities</option>
-                    </select>
-                </p>
                 <p>
                     <span class="far"></span>
                     <select id="sectors">

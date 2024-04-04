@@ -1,4 +1,5 @@
-// Processing function
+let ApiUrl = null;
+
 function processUser(newElement, user) {
     $(".search-result-title", newElement).html(user.first_name + " " + user.last_name);
     $(".search-result-description", newElement).html("Salut, je m'appelle " + user.first_name + " " + user.last_name + " et je suis " + user.role_name + " à " + user.center_name + ".");
@@ -21,6 +22,15 @@ function processUser(newElement, user) {
     // Redirect to correct page
     $(".bw-button", newElement).on("click", function () {
         window.location.href = `/user/${user.id_user}`;
+    });
+}
+
+function handleDropdownChange(id, filterKey) {
+    $(id).change(function () {
+        const selected = $(this).val();
+        ApiUrl = selected ? `http://webp.local/api/user?orderby=id_user&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/user';
+        $('#users-container').empty();
+        loadEntities(ApiUrl, '#users-container', processUser, "/components/user.html");
     });
 }
 
@@ -65,31 +75,23 @@ $(document).ready(function () {
         }
     });
 
-    function handleDropdownChange(id, filterKey) {
-        $(id).change(function () {
-            const selected = $(this).val();
-            const url = selected ? `http://webp.local/api/user?orderby=id_user&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/user';
-
-            $('#users-container').empty();
-            loadEntities(url, '#users-container', processUser, "/components/user.html");
-        });
-    }
-
     $("#reset").click(function () {
+        $('#role').val('0');
+        $('#centers').val('0');
         $('#users-container').empty();
-        url = 'http://webp.local/api/user';
-        loadEntities(url, '#users-container', processUser, "/components/user.html");
+        ApiUrl = 'http://webp.local/api/user';
+        loadEntities(ApiUrl, '#users-container', processUser, "/components/user.html");
     });
 
-    var url = 'http://webp.local/api/user';
-    loadEntities(url, '#users-container', processUser, "/components/user.html");
+    ApiUrl = 'http://webp.local/api/user';
+    loadEntities(ApiUrl, '#users-container', processUser, "/components/user.html");
 
     $('.search-bar-small').keypress(function (e) {
         if (e.which == 13) {
             var input = $(this).val();
-            url = input ? `http://webp.local/api/user?orderby=id_user&filter=first_name startswith ${input}` : 'http://webp.local/api/user';
+            ApiUrl = input ? `http://webp.local/api/user?orderby=id_user&filter=first_name startswith ${input}` : 'http://webp.local/api/user';
             $('#users-container').empty();
-            loadEntities(url, '#users-container', processUser, "/components/user.html");
+            loadEntities(ApiUrl, '#users-container', processUser, "/components/user.html");
             return false;
         }
     });

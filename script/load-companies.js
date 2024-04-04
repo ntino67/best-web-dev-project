@@ -1,3 +1,5 @@
+let ApiUrl = null;
+
 function processCompany(newElement, company) {
     $(".search-result-title", newElement).html(company.company_name);
     $(".search-result-description", newElement).html(company.company_description);
@@ -42,10 +44,9 @@ function getStars(rating) {
 function handleDropdownChange(id, filterKey) {
     $(id).change(function () {
         const selected = $(this).val();
-        const url = selected ? `http://webp.local/api/company?orderby=id_company&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/company';
-
+        ApiUrl = selected ? `http://webp.local/api/company?orderby=id_company&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/company';
         $('#companies-container').empty();
-        loadEntities(url, '#companies-container', processCompany, "/components/company.html");
+        loadEntities(ApiUrl, '#companies-container', processCompany, "/components/company.html");
     });
 }
 
@@ -64,80 +65,34 @@ $(document).ready(function () {
                         .attr("value", sector.id_business_sector)
                         .text(sector.business_sector_name));
             });
-            handleDropdownChange("#sectors", "business_sector_name");
+            handleDropdownChange("#sectors", "id_business_sector");
         },
         error: function (jqXHR, exception) {
             console.log('Sector fetch error: ', jqXHR, exception);
         }
     });
 
-    // Fetching City data
-    $.ajax({
-        url: 'http://webp.local/api/city',
-        type: 'GET',
-        headers: {
-            "authorization-token": userData.token
-        },
-        success: function (response) {
-            let cities = response.data;
-
-            $.each(cities, function (index, city) {
-                $("#cities")
-                    .append($("<option></option>")
-                        .attr("value", city.id_city)
-                        .text(city.city_name));
-            });
-            handleDropdownChange("#cities", "city_name");
-        },
-        error: function (jqXHR, exception) {
-            console.log('City fetch error: ', jqXHR, exception);
-        }
-    });
-
-    var url = "http://webp.local/api/company";
-    loadEntities(url, "#companies-container", processCompany, "/components/company.html"); // replace path with relevant one
+    ApiUrl = 'http://webp.local/api/company';
+    loadEntities(ApiUrl, "#companies-container", processCompany, "/components/company.html"); // replace path with relevant one
 
     $(".search-bar-small").keypress(function (e) {
         if (e.which === 13) {  // 13 is the enter key's keycode
             let input = $(this).val();
             if (input) {
-                url = `http://webp.local/api/company?orderby=id_company&filter=company_name startswith ${input}`;
+                ApiUrl = `http://webp.local/api/company?orderby=id_company&filter=company_name startswith ${input}`;
             } else {
-                url = 'http://webp.local/api/company';
+                ApiUrl = 'http://webp.local/api/company';
             }
-
             $("#companies-container").empty();
-            loadEntities(url, "#companies-container", processCompany, "/components/company.html");
-
+            loadEntities(ApiUrl, "#companies-container", processCompany, "/components/company.html");
             return false;  // Prevent the default action (form submission)
         }
     });
 
-    $("#cities").change(function () {
-        let city = $(this).val();
-        if (city) {
-            url = `http://webp.local/api/company?orderby=id_company&filter=city_name eq ${city}`;
-        } else {
-            url = 'http://webp.local/api/company';
-        }
-        $("#companies-container").empty();
-        loadEntities(url, "#companies-container", processCompany, "/components/company.html");
-    });
-
-    $("#sectors").change(function () {
-        let sector = $(this).val();
-        if (sector) {
-            url = `http://webp.local/api/company?orderby=id_company&filter=business_sector_name eq ${sector}`;
-        } else {
-            url = 'http://webp.local/api/company';
-        }
-        $("#companies-container").empty();
-        loadEntities(url, "#companies-container", processCompany, "/components/company.html");
-    });
-
     $("#reset").click(function () {
+        $('#sectors').val('0');
         $("#companies-container").empty();
-        url = 'http://webp.local/api/company';
-        loadEntities(url, "#companies-container", processCompany, "/components/company.html");
+        ApiUrl = 'http://webp.local/api/company';
+        loadEntities(ApiUrl, "#companies-container", processCompany, "/components/company.html");
     });
 });
