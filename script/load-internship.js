@@ -1,4 +1,5 @@
 let ApiUrl = null;
+let SortType = null;
 
 function processInternship(newElement, offer) {
     $(".search-result-title", newElement).html(offer.internship_offer_title);
@@ -25,6 +26,53 @@ function handleDropdownChange(id, filterKey) {
 
         $('#internship-container').empty();
         loadEntities(ApiUrl, '#internship-container', processInternship, "/components/internship-offer.html");
+    });
+}
+
+function switch_sorting_internship() {
+    const sortingButtons = $(".sorting-category");
+    let states = {'name': 0, 'salary': 0, 'slots': 0};  // Changed property names to match the new context
+
+    sortingButtons.each(function () {
+        $(this).click(function () {
+            const thisButton = $(event.target).closest('.sorting-category');
+            const sortType = $("span:last", thisButton).text().toLowerCase();
+            const allOtherButtons = sortingButtons.not(this);
+            let orderBy;
+
+            $("span.far", allOtherButtons).html("");
+            for (let propName in states) {
+                if (propName !== sortType) {
+                    states[propName] = 0;
+                }
+            }
+
+            switch (states[sortType]) {
+                case 0:
+                    $("span.far", thisButton).html("");
+                    states[sortType]++;
+                    orderBy = sortType === 'name' ? 'internship_offer_title' : (sortType === 'slots' ? 'available_slots' : 'base_salary');
+                    sortOrder = 'ASC';
+                    break;
+                case 1:
+                    $("span.far", thisButton).html("");
+                    states[sortType]++;
+                    orderBy = sortType === 'name' ? 'internship_offer_title' : (sortType === 'slots' ? 'available_slots' : 'base_salary');
+                    sortOrder = 'DESC';
+                    break;
+                case 2:
+                    $("span.far", thisButton).html("");
+                    states[sortType] = 0;
+                    orderBy = 'id_internship_offer';  // Default sort order
+                    sortOrder = 'ASC';
+                    break;
+            }
+
+            ApiUrl = `http://webp.local/api/internship?orderby=${orderBy} ${sortOrder}`;
+
+            $("#internship-container").empty();
+            loadEntities(ApiUrl, "#internship-container", processInternship, "/components/internship-offer.html");
+        });
     });
 }
 
@@ -99,4 +147,6 @@ $(document).ready(function () {
         ApiUrl = 'http://webp.local/api/internship';
         loadEntities(ApiUrl, '#internship-container', processInternship, "/components/internship-offer.html");
     });
+
+    switch_sorting_internship();
 });

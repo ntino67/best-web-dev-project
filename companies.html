@@ -10,14 +10,26 @@
     <script defer src="/script/components.js"></script>
     <script defer src="/script/api-handler.js"></script>
     <script defer src="/script/load-companies.js"></script>
-    <script defer src="/script/sorting-categories.js"></script>
 </head>
 <body class="body">
 <div id="navbar-container"></div>
 <div class="page-spacing flex-column flex-gap-1 content">
     <header class="page-header flex-row flex-align-between-ma">
         <h1>Companies</h1>
-        <div class="sorting-container"></div>
+        <div class="sorting sorting-container">
+            <button class="sorting-category">
+                <span class="far"></span>
+                <span>Name</span>
+            </button>
+            <button class="sorting-category">
+                <span class="far"></span>
+                <span>Ratings</span>
+            </button>
+            <button class="sorting-category">
+                <span class="far"></span>
+                <span>Applications</span>
+            </button>
+        </div>
     </header>
     <main class="search-container">
         <!-- Search Filters -->
