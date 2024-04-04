@@ -12,7 +12,6 @@
     <script defer src="/script/jquery/jquery-3.7.1.js"></script>
     <script defer src="/script/api-handler.js"></script>
     <script defer src="/script/load-users.js"></script>
-    <script defer src="/script/filter-fetch.js"></script>
 </head>
 <body>
 <div id="navbar-container"></div>
@@ -27,19 +26,19 @@
             <div class="search-filters">
                 <input class="search-bar-small" placeholder="Search ..." type="search">
                 <p>
-                    <span class="far"></span>
-                    <select id="cities">
-                        <option selected="selected" value="0">Cities</option>
+                    <span class="far"></span>
+                    <select id="role">
+                        <option selected="selected" value="0">Role</option>
                     </select>
                 </p>
                 <p>
-                    <span class="far"></span>
-                    <select id="sectors">
-                        <option selected="selected" value="0">Sectors</option>
+                    <span class="far"></span>
+                    <select id="centers">
+                        <option selected="selected" value="0">Centers</option>
                     </select>
                 </p>
                 <div class="filter-container cities-container"></div>
-                <div class="filter-container sectors-container"></div>
+                <div class="filter-container centers-container"></div>
             </div>
             <div class="search-filters">
                 <p id="reset">

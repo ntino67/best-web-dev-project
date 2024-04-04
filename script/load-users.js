@@ -25,6 +25,62 @@ function processUser(newElement, user) {
 }
 
 $(document).ready(function () {
+    // Fetching Role data
+    $.ajax({
+        url: 'http://webp.local/api/role', // Use the correct endpoint for Roles
+        type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (roles) {
+            $.each(roles, function (index, role) {
+                $("#role")
+                    .append($("<option></option>")
+                        .attr("value", role.id_role) // Set the option value to the Role ID
+                        .text(role.role_name)); // Set the option text to the Role name
+            });
+        },
+        error: function (jqXHR, exception) {
+            console.log('Role fetch error: ', jqXHR, exception);
+        }
+    });
+
+    // Fetching Centers data
+    $.ajax({
+        url: 'http://webp.local/api/center',
+        type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (centers) {
+            $.each(centers, function (index, center) {
+                $("#centers")
+                    .append($("<option></option>")
+                        .attr("value", center.id_center) // Set the option value to the Center ID
+                        .text(center.center_name)); // Set the option text to the Center name
+            });
+        },
+        error: function (jqXHR, exception) {
+            console.log('Centers fetch error: ', jqXHR, exception);
+        }
+    });
+
+    function handleDropdownChange(id, filterKey) {
+        $(id).change(function () {
+            const selected = $(this).val();
+            const url = selected ? `http://webp.local/api/user?orderby=id_user&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/user';
+
+            $('#users-container').empty();
+            loadEntities(url, '#users-container', processUser, "/components/user.html");
+        });
+    }
+
+    $("#reset").click(function () {
+        $('#users-container').empty();
+        url = 'http://webp.local/api/user';
+        loadEntities(url, '#users-container', processUser, "/components/user.html");
+    });
+
     var url = 'http://webp.local/api/user';
     loadEntities(url, '#users-container', processUser, "/components/user.html");
 
@@ -38,17 +94,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#cities').change(function () {
-        var city = $(this).val();
-        url = city ? `http://webp.local/api/user?orderby=id_user&filter=city_name eq ${city}` : 'http://webp.local/api/user';
-        $('#users-container').empty();
-        loadEntities(url, '#users-container', processUser, "/components/user.html");
-    });
-
-    $('#sectors').change(function () {
-        var sector = $(this).val();
-        url = sector ? `http://webp.local/api/user?orderby=id_user&filter=business_sector_name eq ${sector}` : 'http://webp.local/api/user';
-        $('#users-container').empty();
-        loadEntities(url, '#users-container', processUser, "/components/user.html");
-    });
+    handleDropdownChange("#role", "role_name");
+    handleDropdownChange("#centers", "id_center");
 });

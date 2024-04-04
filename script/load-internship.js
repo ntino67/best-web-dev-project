@@ -16,7 +16,61 @@ function processInternship(newElement, offer) {
     });
 }
 
+function handleDropdownChange(id, filterKey) {
+    $(id).change(function () {
+        const selected = $(this).val();
+        const url = selected ? `http://webp.local/api/internship?orderby=id_internship_offer&filter=${filterKey} eq ${selected}` : 'http://webp.local/api/internship';
+
+        $('#internship-container').empty();
+        loadEntities(url, '#internship-container', processInternship, "/components/internship-offer.html");
+    });
+}
+
 $(document).ready(function () {
+    // Fetching City data
+    $.ajax({
+        url: 'http://webp.local/api/city',
+        type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (response) {
+            let cities = response.data;
+
+            $.each(cities, function (index, city) {
+                $("#cities")
+                    .append($("<option></option>")
+                        .attr("value", city.id_city)
+                        .text(city.city_name));
+            });
+            handleDropdownChange("#cities", "city_name");
+        },
+        error: function (jqXHR, exception) {
+            console.log('City fetch error: ', jqXHR, exception);
+        }
+    });
+
+    // Fetching Sector data
+    $.ajax({
+        url: 'http://webp.local/api/business-sector',
+        type: 'GET',
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (sectors) {
+            $.each(sectors, function (index, sector) {
+                $("#sectors")
+                    .append($("<option></option>")
+                        .attr("value", sector.id_business_sector)
+                        .text(sector.business_sector_name));
+            });
+            handleDropdownChange("#sectors", "business_sector_name");
+        },
+        error: function (jqXHR, exception) {
+            console.log('Sector fetch error: ', jqXHR, exception);
+        }
+    });
+
     var url = "http://webp.local/api/internship";
     loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
 
@@ -36,26 +90,9 @@ $(document).ready(function () {
         }
     });
 
-    $("#cities").change(function () {
-        let city = $(this).val();
-        if (city) {
-            url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=city_name eq ${city}`;
-        } else {
-            url = 'http://webp.local/api/internship';
-        }
-        $("#internship-container").empty();
-        loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
+    $("#reset").click(function () {
+        $('#internship-container').empty();
+        url = 'http://webp.local/api/internship';
+        loadEntities(url, '#internship-container', processInternship, "/components/internship-offer.html");
     });
-
-    $("#sectors").change(function () {
-        let sector = $(this).val();
-        if (sector) {
-            url = `http://webp.local/api/internship?orderby=id_internship_offer&filter=business_sector_name eq ${sector}`;
-        } else {
-            url = 'http://webp.local/api/internship';
-        }
-        $("#internship-container").empty();
-        loadEntities(url, "#internship-container", processInternship, "/components/internship-offer.html");
-    });
-
 });
