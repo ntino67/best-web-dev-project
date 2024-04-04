@@ -43,6 +43,7 @@ CREATE TABLE `Internship_offers` (
   `id_internship_offer` INT PRIMARY KEY AUTO_INCREMENT,
   `id_company` INT,
   `id_business_sector` INT,
+  `id_city` INT,
   `available_slots` INT,
   `internship_offer_title` VARCHAR(255),
   `internship_offer_description` VARCHAR(255),
