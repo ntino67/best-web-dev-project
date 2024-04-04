@@ -40,17 +40,17 @@ class CompanyController
         if (array_key_exists(0, $requestURI) && $requestURI[0]) {
            switch(array_shift($requestURI)) {
            case "review":
-             $controller = new CompanyReviewController($id);
-             $controller->processRequest($method, $requestURI);
-             break;
-            case "locations":
+                $controller = new CompanyReviewController($id);
+                $controller->processRequest($method, $requestURI);
+                break;
+            case "location":
                 $controller = new CompanyLocationController($id);
                 $controller->processRequest($method, $requestURI);
                 break;
-           default:
+            default:
              http_response_code(404);
              break;
-           }
+            }
            return;
          }
 
