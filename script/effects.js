@@ -53,4 +53,24 @@ $(document).ready(function () {
 
     // Update the href to redirect to the user's profile page with their user id
     $('a[href="/users-profile.html"]').attr('href', `/user/${userData.data.id_user}`);
+
+    var currentLocation = window.location.href;
+    if (currentLocation.endsWith('/internships.html')) {
+        $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Internship');
+    } else if (currentLocation.endsWith('/companies.html')) {
+        $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Company');
+    } else if (currentLocation.endsWith('/users.html')) {
+        $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create User');
+    }
+
+    $('#create, #create-2').click(function () {
+        var currentLocation = window.location.href;
+        if (currentLocation.endsWith('/internships.html')) {
+            window.location.href = '/create-internship.html';
+        } else if (currentLocation.endsWith('/companies.html')) {
+            window.location.href = '/create-company.html';
+        } else if (currentLocation.endsWith('/users.html')) {
+            window.location.href = '/create-user.html';
+        }
+    });
 });
