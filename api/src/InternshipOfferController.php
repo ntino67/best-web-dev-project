@@ -126,11 +126,14 @@ class InternshipOfferController
     $pattern = array(
       "internship_offer_title" => DataValidator::NAME, 
       "internship_offer_description" => DataValidator::NOT_EMPTY,
+      "internship_offer_created_at" => DataValidator::DATE,
+      "internship_offer_expires_at" => DataValidator::DATE,
       "id_company" => DataValidator::NUMBER,
       "available_slots" => DataValidator::NUMBER,
       "id_business_sector" => DataValidator::NUMBER,
       "base_salary" => DataValidator::NUMBER,
-      "internship_duration" => DataValidator::NUMBER);
+      "internship_duration" => DataValidator::NUMBER,
+      "id_city" => DataValidator::NUMBER);
 
     DataValidator::catchValidationErrors($data, $pattern, $errorCode);
 
