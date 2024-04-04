@@ -43,10 +43,10 @@ class CompanyController
              $controller = new CompanyReviewController($id);
              $controller->processRequest($method, $requestURI);
              break;
-        /*   case "Locations": */
-        /*     $controller = new BusinessSectorController($id); */
-        /*     $controller->processRequest($method, $requestURI); */
-        /*     break; */
+            case "locations":
+                $controller = new CompanyLocationController($id);
+                $controller->processRequest($method, $requestURI);
+                break;
            default:
              http_response_code(404);
              break;
