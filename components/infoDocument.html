@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title> {{ page_title }} </title>
+  <link href="/style.css" rel="stylesheet">
+  <link href="/fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+  <link href="/fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+  <script defer src="/script/jquery/jquery-3.7.1.js"></script>
+  <script defer src="/script/components.js"></script>
+</head>
+
+<body class="body">
+  <div id="navbar-container"></div>
+  <div class="content page-spacing flex-column flex-gap-1">
+    <header class="page-header flex-row flex-align-content-end-ma flex-gap-1">
+      <h1> {{ page_header }} </h1>
+      <div class="header-tag">
+        <p>{{ "now"|date("m/d/Y") }}</p>
+    </header>
+    <main>
+      {{ content|raw }}
+    </main>
+  </div>
+  <div id="footer-container"></div>
+</body>
+
+</html>
