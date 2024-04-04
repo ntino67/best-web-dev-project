@@ -1,34 +1,74 @@
-let placeholder = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a mauris porta ante interdum laoreet. Maecenas a erat eget leo luctus suscipit iaculis eget justo. Fusce non sapien fermentum, sagittis risus non, tempor magna. Fusce massa arcu, sagittis aliquet varius vitae, vestibulum sit amet eros. Proin id metus id massa sodales pretium. Nam ac lorem nibh. Donec cursus volutpat dolor. Phasellus placerat imperdiet orci, nec tincidunt purus feugiat eget. ";
-
 $(document).ready(function () {
-    $.get("components/company.html", function (data) {
-            for (let i = 1; i <= 5; i++) {
-                let newElement = $('<div></div>');
 
-                newElement.html(data);
+    // Load internship offers initially using AJAX GET request
+    var url = 'http://webp.local/api/company';
+    loadCompanies(url, '#companies-container', function (newElement, company) {
+        // Insert bottom info
+        let slots = company.available_slots;
+        $(".search-result-bottom-info-element", newElement).html(slots + (slots === 1 ? " Slot" : " Slots"));
 
-                // Insert title
-                $(".search-result-title", newElement).html("Company " + i);
+        // Insert right info
+        $(".info-text", newElement).eq(0).html("Base Salary: " + company.base_salary + "$");
+        $(".info-text", newElement).eq(1).html(company.company_name);
+    });
 
-                // Insert description
-                $(".search-result-description", newElement).html(placeholder + i);
+    $('.search-bar-small').keypress(function (e) {
+        console.log('Key Pressed:', e.which);
+        // When enter key is pressed
+        if (e.which === 13) {  // 13 is the enter key's keycode
+            let input = $(this).val();
 
-                // Insert bottom info
-                let internships = i * 10;
-                let text = internships == 1 ? internships + " Internship offer" : internships + " Internship offers";
-                $(".search-result-bottom-info-element", newElement).html(text);
-
-                let students = i * 100;
-                $(".search-result-bottom-info-far span", newElement).eq(1).html(students + " students working there");
-
-                // Insert right info
-                $(".info-text", newElement).eq(0).html(i + " Rue de la Société, Feur, France");
-
-                $(".info-text", newElement).eq(1).html("Rating: " + i * 20 + "%");
-
-                // Insert new element into page
-                $("div.flex-6").append(newElement.children());
+            if (input) {
+                // Load internships with filter if there's input
+                console.log(input)
+                url = `http://webp.local/api/company?orderby=id_company&filter=company_name startswith ${input}`;
+            } else {
+                // Load all internships if input is empty
+                url = 'http://webp.local/api/company';
             }
+
+            $('#companies-container').empty();
+
+            loadCompanies(url, '#companies-container', function (newElement, offer) {
+                // specific handler code
+            });
+
+            // prevent the default action
+            return false;
         }
-    )
+
+        $('#cities').change(function () {
+            let city = $(this).val();
+            console.log(city);
+
+            if (city) {
+                url = `http://webp.local/api/company?orderby=id_company&filter=city_name eq ${city}`;
+            } else {
+                url = 'http://webp.local/api/company';
+            }
+
+            $('#companies-container').empty();
+
+            loadInternships(url, '#companies-container', function (newElement, offer) {
+                // specific handler code
+            });
+        });
+
+        $('#sectors').change(function () {
+            let sector = $(this).val();
+            console.log(sector);
+
+            if (sector) {
+                url = `http://webp.local/api/company?orderby=id_company&filter=business_sector_name eq ${sector}`;
+            } else {
+                url = 'http://webp.local/api/company';
+            }
+
+            $('#companies-container').empty();
+
+            loadInternships(url, '#companies-container', function (newElement, offer) {
+                // specific handler code
+            });
+        });
+    });
 });

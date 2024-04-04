@@ -37,7 +37,7 @@ $(document).ready(function () {
             var internshipData = response.data;
 
             // Fill the HTML elements with the data from the server
-            $('h1').text(internshipData.internship_offer_title);
+            $('header h1').text(internshipData.internship_offer_title);
             $('.internship-description').text(internshipData.internship_offer_description);
             $('.header-tag p').text(internshipData.business_sector_name);
             $('.internship-info-center:nth-child(1) p:nth-child(2)').text(internshipData.company_name + ', France'); /*TODO: implement city too*/

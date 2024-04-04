@@ -15,7 +15,7 @@ $(document).ready(function () {
     $('.search-bar-small').keypress(function (e) {
         console.log('Key Pressed:', e.which);
         // When enter key is pressed
-        if (e.which == 13) {  // 13 is the enter key's keycode
+        if (e.which === 13) {  // 13 is the enter key's keycode
             let input = $(this).val();
 
             if (input) {
