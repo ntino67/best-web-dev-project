@@ -41,7 +41,6 @@ $(document).ready(function () {
 
     var companyData = null;
 
-
     var idRole = localStorage.getItem("idRole");
     console.log('User Role:', idRole);
     // You can have certain functions for enabling or disabling your GUI based on role.
@@ -130,5 +129,13 @@ $(document).ready(function () {
                 // Handle error
             }
         });
+    });
+
+    // Add click handler for "Add Internship Offers" link
+    $("#add-internship").click(function (e) {
+        e.preventDefault();  // Prevent browser from opening the link
+
+        // Redirect to create-internship.html
+        window.location.href = "/create-internship.html";
     });
 });

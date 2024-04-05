@@ -62,19 +62,6 @@ $(document).ready(function () {
         }
     });
 
-    // Another AJAX request to get user's wishlist from an API
-    loadInternships(`http://webp.local/api/user/${userId}/wishlist`, '#wishlist-container', function (newElement, offer) {
-        // For each required skill in offer add it to the newElement
-        let skillsElem = $(".search-result-skill", newElement);
-        $.each(offer.required_skills, function (i, skill) {
-            skillsElem.eq(i).html(skill.skill_name);
-        });
-
-        // Update additional properties of new element
-        $('.info-text', newElement).eq(0).html("Base Salary: " + offer.base_salary);
-        $('.info-text', newElement).eq(1).html(offer.company_name);
-    });
-
 
     var idRole = localStorage.getItem("idRole");
     console.log('User Role:', idRole);
@@ -90,47 +77,4 @@ $(document).ready(function () {
             defaultFeatures();
             break;
     }
-
-    // Define the function to create an internship
-    function createInternship() {
-        // To get the company id from the previous page, you can use either localStorage, cookies, URL parameters, or another method.
-        // Here we use localStorage for the example
-        const companyId = localStorage.getItem("companyId");
-
-        // Capture the data from the form inputs. Example for few parameters only:
-        const internshipTitle = $('#create-internship-name').val();
-        const internshipDescription = $('#create-internship-description').val();
-        // Continue for all input fields you need
-
-        // Setup the data object to encapsulate the internship information
-        const internshipData = {
-            id_company: companyId,
-            internship_offer_title: internshipTitle,
-            internship_offer_description: internshipDescription
-            // Finish creating other properties for your object for all input fields
-        };
-
-        // You would typically send the internshipData to your server through an AJAX call
-        $.ajax({
-            url: `http://webp.local/api/internship`,
-            type: "POST",
-            headers: {
-                "authorization-token": userData.token
-            },
-            data: JSON.stringify(internshipData),
-            success: function (response) {
-                alert('Internship created successfully!')
-                // Redirect or do something else upon successful creation of the internship
-            },
-            error: function (jqXHR, exception) {
-                console.error('Error occurred:', jqXHR, exception);
-            }
-        });
-    }
-
-    // Attach the createInternship function to the submit button click event
-    $('#create-company-submit').click(function (e) {
-        e.preventDefault(); // Prevents the form from submitting normally
-        createInternship();
-    });
 });
