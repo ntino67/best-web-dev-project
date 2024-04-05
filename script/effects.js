@@ -76,13 +76,10 @@ $(document).ready(function () {
     var currentLocation = window.location.href;
     if (currentLocation.endsWith('/internships.html')) {
         $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Internship');
-        piloteFeatures(1);
     } else if (currentLocation.endsWith('/companies.html')) {
         $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Company');
-        piloteFeatures(1);
     } else if (currentLocation.endsWith('/users.html')) {
         $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create User');
-        piloteFeatures(0);
     }
 
     $('#create, #create-2').click(function () {
@@ -105,7 +102,12 @@ $(document).ready(function () {
             adminFeatures();
             break;
         case "2":
-            piloteFeatures();
+            var currentLocation = window.location.href;
+            if (currentLocation.endsWith('/users-profile.html')) {
+                piloteFeatures(1);
+            } else {
+                piloteFeatures(0);
+            }
             break;
         case "3":
             defaultFeatures();
