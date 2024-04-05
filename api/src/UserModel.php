@@ -6,7 +6,7 @@ class UserModel extends Model
   {
     parent::__construct();
 
-    $this->insert_params = ["first_name", "last_name", "email", "password", "id_center", "id_role"];
+      $this->insert_params = ["first_name", "last_name", "email", "password", "id_center", "id_role", "user_active"];
 
     $allowed_orderby = [
       "id_user" => "Users.id_user",

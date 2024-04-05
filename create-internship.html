@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Create an internship</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/regular.css" rel="stylesheet">
+    <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
+    <script defer src="/script/jquery/jquery-3.7.1.js"></script>
+    <script defer src="script/components.js"></script>
+    <script defer src="script/create-internship.js"></script>
+</head>
+<body class="body">
+<div class="navbar-absolute" id="navbar-container"></div>
+<div class="auth-container flex-column flex-align-content-center-ca content">
+    <div class="auth flex-align-content-center-ca">
+        <div class="auth-text">
+            <h1 id="page-title">Create an internship</h1>
+            <h2 id="page-subtitle">Add a new internship offer</h2>
+        </div>
+        <div class="auth-input">
+            <form>
+                <input id="create-internship-name" placeholder="Internship Title" required type="text">
+                <textarea id="create-internship-description" maxlength="500" placeholder="Internship description"
+                          required
+                          type="text"></textarea>
+                <!-- Select company sectors -->
+                <div>
+                    <select class="auth-input-select" id="sectors"></select>
+                </div>
+                <!-- Additional parameters -->
+                <input id="available_slots" placeholder="Available Slots" required type="text">
+                <input id="internship_offer_created_at" placeholder="Offer Creation Date" required
+                       name="internship_offer_created_at" type="date">
+                <input id="internship_offer_expires_at" placeholder="Offer Expiration Date" required
+                       name="internship_offer_expires_at" type="date">
+                <input id="base_salary" placeholder="Base Salary" required type="text">
+                <input id="internship_duration" placeholder="Internship Duration" required type="text">
+                <input id="id_city" placeholder="City ID" required type="text">
+
+                <button id="create-company-submit">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="footer-container"></div>
+</body>
+</html>

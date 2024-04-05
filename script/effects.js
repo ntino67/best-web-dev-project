@@ -19,6 +19,25 @@ if (cookieData) {
     console.log(userData); // You can now access the data using dot notation
 }
 
+function adminFeatures() {
+    console.log('Admin Features Enabled');
+}
+
+function piloteFeatures(i) {
+    if (i == 1) {
+        $("#create, #create-2").hide();
+    } else {
+        console.log('Can edit student profile');
+    }
+    console.log('Pilote Features Enabled');
+}
+
+function defaultFeatures() {
+    $("#create, #create-2").hide();
+    console.log('Default Features Enabled');
+}
+
+
 $(document).ready(function () {
     if (!userData || !userData.data) {
         // handle user not logged in or data missing
@@ -53,4 +72,45 @@ $(document).ready(function () {
 
     // Update the href to redirect to the user's profile page with their user id
     $('a[href="/users-profile.html"]').attr('href', `/user/${userData.data.id_user}`);
+
+    var currentLocation = window.location.href;
+    if (currentLocation.endsWith('/internships.html')) {
+        $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Internship');
+    } else if (currentLocation.endsWith('/companies.html')) {
+        $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Company');
+    } else if (currentLocation.endsWith('/users.html')) {
+        $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create User');
+    }
+
+    $('#create, #create-2').click(function () {
+        var currentLocation = window.location.href;
+        if (currentLocation.endsWith('/internships.html')) {
+            window.location.href = '/create-internship.html';
+        } else if (currentLocation.endsWith('/companies.html')) {
+            window.location.href = '/create-company.html';
+        } else if (currentLocation.endsWith('/users.html')) {
+            window.location.href = '/create-user.html';
+        }
+    });
+
+
+    var idRole = localStorage.getItem("idRole");
+    console.log('User Role:', idRole);
+    // You can have certain functions for enabling or disabling your GUI based on role.
+    switch (idRole) {
+        case "1":
+            adminFeatures();
+            break;
+        case "2":
+            var currentLocation = window.location.href;
+            if (currentLocation.endsWith('/users-profile.html')) {
+                piloteFeatures(1);
+            } else {
+                piloteFeatures(0);
+            }
+            break;
+        case "3":
+            defaultFeatures();
+            break;
+    }
 });

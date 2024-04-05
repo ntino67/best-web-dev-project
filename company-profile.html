@@ -10,6 +10,7 @@
     <script defer src="/script/components.js"></script>
     <script defer src="/script/switching-tabs.js"></script>
     <script defer src="/script/effects.js"></script>
+    <script defer src="/script/api-handler.js"></script>
     <script defer src="/script/load-internship.js"></script>
     <script defer src="/script/load-ratings.js"></script>
     <script defer src="/script/edit-menu.js"></script>
@@ -23,15 +24,15 @@
         <div id="sidebar">
             <div class="edit-profile flex-column flex-align-items-start-ca" id="scrolling-div">
                 <h2>Edit</h2>
-                <a class="flex-row line-effect" href="#">
+                <a class="flex-row line-effect" href="#" id="modify-company">
                     <span class="far"></span>
                     <span>Modify Data</span>
                 </a>
-                <a class="flex-row line-effect" href="#">
+                <a class="flex-row line-effect" href="#" id="add-internship">
                     <span class="far"></span>
                     <span>Add Internship Offers</span>
                 </a>
-                <a class="flex-row line-effect" href="#">
+                <a class="flex-row line-effect" href="#" id="delete-company">
                     <span class="far"></span>
                     <span>Delete Company</span>
                 </a>
@@ -48,7 +49,7 @@
         <section class="flex-align-items-start-ca flex-row flex-gap-1">
             <div class="profile-info-center">
                 <div>
-                    <p>4,2</p>
+                    <p class="rating-number"></p>
                     <p class="company-stars">
                         <span class="fas"></span>
                         <span class="fas"></span>
@@ -57,23 +58,19 @@
                         <span class="far"></span>
                     </p>
                 </div>
-                <p class="company-rating">500 Ratings</p>
-            </div>
-            <div class="profile-info-center flex-column">
-                <p class="far"></p>
-                <p>Dans-tes-murs, France</p>
+                <p class="company-rating"></p>
             </div>
             <div class="profile-info-center flex-column">
                 <p>
                     <span class="far"></span>
-                    <span> 900</span>
+                    <span class="internship-number"></span>
                 </p>
                 <p>Internship offers</p>
             </div>
             <div class="profile-info-center flex-column">
                 <p>
                     <span class="far"></span>
-                    <span> 69</span>
+                    <span class="student-number"></span>
                 </p>
                 <p>Students working here</p>
             </div>
@@ -86,13 +83,13 @@
                 <h2 class="active-tab" id="internship-tab">Internship Offers</h2>
                 <h2 class="inactive-tab" id="reviews-tab">Reviews</h2>
             </div>
-            <div class="flex-row flex-align-items-center-ca flex-align-between-ma">
-                <div class="paging-container"></div>
+            <div class=" flex-align-items-center-ca flex-align-between-ma">
+                <div class="paging-container flex-row"></div>
                 <div class="sorting-container" id="sorting-container"></div>
             </div>
         </div>
         <div class="tabs-content" style="position: relative;">
-            <div class="flex-6 flex-column flex-gap-1" id="internship-container"></div>
+            <div class="flex-6 flex-column flex-gap-1" id="internship-container-company"></div>
             <div class="flex-6 flex-column flex-gap-1" id="rating-container"></div>
         </div>
     </main>
