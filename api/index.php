@@ -57,6 +57,7 @@ else if (!array_key_exists("HTTP_AUTHORIZATION_TOKEN", $_SERVER)|| !$controller-
 
 // ## API Endpoints ##
 // Process request type, send to corrent API endpoint
+$id_company = null;
 switch (array_shift($requestURI)) {
 case "city":
   $controller = new CityController;
@@ -102,6 +103,17 @@ case "stat":
   $controller = new StatController;
   $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
   break;
+
+    case "rating":
+        if (!empty($requestURI[0])) {
+            $id_company = (string)$requestURI[0];
+            $controller = new CompanyReviewController($id_company);
+            $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+        } else {
+            $controller = new CompanyReviewController("0");
+            $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
+        }
+        break;
 
   // TODO: Add more request types here
 

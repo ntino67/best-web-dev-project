@@ -77,6 +77,10 @@ function switch_sorting_internship() {
 }
 
 $(document).ready(function () {
+    const currentUrl = window.location.href;
+    const urlParts = currentUrl.split('/');
+    const compId = urlParts.pop() || urlParts.pop();
+
     // Fetching City data
     $.ajax({
         url: 'http://webp.local/api/city',
@@ -93,7 +97,7 @@ $(document).ready(function () {
                         .attr("value", city.id_city)
                         .text(city.city_name));
             });
-            handleDropdownChange("#cities", "city_name");
+            handleDropdownChange("#cities", "id_city");
         },
         error: function (jqXHR, exception) {
             console.log('City fetch error: ', jqXHR, exception);
@@ -114,7 +118,7 @@ $(document).ready(function () {
                         .attr("value", sector.id_business_sector)
                         .text(sector.business_sector_name));
             });
-            handleDropdownChange("#sectors", "business_sector_name");
+            handleDropdownChange("#sectors", "id_business_sector");
         },
         error: function (jqXHR, exception) {
             console.log('Sector fetch error: ', jqXHR, exception);
@@ -147,6 +151,15 @@ $(document).ready(function () {
         ApiUrl = 'http://webp.local/api/internship';
         loadEntities(ApiUrl, '#internship-container', processInternship, "/components/internship-offer.html");
     });
+
+    // Check if current URL matches the desired format
+    if (currentUrl.endsWith(`company/${compId}`)) {
+        // You can now use the company id to get the internships for that specific company
+        ApiUrl = `http://webp.local/api/internship?filter=id_company eq ${compId}`;
+
+        // Load entities with the new ApiUrl which fetches internships for the signed in company
+        loadEntities(ApiUrl, "#internship-container-company", processInternship, "/components/internship-offer.html");
+    }
 
     switch_sorting_internship();
 });

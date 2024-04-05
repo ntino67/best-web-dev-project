@@ -1,3 +1,5 @@
+let typeRequest = "POST";
+
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -45,6 +47,23 @@ $(document).ready(function () {
         }
     });
 
+    // Fetch company data if available
+    let companyData = JSON.parse(localStorage.getItem("lastCompanyData"));
+
+    // Fetch company id if available
+    let lastCompanyId = localStorage.getItem("lastCompanyId");
+
+    // If companyData is not null, populate form fields
+    if (companyData) {
+        $("#page-title").text("Update Company");
+        $("#page-subtitle").text("Update your company details");
+        $("#create-company-name").val(companyData.company_name);
+        $("#create-company-sectors").val(companyData.business_sector);
+        $("#create-company-description").val(companyData.company_description);
+        $("#create-company-submit").text("Update Company");
+        typeRequest = "PATCH";
+    }
+
     // Add an event listener to the form submit event
     $('form').on('submit', function (e) {
         // Prevent the form from being submitted normally
@@ -72,19 +91,32 @@ $(document).ready(function () {
         // Submit data to server
         console.log(companyData);
 
+        let requestUrl = 'http://webp.local/api/company';
+// If we are updating, append the company id to the URL
+        if (typeRequest == "PATCH") {
+            requestUrl += `/${lastCompanyId}`;
+        }
+
         $.ajax({
-            type: 'POST',
-            url: 'http://webp.local/api/company',
+            type: typeRequest,
+            url: requestUrl,
             headers: {
                 "authorization-token": userData ? userData.token : ''
             },
             data: JSON.stringify(companyData),
             contentType: 'application/json',
             success: function (response) {
-                alert('Company successfully created');
+                if (typeRequest == "PATCH") {
+                    alert('Company successfully updated!');
+                    localStorage.removeItem('lastCompanyData');
+                    window.location.href = '/companies.html';
+                } else {
+                    alert('Company successfully created');
+                    window.location.href = '/companies.html';
+                }
             },
             error: function (error) {
-                alert('There was an error creating the company');
+                alert('There was an error');
             },
         });
     });
