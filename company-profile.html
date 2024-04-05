@@ -12,6 +12,10 @@
     <script src="script/effects.js"></script>
     <script src="script/load-internship-offers.js"></script>
     <script src="script/load-ratings.js"></script>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="/img/Square44x44Logo.altform-unplated_targetsize-96.png">
+    <meta name="theme-color" content="#FFFFFF">
 </head>
 <body>
 <div id="navbar-container"></div>
@@ -103,5 +107,10 @@
     <aside class="profile-page"></aside>
 </div>
 <div id="footer-container"></div>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
 </html>
