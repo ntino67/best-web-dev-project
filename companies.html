@@ -10,6 +10,10 @@
     <script src="script/components.js"></script>
     <script src="script/load-companies.js"></script>
     <script src="script/sorting-categories.js"></script>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="/img/Square44x44Logo.altform-unplated_targetsize-96.png">
+      <meta name="theme-color" content="#FFFFFF">
 </head>
 <body>
 <div id="navbar-container"></div>
@@ -59,5 +63,10 @@
         <div class="company-container flex-column flex-gap-1"></div>
     </main>
 </div>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
 </html>
