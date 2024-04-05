@@ -65,7 +65,21 @@ class InternshipOfferController
 
       echo json_encode(["data" => $data]);
       break;
-    
+      case "PATCH":
+          $data = json_decode(file_get_contents("php://input"), true);
+
+          $this->getValidationErrors($data, 422);
+
+          $rows = $this->model->update($data, $id);
+
+          echo json_encode([
+              "message" => "Internship offer edited",
+              "rows" => $rows
+          ]);
+
+          break;
+
+
     case "DELETE" :
       $affectedRows = $this->model->delete($id);
 
