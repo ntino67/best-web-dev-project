@@ -9,6 +9,10 @@
     <script src="script/components.js"></script>
     <script src="script/input_validation.js"></script>
     <title>Modify an account</title>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="/img/Square44x44Logo.altform-unplated_targetsize-96.png">
+    <meta name="theme-color" content="#FFFFFF">
 </head>
 <body>
 <div class="navbar-absolute" id="navbar-container"></div>
@@ -54,5 +58,10 @@
     </div>
 </div>
 <div id="footer-container"></div>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
 </html>
