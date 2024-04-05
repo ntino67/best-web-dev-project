@@ -7,6 +7,10 @@
     <link href="fonts/fontawesome 6.3/css/solid.css" rel="stylesheet">
     <script src="script/jquery/jquery-3.7.1.js"></script>
     <script src="script/components.js"></script>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="/img/Square44x44Logo.altform-unplated_targetsize-96.png">
+    <meta name="theme-color" content="#FFFFFF">
   </head>
   <body>
     <div id="navbar-container" class="navbar-absolute"></div>
@@ -52,5 +56,10 @@
       </div>
     </div>
     <div id="footer-container"></div>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
   </body>
 </html>
