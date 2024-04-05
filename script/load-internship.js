@@ -1,3 +1,25 @@
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+// Get the user data object from the cookie
+var cookieData = getCookie('userData');
+
+if (cookieData) {
+    // Parse the string back into an object
+    var userData = JSON.parse(cookieData);
+    console.log(userData); // You can now access the data using dot notation
+}
+
+var idUser = userData.data.id_user;
+
 let ApiUrl = null;
 let SortType = null;
 
@@ -80,6 +102,24 @@ $(document).ready(function () {
     const currentUrl = window.location.href;
     const urlParts = currentUrl.split('/');
     const compId = urlParts.pop() || urlParts.pop();
+
+    // Fetch your user data
+    $.ajax({
+        url: "http://webp.local/api/user",
+        type: "GET",
+        headers: {
+            "authorization-token": userData.token
+        },
+        success: function (response) {
+            var user = response.data[idUser - 1]; // Response object is your logged in user data
+            console.log('User Data:', user);
+            localStorage.setItem("idRole", JSON.stringify(user.id_role)); // Save Role
+        },
+        error: function (jqXHR, exception) {
+            console.log('Error occurred:', jqXHR, exception);
+            window.location.href = "/login.html";
+        },
+    });
 
     // Fetching City data
     $.ajax({

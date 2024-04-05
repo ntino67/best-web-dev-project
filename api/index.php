@@ -108,11 +108,10 @@ case "stat":
         if (!empty($requestURI[0])) {
             $id_company = (string)$requestURI[0];
             $controller = new CompanyReviewController($id_company);
-            $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
         } else {
             $controller = new CompanyReviewController("0");
-            $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
         }
+        $controller->processRequest($_SERVER['REQUEST_METHOD'], $requestURI);
         break;
 
   // TODO: Add more request types here

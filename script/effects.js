@@ -19,6 +19,25 @@ if (cookieData) {
     console.log(userData); // You can now access the data using dot notation
 }
 
+function adminFeatures() {
+    console.log('Admin Features Enabled');
+}
+
+function piloteFeatures(i) {
+    if (i == 1) {
+        $("#create, #create-2").hide();
+    } else {
+        console.log('Can edit student profile');
+    }
+    console.log('Pilote Features Enabled');
+}
+
+function defaultFeatures() {
+    $("#create, #create-2").hide();
+    console.log('Default Features Enabled');
+}
+
+
 $(document).ready(function () {
     if (!userData || !userData.data) {
         // handle user not logged in or data missing
@@ -57,10 +76,13 @@ $(document).ready(function () {
     var currentLocation = window.location.href;
     if (currentLocation.endsWith('/internships.html')) {
         $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Internship');
+        piloteFeatures(1);
     } else if (currentLocation.endsWith('/companies.html')) {
         $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create Company');
+        piloteFeatures(1);
     } else if (currentLocation.endsWith('/users.html')) {
         $("#create span:nth-child(2), #create-2 span:nth-child(2)").text(' Create User');
+        piloteFeatures(0);
     }
 
     $('#create, #create-2').click(function () {
@@ -73,4 +95,20 @@ $(document).ready(function () {
             window.location.href = '/create-user.html';
         }
     });
+
+
+    var idRole = localStorage.getItem("idRole");
+    console.log('User Role:', idRole);
+    // You can have certain functions for enabling or disabling your GUI based on role.
+    switch (idRole) {
+        case "1":
+            adminFeatures();
+            break;
+        case "2":
+            piloteFeatures();
+            break;
+        case "3":
+            defaultFeatures();
+            break;
+    }
 });
