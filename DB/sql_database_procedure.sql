@@ -318,31 +318,30 @@ CREATE PROCEDURE uspUpdateUser (
     IN pPassword VARCHAR(50),
     IN pFirstName VARCHAR(40),
     IN pLastName VARCHAR(40),
-    IN pCenter VARCHAR(40)
+    IN pCenter VARCHAR(40),
+    IN pRole VARCHAR(40)
 )
 BEGIN
     DECLARE userEmail VARCHAR(254);
     DECLARE hashedPassword BINARY(64);
     DECLARE userSalt BINARY(16);
     DECLARE oldCenter INT;
+    DECLARE oldRole INT;
 
-    SELECT email, password, salt, id_center INTO userEmail, hashedPassword, userSalt, oldCenter
+    SELECT email, password, salt, id_center, id_role INTO userEmail, hashedPassword, userSalt, oldCenter, oldRole
     FROM Users WHERE id_user = pUserId LIMIT 1;
 
     -- Si un nouveau mot de passe est fourni, hasher le mot de passe
     IF pPassword <> '' THEN
         SET hashedPassword = SHA2(CONCAT(pPassword, HEX(userSalt)), 512);
     END IF;
-
-    -- Vérifier si pCenter est vide ou NULL, et le définir sur la valeur actuelle si c'est le cas
-    -- Actuellement ne fonctionne pas, utliser coté php :
-    -- Récupérer l'ancienne valeur du centre pour l'utilisateur;
-	-- SET @oldCenter = (SELECT id_center FROM Users WHERE id_user = 1);
-	-- Appeler la procédure en utilisant l'ancienne valeur du centre;
-	-- CALL uspUpdateUser(1, '', '', '', '', @oldCenter);
     
     IF pCenter IS NULL OR pCenter = '' THEN
         SET pCenter = oldCenter;
+    END IF;
+    
+	IF pRole IS NULL OR pRole = '' THEN
+        SET pRole = oldRole;
     END IF;
 
     UPDATE Users
@@ -351,7 +350,8 @@ BEGIN
         last_name = IF(pLastName <> '', pLastName, last_name),
         email = IF(pLoginName <> '', pLoginName, email),
         id_center = pCenter,
-        password = IF(pPassword <> '', hashedPassword, password)
+        password = IF(pPassword <> '', hashedPassword, password),
+        id_role = pRole
     WHERE id_user = pUserId;
 END //
 
