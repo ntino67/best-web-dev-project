@@ -70,7 +70,7 @@ class UserModel extends Model
     ";
 
     $this->sql_create = "
-    CALL web_project.uspAddUser(:email, :password, :first_name, :last_name, :id_center, :id_role, 1)
+    CALL web_project.uspAddUser(:email, :password, :first_name, :last_name, :id_center, :id_role, 1, @response)
     ";
 
 
