@@ -10,6 +10,10 @@
     <script defer src="/script/components.js"></script>
     <script defer src="/script/api-handler.js"></script>
     <script defer src="/script/load-companies.js"></script>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="/img/Square44x44Logo.altform-unplated_targetsize-96.png">
+    <meta name="theme-color" content="#FFFFFF">
 </head>
 <body class="body">
 <div id="navbar-container"></div>
@@ -57,5 +61,10 @@
     <div class="paging-container flex-row flex-align-end-ma"></div>
 </div>
 <div id="footer-container"></div>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
 </html>
