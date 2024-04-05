@@ -122,6 +122,23 @@ class InternshipOfferModel extends Model {
             1)
     ";
 
+
+    $this->sql_update = "
+    UPDATE Internship_offers
+        SET id_company = :id_company,
+        available_slots = :available_slots,
+        internship_offer_title = :internship_offer_title,
+        internship_offer_description = :internship_offer_description,
+        internship_offer_created_at = :internship_offer_created_at,
+        internship_offer_expires_at = :internship_offer_expires_at,
+        id_business_sector = :id_business_sector,
+        base_salary = :base_salary,
+        internship_duration = :internship_duration,
+        id_city = :id_city
+        WHERE id_internship_offer = :id_object
+    ";
+
+
     $this->sql_delete = "
     UPDATE Internship_offers
         SET internship_offer_active = 0
@@ -129,3 +146,16 @@ class InternshipOfferModel extends Model {
     ";
   }
 }
+
+/*{
+    "id_company": 22,
+    "available_slots": 60,
+    "internship_offer_title": "totalement dérivée",
+    "internship_offer_description": "hyzgthbgtrhjgyhbjdrtcfgvbhrcgtfvcfgvctfgedrfttfr",
+    "internship_offer_created_at": "2024-01-21",
+    "internship_offer_expires_at": "2024-07-21",
+    "id_business_sector": 4,
+    "base_salary": 5000,
+    "internship_duration": 8,
+    "id_city" : 6
+}*/
