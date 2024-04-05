@@ -72,7 +72,7 @@ $(document).ready(function () {
                 $("#role")
                     .append($("<option></option>")
                         .attr("value", role.id_role) // Set the option value to the Role ID
-                        .text(role.role_name)); // Set the option text to the Role name
+                        .text(role.name)); // Set the option text to the Role name
             });
         },
         error: function (jqXHR, exception) {
@@ -121,7 +121,7 @@ $(document).ready(function () {
         }
     });
 
-    handleDropdownChange("#role", "role_name");
+    handleDropdownChange("#role", "id_role");
     handleDropdownChange("#centers", "id_center");
 
     switch_sorting_user();

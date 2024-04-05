@@ -40,6 +40,21 @@ function populateInternship(internshipData) {
     }
 }
 
+function adminFeatures() {
+    console.log('Admin Features Enabled');
+}
+
+function piloteFeatures() {
+    $(".edit-profile").hide();
+    console.log('Pilote Features Enabled');
+}
+
+function defaultFeatures() {
+    $(".edit-profile").hide();
+    console.log('Default Features Enabled');
+}
+
+
 $(document).ready(function () {
     const currentUrl = window.location.href;
     const urlParts = currentUrl.split('/');
@@ -59,4 +74,19 @@ $(document).ready(function () {
             window.location.href = "/login.html";
         }
     });
+
+    var idRole = localStorage.getItem("idRole");
+    console.log('User Role:', idRole);
+    // You can have certain functions for enabling or disabling your GUI based on role.
+    switch (idRole) {
+        case "1":
+            adminFeatures();
+            break;
+        case "2":
+            piloteFeatures();
+            break;
+        case "3":
+            defaultFeatures();
+            break;
+    }
 });

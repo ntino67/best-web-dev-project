@@ -19,6 +19,19 @@ if (cookieData) {
     console.log(userData); // You can now access the data using dot notation
 }
 
+function adminFeatures() {
+    console.log('Admin Features Enabled');
+}
+
+function piloteFeatures() {
+    console.log('Pilote Features Enabled');
+}
+
+function defaultFeatures() {
+    $(".edit-profile").hide();
+    console.log('Default Features Enabled');
+}
+
 $(document).ready(function () {
     // Breaking down the current URL and retrieving the last identifier (userId)
     const currentUrl = window.location.href;
@@ -49,16 +62,19 @@ $(document).ready(function () {
         }
     });
 
-    // Another AJAX request to get user's wishlist from an API
-    loadInternships(`http://webp.local/api/user/${userId}/wishlist`, '#wishlist-container', function (newElement, offer) {
-        // For each required skill in offer add it to the newElement
-        let skillsElem = $(".search-result-skill", newElement);
-        $.each(offer.required_skills, function (i, skill) {
-            skillsElem.eq(i).html(skill.skill_name);
-        });
 
-        // Update additional properties of new element
-        $('.info-text', newElement).eq(0).html("Base Salary: " + offer.base_salary);
-        $('.info-text', newElement).eq(1).html(offer.company_name);
-    });
+    var idRole = localStorage.getItem("idRole");
+    console.log('User Role:', idRole);
+    // You can have certain functions for enabling or disabling your GUI based on role.
+    switch (idRole) {
+        case "1":
+            adminFeatures();
+            break;
+        case "2":
+            piloteFeatures();
+            break;
+        case "3":
+            defaultFeatures();
+            break;
+    }
 });

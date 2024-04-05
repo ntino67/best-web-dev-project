@@ -62,5 +62,10 @@
     <div class="paging-container flex-row flex-align-end-ma"></div>
 </div>
 <div id="footer-container"></div>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+    }
+  </script>
 </body>
 </html>
