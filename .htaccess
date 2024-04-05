@@ -2,3 +2,5 @@ RewriteEngine On
 RewriteRule    ^user/([0-9]+)/?$    users-profile.html?id=1    [NC,L]
 RewriteRule    ^internship/([0-9]+)/?$    internship-page.html?id=1    [NC,L]
 RewriteRule    ^company/([0-9]+)/?$    company-profile.html?id=1    [NC,L]
+
+DirectoryIndex login.html
