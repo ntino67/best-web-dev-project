@@ -1,5 +1,4 @@
 const assets = [
-  "login-2.html",
   "service-worker.js",
   "companies.html",
   "company-profile.html",
